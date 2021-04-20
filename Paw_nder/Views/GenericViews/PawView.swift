@@ -17,7 +17,7 @@ class PawView: UIView {
         fatalError()
     }
     
-    init(bgColor: UIColor) {
+    init(bgColor: UIColor = .clear) {
         super.init(frame: .zero)
         self.backgroundColor = bgColor
     }

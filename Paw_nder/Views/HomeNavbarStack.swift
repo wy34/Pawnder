@@ -10,7 +10,7 @@ import UIKit
 class HomeNavbarStack: UIStackView {
     // MARK: - Views
     private let userBtn = PawButton(image: user)
-    private let fireImageView = PawImageView(image: fire, contentMode: .scaleAspectFit)
+    private let heartImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
     private let messageBtn = PawButton(image: message)
     
     // MARK: - Init
@@ -34,7 +34,8 @@ class HomeNavbarStack: UIStackView {
     
     // MARK: - Helpers
     func layoutUI() {
-        let views = [userBtn, UIView(), fireImageView, UIView(), messageBtn]
+        let views = [userBtn, UIView(), heartImageView, UIView(), messageBtn]
         views.forEach({ addArrangedSubview($0) })
+        heartImageView.setDimension(wConst: 45, hConst: 45)
     }
 }

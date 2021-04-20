@@ -21,5 +21,6 @@ class PawImageView: UIImageView {
         super.init(frame: .zero)
         self.image = image
         self.contentMode = contentMode
+        self.clipsToBounds = true
     }
 }

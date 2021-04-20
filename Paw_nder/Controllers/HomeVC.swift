@@ -9,23 +9,29 @@ import UIKit
 
 class HomeVC: UIViewController {
     // MARK: - Views
-    private let navbarView = PawView(bgColor: #colorLiteral(red: 0.957364738, green: 0.9528102279, blue: 0.9608851075, alpha: 1))
+    private let navbarView = PawView()
     private lazy var navbarStack = HomeNavbarStack(distribution: .fillEqually)
     
-    private let blueView = PawView(bgColor: .blue)
+    private let cardsDeckView = CardView()
     
-    private let bottomControlsView = PawView(bgColor: #colorLiteral(red: 0.957364738, green: 0.9528102279, blue: 0.9608851075, alpha: 1))
+    private let bottomControlsView = PawView()
     private let bottomControlsStack = HomeBottomControlsStack(distribution: .fillEqually)
     
-    private lazy var mainStack = PawStackView(views: [navbarView, blueView, bottomControlsView], axis: .vertical, alignment: .fill)
+    private lazy var mainStack = PawStackView(views: [navbarView, cardsDeckView, bottomControlsView], axis: .vertical, alignment: .fill)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutUI()
+        configureUI()
     }
 
     // MARK: - Helpers
+    func configureUI() {
+        view.backgroundColor = bgWhite
+        mainStack.bringSubviewToFront(cardsDeckView)
+    }
+    
     func layoutUI() {
         view.addSubviews(mainStack)
         mainStack.fill(superView: view)
@@ -39,6 +45,7 @@ class HomeVC: UIViewController {
         bottomControlsView.addSubview(bottomControlsStack)
         bottomControlsStack.center(to: bottomControlsView, by: .centerY, withMultiplierOf: 0.75)
         bottomControlsStack.anchor(trailing: bottomControlsView.trailingAnchor, leading: bottomControlsView.leadingAnchor)
+            
     }
 }
 
