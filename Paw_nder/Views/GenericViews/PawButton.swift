@@ -23,4 +23,10 @@ class PawButton: UIButton {
         self.setTitleColor(textColor, for: .normal)
         self.backgroundColor = bgColor
     }
+    
+    init(image: UIImage, tintColor: UIColor = .black) {
+        super.init(frame: .zero)
+        self.setImage(image, for: .normal)
+        self.tintColor = tintColor
+    }
 }

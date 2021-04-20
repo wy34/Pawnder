@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		4C49BA8F262E3928006F046B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BA8E262E3928006F046B /* AppDelegate.swift */; };
 		4C49BA91262E3928006F046B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BA90262E3928006F046B /* SceneDelegate.swift */; };
-		4C49BA93262E3928006F046B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BA92262E3928006F046B /* ViewController.swift */; };
+		4C49BA93262E3928006F046B /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BA92262E3928006F046B /* HomeVC.swift */; };
 		4C49BA98262E3929006F046B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C49BA97262E3929006F046B /* Assets.xcassets */; };
 		4C49BA9B262E3929006F046B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C49BA99262E3929006F046B /* LaunchScreen.storyboard */; };
 		4C49BAA8262E3A74006F046B /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BAA7262E3A74006F046B /* UIView.swift */; };
@@ -18,13 +18,16 @@
 		4C49BABB262E3C6C006F046B /* PawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BABA262E3C6C006F046B /* PawView.swift */; };
 		4C49BABE262E3D2D006F046B /* PawImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BABD262E3D2D006F046B /* PawImageView.swift */; };
 		4C49BAC1262E3D79006F046B /* PawButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BAC0262E3D79006F046B /* PawButton.swift */; };
+		4C49BAC5262E7CE7006F046B /* HomeBottomControlsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BAC4262E7CE7006F046B /* HomeBottomControlsStack.swift */; };
+		4C49BAC9262E8191006F046B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BAC8262E8191006F046B /* Constants.swift */; };
+		4C49BACD262E84B0006F046B /* HomeNavbarStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BACC262E84B0006F046B /* HomeNavbarStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4C49BA8B262E3928006F046B /* Paw_nder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Paw_nder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C49BA8E262E3928006F046B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C49BA90262E3928006F046B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4C49BA92262E3928006F046B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4C49BA92262E3928006F046B /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		4C49BA97262E3929006F046B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C49BA9A262E3929006F046B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C49BA9C262E3929006F046B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -34,6 +37,9 @@
 		4C49BABA262E3C6C006F046B /* PawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawView.swift; sourceTree = "<group>"; };
 		4C49BABD262E3D2D006F046B /* PawImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawImageView.swift; sourceTree = "<group>"; };
 		4C49BAC0262E3D79006F046B /* PawButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawButton.swift; sourceTree = "<group>"; };
+		4C49BAC4262E7CE7006F046B /* HomeBottomControlsStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomControlsStack.swift; sourceTree = "<group>"; };
+		4C49BAC8262E8191006F046B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		4C49BACC262E84B0006F046B /* HomeNavbarStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavbarStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,9 +72,10 @@
 		4C49BA8D262E3928006F046B /* Paw_nder */ = {
 			isa = PBXGroup;
 			children = (
-				4C49BAAF262E3AD4006F046B /* Views */,
 				4C49BAAA262E3A81006F046B /* App */,
+				4C49BAC7262E8184006F046B /* Utilities */,
 				4C49BAA6262E3A6C006F046B /* Extensions */,
+				4C49BAAF262E3AD4006F046B /* Views */,
 				4C49BAAB262E3A99006F046B /* Controllers */,
 				4C49BAAD262E3AA1006F046B /* Other */,
 				4C49BA9C262E3929006F046B /* Info.plist */,
@@ -96,7 +103,7 @@
 		4C49BAAB262E3A99006F046B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4C49BA92262E3928006F046B /* ViewController.swift */,
+				4C49BA92262E3928006F046B /* HomeVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -114,6 +121,8 @@
 			isa = PBXGroup;
 			children = (
 				4C49BAB4262E3AE8006F046B /* GenericViews */,
+				4C49BACC262E84B0006F046B /* HomeNavbarStack.swift */,
+				4C49BAC4262E7CE7006F046B /* HomeBottomControlsStack.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -128,6 +137,14 @@
 				4C49BAC0262E3D79006F046B /* PawButton.swift */,
 			);
 			path = GenericViews;
+			sourceTree = "<group>";
+		};
+		4C49BAC7262E8184006F046B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				4C49BAC8262E8191006F046B /* Constants.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,12 +217,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C49BAA8262E3A74006F046B /* UIView.swift in Sources */,
+				4C49BACD262E84B0006F046B /* HomeNavbarStack.swift in Sources */,
+				4C49BAC9262E8191006F046B /* Constants.swift in Sources */,
 				4C49BAB7262E3BF9006F046B /* PawLabel.swift in Sources */,
-				4C49BA93262E3928006F046B /* ViewController.swift in Sources */,
+				4C49BA93262E3928006F046B /* HomeVC.swift in Sources */,
 				4C49BABE262E3D2D006F046B /* PawImageView.swift in Sources */,
 				4C49BA8F262E3928006F046B /* AppDelegate.swift in Sources */,
 				4C49BAC1262E3D79006F046B /* PawButton.swift in Sources */,
 				4C49BA91262E3928006F046B /* SceneDelegate.swift in Sources */,
+				4C49BAC5262E7CE7006F046B /* HomeBottomControlsStack.swift in Sources */,
 				4C49BABB262E3C6C006F046B /* PawView.swift in Sources */,
 				4C49BAB1262E3AE4006F046B /* PawStackView.swift in Sources */,
 			);

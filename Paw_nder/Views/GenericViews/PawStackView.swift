@@ -17,7 +17,7 @@ class PawStackView: UIStackView {
         fatalError()
     }
     
-    init(views: [UIView], spacing: CGFloat = 0, axis: NSLayoutConstraint.Axis = .horizontal, distribution: UIStackView.Distribution, alignment: UIStackView.Alignment) {
+    init(views: [UIView], spacing: CGFloat = 0, axis: NSLayoutConstraint.Axis = .horizontal, distribution: UIStackView.Distribution = .fill, alignment: UIStackView.Alignment = .center) {
         super.init(frame: .zero)
         views.forEach({ self.addArrangedSubview($0) })
         self.spacing = spacing
