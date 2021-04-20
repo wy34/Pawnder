@@ -8,11 +8,17 @@
 import UIKit
 
 class HomeVC: UIViewController {
+    // MARK: - Properties
+    let userViewModels = [
+        User(name: "Vikram", age: 2, breed: "Husky", imageName: "dog1").toViewModel(),
+        User(name: "Bob", age: 5, breed: "Golden Retriever", imageName: "dog2").toViewModel()
+    ]
+    
     // MARK: - Views
     private let navbarView = PawView()
     private lazy var navbarStack = HomeNavbarStack(distribution: .fillEqually)
     
-    private let cardsDeckView = CardView()
+    private let cardsDeckView = PawView()
     
     private let bottomControlsView = PawView()
     private let bottomControlsStack = HomeBottomControlsStack(distribution: .fillEqually)
@@ -24,15 +30,16 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         layoutUI()
         configureUI()
+        createCardDeck()
     }
 
     // MARK: - Helpers
-    func configureUI() {
+    private func configureUI() {
         view.backgroundColor = bgWhite
         mainStack.bringSubviewToFront(cardsDeckView)
     }
     
-    func layoutUI() {
+    private func layoutUI() {
         view.addSubviews(mainStack)
         mainStack.fill(superView: view)
         
@@ -45,7 +52,15 @@ class HomeVC: UIViewController {
         bottomControlsView.addSubview(bottomControlsStack)
         bottomControlsStack.center(to: bottomControlsView, by: .centerY, withMultiplierOf: 0.75)
         bottomControlsStack.anchor(trailing: bottomControlsView.trailingAnchor, leading: bottomControlsView.leadingAnchor)
-            
+    }
+    
+    private func createCardDeck() {
+        userViewModels.forEach({ cardVM in
+            let cardView = CardView()
+            cardView.setupCardWith(cardVM: cardVM)
+            cardsDeckView.addSubview(cardView)
+            cardView.fill(superView: cardsDeckView)
+        })
     }
 }
 

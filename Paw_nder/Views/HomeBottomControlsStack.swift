@@ -35,7 +35,7 @@ class HomeBottomControlsStack: UIStackView {
     }
     
     // MARK: - Helpers
-    func layoutUI() {
+    private func layoutUI() {
         let views = [refreshBtn, dismissBtn, starBtn, heartBtn, lightningBtn]
         views.forEach({ self.addArrangedSubview($0) })
     }

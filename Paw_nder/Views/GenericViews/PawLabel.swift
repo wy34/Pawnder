@@ -17,6 +17,12 @@ class PawLabel: UILabel {
         fatalError()
     }
     
+    init(attributedText: NSAttributedString) {
+        super.init(frame: .zero)
+        self.attributedText = attributedText
+        self.numberOfLines = 0
+    }
+    
     init(text: String, textColor: UIColor = .black, font: UIFont, alignment: NSTextAlignment = .left) {
         super.init(frame: .zero)
         self.text = text

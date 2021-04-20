@@ -33,7 +33,7 @@ class HomeNavbarStack: UIStackView {
     }
     
     // MARK: - Helpers
-    func layoutUI() {
+    private func layoutUI() {
         let views = [userBtn, UIView(), heartImageView, UIView(), messageBtn]
         views.forEach({ addArrangedSubview($0) })
         heartImageView.setDimension(wConst: 45, hConst: 45)
