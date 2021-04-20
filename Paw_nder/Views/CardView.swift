@@ -34,17 +34,26 @@ class CardView: UIView {
     }
     
     func setupPanGesture() {
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(gesture:)))
         addGestureRecognizer(panGesture)
     }
     
     // MARK: - Selectors
     @objc func handlePan(gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: self)
+        
         if gesture.state == .changed {
-            let translation = gesture.translation(in: self)
-            self.transform = CGAffineTransform(translationX: translation.x, y: translation.y)
+            self.transform = CGAffineTransform(rotationAngle: (translation.x / 20) * .pi / 180).translatedBy(x: translation.x, y: translation.y)
         } else if gesture.state == .ended {
-            UIView.animate(withDuration: 0.76, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: [.curveEaseOut]) {
+            UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: [.curveEaseOut]) {
+                if translation.x > 200 {
+                    self.transform = CGAffineTransform(translationX: 1000, y: 0)
+                } else if translation.x < -200 {
+                    self.transform = CGAffineTransform(translationX: -1000, y: 0)
+                } else {
+                    self.transform = .identity
+                }
+            } completion: { (_) in
                 self.transform = .identity
             }
         }
