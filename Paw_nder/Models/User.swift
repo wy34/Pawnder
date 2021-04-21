@@ -13,7 +13,7 @@ struct User {
     var breed: String
     let imageName: String
     
-    func toViewModel() -> CardViewModel {
+    func toCardViewModel() -> CardViewModel {
         return CardViewModel(user: self)
     }
 }

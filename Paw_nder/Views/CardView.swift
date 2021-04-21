@@ -24,6 +24,15 @@ class CardView: UIView {
         fatalError()
     }
     
+    override func layoutSubviews() {
+        let gradient = CAGradientLayer()
+        gradient.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.65).cgColor]
+        gradient.startPoint = .init(x: 0.5, y: 0.5)
+        gradient.endPoint = .init(x: 0.5, y: 1)
+        gradient.frame = self.frame
+        imageView.layer.insertSublayer(gradient, at: 0)
+    }
+    
     // MARK: - Helpers
     private func configureUI() {
         imageView.layer.cornerRadius = 15

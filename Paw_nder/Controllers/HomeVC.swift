@@ -9,10 +9,13 @@ import UIKit
 
 class HomeVC: UIViewController {
     // MARK: - Properties
-    let userViewModels = [
-        User(name: "Vikram", age: 2, breed: "Husky", imageName: "dog1").toViewModel(),
-        User(name: "Bob", age: 5, breed: "Golden Retriever", imageName: "dog2").toViewModel()
-    ]
+    private let cardViewModels: [CardViewModel] = {
+        let users = [
+            User(name: "Vikram", age: 2, breed: "Husky", imageName: "dog1"),
+            User(name: "Bob", age: 5, breed: "Golden Retriever", imageName: "dog2")
+        ]
+        return users.map({ $0.toCardViewModel() })
+    }()
     
     // MARK: - Views
     private let navbarView = PawView()
@@ -55,7 +58,7 @@ class HomeVC: UIViewController {
     }
     
     private func createCardDeck() {
-        userViewModels.forEach({ cardVM in
+        cardViewModels.forEach({ cardVM in
             let cardView = CardView()
             cardView.setupCardWith(cardVM: cardVM)
             cardsDeckView.addSubview(cardView)
