@@ -21,6 +21,7 @@ let lightning: UIImage = #imageLiteral(resourceName: "boost_circle")
 let bob1 = "bob1"
 let bob2 = "bob2"
 let bob3 = "bob3"
+let bob4 = "bob4"
 let vikram1 = "vikram1"
 
 // MARK: - Colors

@@ -9,7 +9,10 @@ import UIKit
 
 class CardView: UIView {
     // MARK: - Properties
-    var cardVM: CardViewModel?
+    private var cardVM: CardViewModel?
+    private var imageIndex = 0
+    private var selectedBarColor = UIColor.white
+    private var deselectedBarColor = #colorLiteral(red: 0.817677021, green: 0.8137882352, blue: 0.8206836581, alpha: 0.5)
     
     // MARK: - Views
     private let imagePageBar = PawStackView(views: [], spacing: 5, distribution: .fillEqually, alignment: .fill)
@@ -65,19 +68,24 @@ class CardView: UIView {
         self.cardVM = cardVM
         cardImageView.image = cardVM.image
         infoLabel.attributedText = cardVM.infoText
-        cardVM.images.forEach({ _ in imagePageBar.addArrangedSubview(PawView(bgColor: .lightGray, cornerRadius: 3)) })
-        imagePageBar.subviews[0].backgroundColor = .white
+        cardVM.images.forEach({ _ in imagePageBar.addArrangedSubview(PawView(bgColor: deselectedBarColor, cornerRadius: 3)) })
+        imagePageBar.subviews[0].backgroundColor = selectedBarColor
     }
     
     // MARK: - Selectors
     @objc private func handleTap(gesture: UITapGestureRecognizer) {
         let tapLocation = gesture.location(in: cardImageView)
-        var index = 0
-        #warning("need to change index")
+
         if tapLocation.x > cardImageView.frame.width / 2 && tapLocation.x <= cardImageView.frame.width {
-            cardImageView.image = cardVM?.images[min(index + 1, cardVM!.images.count - 1)]
+            imageIndex = min(imageIndex + 1, cardVM!.images.count - 1)
         } else if tapLocation.x < cardImageView.frame.width / 2 && tapLocation.x >= 0 {
-            cardImageView.image = cardVM?.images[max(index - 1, 0)]
+            imageIndex = max(imageIndex - 1, 0)
+        }
+        
+        cardImageView.image = cardVM?.images[imageIndex]
+        
+        for (index, subView) in imagePageBar.arrangedSubviews.enumerated() {
+            subView.backgroundColor = index == imageIndex ? selectedBarColor : deselectedBarColor
         }
     }
     
