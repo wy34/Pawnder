@@ -16,7 +16,12 @@ let dismiss: UIImage = #imageLiteral(resourceName: "dismiss_circle")
 let star: UIImage = #imageLiteral(resourceName: "super_like_circle")
 let heart: UIImage = #imageLiteral(resourceName: "like_circle")
 let lightning: UIImage = #imageLiteral(resourceName: "boost_circle")
-let dog1: UIImage = #imageLiteral(resourceName: "dog1")
+
+// MARK: - Asset Names
+let bob1 = "bob1"
+let bob2 = "bob2"
+let bob3 = "bob3"
+let vikram1 = "vikram1"
 
 // MARK: - Colors
 let bgWhite = #colorLiteral(red: 0.957364738, green: 0.9528102279, blue: 0.9608851075, alpha: 1)

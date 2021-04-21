@@ -12,7 +12,11 @@ struct CardViewModel {
     private var user: User!
     
     var image: UIImage {
-        return UIImage(named: user.imageName)!
+        return UIImage(named: user.imageNames.first ?? "")!
+    }
+    
+    var images: [UIImage] {
+        return user.imageNames.map({ UIImage(named: $0)! })
     }
     
     var infoText: NSAttributedString {

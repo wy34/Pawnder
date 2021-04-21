@@ -21,4 +21,10 @@ class PawView: UIView {
         super.init(frame: .zero)
         self.backgroundColor = bgColor
     }
+    
+    init(bgColor: UIColor = .clear, cornerRadius: CGFloat) {
+        super.init(frame: .zero)
+        self.backgroundColor = bgColor
+        self.layer.cornerRadius = cornerRadius
+    }
 }

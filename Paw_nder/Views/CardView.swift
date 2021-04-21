@@ -8,8 +8,12 @@
 import UIKit
 
 class CardView: UIView {
+    // MARK: - Properties
+    var cardVM: CardViewModel?
+    
     // MARK: - Views
-    private let imageView = PawImageView(image: dog1, contentMode: .scaleAspectFill)
+    private let imagePageBar = PawStackView(views: [], spacing: 5, distribution: .fillEqually, alignment: .fill)
+    private let cardImageView = PawImageView(image: UIImage(named: vikram1)!, contentMode: .scaleAspectFill)
     private let infoLabel = PawLabel(attributedText: .init())
     
     // MARK: - Init
@@ -17,7 +21,7 @@ class CardView: UIView {
         super.init(frame: frame)
         layoutUI()
         configureUI()
-        setupPanGesture()
+        setupGestures()
     }
     
     required init?(coder: NSCoder) {
@@ -30,33 +34,53 @@ class CardView: UIView {
         gradient.startPoint = .init(x: 0.5, y: 0.5)
         gradient.endPoint = .init(x: 0.5, y: 1)
         gradient.frame = self.frame
-        imageView.layer.insertSublayer(gradient, at: 0)
+        cardImageView.layer.insertSublayer(gradient, at: 0)
     }
     
     // MARK: - Helpers
     private func configureUI() {
-        imageView.layer.cornerRadius = 15
+        cardImageView.layer.cornerRadius = 15
     }
     
     private func layoutUI() {
-        addSubview(imageView)
-        imageView.fill(superView: self, withPaddingOnAllSides: 15)
+        addSubviews(cardImageView)
+        cardImageView.fill(superView: self, withPaddingOnAllSides: 15)
+
+        cardImageView.addSubviews(infoLabel, imagePageBar)
+        infoLabel.anchor(trailing: cardImageView.trailingAnchor, bottom: cardImageView.bottomAnchor, leading: cardImageView.leadingAnchor, paddingTrailing: 20, paddingBottom: 20, paddingLeading: 20)
         
-        imageView.addSubview(infoLabel)
-        infoLabel.anchor(trailing: imageView.trailingAnchor, bottom: imageView.bottomAnchor, leading: imageView.leadingAnchor, paddingTrailing: 20, paddingBottom: 20, paddingLeading: 20)
+        imagePageBar.anchor(top: cardImageView.topAnchor, trailing: cardImageView.trailingAnchor, leading: cardImageView.leadingAnchor, paddingTop: 10, paddingTrailing: 10, paddingLeading: 10)
+        imagePageBar.setDimension(hConst: 5)
+        
     }
     
-    private func setupPanGesture() {
+    private func setupGestures() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(gesture:)))
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(gesture:)))
+        addGestureRecognizer(tapGesture)
         addGestureRecognizer(panGesture)
     }
     
     func setupCardWith(cardVM: CardViewModel) {
-        imageView.image = cardVM.image
+        self.cardVM = cardVM
+        cardImageView.image = cardVM.image
         infoLabel.attributedText = cardVM.infoText
+        cardVM.images.forEach({ _ in imagePageBar.addArrangedSubview(PawView(bgColor: .lightGray, cornerRadius: 3)) })
+        imagePageBar.subviews[0].backgroundColor = .white
     }
     
     // MARK: - Selectors
+    @objc private func handleTap(gesture: UITapGestureRecognizer) {
+        let tapLocation = gesture.location(in: cardImageView)
+        var index = 0
+        #warning("need to change index")
+        if tapLocation.x > cardImageView.frame.width / 2 && tapLocation.x <= cardImageView.frame.width {
+            cardImageView.image = cardVM?.images[min(index + 1, cardVM!.images.count - 1)]
+        } else if tapLocation.x < cardImageView.frame.width / 2 && tapLocation.x >= 0 {
+            cardImageView.image = cardVM?.images[max(index - 1, 0)]
+        }
+    }
+    
     @objc private func handlePan(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: self)
         

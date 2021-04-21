@@ -11,8 +11,8 @@ class HomeVC: UIViewController {
     // MARK: - Properties
     private let cardViewModels: [CardViewModel] = {
         let users = [
-            User(name: "Vikram", age: 2, breed: "Husky", imageName: "dog1"),
-            User(name: "Bob", age: 5, breed: "Golden Retriever", imageName: "dog2")
+            User(name: "Vikram", age: 2, breed: "Husky", imageNames: [vikram1]),
+            User(name: "Bob", age: 5, breed: "Golden Retriever", imageNames: [bob1, bob2, bob3])
         ]
         return users.map({ $0.toCardViewModel() })
     }()

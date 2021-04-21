@@ -11,7 +11,7 @@ struct User {
     var name: String
     var age: Int
     var breed: String
-    let imageName: String
+    let imageNames: [String]
     
     func toCardViewModel() -> CardViewModel {
         return CardViewModel(user: self)
