@@ -7,11 +7,15 @@
 
 import UIKit
 
-struct CardViewModel {
+class CardViewModel {
     // MARK: - Properties
     private var user: User!
     
-    var image: UIImage {
+    private var imageIndex = 0
+    
+    var imageTappedHandler: ((UIImage, Int) -> Void)?
+    
+    var firstImage: UIImage {
         return UIImage(named: user.imageNames.first ?? "")!
     }
     
@@ -29,6 +33,16 @@ struct CardViewModel {
     }
     
     // MARK: - Helpers
+    func showNextImage() {
+        imageIndex = min(imageIndex + 1, images.count - 1)
+        imageTappedHandler?(images[imageIndex], imageIndex)
+    }
+    
+    func showPrevImage() {
+        imageIndex = max(0, imageIndex - 1)
+        imageTappedHandler?(images[imageIndex], imageIndex)
+    }
+    
     func setupTextualInformation() -> NSAttributedString {
         let attributedString = NSMutableAttributedString(string: user.name, attributes: [.font: UIFont.systemFont(ofSize: 30, weight: .bold), .foregroundColor: UIColor.white])
         attributedString.append(NSAttributedString(string: "  \(user.age)\n", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24, weight: .regular), .foregroundColor: UIColor.white]))

@@ -10,7 +10,6 @@ import UIKit
 class CardView: UIView {
     // MARK: - Properties
     private var cardVM: CardViewModel?
-    private var imageIndex = 0
     private var selectedBarColor = UIColor.white
     private var deselectedBarColor = #colorLiteral(red: 0.817677021, green: 0.8137882352, blue: 0.8206836581, alpha: 0.5)
     
@@ -54,7 +53,6 @@ class CardView: UIView {
         
         imagePageBar.anchor(top: cardImageView.topAnchor, trailing: cardImageView.trailingAnchor, leading: cardImageView.leadingAnchor, paddingTop: 10, paddingTrailing: 10, paddingLeading: 10)
         imagePageBar.setDimension(hConst: 5)
-        
     }
     
     private func setupGestures() {
@@ -64,9 +62,22 @@ class CardView: UIView {
         addGestureRecognizer(panGesture)
     }
     
+    private func setupImageTappedHandler() {
+        self.cardVM?.imageTappedHandler = { [weak self] (tappedImage, imageIndex) in
+            guard let self = self else { return }
+            
+            self.cardImageView.image = tappedImage
+            
+            for (index, subview) in self.imagePageBar.arrangedSubviews.enumerated() {
+                subview.backgroundColor = index == imageIndex ? self.selectedBarColor : self.deselectedBarColor
+            }
+        }
+    }
+    
     func setupCardWith(cardVM: CardViewModel) {
         self.cardVM = cardVM
-        cardImageView.image = cardVM.image
+        setupImageTappedHandler()
+        cardImageView.image = cardVM.firstImage
         infoLabel.attributedText = cardVM.infoText
         cardVM.images.forEach({ _ in imagePageBar.addArrangedSubview(PawView(bgColor: deselectedBarColor, cornerRadius: 3)) })
         imagePageBar.subviews[0].backgroundColor = selectedBarColor
@@ -77,15 +88,9 @@ class CardView: UIView {
         let tapLocation = gesture.location(in: cardImageView)
 
         if tapLocation.x > cardImageView.frame.width / 2 && tapLocation.x <= cardImageView.frame.width {
-            imageIndex = min(imageIndex + 1, cardVM!.images.count - 1)
+            cardVM?.showNextImage()
         } else if tapLocation.x < cardImageView.frame.width / 2 && tapLocation.x >= 0 {
-            imageIndex = max(imageIndex - 1, 0)
-        }
-        
-        cardImageView.image = cardVM?.images[imageIndex]
-        
-        for (index, subView) in imagePageBar.arrangedSubviews.enumerated() {
-            subView.backgroundColor = index == imageIndex ? selectedBarColor : deselectedBarColor
+            cardVM?.showPrevImage()
         }
     }
     
