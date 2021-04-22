@@ -19,6 +19,7 @@ class PawButton: UIButton {
     
     init(title: String, textColor: UIColor = .black, bgColor: UIColor) {
         super.init(frame: .zero)
+        self.init(type: .system)
         self.setTitle(title, for: .normal)
         self.setTitleColor(textColor, for: .normal)
         self.backgroundColor = bgColor
@@ -28,5 +29,13 @@ class PawButton: UIButton {
         super.init(frame: .zero)
         self.setImage(image, for: .normal)
         self.tintColor = tintColor
+    }
+    
+    init(title: String, textColor: UIColor = .black, font: UIFont) {
+        super.init(frame: .zero)
+        self.init(type: .system)
+        self.setTitle(title, for: .normal)
+        self.setTitleColor(textColor, for: .normal)
+        self.titleLabel?.font = font
     }
 }

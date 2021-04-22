@@ -7,6 +7,10 @@
 
 import UIKit
 
+enum Side {
+    case top, right, bottom, left
+}
+
 extension UIView {
     func addSubviews(_ views: UIView...) {
         for view in views {
@@ -96,5 +100,29 @@ extension UIView {
         translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint(item: self, attribute: attribute, relatedBy: .equal, toItem: view2, attribute: attribute, multiplier: mult, constant: 0).isActive = true
+    }
+    
+    func addBorderTo(side: Side, bgColor: UIColor, dimension: CGFloat) {
+        let border = PawView(bgColor: bgColor)
+        border.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(border)
+        
+        let topConstraint = border.topAnchor.constraint(equalTo: self.topAnchor)
+        let trailingConstraint = border.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        let bottomConstraint = border.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        let leadingConstraint = border.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+        let widthConstraint = border.widthAnchor.constraint(equalToConstant: dimension)
+        let heightConstraint = border.heightAnchor.constraint(equalToConstant: dimension)
+        
+        switch side {
+            case .top:
+                NSLayoutConstraint.activate([leadingConstraint, topConstraint, trailingConstraint, heightConstraint])
+            case .right:
+                NSLayoutConstraint.activate([topConstraint, trailingConstraint, bottomConstraint, widthConstraint])
+            case .bottom:
+                NSLayoutConstraint.activate([leadingConstraint, bottomConstraint, trailingConstraint, heightConstraint])
+            case .left:
+                NSLayoutConstraint.activate([topConstraint, leadingConstraint, bottomConstraint, widthConstraint])
+        }
     }
 }

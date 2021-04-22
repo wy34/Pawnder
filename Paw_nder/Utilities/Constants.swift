@@ -16,6 +16,7 @@ let dismiss: UIImage = #imageLiteral(resourceName: "dismiss_circle")
 let star: UIImage = #imageLiteral(resourceName: "super_like_circle")
 let heart: UIImage = #imageLiteral(resourceName: "like_circle")
 let lightning: UIImage = #imageLiteral(resourceName: "boost_circle")
+let placeholderProfile: UIImage = #imageLiteral(resourceName: "profile")
 
 // MARK: - Asset Names
 let bob1 = "bob1"
@@ -26,3 +27,4 @@ let vikram1 = "vikram1"
 
 // MARK: - Colors
 let bgWhite = #colorLiteral(red: 0.957364738, green: 0.9528102279, blue: 0.9608851075, alpha: 1)
+let textFieldBorderGray = #colorLiteral(red: 0.8686861992, green: 0.8719348311, blue: 0.8797719479, alpha: 0.8546586982)
