@@ -9,6 +9,7 @@ import UIKit
 
 class RegisterVC: UIViewController {
     // MARK: - Properties
+    let registerVM = RegisterViewModel()
     
     // MARK: - Views
     private let backgroundFillerView = PawView(bgColor: bgWhite)
@@ -21,7 +22,7 @@ class RegisterVC: UIViewController {
     private let passwordTextField = PawTextField(placeholder: "Password")
     
     private let alreadyHaveAccountButton = PawButton(title: "Already have an account?", textColor: .red, font: UIFont.systemFont(ofSize: 16, weight: .medium))
-    private let registerButton = PawButton(title: "Sign Up", font: UIFont.systemFont(ofSize: 16, weight: .bold))
+    private let registerButton = PawButton(title: "Sign Up", textColor: .lightGray, font: UIFont.systemFont(ofSize: 16, weight: .bold))
     private lazy var buttonStack = PawStackView(views: [alreadyHaveAccountButton, registerButton], spacing: 15, alignment: .fill)
     
     private lazy var formStack = PawStackView(views: [titleLabel, nameTextField, emailTextField, passwordTextField, buttonStack], spacing: 18, axis: .vertical, distribution: .fillEqually, alignment: .fill)
@@ -33,6 +34,7 @@ class RegisterVC: UIViewController {
         layoutUI()
         setupKeyboardListener()
         setupSwipeGesture()
+        setupTextfieldTargets()
     }
 
     // MARK: - Helpers
@@ -41,6 +43,7 @@ class RegisterVC: UIViewController {
         slideupView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         alreadyHaveAccountButton.contentHorizontalAlignment = .left
         registerButton.contentHorizontalAlignment = .right
+        registerButton.isEnabled = false
         nameTextField.addBorderTo(side: .bottom, bgColor: textFieldBorderGray, dimension: 1)
         emailTextField.addBorderTo(side: .bottom, bgColor: textFieldBorderGray, dimension: 1)
         passwordTextField.addBorderTo(side: .bottom, bgColor: textFieldBorderGray, dimension: 1)
@@ -69,6 +72,12 @@ class RegisterVC: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    func setupTextfieldTargets() {
+        nameTextField.addTarget(self, action: #selector(handleTextfieldChanged), for: .editingChanged)
+        emailTextField.addTarget(self, action: #selector(handleTextfieldChanged), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(handleTextfieldChanged), for: .editingChanged)
+    }
+    
     func setupSwipeGesture() {
         let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeDown))
         swipeDown.direction = .down
@@ -89,5 +98,18 @@ class RegisterVC: UIViewController {
     
     @objc func handleSwipeDown() {
         view.endEditing(true)
+    }
+    
+    @objc func handleTextfieldChanged(textfield: UITextField) {
+        if textfield == nameTextField {
+            registerVM.fullName = textfield.text ?? ""
+        } else if textfield == emailTextField {
+            registerVM.email = textfield.text ?? ""
+        } else {
+            registerVM.password = textfield.text ?? ""
+        }
+            
+        registerButton.setTitleColor(registerVM.isFormValid ? .black : .lightGray, for: .normal)
+        registerButton.isEnabled = registerVM.isFormValid ? true : false
     }
 }
