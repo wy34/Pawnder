@@ -84,6 +84,13 @@ extension UIView {
         }
     }
     
+    func makePerfectSquare(anchor: NSLayoutDimension, multiplier: CGFloat) {
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        widthAnchor.constraint(equalTo: anchor, multiplier: multiplier).isActive = true
+        heightAnchor.constraint(equalTo: anchor, multiplier: multiplier).isActive = true
+    }
+    
     func center(x: NSLayoutXAxisAnchor? = nil, y: NSLayoutYAxisAnchor? = nil, xPadding: CGFloat = 0, yPadding: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false
         

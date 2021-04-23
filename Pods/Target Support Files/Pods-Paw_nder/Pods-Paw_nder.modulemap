@@ -1,0 +1,6 @@
+framework module Pods_Paw_nder {
+  umbrella header "Pods-Paw_nder-umbrella.h"
+
+  export *
+  module * { export * }
+}

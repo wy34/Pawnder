@@ -26,5 +26,6 @@ let bob4 = "bob4"
 let vikram1 = "vikram1"
 
 // MARK: - Colors
-let bgWhite = #colorLiteral(red: 0.957364738, green: 0.9528102279, blue: 0.9608851075, alpha: 1)
-let textFieldBorderGray = #colorLiteral(red: 0.8686861992, green: 0.8719348311, blue: 0.8797719479, alpha: 0.8546586982)
+let bgWhite = #colorLiteral(red: 0.9968960881, green: 0.9921532273, blue: 1, alpha: 1)
+let lightGray = #colorLiteral(red: 0.8566066027, green: 0.8525324464, blue: 0.8597565293, alpha: 1)
+let lightOrange = #colorLiteral(red: 1, green: 0.5036935806, blue: 0.3973088861, alpha: 1)

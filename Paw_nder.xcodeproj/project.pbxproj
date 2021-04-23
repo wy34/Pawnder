@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -24,9 +24,13 @@
 		4C5EAD6F2631199200653AE0 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5EAD6E2631199200653AE0 /* RegisterVC.swift */; };
 		4C5EAD7226311BE900653AE0 /* PawTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5EAD7126311BE900653AE0 /* PawTextField.swift */; };
 		4C65D8EA26320E3000B1F4FB /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65D8E926320E3000B1F4FB /* RegisterViewModel.swift */; };
+		4C65D8EF2632145F00B1F4FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C65D8EE2632145F00B1F4FB /* GoogleService-Info.plist */; };
+		4C65D94326322ABB00B1F4FB /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65D94226322ABB00B1F4FB /* ProfileImageView.swift */; };
+		4C65D94B26324A6600B1F4FB /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65D94A26324A6600B1F4FB /* Bindable.swift */; };
 		4CA40BE6262F4DE000B11232 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BE5262F4DE000B11232 /* CardView.swift */; };
 		4CA40BEA262F716A00B11232 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BE9262F716A00B11232 /* User.swift */; };
 		4CA40BEF262F7F4F00B11232 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */; };
+		5BA69711E980248351C9DA52 /* Pods_Paw_nder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 795770460F7AFE5FC41BA72A /* Pods_Paw_nder.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,9 +53,15 @@
 		4C5EAD6E2631199200653AE0 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		4C5EAD7126311BE900653AE0 /* PawTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawTextField.swift; sourceTree = "<group>"; };
 		4C65D8E926320E3000B1F4FB /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		4C65D8EE2632145F00B1F4FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4C65D94226322ABB00B1F4FB /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
+		4C65D94A26324A6600B1F4FB /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		4CA40BE5262F4DE000B11232 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		4CA40BE9262F716A00B11232 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		795770460F7AFE5FC41BA72A /* Pods_Paw_nder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Paw_nder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEA331D15824EC4D834D32E3 /* Pods-Paw_nder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Paw_nder.debug.xcconfig"; path = "Target Support Files/Pods-Paw_nder/Pods-Paw_nder.debug.xcconfig"; sourceTree = "<group>"; };
+		F50B7B72A14D84CB9BEA78A9 /* Pods-Paw_nder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Paw_nder.release.xcconfig"; path = "Target Support Files/Pods-Paw_nder/Pods-Paw_nder.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BA69711E980248351C9DA52 /* Pods_Paw_nder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +81,8 @@
 			children = (
 				4C49BA8D262E3928006F046B /* Paw_nder */,
 				4C49BA8C262E3928006F046B /* Products */,
+				9869D2113625D89AB18BC99F /* Pods */,
+				5270CC91026CEE1195147279 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,6 +106,7 @@
 				4C49BAAB262E3A99006F046B /* Controllers */,
 				4C49BAAD262E3AA1006F046B /* Other */,
 				4C49BA9C262E3929006F046B /* Info.plist */,
+				4C65D8EE2632145F00B1F4FB /* GoogleService-Info.plist */,
 			);
 			path = Paw_nder;
 			sourceTree = "<group>";
@@ -135,6 +149,7 @@
 		4C49BAAF262E3AD4006F046B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4C65D94226322ABB00B1F4FB /* ProfileImageView.swift */,
 				4C49BAB4262E3AE8006F046B /* GenericViews */,
 				4C49BACC262E84B0006F046B /* HomeNavbarStack.swift */,
 				4C49BAC4262E7CE7006F046B /* HomeBottomControlsStack.swift */,
@@ -160,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				4C49BAC8262E8191006F046B /* Constants.swift */,
+				4C65D94A26324A6600B1F4FB /* Bindable.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -181,6 +197,23 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		5270CC91026CEE1195147279 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				795770460F7AFE5FC41BA72A /* Pods_Paw_nder.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9869D2113625D89AB18BC99F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CEA331D15824EC4D834D32E3 /* Pods-Paw_nder.debug.xcconfig */,
+				F50B7B72A14D84CB9BEA78A9 /* Pods-Paw_nder.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -188,9 +221,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C49BA9F262E3929006F046B /* Build configuration list for PBXNativeTarget "Paw_nder" */;
 			buildPhases = (
+				69EBF2F840AE66DEB52E28F2 /* [CP] Check Pods Manifest.lock */,
 				4C49BA87262E3928006F046B /* Sources */,
 				4C49BA88262E3928006F046B /* Frameworks */,
 				4C49BA89262E3928006F046B /* Resources */,
+				E3139FB6EFA5DC1121280112 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -240,10 +275,53 @@
 			files = (
 				4C49BA9B262E3929006F046B /* LaunchScreen.storyboard in Resources */,
 				4C49BA98262E3929006F046B /* Assets.xcassets in Resources */,
+				4C65D8EF2632145F00B1F4FB /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		69EBF2F840AE66DEB52E28F2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Paw_nder-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3139FB6EFA5DC1121280112 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Paw_nder/Pods-Paw_nder-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Paw_nder/Pods-Paw_nder-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Paw_nder/Pods-Paw_nder-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4C49BA87262E3928006F046B /* Sources */ = {
@@ -257,8 +335,10 @@
 				4C49BA93262E3928006F046B /* HomeVC.swift in Sources */,
 				4C49BABE262E3D2D006F046B /* PawImageView.swift in Sources */,
 				4CA40BEA262F716A00B11232 /* User.swift in Sources */,
+				4C65D94326322ABB00B1F4FB /* ProfileImageView.swift in Sources */,
 				4C65D8EA26320E3000B1F4FB /* RegisterViewModel.swift in Sources */,
 				4C49BA8F262E3928006F046B /* AppDelegate.swift in Sources */,
+				4C65D94B26324A6600B1F4FB /* Bindable.swift in Sources */,
 				4C5EAD7226311BE900653AE0 /* PawTextField.swift in Sources */,
 				4CA40BE6262F4DE000B11232 /* CardView.swift in Sources */,
 				4C5EAD6F2631199200653AE0 /* RegisterVC.swift in Sources */,
@@ -403,6 +483,7 @@
 		};
 		4C49BAA0262E3929006F046B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEA331D15824EC4D834D32E3 /* Pods-Paw_nder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -422,6 +503,7 @@
 		};
 		4C49BAA1262E3929006F046B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F50B7B72A14D84CB9BEA78A9 /* Pods-Paw_nder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
