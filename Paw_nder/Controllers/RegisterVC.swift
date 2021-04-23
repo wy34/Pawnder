@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 
-class RegisterVC: UIViewController {
+class RegisterVC: LoadingViewController {
     // MARK: - Properties
     let registerVM = RegisterViewModel()
     let profileImageViewSizeMultiplier: CGFloat = 0.5
@@ -102,6 +102,7 @@ class RegisterVC: UIViewController {
     @objc func handleSelectPhoto() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
+        imagePicker.allowsEditing = true
         present(imagePicker, animated: true, completion: nil)
     }
     
@@ -134,14 +135,25 @@ class RegisterVC: UIViewController {
     }
     
     @objc func handleSignUpTapped() {
-        
+        showLoader()
+        view.endEditing(true)
+        registerVM.registerUser { [weak self] (result) in
+            guard let self = self else { return }
+            self.dismissLoader()
+            switch result {
+                case .success(_):
+                    self.showAlert(title: "Success", message: "Welcome new user!")
+                case .failure(let error):
+                    self.showAlert(title: "Error", message: error.localizedDescription)
+            }
+        }
     }
 }
 
 // MARK: - UIImagePickerController, UINavigationControllerDelegate
 extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let pickedImage = info[.originalImage] as? UIImage else { return }
+        guard let pickedImage = info[.editedImage] as? UIImage else { return }
         registerVM.bindableImage.value = pickedImage
         dismiss(animated: true, completion: nil)
     }
