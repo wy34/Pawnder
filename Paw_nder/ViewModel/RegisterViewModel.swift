@@ -34,37 +34,48 @@ class RegisterViewModel {
                 return
             }
             
-            self.storeImage(completion: completion)
+            self.storeProfileImage(completion: completion)
         }
     }
     
-    func storeImage(completion: @escaping (Result<Bool, Error>) -> Void) {
+    func storeProfileImage(completion: @escaping (Result<Bool, Error>) -> Void) {
         let imageName = UUID().uuidString
         let storageRef = Storage.storage().reference().child("profileImages/\(imageName)")
         var imageData: Data?
         
         if let pickedImage = bindableImage.value {
-            imageData = pickedImage.jpegData(compressionQuality: 0.75)
+            imageData = pickedImage.pngData()
         } else {
-            #warning("for some reason there is nothign being saved")
-            imageData = UIImage(named: "profile")!.jpegData(compressionQuality: 0.75)
+            imageData = UIImage(named: "profile")?.pngData()
         }
         
-        storageRef.putData(imageData!, metadata: nil) { (metadata, error) in
+        storageRef.putData(imageData!, metadata: nil) { [weak self] (metadata, error) in
             if let error = error {
                 completion(.failure(error))
                 return
             }
-            
+
             storageRef.downloadURL { (url, error) in
                 if let error = error {
                     completion(.failure(error))
                     return
                 }
-                
-                print(url?.absoluteURL ?? "")
-                completion(.success(true))
+
+                self?.saveUserToDB(imageUrlString: url?.absoluteString, completion: completion)
             }
+        }
+    }
+    
+    func saveUserToDB(imageUrlString: String?, completion: @escaping (Result<Bool, Error>) -> Void) {
+        let uid = Auth.auth().currentUser?.uid ?? ""
+        let docData = ["fullName": fullName, "uid": uid, "imageUrlString": imageUrlString ?? ""]
+        Firestore.firestore().collection("users").document(uid).setData(docData) { (error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            completion(.success(true))
         }
     }
 }

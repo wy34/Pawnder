@@ -30,4 +30,4 @@ let bgWhite = #colorLiteral(red: 0.9968960881, green: 0.9921532273, blue: 1, alp
 let lightGray = #colorLiteral(red: 0.8566066027, green: 0.8525324464, blue: 0.8597565293, alpha: 1)
 let lightOrange = #colorLiteral(red: 1, green: 0.5036935806, blue: 0.3973088861, alpha: 1)
 let lightTransparentGray = #colorLiteral(red: 0.2072497606, green: 0.2093813121, blue: 0.2092972398, alpha: 0.7454277074)
-let darkTransparentGray = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.6493195565)
+let darkTransparentGray = #colorLiteral(red: 0.06633578986, green: 0.06635498255, blue: 0.06633324176, alpha: 0.6493195565)

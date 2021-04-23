@@ -40,7 +40,6 @@ class LoadingViewController: UIViewController {
         backgroundView.addSubview(loadingView)
         loadingView.makePerfectSquare(anchor: backgroundView.widthAnchor, multiplier: 0.25)
         loadingView.center(to: backgroundView, by: .centerX)
-//        loadingView.center(to: backgroundView, by: .centerY, withMultiplierOf: 0.75)
         loadingView.center(x: backgroundView.centerXAnchor, y: backgroundView.centerYAnchor)
         
         loadingView.addSubview(loadingStack)
