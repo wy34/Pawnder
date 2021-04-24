@@ -7,15 +7,9 @@
 
 import UIKit
 
-class HomeVC: UIViewController {
+class HomeVC: LoadingViewController {
     // MARK: - Properties
-    private let cardViewModels: [CardViewModel] = {
-        let users = [
-            User(name: "Vikram", age: 2, breed: "Husky", imageNames: [vikram1]),
-            User(name: "Bob", age: 5, breed: "Golden Retriever", imageNames: [bob1, bob2, bob3, bob4])
-        ]
-        return users.map({ $0.toCardViewModel() })
-    }()
+    var homeViewModel = HomeViewModel()
     
     // MARK: - Views
     private let navbarView = PawView()
@@ -33,7 +27,8 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         layoutUI()
         configureUI()
-        createCardDeck()
+        setupFetchObserver()
+        homeViewModel.fetchUsers()
     }
 
     // MARK: - Helpers
@@ -57,8 +52,15 @@ class HomeVC: UIViewController {
         bottomControlsStack.anchor(trailing: bottomControlsView.trailingAnchor, leading: bottomControlsView.leadingAnchor)
     }
     
+    func setupFetchObserver() {
+        homeViewModel.fetchUserHandler = { [weak self] in
+            guard let self = self else { return }
+            self.createCardDeck()
+        }
+    }
+    
     private func createCardDeck() {
-        cardViewModels.forEach({ cardVM in
+        homeViewModel.cardViewModels.forEach({ cardVM in
             let cardView = CardView()
             cardView.setupCardWith(cardVM: cardVM)
             cardsDeckView.addSubview(cardView)

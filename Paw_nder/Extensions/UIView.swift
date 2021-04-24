@@ -132,4 +132,13 @@ extension UIView {
                 NSLayoutConstraint.activate([topConstraint, leadingConstraint, bottomConstraint, widthConstraint])
         }
     }
+    
+//    func showLoader() {
+//        let spinner = UIActivityIndicatorView(style: .large)
+//        spinner.color = .blue
+//        spinner.startAnimating()
+//        spinner.translatesAutoresizingMaskIntoConstraints = false
+//        addSubview(spinner)
+//        spinner.center(x: centerXAnchor, y: centerYAnchor)
+//    }
 }

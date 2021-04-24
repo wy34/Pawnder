@@ -15,12 +15,12 @@ class CardViewModel {
     
     var imageTappedHandler: ((UIImage, Int) -> Void)?
     
-    var firstImage: UIImage {
-        return UIImage(named: user.imageNames.first ?? "")!
+    var firstImageUrl: String {
+        return user.imageNames.first ?? ""
     }
     
     var images: [UIImage] {
-        return user.imageNames.map({ UIImage(named: $0)! })
+        return user.imageNames.map({ i in UIImage(named: bob1)! })
     }
     
     var infoText: NSAttributedString {

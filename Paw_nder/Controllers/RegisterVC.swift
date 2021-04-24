@@ -137,6 +137,7 @@ class RegisterVC: LoadingViewController {
     @objc func handleSignUpTapped() {
         showLoader()
         view.endEditing(true)
+
         registerVM.registerUser { [weak self] (result) in
             guard let self = self else { return }
             self.dismissLoader()

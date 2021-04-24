@@ -56,23 +56,3 @@ class LoadingViewController: UIViewController {
         loadingStack.removeFromSuperview()
     }
 }
-
-
-
-
-struct Loading: UIViewControllerRepresentable {
-    func makeUIViewController(context: Context) -> LoadingViewController {
-        let loadingVC = LoadingViewController()
-        return loadingVC
-    }
-    
-    func updateUIViewController(_ uiViewController: LoadingViewController, context: Context) {
-        
-    }
-}
-
-struct Loading_Previews: PreviewProvider {
-    static var previews: some View {
-        Loading()
-    }
-}

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CardView: UIView {
+class CardView: LoadingView {
     // MARK: - Properties
     private var cardVM: CardViewModel?
     private var selectedBarColor = UIColor.white
@@ -15,8 +15,9 @@ class CardView: UIView {
     
     // MARK: - Views
     private let imagePageBar = PawStackView(views: [], spacing: 5, distribution: .fillEqually, alignment: .fill)
-    private let cardImageView = PawImageView(image: UIImage(named: vikram1)!, contentMode: .scaleAspectFill)
+    private let cardImageView = PawImageView(image: UIImage(), contentMode: .scaleAspectFill)
     private let infoLabel = PawLabel(attributedText: .init())
+    private let temporaryCoverView = PawView(bgColor: lightGray, cornerRadius: 15)
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -24,6 +25,7 @@ class CardView: UIView {
         layoutUI()
         configureUI()
         setupGestures()
+        startLoadingCards()
     }
     
     required init?(coder: NSCoder) {
@@ -42,17 +44,30 @@ class CardView: UIView {
     // MARK: - Helpers
     private func configureUI() {
         cardImageView.layer.cornerRadius = 15
+        cardImageView.backgroundColor = .white
     }
     
     private func layoutUI() {
-        addSubviews(cardImageView)
+        addSubviews(cardImageView, temporaryCoverView)
         cardImageView.fill(superView: self, withPaddingOnAllSides: 15)
+        temporaryCoverView.fill(superView: self, withPaddingOnAllSides: 15)
 
         cardImageView.addSubviews(infoLabel, imagePageBar)
         infoLabel.anchor(trailing: cardImageView.trailingAnchor, bottom: cardImageView.bottomAnchor, leading: cardImageView.leadingAnchor, paddingTrailing: 20, paddingBottom: 20, paddingLeading: 20)
         
         imagePageBar.anchor(top: cardImageView.topAnchor, trailing: cardImageView.trailingAnchor, leading: cardImageView.leadingAnchor, paddingTop: 10, paddingTrailing: 10, paddingLeading: 10)
         imagePageBar.setDimension(hConst: 5)
+    }
+    
+    private func startLoadingCards() {
+        showLoader()
+        isUserInteractionEnabled = false
+    }
+    
+    private func stopLoadingCards() {
+        dismissLoader()
+        isUserInteractionEnabled = true
+        temporaryCoverView.isHidden = true
     }
     
     private func setupGestures() {
@@ -77,7 +92,7 @@ class CardView: UIView {
     func setupCardWith(cardVM: CardViewModel) {
         self.cardVM = cardVM
         setupImageTappedHandler()
-        cardImageView.image = cardVM.firstImage
+        cardImageView.setImage(imageUrlString: cardVM.firstImageUrl) { self.stopLoadingCards() }
         infoLabel.attributedText = cardVM.infoText
         cardVM.images.forEach({ _ in imagePageBar.addArrangedSubview(PawView(bgColor: deselectedBarColor, cornerRadius: 3)) })
         imagePageBar.subviews[0].backgroundColor = selectedBarColor
