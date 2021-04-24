@@ -36,6 +36,7 @@ class HomeVC: LoadingViewController {
     private func configureUI() {
         view.backgroundColor = bgWhite
         mainStack.bringSubviewToFront(cardsDeckView)
+        navbarStack.delegate = self
         bottomControlsStack.delegate = self
     }
     
@@ -76,6 +77,20 @@ class HomeVC: LoadingViewController {
             cardsDeckView.addSubview($0)
             $0.fill(superView: cardsDeckView)
         })
+    }
+}
+
+// MARK: - HomeNavbarStackDelegate
+extension HomeVC: HomeNavbarStackDelegate {
+    func handleUserTapped() {
+        let settingsVC = SettingsVC()
+        let navController = UINavigationController(rootViewController: settingsVC)
+        navController.modalPresentationStyle = .fullScreen
+        present(navController, animated: true)
+    }
+    
+    func handleMessageTapped() {
+        
     }
 }
 

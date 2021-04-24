@@ -23,7 +23,7 @@ class RegisterVC: LoadingViewController {
     private let emailTextField = PawTextField(placeholder: "Email")
     private let passwordTextField = PawTextField(placeholder: "Password")
     
-    private let alreadyHaveAccountButton = PawButton(title: "Already have an account?", textColor: lightOrange, font: UIFont.systemFont(ofSize: 16, weight: .medium))
+    private let alreadyHaveAccountButton = PawButton(title: "Already have an account?", textColor: lightRed, font: UIFont.systemFont(ofSize: 16, weight: .medium))
     private let registerButton = PawButton(title: "Sign Up", textColor: .lightGray, font: UIFont.systemFont(ofSize: 16, weight: .bold))
     private lazy var buttonStack = PawStackView(views: [alreadyHaveAccountButton, registerButton], spacing: 15, alignment: .fill)
     
@@ -42,7 +42,7 @@ class RegisterVC: LoadingViewController {
 
     // MARK: - Helpers
     private func configureUI() {
-        view.backgroundColor = lightOrange
+        view.backgroundColor = lightRed
         profileImageView.clipsToBounds = true
         profileImageView.layer.cornerRadius = UIScreen.main.bounds.width * profileImageViewSizeMultiplier / 2
         slideupView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
