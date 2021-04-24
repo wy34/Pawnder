@@ -27,6 +27,7 @@ class HomeVC: LoadingViewController {
         super.viewDidLoad()
         layoutUI()
         configureUI()
+        createCardDeck()
         setupFetchObserver()
         homeViewModel.fetchUsers()
     }
@@ -60,11 +61,19 @@ class HomeVC: LoadingViewController {
     }
     
     private func createCardDeck() {
-        homeViewModel.cardViewModels.forEach({ cardVM in
+        cardsDeckView.subviews.forEach({ $0.removeFromSuperview() })
+        
+        var cardViews = [CardView]() 
+        
+        homeViewModel.cardViewModels.reversed().forEach({ cardVM in
             let cardView = CardView()
             cardView.setupCardWith(cardVM: cardVM)
-            cardsDeckView.addSubview(cardView)
-            cardView.fill(superView: cardsDeckView)
+            cardViews.append(cardView)
+        })
+        
+        cardViews.reversed().forEach({
+            cardsDeckView.addSubview($0)
+            $0.fill(superView: cardsDeckView)
         })
     }
 }

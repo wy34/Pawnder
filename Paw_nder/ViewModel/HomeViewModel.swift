@@ -11,9 +11,7 @@ import Firebase
 class HomeViewModel {
     // MARK: - Properties
     var users = [User]()
-    
-    var cardViewModels = [CardViewModel]()
-
+    var cardViewModels = [CardViewModel(user: .init(dictionary: ["": ""]))]
     var fetchUserHandler: (() -> Void)?
     
     // MARK: - Helpers
