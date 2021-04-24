@@ -14,7 +14,7 @@ class HomeVC: LoadingViewController {
     // MARK: - Views
     private let navbarView = PawView()
     private lazy var navbarStack = HomeNavbarStack(distribution: .fillEqually)
-    
+
     private let cardsDeckView = PawView()
     
     private let bottomControlsView = PawView()
@@ -36,6 +36,7 @@ class HomeVC: LoadingViewController {
     private func configureUI() {
         view.backgroundColor = bgWhite
         mainStack.bringSubviewToFront(cardsDeckView)
+        bottomControlsStack.delegate = self
     }
     
     private func layoutUI() {
@@ -63,9 +64,9 @@ class HomeVC: LoadingViewController {
     private func createCardDeck() {
         cardsDeckView.subviews.forEach({ $0.removeFromSuperview() })
         
-        var cardViews = [CardView]() 
+        var cardViews = [CardView]()
         
-        homeViewModel.cardViewModels.reversed().forEach({ cardVM in
+        homeViewModel.cardViewModels.forEach({ cardVM in
             let cardView = CardView()
             cardView.setupCardWith(cardVM: cardVM)
             cardViews.append(cardView)
@@ -78,3 +79,25 @@ class HomeVC: LoadingViewController {
     }
 }
 
+// MARK: - HomeBottomControlsDelegate
+extension HomeVC: HomeBottomControlsStackDelegate {
+    func handleRefreshTapped() {
+        homeViewModel.fetchUsers()
+    }
+    
+    func handleDismissTapped() {
+        
+    }
+    
+    func handleStarTapped() {
+        
+    }
+    
+    func handleHeartTapped() {
+        
+    }
+    
+    func handleLightningTapped() {
+        
+    }
+}

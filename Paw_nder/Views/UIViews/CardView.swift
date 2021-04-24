@@ -34,7 +34,7 @@ class CardView: LoadingView {
     
     override func layoutSubviews() {
         let gradient = CAGradientLayer()
-        gradient.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.65).cgColor]
+        gradient.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.45).cgColor]
         gradient.startPoint = .init(x: 0.5, y: 0.5)
         gradient.endPoint = .init(x: 0.5, y: 1)
         gradient.frame = self.frame

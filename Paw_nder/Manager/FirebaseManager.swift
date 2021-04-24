@@ -12,6 +12,7 @@ class FirebaseManager {
     // MARK: - Properties
     static let shared = FirebaseManager()
     var imageCache = NSCache<NSString, UIImage>()
+    var lastFetchedUser: User?
     
     // MARK: - Helpers
     func registerUser(credentials: Credentials, completion: @escaping (Result<Bool, Error>) -> Void) {
@@ -70,8 +71,8 @@ class FirebaseManager {
     
     func fetchUsers(completion: @escaping (Result<[CardViewModel], Error>) -> Void) {
         var users = [User]()
-        
-        Firestore.firestore().collection("users").getDocuments { (snapshots, error) in
+       
+        Firestore.firestore().collection("users").order(by: "age").start(after: [lastFetchedUser?.age ?? 0]).limit(to: 2).getDocuments { [weak self] (snapshots, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -80,6 +81,7 @@ class FirebaseManager {
             snapshots?.documents.forEach({ (snapshot) in
                 let snapshotData = snapshot.data()
                 let user = User(dictionary: snapshotData)
+                self?.lastFetchedUser = user
                 users.append(user)
             })
             

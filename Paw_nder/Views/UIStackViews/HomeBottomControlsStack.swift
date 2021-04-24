@@ -7,7 +7,18 @@
 
 import UIKit
 
+protocol HomeBottomControlsStackDelegate: class {
+    func handleRefreshTapped()
+    func handleDismissTapped()
+    func handleStarTapped()
+    func handleHeartTapped()
+    func handleLightningTapped()
+}
+
 class HomeBottomControlsStack: UIStackView {
+    // MARK: - Properties
+    weak var delegate: HomeBottomControlsStackDelegate?
+    
     // MARK: - Views
     private let refreshBtn = PawButton(image: refresh)
     private let dismissBtn = PawButton(image: dismiss)
@@ -28,6 +39,7 @@ class HomeBottomControlsStack: UIStackView {
     init(spacing: CGFloat = 0, axis: NSLayoutConstraint.Axis = .horizontal, distribution: UIStackView.Distribution = .fill, alignment: UIStackView.Alignment = .center) {
         super.init(frame: .zero)
         layoutUI()
+        setupButtonActions()
         self.spacing = spacing
         self.axis = axis
         self.distribution = distribution
@@ -38,5 +50,18 @@ class HomeBottomControlsStack: UIStackView {
     private func layoutUI() {
         let views = [refreshBtn, dismissBtn, starBtn, heartBtn, lightningBtn]
         views.forEach({ self.addArrangedSubview($0) })
+    }
+    
+    private func setupButtonActions() {
+        refreshBtn.addTarget(self, action: #selector(handleRefreshTapped), for: .touchUpInside)
+//        dismissBtn
+//        starBtn
+//        heartBtn
+//        lightningBtn
+    }
+    
+    // MARK: - Selectors
+    @objc func handleRefreshTapped() {
+        delegate?.handleRefreshTapped()
     }
 }
