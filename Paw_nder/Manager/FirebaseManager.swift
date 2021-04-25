@@ -72,7 +72,7 @@ class FirebaseManager {
     func fetchUsers(completion: @escaping (Result<[CardViewModel], Error>) -> Void) {
         var users = [User]()
        
-        Firestore.firestore().collection("users").order(by: "age").start(after: [lastFetchedUser?.age ?? 0]).limit(to: 2).getDocuments { [weak self] (snapshots, error) in
+        Firestore.firestore().collection("users").order(by: "uid").start(after: [lastFetchedUser?.uid ?? ""]).limit(to: 2).getDocuments { [weak self] (snapshots, error) in
             if let error = error {
                 completion(.failure(error))
                 return

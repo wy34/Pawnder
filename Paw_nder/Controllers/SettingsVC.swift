@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SettingsVC: UIViewController {
     // MARK: - Properties
@@ -31,17 +32,9 @@ class SettingsVC: UIViewController {
         layoutUI()
         configureNavbar()
         configureUI()
+        fetchCurrentUserInfo()
+        setupKeyboardObserver()
         setupImagePickerNotificationObserver()
-        
-        FirebaseManager.shared.fetchCurrentUser { [weak self] (result) in
-            switch result {
-            case .success(let user):
-                self?.user = user
-                self?.tableView.reloadData()
-            case .failure(let error):
-                self?.showAlert(title: "Error", message: error.localizedDescription)
-            }
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +63,23 @@ class SettingsVC: UIViewController {
         tableView.fill(superView: view)
     }
     
+    func fetchCurrentUserInfo() {
+        FirebaseManager.shared.fetchCurrentUser { [weak self] (result) in
+            switch result {
+            case .success(let user):
+                self?.user = user
+                self?.tableView.reloadData()
+            case .failure(let error):
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+            }
+        }
+    }
+    
+    func setupKeyboardObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
     func setupImagePickerNotificationObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleSelectPhotoTapped(notification:)), name: .didOpenImagePicker, object: nil)
     }
@@ -80,7 +90,16 @@ class SettingsVC: UIViewController {
     }
     
     @objc func handleSaveTapped() {
-        
+        guard let currentUserId  = Auth.auth().currentUser?.uid else { return }
+        #warning("need to get value from textfields")
+        let docData: [String: Any] = ["uid": currentUserId, "fullName": user!.name, "imageUrlString": user!.imageNames[0], "breed": "Cheese", "age": 0]
+        Firestore.firestore().collection("users").document("\(currentUserId)").setData(docData) { (error) in
+            if let error = error {
+                self.showAlert(title: "Error", message: error.localizedDescription)
+            }
+            
+            self.showAlert(title: "Success", message: "Updated user")
+        }
     }
     
     @objc func handleLogoutTapped() {
@@ -93,6 +112,19 @@ class SettingsVC: UIViewController {
         imagePicker.delegate = self
         imagePickerButtonTag = notification.userInfo?[buttonTag] as? Int
         present(imagePicker, animated: true)
+    }
+    
+    @objc func handleKeyboardShow(notification: Notification) {
+        if let frame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let height = frame.cgRectValue.height - UIApplication.shared.windows[0].safeAreaInsets.bottom
+            tableView.contentInset = .init(top: 0, left: 0, bottom: height, right: 0)
+            tableView.scrollIndicatorInsets = .init(top: 0, left: 0, bottom: height, right: 0)
+        }
+    }
+    
+    @objc func handleKeyboardHide() {
+        tableView.contentInset = .zero
+        tableView.scrollIndicatorInsets = .zero
     }
 }
 
