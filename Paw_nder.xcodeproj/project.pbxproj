@@ -26,6 +26,8 @@
 		4C63496E2634B258006AE44B /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C63496D2634B258006AE44B /* SettingsVC.swift */; };
 		4C6349712634C26C006AE44B /* ImagePickerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6349702634C26C006AE44B /* ImagePickerHeaderView.swift */; };
 		4C6349742634C6F9006AE44B /* Notification.Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6349732634C6F9006AE44B /* Notification.Name.swift */; };
+		4C6349782634E509006AE44B /* PaddedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6349772634E509006AE44B /* PaddedLabel.swift */; };
+		4C63497D2634E940006AE44B /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C63497C2634E940006AE44B /* SettingsCell.swift */; };
 		4C65D8EA26320E3000B1F4FB /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65D8E926320E3000B1F4FB /* RegisterViewModel.swift */; };
 		4C65D8EF2632145F00B1F4FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C65D8EE2632145F00B1F4FB /* GoogleService-Info.plist */; };
 		4C65D94326322ABB00B1F4FB /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65D94226322ABB00B1F4FB /* ProfileImageView.swift */; };
@@ -65,6 +67,8 @@
 		4C63496D2634B258006AE44B /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		4C6349702634C26C006AE44B /* ImagePickerHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerHeaderView.swift; sourceTree = "<group>"; };
 		4C6349732634C6F9006AE44B /* Notification.Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.Name.swift; sourceTree = "<group>"; };
+		4C6349772634E509006AE44B /* PaddedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedLabel.swift; sourceTree = "<group>"; };
+		4C63497C2634E940006AE44B /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		4C65D8E926320E3000B1F4FB /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		4C65D8EE2632145F00B1F4FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4C65D94226322ABB00B1F4FB /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
@@ -174,6 +178,8 @@
 		4C49BAAF262E3AD4006F046B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4C63497B2634E929006AE44B /* UITableViewCell */,
+				4C6349762634E4FB006AE44B /* UILabel */,
 				4C49BAB4262E3AE8006F046B /* GenericViews */,
 				4C75AE552633C3B200255A7A /* UIImageViews */,
 				4C75AE572633C3B800255A7A /* UIViewControllers */,
@@ -202,6 +208,22 @@
 				4C49BAC8262E8191006F046B /* Constants.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		4C6349762634E4FB006AE44B /* UILabel */ = {
+			isa = PBXGroup;
+			children = (
+				4C6349772634E509006AE44B /* PaddedLabel.swift */,
+			);
+			path = UILabel;
+			sourceTree = "<group>";
+		};
+		4C63497B2634E929006AE44B /* UITableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				4C63497C2634E940006AE44B /* SettingsCell.swift */,
+			);
+			path = UITableViewCell;
 			sourceTree = "<group>";
 		};
 		4C75AE422633949E00255A7A /* Manager */ = {
@@ -415,6 +437,7 @@
 				4C63496E2634B258006AE44B /* SettingsVC.swift in Sources */,
 				4C65D94B26324A6600B1F4FB /* Bindable.swift in Sources */,
 				4C5EAD7226311BE900653AE0 /* PawTextField.swift in Sources */,
+				4C6349782634E509006AE44B /* PaddedLabel.swift in Sources */,
 				4CA40BE6262F4DE000B11232 /* CardView.swift in Sources */,
 				4C5EAD6F2631199200653AE0 /* RegisterVC.swift in Sources */,
 				4C65D965263275D400B1F4FB /* UIViewController.swift in Sources */,
@@ -427,6 +450,7 @@
 				4C49BAB1262E3AE4006F046B /* PawStackView.swift in Sources */,
 				4CA40BEF262F7F4F00B11232 /* CardViewModel.swift in Sources */,
 				4C6349712634C26C006AE44B /* ImagePickerHeaderView.swift in Sources */,
+				4C63497D2634E940006AE44B /* SettingsCell.swift in Sources */,
 				4C65D9682632798E00B1F4FB /* LoadingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

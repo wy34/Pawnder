@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: scene.coordinateSpace.bounds)
         window?.windowScene = scene
-        window?.rootViewController = SettingsVC()
+        window?.rootViewController = HomeVC()
         window?.makeKeyAndVisible()
         window?.overrideUserInterfaceStyle = .light
     }

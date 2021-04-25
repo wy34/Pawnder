@@ -25,11 +25,6 @@ class ImagePickerHeaderView: UIView {
         setupButtonActions()
         configureUI()
         setupDidSelectImageNotificationObserver()
-        
-        backgroundColor = .purple
-        imageButton1.backgroundColor = .red
-        imageButton2.backgroundColor = .blue
-        imageButton3.backgroundColor = .green
     }
     
     required init?(coder: NSCoder) {
@@ -39,12 +34,13 @@ class ImagePickerHeaderView: UIView {
     // MARK: - Helpers
     func layoutUI() {
         addSubview(buttonStack)
-        buttonStack.fill(superView: self, withPaddingOnAllSides: 12)
+        buttonStack.fill(superView: self, withPaddingOnAllSides: 16)
     }
     
     func configureUI() {
         for button in [imageButton1, imageButton2, imageButton3] {
             button.layer.cornerRadius = 10
+            button.backgroundColor = .white
         }
     }
     
