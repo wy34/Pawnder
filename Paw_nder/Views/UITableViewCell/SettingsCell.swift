@@ -32,10 +32,11 @@ class SettingsCell: UITableViewCell {
     
     private func layoutUI() {
         contentView.addSubview(textfield)
-        textfield.anchor(top: contentView.topAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, leading: contentView.leadingAnchor, paddingTop: 8, paddingTrailing: 16, paddingBottom: 8, paddingLeading: 16)
+        textfield.anchor(top: contentView.topAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, leading: contentView.leadingAnchor, paddingTop: 8, paddingTrailing: 12, paddingBottom: 8, paddingLeading: 12)
     }
     
-    func setPlaceholder(_ ph: String) {
+    func setTextfield(text: String?, ph: String) {
         textfield.placeholder = ph
+        textfield.text = text
     }
 }

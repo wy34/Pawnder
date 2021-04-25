@@ -9,11 +9,12 @@ import UIKit
 
 class SettingsVC: UIViewController {
     // MARK: - Properties
+    var user: User?
     var imagePickerButtonTag: Int?
     
     // MARK: - Views
     private lazy var tableView: UITableView = {
-        let tv = UITableView()
+        let tv = UITableView(frame: .zero, style: .insetGrouped)
         tv.delegate = self
         tv.dataSource = self
         tv.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.reuseId)
@@ -31,6 +32,16 @@ class SettingsVC: UIViewController {
         configureNavbar()
         configureUI()
         setupImagePickerNotificationObserver()
+        
+        FirebaseManager.shared.fetchCurrentUser { [weak self] (result) in
+            switch result {
+            case .success(let user):
+                self?.user = user
+                self?.tableView.reloadData()
+            case .failure(let error):
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,6 +101,7 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             let imagePickerHeaderView = ImagePickerHeaderView()
+            imagePickerHeaderView.setCurrentUserImage(urlStrings: user?.imageNames)
             return imagePickerHeaderView
         } else if section == 5 {
             return nil
@@ -133,13 +145,13 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.reuseId, for: indexPath) as! SettingsCell
             switch indexPath.section {
                 case 1:
-                    cell.setPlaceholder("Enter Name")
+                    cell.setTextfield(text: user?.name, ph: "Enter Name")
                 case 2:
-                    cell.setPlaceholder("Enter Breed")
+                    cell.setTextfield(text: user?.breed, ph: "Enter Breed")
                 case 3:
-                    cell.setPlaceholder("Enter Age")
+                    cell.setTextfield(text: String(user?.age ?? 0), ph: "Enter Age")
                 default:
-                    cell.setPlaceholder("Enter Bio")
+                    cell.setTextfield(text: "", ph: "Enter Bio")
             }
             return cell
         } else {

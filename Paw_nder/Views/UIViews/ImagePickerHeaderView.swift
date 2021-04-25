@@ -25,6 +25,7 @@ class ImagePickerHeaderView: UIView {
         setupButtonActions()
         configureUI()
         setupDidSelectImageNotificationObserver()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -34,7 +35,7 @@ class ImagePickerHeaderView: UIView {
     // MARK: - Helpers
     func layoutUI() {
         addSubview(buttonStack)
-        buttonStack.fill(superView: self, withPaddingOnAllSides: 16)
+        buttonStack.fill(superView: self)
     }
     
     func configureUI() {
@@ -55,10 +56,23 @@ class ImagePickerHeaderView: UIView {
         NotificationCenter.default.addObserver(self, selector: #selector(handleImagePicked(notification:)), name: .didSelectPhoto, object: nil)
     }
     
-    func setSelectedImage(button: UIButton, image: UIImage) {
+    func setImage(button: UIButton, image: UIImage) {
         button.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
         button.imageView?.contentMode = .scaleAspectFill
         button.clipsToBounds = true
+    }
+    
+    func setCurrentUserImage(urlStrings: [String]?) {
+        guard let urlStrings = urlStrings else { return }
+        let buttons = [imageButton1, imageButton2, imageButton3]
+        
+        for i in 0..<urlStrings.count {
+            FirebaseManager.shared.downloadImage(urlString: urlStrings[i]) { (image) in
+                if let image = image {
+                    DispatchQueue.main.async { self.setImage(button: buttons[i], image: image) }
+                }
+            }
+        }
     }
     
     // MARK: - Selector
@@ -72,11 +86,11 @@ class ImagePickerHeaderView: UIView {
 
         switch tagNumber {
             case 1:
-                setSelectedImage(button: imageButton1, image: selectedImage)
+                setImage(button: imageButton1, image: selectedImage)
             case 2:
-                setSelectedImage(button: imageButton2, image: selectedImage)
+                setImage(button: imageButton2, image: selectedImage)
             default:
-                setSelectedImage(button: imageButton3, image: selectedImage)
+                setImage(button: imageButton3, image: selectedImage)
         }
     }
 }

@@ -90,6 +90,22 @@ class FirebaseManager {
         }
     }
     
+    func fetchCurrentUser(completion: @escaping (Result<User, Error>) -> Void) {
+        let currentUserId = Auth.auth().currentUser?.uid
+        
+        Firestore.firestore().collection("users").document("\(currentUserId ?? "")").getDocument { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let dictionary = snapshot?.data() {
+                let user = User(dictionary: dictionary)
+                completion(.success(user))
+            }
+        }
+    }
+    
     func downloadImage(urlString: String, completion: @escaping (UIImage?) -> Void) {
         let cacheKey = NSString(string: urlString)
         
