@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class SettingsVC: UIViewController {
+class SettingsVC: LoadingViewController {
     // MARK: - Properties
     var user: User?
     var imagePickerButtonTag: Int?
@@ -90,15 +90,12 @@ class SettingsVC: UIViewController {
     }
     
     @objc func handleSaveTapped() {
-        guard let currentUserId  = Auth.auth().currentUser?.uid else { return }
-        #warning("need to get value from textfields")
-        let docData: [String: Any] = ["uid": currentUserId, "fullName": user!.name, "imageUrlString": user!.imageNames[0], "breed": "Cheese", "age": 0]
-        Firestore.firestore().collection("users").document("\(currentUserId)").setData(docData) { (error) in
+        showLoader()
+        FirebaseManager.shared.updateUser(user: user!) { [weak self] (error) in
             if let error = error {
-                self.showAlert(title: "Error", message: error.localizedDescription)
+                self?.showAlert(title: "Error", message: error.localizedDescription)
             }
-            
-            self.showAlert(title: "Success", message: "Updated user")
+            self?.dismissLoader()
         }
     }
     
@@ -126,6 +123,18 @@ class SettingsVC: UIViewController {
         tableView.contentInset = .zero
         tableView.scrollIndicatorInsets = .zero
     }
+    
+    @objc func handleNameTextfieldChanged(textField: UITextField) {
+        user?.name = textField.text ?? ""
+    }
+    
+    @objc func handleBreedTextfieldChanged(textField: UITextField) {
+        user?.breed = textField.text ?? ""
+    }
+    
+    @objc func handleAgeTextfieldChanged(textField: UITextField) {
+        user?.age = textField.text ?? ""
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -133,7 +142,7 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             let imagePickerHeaderView = ImagePickerHeaderView()
-            imagePickerHeaderView.setCurrentUserImage(urlStrings: user?.imageNames)
+            imagePickerHeaderView.setCurrentUserImage(urlStrings: user?.imageUrls)
             return imagePickerHeaderView
         } else if section == 5 {
             return nil
@@ -178,10 +187,13 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.section {
                 case 1:
                     cell.setTextfield(text: user?.name, ph: "Enter Name")
+                    cell.textfield.addTarget(self, action: #selector(handleNameTextfieldChanged(textField:)), for: .editingChanged)
                 case 2:
                     cell.setTextfield(text: user?.breed, ph: "Enter Breed")
+                    cell.textfield.addTarget(self, action: #selector(handleBreedTextfieldChanged(textField:)), for: .editingChanged)
                 case 3:
-                    cell.setTextfield(text: String(user?.age ?? 0), ph: "Enter Age")
+                    cell.setTextfield(text: user?.age, ph: "Enter Age")
+                    cell.textfield.addTarget(self, action: #selector(handleAgeTextfieldChanged(textField:)), for: .editingChanged)
                 default:
                     cell.setTextfield(text: "", ph: "Enter Bio")
             }

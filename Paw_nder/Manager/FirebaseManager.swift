@@ -70,9 +70,11 @@ class FirebaseManager {
     }
     
     func fetchUsers(completion: @escaping (Result<[CardViewModel], Error>) -> Void) {
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
         var users = [User]()
+        let usersCollection = Firestore.firestore().collection("users")
        
-        Firestore.firestore().collection("users").order(by: "uid").start(after: [lastFetchedUser?.uid ?? ""]).limit(to: 2).getDocuments { [weak self] (snapshots, error) in
+        usersCollection.whereField("uid", isNotEqualTo: currentUserId).order(by: "uid").start(after: [lastFetchedUser?.uid ?? ""]).limit(to: 2).getDocuments { [weak self] (snapshots, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -124,6 +126,20 @@ class FirebaseManager {
             } else {
                 completion(nil)
             }
+        }
+    }
+    
+    func updateUser(user: User, completion: @escaping (Error?) -> Void) {
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        let docData: [String: Any] = ["uid": currentUserId, "fullName": user.name, "imageUrlString": user.imageUrls ?? [], "breed": user.breed ?? "", "age": user.age ?? ""]
+        
+        Firestore.firestore().collection("users").document("\(currentUserId)").setData(docData) { (error) in
+            if let error = error {
+                completion(error)
+                return
+            }
+            
+            completion(nil)
         }
     }
 }

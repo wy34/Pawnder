@@ -25,7 +25,6 @@ class ImagePickerHeaderView: UIView {
         setupButtonActions()
         configureUI()
         setupDidSelectImageNotificationObserver()
-        
     }
     
     required init?(coder: NSCoder) {

@@ -78,10 +78,10 @@ class CardView: LoadingView {
     }
     
     private func setupImageTappedHandler() {
-        self.cardVM?.imageTappedHandler = { [weak self] (tappedImage, imageIndex) in
+        self.cardVM?.imageTappedHandler = { [weak self] (tappedImageUrl, imageIndex) in
             guard let self = self else { return }
             
-            self.cardImageView.image = tappedImage
+            self.cardImageView.setImage(imageUrlString: tappedImageUrl, completion: nil)
             
             for (index, subview) in self.imagePageBar.arrangedSubviews.enumerated() {
                 subview.backgroundColor = index == imageIndex ? self.selectedBarColor : self.deselectedBarColor
@@ -94,7 +94,7 @@ class CardView: LoadingView {
         setupImageTappedHandler()
         cardImageView.setImage(imageUrlString: cardVM.firstImageUrl) { self.stopLoadingCards() }
         infoLabel.attributedText = cardVM.infoText
-        cardVM.images.forEach({ _ in imagePageBar.addArrangedSubview(PawView(bgColor: deselectedBarColor, cornerRadius: 3)) })
+        cardVM.imageUrls.forEach({ _ in imagePageBar.addArrangedSubview(PawView(bgColor: deselectedBarColor, cornerRadius: 3)) })
         imagePageBar.subviews[0].backgroundColor = selectedBarColor
     }
     

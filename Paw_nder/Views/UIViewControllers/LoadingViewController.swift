@@ -12,9 +12,9 @@ class LoadingViewController: UIViewController {
     // MARK: - Properties
     
     // MARK: - Views
-    private let backgroundView = PawView(bgColor: darkTransparentGray)
+    private let backgroundView = PawView(bgColor: lightTransparentGray)
     
-    private let loadingView = PawView(bgColor: lightTransparentGray, cornerRadius: 15)
+    private let loadingView = PawView(bgColor: darkTransparentGray, cornerRadius: 15)
     
     private let spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .large)

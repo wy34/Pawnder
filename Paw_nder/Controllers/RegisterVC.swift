@@ -11,10 +11,12 @@ import SwiftUI
 class RegisterVC: LoadingViewController {
     // MARK: - Properties
     let registerVM = RegisterViewModel()
+    let profileImageViewBorderSizeMultiplier: CGFloat = 0.525
     let profileImageViewSizeMultiplier: CGFloat = 0.5
     
     // MARK: - Views
     private let backgroundFillerView = PawView(bgColor: bgWhite)
+    private let profileImageViewBorder = PawView(bgColor: lightGray)
     private let profileImageView = ProfileImageView()
     private let slideupView = PawView(bgColor: bgWhite, cornerRadius: 35)
     
@@ -44,6 +46,7 @@ class RegisterVC: LoadingViewController {
     private func configureUI() {
         view.backgroundColor = lightRed
         profileImageView.clipsToBounds = true
+        profileImageViewBorder.layer.cornerRadius = UIScreen.main.bounds.width * profileImageViewBorderSizeMultiplier / 2
         profileImageView.layer.cornerRadius = UIScreen.main.bounds.width * profileImageViewSizeMultiplier / 2
         slideupView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         alreadyHaveAccountButton.contentHorizontalAlignment = .left
@@ -55,7 +58,11 @@ class RegisterVC: LoadingViewController {
     }
     
     private func layoutUI() {
-        view.addSubviews(profileImageView, backgroundFillerView, slideupView)
+        view.addSubviews(profileImageViewBorder, profileImageView, backgroundFillerView, slideupView)
+        
+        profileImageViewBorder.center(to: view, by: .centerX)
+        profileImageViewBorder.center(to: view, by: .centerY, withMultiplierOf: 0.6)
+        profileImageViewBorder.makePerfectSquare(anchor: view.widthAnchor, multiplier: profileImageViewBorderSizeMultiplier)
         
         profileImageView.center(to: view, by: .centerX)
         profileImageView.center(to: view, by: .centerY, withMultiplierOf: 0.6)

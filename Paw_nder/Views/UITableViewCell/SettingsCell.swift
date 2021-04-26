@@ -12,7 +12,7 @@ class SettingsCell: UITableViewCell {
     static let reuseId = "SettingsCell"
     
     // MARK: - Views
-    private let textfield = PawTextField(placeholder: "", bgColor: .clear, cornerRadius: 0)
+    let textfield = PawTextField(placeholder: "", bgColor: .clear, cornerRadius: 0)
     
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
