@@ -16,11 +16,16 @@ class CardViewModel {
     var imageTappedHandler: ((String, Int) -> Void)?
     
     var firstImageUrl: String {
-        return user.imageUrls?.first ?? ""
+        guard let imageUrlsDictionary = user.actualImageUrls else { return "" }
+        print(imageUrlsDictionary["1"] ?? "")
+        return imageUrlsDictionary["1"] ?? ""
     }
     
     var imageUrls: [String] {
-        return user.imageUrls?.count == 0 ? [""] : user.imageUrls ?? [""]
+        guard let imageUrlsDictionary = user.actualImageUrls else { return [""] }
+        let sortedKeys = imageUrlsDictionary.keys.sorted()
+        let sortedUrls = sortedKeys.map({ imageUrlsDictionary[$0] ?? "" })
+        return imageUrlsDictionary.count == 0 ? [""] : sortedUrls
     }
     
     var infoText: NSAttributedString {

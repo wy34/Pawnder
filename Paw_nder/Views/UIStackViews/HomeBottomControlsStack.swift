@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol HomeBottomControlsStackDelegate: class {
+protocol HomeBottomControlsStackDelegate: AnyObject {
     func handleRefreshTapped()
     func handleDismissTapped()
     func handleStarTapped()

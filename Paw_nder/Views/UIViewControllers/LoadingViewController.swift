@@ -12,7 +12,7 @@ class LoadingViewController: UIViewController {
     // MARK: - Properties
     
     // MARK: - Views
-    private let backgroundView = PawView(bgColor: lightTransparentGray)
+    private let backgroundView = PawView(bgColor: .clear)
     
     private let loadingView = PawView(bgColor: darkTransparentGray, cornerRadius: 15)
     

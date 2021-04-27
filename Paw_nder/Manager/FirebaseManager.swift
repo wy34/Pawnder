@@ -58,7 +58,7 @@ class FirebaseManager {
     
     func saveUserToDB(fullName: String, imageUrlString: String?, completion: @escaping (Result<Bool, Error>) -> Void) {
         let uid = Auth.auth().currentUser?.uid ?? ""
-        let docData = ["fullName": fullName, "uid": uid, "imageUrlString": imageUrlString ?? ""]
+        let docData: [String: Any] = ["fullName": fullName, "uid": uid, "imageUrlString": [imageUrlString], "actualImageUrls": ["1": imageUrlString]]
         Firestore.firestore().collection("users").document(uid).setData(docData) { (error) in
             if let error = error {
                 completion(.failure(error))
@@ -74,7 +74,7 @@ class FirebaseManager {
         var users = [User]()
         let usersCollection = Firestore.firestore().collection("users")
        
-        usersCollection.whereField("uid", isNotEqualTo: currentUserId).order(by: "uid").start(after: [lastFetchedUser?.uid ?? ""]).limit(to: 2).getDocuments { [weak self] (snapshots, error) in
+        usersCollection.order(by: "uid").start(after: [lastFetchedUser?.uid ?? ""]).limit(to: 2).getDocuments { [weak self] (snapshots, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -131,7 +131,7 @@ class FirebaseManager {
     
     func updateUser(user: User, completion: @escaping (Error?) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-        let docData: [String: Any] = ["uid": currentUserId, "fullName": user.name, "imageUrlString": user.imageUrls ?? [], "breed": user.breed ?? "", "age": user.age ?? ""]
+        let docData: [String: Any] = ["uid": currentUserId, "fullName": user.name, "breed": user.breed ?? "", "age": user.age ?? "", "actualImageUrls": user.actualImageUrls ?? [0: ""]]
         
         Firestore.firestore().collection("users").document("\(currentUserId)").setData(docData) { (error) in
             if let error = error {

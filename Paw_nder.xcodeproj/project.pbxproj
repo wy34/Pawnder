@@ -43,6 +43,7 @@
 		4CA40BE6262F4DE000B11232 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BE5262F4DE000B11232 /* CardView.swift */; };
 		4CA40BEA262F716A00B11232 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BE9262F716A00B11232 /* User.swift */; };
 		4CA40BEF262F7F4F00B11232 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */; };
+		4CC677462637BCFF00C321E3 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC677452637BCFF00C321E3 /* SettingsViewModel.swift */; };
 		5BA69711E980248351C9DA52 /* Pods_Paw_nder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 795770460F7AFE5FC41BA72A /* Pods_Paw_nder.framework */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +86,7 @@
 		4CA40BE5262F4DE000B11232 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		4CA40BE9262F716A00B11232 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		4CC677452637BCFF00C321E3 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		795770460F7AFE5FC41BA72A /* Pods_Paw_nder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Paw_nder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA331D15824EC4D834D32E3 /* Pods-Paw_nder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Paw_nder.debug.xcconfig"; path = "Target Support Files/Pods-Paw_nder/Pods-Paw_nder.debug.xcconfig"; sourceTree = "<group>"; };
 		F50B7B72A14D84CB9BEA78A9 /* Pods-Paw_nder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Paw_nder.release.xcconfig"; path = "Target Support Files/Pods-Paw_nder/Pods-Paw_nder.release.xcconfig"; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 				4C75AE3B2633644A00255A7A /* HomeViewModel.swift */,
 				4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */,
 				4C65D8E926320E3000B1F4FB /* RegisterViewModel.swift */,
+				4CC677452637BCFF00C321E3 /* SettingsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 				4C75AE402633819B00255A7A /* UIImageView.swift in Sources */,
 				4C75AE44263394AD00255A7A /* FirebaseManager.swift in Sources */,
 				4C49BAC1262E3D79006F046B /* PawButton.swift in Sources */,
+				4CC677462637BCFF00C321E3 /* SettingsViewModel.swift in Sources */,
 				4C49BA91262E3928006F046B /* SceneDelegate.swift in Sources */,
 				4C49BAC5262E7CE7006F046B /* HomeBottomControlsStack.swift in Sources */,
 				4C49BABB262E3C6C006F046B /* PawView.swift in Sources */,

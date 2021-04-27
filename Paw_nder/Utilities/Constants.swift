@@ -31,7 +31,7 @@ let lightGray = #colorLiteral(red: 0.8566066027, green: 0.8525324464, blue: 0.85
 let lightOrange = #colorLiteral(red: 1, green: 0.5036935806, blue: 0.3973088861, alpha: 1)
 let lightRed = #colorLiteral(red: 1, green: 0.3460136056, blue: 0.3903860152, alpha: 1)
 let lightTransparentGray = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.247749856)
-let darkTransparentGray = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.504608295)
+let darkTransparentGray = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7460937501)
 
 // MARK: - Notification UserInfo key
 let buttonTag = "tappedButtonTag"

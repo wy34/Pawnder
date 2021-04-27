@@ -61,14 +61,17 @@ class ImagePickerHeaderView: UIView {
         button.clipsToBounds = true
     }
     
-    func setCurrentUserImage(urlStrings: [String]?) {
-        guard let urlStrings = urlStrings else { return }
+    func setCurrentUserImage(urlStringsDictionary: [String: String]?) {
+        guard let urlStringsDictionary = urlStringsDictionary else { return }
         let buttons = [imageButton1, imageButton2, imageButton3]
         
-        for i in 0..<urlStrings.count {
-            FirebaseManager.shared.downloadImage(urlString: urlStrings[i]) { (image) in
+        let urlStringsArray = Array(urlStringsDictionary.values)
+
+        for i in 0..<urlStringsDictionary.count {
+            FirebaseManager.shared.downloadImage(urlString: urlStringsArray[i]) { (image) in
                 if let image = image {
-                    DispatchQueue.main.async { self.setImage(button: buttons[i], image: image) }
+                    let buttonKey = Int(Array(urlStringsDictionary.keys)[i]) ?? 0
+                    DispatchQueue.main.async { self.setImage(button: buttons[buttonKey - 1], image: image) }
                 }
             }
         }

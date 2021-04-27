@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol HomeNavbarStackDelegate: class {
+protocol HomeNavbarStackDelegate: AnyObject {
     func handleUserTapped()
     func handleMessageTapped()
 }

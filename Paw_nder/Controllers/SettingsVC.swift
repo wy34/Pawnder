@@ -12,6 +12,7 @@ class SettingsVC: LoadingViewController {
     // MARK: - Properties
     var user: User?
     var imagePickerButtonTag: Int?
+    var settingsVM = SettingsViewModel()
     
     // MARK: - Views
     private lazy var tableView: UITableView = {
@@ -68,6 +69,7 @@ class SettingsVC: LoadingViewController {
             switch result {
             case .success(let user):
                 self?.user = user
+                self?.settingsVM.user = user
                 self?.tableView.reloadData()
             case .failure(let error):
                 self?.showAlert(title: "Error", message: error.localizedDescription)
@@ -91,11 +93,21 @@ class SettingsVC: LoadingViewController {
     
     @objc func handleSaveTapped() {
         showLoader()
-        FirebaseManager.shared.updateUser(user: user!) { [weak self] (error) in
-            if let error = error {
-                self?.showAlert(title: "Error", message: error.localizedDescription)
+        
+        if settingsVM.selectedImages.count == 0 {
+            settingsVM.updateUserInfo { [weak self] error in
+                if let error = error {
+                    self?.showAlert(title: "Error", message: error.localizedDescription)
+                }
+                self?.dismissLoader()
             }
-            self?.dismissLoader()
+        } else {
+            settingsVM.updateUserInfoWithImages { [weak self] error in
+                if let error = error {
+                    self?.showAlert(title: "Error", message: error.localizedDescription)
+                }
+                self?.dismissLoader()
+            }
         }
     }
     
@@ -125,15 +137,15 @@ class SettingsVC: LoadingViewController {
     }
     
     @objc func handleNameTextfieldChanged(textField: UITextField) {
-        user?.name = textField.text ?? ""
+        settingsVM.user?.name = textField.text ?? ""
     }
     
     @objc func handleBreedTextfieldChanged(textField: UITextField) {
-        user?.breed = textField.text ?? ""
+        settingsVM.user?.breed = textField.text ?? ""
     }
     
     @objc func handleAgeTextfieldChanged(textField: UITextField) {
-        user?.age = textField.text ?? ""
+        settingsVM.user?.age = textField.text ?? ""
     }
 }
 
@@ -142,7 +154,7 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             let imagePickerHeaderView = ImagePickerHeaderView()
-            imagePickerHeaderView.setCurrentUserImage(urlStrings: user?.imageUrls)
+            imagePickerHeaderView.setCurrentUserImage(urlStringsDictionary: user?.actualImageUrls)
             return imagePickerHeaderView
         } else if section == 5 {
             return nil
@@ -213,6 +225,7 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
 extension SettingsVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let selectedImage = info[.editedImage] as? UIImage else { return }
+        settingsVM.selectedImages[imagePickerButtonTag!] = selectedImage
         NotificationCenter.default.post(Notification(name: .didSelectPhoto, object: nil, userInfo: [imagePickerButtonTag: selectedImage]))
         dismiss(animated: true, completion: nil)
     }
