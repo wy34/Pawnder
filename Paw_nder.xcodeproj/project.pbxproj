@@ -44,6 +44,8 @@
 		4CA40BEA262F716A00B11232 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BE9262F716A00B11232 /* User.swift */; };
 		4CA40BEF262F7F4F00B11232 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */; };
 		4CC677462637BCFF00C321E3 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC677452637BCFF00C321E3 /* SettingsViewModel.swift */; };
+		4CF953912639056800D80587 /* SliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF953902639056800D80587 /* SliderCell.swift */; };
+		4CF953932639062D00D80587 /* PawSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF953922639062D00D80587 /* PawSlider.swift */; };
 		5BA69711E980248351C9DA52 /* Pods_Paw_nder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 795770460F7AFE5FC41BA72A /* Pods_Paw_nder.framework */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +89,8 @@
 		4CA40BE9262F716A00B11232 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		4CC677452637BCFF00C321E3 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		4CF953902639056800D80587 /* SliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderCell.swift; sourceTree = "<group>"; };
+		4CF953922639062D00D80587 /* PawSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawSlider.swift; sourceTree = "<group>"; };
 		795770460F7AFE5FC41BA72A /* Pods_Paw_nder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Paw_nder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA331D15824EC4D834D32E3 /* Pods-Paw_nder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Paw_nder.debug.xcconfig"; path = "Target Support Files/Pods-Paw_nder/Pods-Paw_nder.debug.xcconfig"; sourceTree = "<group>"; };
 		F50B7B72A14D84CB9BEA78A9 /* Pods-Paw_nder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Paw_nder.release.xcconfig"; path = "Target Support Files/Pods-Paw_nder/Pods-Paw_nder.release.xcconfig"; sourceTree = "<group>"; };
@@ -203,6 +207,7 @@
 				4C49BABD262E3D2D006F046B /* PawImageView.swift */,
 				4C49BAC0262E3D79006F046B /* PawButton.swift */,
 				4C5EAD7126311BE900653AE0 /* PawTextField.swift */,
+				4CF953922639062D00D80587 /* PawSlider.swift */,
 			);
 			path = GenericViews;
 			sourceTree = "<group>";
@@ -227,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				4C63497C2634E940006AE44B /* SettingsCell.swift */,
+				4CF953902639056800D80587 /* SliderCell.swift */,
 			);
 			path = UITableViewCell;
 			sourceTree = "<group>";
@@ -435,6 +441,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C49BAA8262E3A74006F046B /* UIView.swift in Sources */,
+				4CF953912639056800D80587 /* SliderCell.swift in Sources */,
 				4C49BACD262E84B0006F046B /* HomeNavbarStack.swift in Sources */,
 				4C6349742634C6F9006AE44B /* Notification.Name.swift in Sources */,
 				4C49BAC9262E8191006F046B /* Constants.swift in Sources */,
@@ -454,6 +461,7 @@
 				4C5EAD7226311BE900653AE0 /* PawTextField.swift in Sources */,
 				4C6349782634E509006AE44B /* PaddedLabel.swift in Sources */,
 				4CA40BE6262F4DE000B11232 /* CardView.swift in Sources */,
+				4CF953932639062D00D80587 /* PawSlider.swift in Sources */,
 				4C5EAD6F2631199200653AE0 /* RegisterVC.swift in Sources */,
 				4C65D965263275D400B1F4FB /* UIViewController.swift in Sources */,
 				4C75AE402633819B00255A7A /* UIImageView.swift in Sources */,

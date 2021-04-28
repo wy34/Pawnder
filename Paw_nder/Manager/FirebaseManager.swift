@@ -131,7 +131,7 @@ class FirebaseManager {
     
     func updateUser(user: User, completion: @escaping (Error?) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-        let docData: [String: Any] = ["uid": currentUserId, "fullName": user.name, "breed": user.breed ?? "", "age": user.age ?? "", "actualImageUrls": user.actualImageUrls ?? [0: ""]]
+        let docData: [String: Any] = ["uid": currentUserId, "fullName": user.name, "breed": user.breed ?? "", "age": user.age ?? "", "actualImageUrls": user.imageUrls ?? [0: ""], "minAgePreference": user.minAgePreference ?? 0, "maxAgePreference": user.maxAgePreference ?? 0]
         
         Firestore.firestore().collection("users").document("\(currentUserId)").setData(docData) { (error) in
             if let error = error {

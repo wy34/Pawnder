@@ -10,9 +10,8 @@ import Firebase
 
 class SettingsVC: LoadingViewController {
     // MARK: - Properties
-    var user: User?
     var imagePickerButtonTag: Int?
-    var settingsVM = SettingsViewModel()
+    var settingsVM = SettingsViewModel.shared
     
     // MARK: - Views
     private lazy var tableView: UITableView = {
@@ -20,6 +19,7 @@ class SettingsVC: LoadingViewController {
         tv.delegate = self
         tv.dataSource = self
         tv.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.reuseId)
+        tv.register(SliderCell.self, forCellReuseIdentifier: SliderCell.reuseId)
         tv.backgroundColor = #colorLiteral(red: 0.9541934133, green: 0.9496539235, blue: 0.9577021003, alpha: 1)
         tv.tableFooterView = UIView()
         tv.keyboardDismissMode = .interactive
@@ -68,7 +68,6 @@ class SettingsVC: LoadingViewController {
         FirebaseManager.shared.fetchCurrentUser { [weak self] (result) in
             switch result {
             case .success(let user):
-                self?.user = user
                 self?.settingsVM.user = user
                 self?.tableView.reloadData()
             case .failure(let error):
@@ -154,11 +153,9 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             let imagePickerHeaderView = ImagePickerHeaderView()
-            imagePickerHeaderView.setCurrentUserImage(urlStringsDictionary: user?.actualImageUrls)
+            imagePickerHeaderView.setCurrentUserImage(urlStringsDictionary: settingsVM.user?.imageUrls)
             return imagePickerHeaderView
-        } else if section == 5 {
-            return nil
-        } else {
+        } else if 1...5 ~= section {
             let headerLabel = PaddedLabel(text: "", font: .systemFont(ofSize: 16, weight: .bold))
             switch section {
                 case 1:
@@ -167,10 +164,14 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
                     headerLabel.text = "Breed"
                 case 3:
                     headerLabel.text = "Age"
-                default:
+                case 4:
                     headerLabel.text = "Bio"
+                default:
+                    headerLabel.text = "Preferred Age Range"
             }
             return headerLabel
+        } else {
+            return nil
         }
     }
     
@@ -178,11 +179,12 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 300
         }
+        
         return 40
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 6
+        return 7
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -194,21 +196,25 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section != 5 {
+        if 0...4 ~= indexPath.section {
             let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.reuseId, for: indexPath) as! SettingsCell
             switch indexPath.section {
                 case 1:
-                    cell.setTextfield(text: user?.name, ph: "Enter Name")
+                    cell.setTextfield(text: settingsVM.user?.name, ph: "Enter Name")
                     cell.textfield.addTarget(self, action: #selector(handleNameTextfieldChanged(textField:)), for: .editingChanged)
                 case 2:
-                    cell.setTextfield(text: user?.breed, ph: "Enter Breed")
+                    cell.setTextfield(text: settingsVM.user?.breed, ph: "Enter Breed")
                     cell.textfield.addTarget(self, action: #selector(handleBreedTextfieldChanged(textField:)), for: .editingChanged)
                 case 3:
-                    cell.setTextfield(text: user?.age, ph: "Enter Age")
+                    cell.setTextfield(text: settingsVM.user?.age, ph: "Enter Age")
                     cell.textfield.addTarget(self, action: #selector(handleAgeTextfieldChanged(textField:)), for: .editingChanged)
                 default:
                     cell.setTextfield(text: "", ph: "Enter Bio")
             }
+            return cell
+        } else if indexPath.section == 5 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: SliderCell.reuseId, for: indexPath) as! SliderCell
+            cell.setSliderValues()
             return cell
         } else {
             let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
@@ -217,6 +223,14 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
             cell.contentView.addSubview(logoutButton)
             logoutButton.fill(superView: cell)
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 5 {
+            return 90
+        } else {
+            return UITableView.automaticDimension
         }
     }
 }

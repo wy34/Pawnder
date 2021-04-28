@@ -10,12 +10,29 @@ import Firebase
 
 class SettingsViewModel {
     // MARK: - Properties
+    static let shared = SettingsViewModel()
     var user: User?
     var selectedImages = [Int: UIImage]()
     
+    
+    var ageSliderMinFloatValue: Float {
+        return Float(user?.minAgePreference ?? 0) / 100
+    }
+    
+    var ageSliderMinLabel: String {
+        return "Min: \(user?.minAgePreference ?? 0)"
+    }
+    
+    var ageSliderMaxFloatValue: Float {
+        return Float(user?.maxAgePreference ?? 0) / 100
+    }
+    
+    var ageSliderMaxLabel: String {
+        return "Max: \(user?.maxAgePreference ?? 0)"
+    }
+    
     // MARK: - Helpers
     func updateUserInfo(completion: @escaping (Error?) -> Void) {
-        print(self.user!)
         FirebaseManager.shared.updateUser(user: self.user!) { (error) in
             if let _ = error {
                 completion(error)
@@ -26,7 +43,7 @@ class SettingsViewModel {
     }
     
     func updateUserInfoWithImages(completion: @escaping (Error?) -> Void) {
-        var dict = user?.actualImageUrls
+        var dict = user?.imageUrls
         
         for (imageKey, image) in selectedImages {
             let imageName = UUID().uuidString
@@ -46,7 +63,7 @@ class SettingsViewModel {
                         }
                         
                         dict!["\(imageKey)"] = url!.absoluteString
-                        self.user!.actualImageUrls = dict
+                        self.user!.imageUrls = dict
                         
                         self.updateUserInfo { [weak self] (error) in
                             if let _ = error {
@@ -56,18 +73,10 @@ class SettingsViewModel {
                             self?.selectedImages.removeAll()
                             completion(nil)
                         }
-//                        
-//                        FirebaseManager.shared.updateUser(user: self.user!) { [weak self] (error) in
-//                            if let _ = error {
-//                                completion(error)
-//                            }
-//
-//                            self?.selectedImages.removeAll()
-//                            completion(nil)
-//                        }
                     }
                 }
             }
         }
     }
+
 }
