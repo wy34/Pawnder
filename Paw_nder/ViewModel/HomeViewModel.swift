@@ -16,15 +16,20 @@ class HomeViewModel {
     
     // MARK: - Helpers
     func fetchUsers() {
-        FirebaseManager.shared.fetchUsers { [weak self] (result) in
-            guard let self = self else { return }
-            
+        FirebaseManager.shared.fetchCurrentUser { result in
             switch result {
-                case .success(let cardViewModels):
-                    self.cardViewModels = cardViewModels
-                    self.fetchUserHandler?()
+                case .success(let user):
+                    FirebaseManager.shared.fetchUsers(currentUser: user) { result in
+                        switch result {
+                            case .success(let cardViewModels):
+                                self.cardViewModels = cardViewModels
+                                self.fetchUserHandler?()
+                            case .failure(let error):
+                               print(error)
+                        }
+                    }
                 case .failure(let error):
-                   print(error)
+                    print(error)
             }
         }
     }

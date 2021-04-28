@@ -10,7 +10,7 @@ import Foundation
 struct User {
     var uid: String
     var name: String
-    var age: String?
+    var age: Int?
     var breed: String?
     var imageUrls: [String: String]?
     var minAgePreference: Int?
@@ -19,9 +19,9 @@ struct User {
     init(dictionary: [String: Any]) {
         self.uid = dictionary["uid"] as? String ?? ""
         self.name = dictionary["fullName"] as? String ?? ""
-        self.age = dictionary["age"] as? String ?? "N/A"
+        self.age = dictionary["age"] as? Int ?? 0
         self.breed = dictionary["breed"] as? String ?? "N/A"
-        self.imageUrls = dictionary["actualImageUrls"] as? [String: String]
+        self.imageUrls = dictionary["imageUrls"] as? [String: String]
         self.minAgePreference = dictionary["minAgePreference"] as? Int
         self.maxAgePreference = dictionary["maxAgePreference"] as? Int
     }

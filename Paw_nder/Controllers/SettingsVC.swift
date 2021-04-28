@@ -8,10 +8,15 @@
 import UIKit
 import Firebase
 
+protocol SettingsVCDelegate: AnyObject {
+    func updateCardDeck()
+}
+
 class SettingsVC: LoadingViewController {
     // MARK: - Properties
     var imagePickerButtonTag: Int?
     var settingsVM = SettingsViewModel.shared
+    weak var delegate: SettingsVCDelegate?
     
     // MARK: - Views
     private lazy var tableView: UITableView = {
@@ -85,6 +90,15 @@ class SettingsVC: LoadingViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleSelectPhotoTapped(notification:)), name: .didOpenImagePicker, object: nil)
     }
     
+    func handleUpdateCompletion(error: Error?) {
+        if let error = error {
+           showAlert(title: "Error", message: error.localizedDescription)
+        }
+        
+        dismissLoader()
+        dismiss(animated: true) { self.delegate?.updateCardDeck() }
+    }
+    
     // MARK: - Selectors
     @objc func handleDoneTapped() {
         dismiss(animated: true, completion: nil)
@@ -95,17 +109,11 @@ class SettingsVC: LoadingViewController {
         
         if settingsVM.selectedImages.count == 0 {
             settingsVM.updateUserInfo { [weak self] error in
-                if let error = error {
-                    self?.showAlert(title: "Error", message: error.localizedDescription)
-                }
-                self?.dismissLoader()
+                self?.handleUpdateCompletion(error: error)
             }
         } else {
             settingsVM.updateUserInfoWithImages { [weak self] error in
-                if let error = error {
-                    self?.showAlert(title: "Error", message: error.localizedDescription)
-                }
-                self?.dismissLoader()
+                self?.handleUpdateCompletion(error: error)
             }
         }
     }
@@ -144,7 +152,7 @@ class SettingsVC: LoadingViewController {
     }
     
     @objc func handleAgeTextfieldChanged(textField: UITextField) {
-        settingsVM.user?.age = textField.text ?? ""
+        settingsVM.user?.age = Int(textField.text ?? "") ?? 0
     }
 }
 
@@ -206,7 +214,7 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
                     cell.setTextfield(text: settingsVM.user?.breed, ph: "Enter Breed")
                     cell.textfield.addTarget(self, action: #selector(handleBreedTextfieldChanged(textField:)), for: .editingChanged)
                 case 3:
-                    cell.setTextfield(text: settingsVM.user?.age, ph: "Enter Age")
+                    cell.setTextfield(text: "\(settingsVM.user?.age ?? 0)", ph: "Enter Age")
                     cell.textfield.addTarget(self, action: #selector(handleAgeTextfieldChanged(textField:)), for: .editingChanged)
                 default:
                     cell.setTextfield(text: "", ph: "Enter Bio")

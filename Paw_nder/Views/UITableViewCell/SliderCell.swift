@@ -14,11 +14,11 @@ class SliderCell: UITableViewCell {
     let settingsVM = SettingsViewModel.shared
     
     // MARK: - Views
-    private let minLabel = PawLabel(text: "Min: 0", font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
+    private let minLabel = PawLabel(text: "Min: 0", textColor: .darkGray, font: .systemFont(ofSize: 16), alignment: .left)
     private let minSlider = PawSlider(starting: 0, min: 0, max: 1)
     private lazy var minStack = PawStackView(views: [minLabel, minSlider], distribution: .fill, alignment: .fill)
 
-    private let maxLabel = PawLabel(text: "Max: 0", font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
+    private let maxLabel = PawLabel(text: "Max: 0", textColor: .darkGray, font: .systemFont(ofSize: 16), alignment: .left)
     private let maxSlider = PawSlider(starting: 0, min: 0, max: 1)
     private lazy var maxStack = PawStackView(views: [maxLabel, maxSlider], distribution: .fill, alignment: .fill)
 

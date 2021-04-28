@@ -58,7 +58,7 @@ class FirebaseManager {
     
     func saveUserToDB(fullName: String, imageUrlString: String?, completion: @escaping (Result<Bool, Error>) -> Void) {
         let uid = Auth.auth().currentUser?.uid ?? ""
-        let docData: [String: Any] = ["fullName": fullName, "uid": uid, "imageUrlString": [imageUrlString], "actualImageUrls": ["1": imageUrlString]]
+        let docData: [String: Any] = ["fullName": fullName, "uid": uid, "imageUrls": ["1": imageUrlString]]
         Firestore.firestore().collection("users").document(uid).setData(docData) { (error) in
             if let error = error {
                 completion(.failure(error))
@@ -69,12 +69,13 @@ class FirebaseManager {
         }
     }
     
-    func fetchUsers(completion: @escaping (Result<[CardViewModel], Error>) -> Void) {
-        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+    func fetchUsers(currentUser: User, completion: @escaping (Result<[CardViewModel], Error>) -> Void) {
         var users = [User]()
         let usersCollection = Firestore.firestore().collection("users")
-       
-        usersCollection.order(by: "uid").start(after: [lastFetchedUser?.uid ?? ""]).limit(to: 2).getDocuments { [weak self] (snapshots, error) in
+        
+        usersCollection
+            .whereField("age", isGreaterThanOrEqualTo: currentUser.minAgePreference ?? 0)
+            .whereField("age", isLessThanOrEqualTo: (currentUser.maxAgePreference == 0 ? 100 : currentUser.maxAgePreference) ?? 100).getDocuments { [weak self] (snapshots, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -131,7 +132,7 @@ class FirebaseManager {
     
     func updateUser(user: User, completion: @escaping (Error?) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-        let docData: [String: Any] = ["uid": currentUserId, "fullName": user.name, "breed": user.breed ?? "", "age": user.age ?? "", "actualImageUrls": user.imageUrls ?? [0: ""], "minAgePreference": user.minAgePreference ?? 0, "maxAgePreference": user.maxAgePreference ?? 0]
+        let docData: [String: Any] = ["uid": currentUserId, "fullName": user.name, "breed": user.breed ?? "", "age": user.age ?? "", "imageUrls": user.imageUrls ?? [0: ""], "minAgePreference": user.minAgePreference ?? 0, "maxAgePreference": user.maxAgePreference ?? 0]
         
         Firestore.firestore().collection("users").document("\(currentUserId)").setData(docData) { (error) in
             if let error = error {

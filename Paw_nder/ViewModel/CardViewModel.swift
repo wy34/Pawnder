@@ -17,7 +17,6 @@ class CardViewModel {
     
     var firstImageUrl: String {
         guard let imageUrlsDictionary = user.imageUrls else { return "" }
-        print(imageUrlsDictionary["1"] ?? "")
         return imageUrlsDictionary["1"] ?? ""
     }
     
@@ -50,7 +49,7 @@ class CardViewModel {
     
     func setupTextualInformation() -> NSAttributedString {
         let attributedString = NSMutableAttributedString(string: user.name, attributes: [.font: UIFont.systemFont(ofSize: 30, weight: .bold), .foregroundColor: UIColor.white])
-        attributedString.append(NSAttributedString(string: "  \(user.age ?? "")\n", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24, weight: .regular), .foregroundColor: UIColor.white]))
+        attributedString.append(NSAttributedString(string: "  \(user.age ?? 0)\n", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 24, weight: .regular), .foregroundColor: UIColor.white]))
         attributedString.append(NSAttributedString(string: user.breed ?? "N/A", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 22, weight: .regular), .foregroundColor: UIColor.white]))
         return attributedString
     }

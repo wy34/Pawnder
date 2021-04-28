@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class HomeVC: LoadingViewController {
     // MARK: - Properties
@@ -84,6 +85,7 @@ class HomeVC: LoadingViewController {
 extension HomeVC: HomeNavbarStackDelegate {
     func handleUserTapped() {
         let settingsVC = SettingsVC()
+        settingsVC.delegate = self
         let navController = UINavigationController(rootViewController: settingsVC)
         navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true)
@@ -114,5 +116,12 @@ extension HomeVC: HomeBottomControlsStackDelegate {
     
     func handleLightningTapped() {
         
+    }
+}
+
+// MARK: - SettingsVCDelegate
+extension HomeVC: SettingsVCDelegate {
+    func updateCardDeck() {
+        homeViewModel.fetchUsers()
     }
 }
