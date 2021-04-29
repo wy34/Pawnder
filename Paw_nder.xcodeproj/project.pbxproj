@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C3D1A32263A00D100185926 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A31263A00D100185926 /* LoginVC.swift */; };
+		4C3D1A34263A0CAD00185926 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A33263A0CAD00185926 /* GradientView.swift */; };
+		4C3D1A36263A2A4D00185926 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A35263A2A4D00185926 /* LoginViewModel.swift */; };
 		4C49BA8F262E3928006F046B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BA8E262E3928006F046B /* AppDelegate.swift */; };
 		4C49BA91262E3928006F046B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BA90262E3928006F046B /* SceneDelegate.swift */; };
 		4C49BA93262E3928006F046B /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BA92262E3928006F046B /* HomeVC.swift */; };
@@ -50,6 +53,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C3D1A31263A00D100185926 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		4C3D1A33263A0CAD00185926 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		4C3D1A35263A2A4D00185926 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		4C49BA8B262E3928006F046B /* Paw_nder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Paw_nder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C49BA8E262E3928006F046B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C49BA90262E3928006F046B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -170,6 +176,7 @@
 				4C49BA92262E3928006F046B /* HomeVC.swift */,
 				4C5EAD6E2631199200653AE0 /* RegisterVC.swift */,
 				4C63496D2634B258006AE44B /* SettingsVC.swift */,
+				4C3D1A31263A00D100185926 /* LoginVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -284,6 +291,7 @@
 				4C75AE512633C2D900255A7A /* LoadingView.swift */,
 				4CA40BE5262F4DE000B11232 /* CardView.swift */,
 				4C6349702634C26C006AE44B /* ImagePickerHeaderView.swift */,
+				4C3D1A33263A0CAD00185926 /* GradientView.swift */,
 			);
 			path = UIViews;
 			sourceTree = "<group>";
@@ -304,6 +312,7 @@
 				4C75AE3B2633644A00255A7A /* HomeViewModel.swift */,
 				4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */,
 				4C65D8E926320E3000B1F4FB /* RegisterViewModel.swift */,
+				4C3D1A35263A2A4D00185926 /* LoginViewModel.swift */,
 				4CC677452637BCFF00C321E3 /* SettingsViewModel.swift */,
 			);
 			path = ViewModel;
@@ -440,6 +449,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C3D1A34263A0CAD00185926 /* GradientView.swift in Sources */,
 				4C49BAA8262E3A74006F046B /* UIView.swift in Sources */,
 				4CF953912639056800D80587 /* SliderCell.swift in Sources */,
 				4C49BACD262E84B0006F046B /* HomeNavbarStack.swift in Sources */,
@@ -447,6 +457,7 @@
 				4C49BAC9262E8191006F046B /* Constants.swift in Sources */,
 				4C49BAB7262E3BF9006F046B /* PawLabel.swift in Sources */,
 				4C75AE492633963C00255A7A /* Credentials.swift in Sources */,
+				4C3D1A36263A2A4D00185926 /* LoginViewModel.swift in Sources */,
 				4C634982263519C6006AE44B /* LoadingButton.swift in Sources */,
 				4C49BA93262E3928006F046B /* HomeVC.swift in Sources */,
 				4C75AE3C2633644A00255A7A /* HomeViewModel.swift in Sources */,
@@ -463,6 +474,7 @@
 				4CA40BE6262F4DE000B11232 /* CardView.swift in Sources */,
 				4CF953932639062D00D80587 /* PawSlider.swift in Sources */,
 				4C5EAD6F2631199200653AE0 /* RegisterVC.swift in Sources */,
+				4C3D1A32263A00D100185926 /* LoginVC.swift in Sources */,
 				4C65D965263275D400B1F4FB /* UIViewController.swift in Sources */,
 				4C75AE402633819B00255A7A /* UIImageView.swift in Sources */,
 				4C75AE44263394AD00255A7A /* FirebaseManager.swift in Sources */,

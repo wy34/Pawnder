@@ -15,7 +15,10 @@ class RegisterVC: LoadingViewController {
     let profileImageViewSizeMultiplier: CGFloat = 0.5
     
     // MARK: - Views
-    private let backgroundFillerView = PawView(bgColor: bgWhite)
+    private let backgroundGradientView = GradientView()
+    
+    private let iconImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
+
     private let profileImageViewBorder = PawView(bgColor: lightGray)
     private let profileImageView = ProfileImageView()
     private let slideupView = PawView(bgColor: bgWhite, cornerRadius: 35)
@@ -25,7 +28,7 @@ class RegisterVC: LoadingViewController {
     private let emailTextField = PawTextField(placeholder: "Email")
     private let passwordTextField = PawTextField(placeholder: "Password")
     
-    private let alreadyHaveAccountButton = PawButton(title: "Already have an account?", textColor: lightRed, font: UIFont.systemFont(ofSize: 16, weight: .medium))
+    private let alreadyHaveAccountButton = PawButton(title: "Already have an account?", textColor: lightRed, font: UIFont.systemFont(ofSize: 16, weight: .bold))
     private let registerButton = PawButton(title: "Sign Up", textColor: .lightGray, font: UIFont.systemFont(ofSize: 16, weight: .bold))
     private lazy var buttonStack = PawStackView(views: [alreadyHaveAccountButton, registerButton], spacing: 15, alignment: .fill)
     
@@ -44,7 +47,6 @@ class RegisterVC: LoadingViewController {
 
     // MARK: - Helpers
     private func configureUI() {
-        view.backgroundColor = lightRed
         profileImageView.clipsToBounds = true
         profileImageViewBorder.layer.cornerRadius = UIScreen.main.bounds.width * profileImageViewBorderSizeMultiplier / 2
         profileImageView.layer.cornerRadius = UIScreen.main.bounds.width * profileImageViewSizeMultiplier / 2
@@ -55,10 +57,16 @@ class RegisterVC: LoadingViewController {
         nameTextField.addBorderTo(side: .bottom, bgColor: lightGray, dimension: 1)
         emailTextField.addBorderTo(side: .bottom, bgColor: lightGray, dimension: 1)
         passwordTextField.addBorderTo(side: .bottom, bgColor: lightGray, dimension: 1)
+        passwordTextField.isSecureTextEntry = true
     }
     
     private func layoutUI() {
-        view.addSubviews(profileImageViewBorder, profileImageView, backgroundFillerView, slideupView)
+        view.addSubviews(backgroundGradientView, iconImageView, profileImageViewBorder, profileImageView, slideupView)
+        backgroundGradientView.fill(superView: view)
+        
+        iconImageView.center(to: view, by: .centerX)
+        iconImageView.center(to: view, by: .centerY, withMultiplierOf: 0.2)
+        iconImageView.setDimension(wConst: 45, hConst: 45)
         
         profileImageViewBorder.center(to: view, by: .centerX)
         profileImageViewBorder.center(to: view, by: .centerY, withMultiplierOf: 0.6)
@@ -68,15 +76,13 @@ class RegisterVC: LoadingViewController {
         profileImageView.center(to: view, by: .centerY, withMultiplierOf: 0.6)
         profileImageView.makePerfectSquare(anchor: view.widthAnchor, multiplier: profileImageViewSizeMultiplier)
 
-        backgroundFillerView.anchor(trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor)
-        backgroundFillerView.setDimension(height: view.heightAnchor, hMult: 0.45)
         slideupView.anchor(trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor)
         slideupView.setDimension(height: view.heightAnchor, hMult: 0.5)
         
         slideupView.addSubview(formStack)
         formStack.center(x: slideupView.centerXAnchor, y: slideupView.centerYAnchor)
         formStack.setDimension(width: slideupView.widthAnchor, height: slideupView.heightAnchor, wMult: 0.8, hMult: 0.8)
-        registerButton.setDimension(width: formStack.widthAnchor, wMult: 0.3)
+        registerButton.setDimension(width: formStack.widthAnchor, wMult: 0.28)
     }
     
     private func setupKeyboardListener() {
@@ -90,6 +96,7 @@ class RegisterVC: LoadingViewController {
         emailTextField.addTarget(self, action: #selector(handleTextfieldChanged), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(handleTextfieldChanged), for: .editingChanged)
         registerButton.addTarget(self, action: #selector(handleSignUpTapped), for: .touchUpInside)
+        alreadyHaveAccountButton.addTarget(self, action: #selector(handleAlreadyHaveAccountTapped), for: .touchUpInside)
     }
     
     private func setupSwipeGesture() {
@@ -155,6 +162,10 @@ class RegisterVC: LoadingViewController {
                     self.showAlert(title: "Error", message: error.localizedDescription)
             }
         }
+    }
+    
+    @objc func handleAlreadyHaveAccountTapped() {
+        navigationController?.popViewController(animated: true)
     }
 }
 

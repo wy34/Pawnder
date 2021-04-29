@@ -79,4 +79,8 @@ class SettingsViewModel {
         }
     }
 
+    func logoutUser(completion: @escaping () -> Void) {
+        try? Auth.auth().signOut()
+        completion()
+    }
 }

@@ -28,11 +28,9 @@ class HomeVC: LoadingViewController {
         super.viewDidLoad()
         layoutUI()
         configureUI()
-        createCardDeck()
-        setupFetchObserver()
-        homeViewModel.fetchUsers()
+        setupAuthStateChangeListener()
     }
-
+    
     // MARK: - Helpers
     private func configureUI() {
         view.backgroundColor = bgWhite
@@ -54,6 +52,30 @@ class HomeVC: LoadingViewController {
         bottomControlsView.addSubview(bottomControlsStack)
         bottomControlsStack.center(to: bottomControlsView, by: .centerY, withMultiplierOf: 0.75)
         bottomControlsStack.anchor(trailing: bottomControlsView.trailingAnchor, leading: bottomControlsView.leadingAnchor)
+    }
+    
+    func setupAuthStateChangeListener() {
+        Auth.auth().addStateDidChangeListener { [weak self] auth, user in
+            if let _ = user {
+                self?.setupHomeContent()
+            } else {
+                self?.presentLoginScreen()
+            }
+        }
+    }
+    
+    func setupHomeContent() {
+        createCardDeck()
+        setupFetchObserver()
+        homeViewModel.fetchUsers()
+    }
+    
+    func presentLoginScreen() {
+        let loginVC = LoginVC()
+        let navContoller = UINavigationController(rootViewController: loginVC)
+        navContoller.modalPresentationStyle = .fullScreen
+        navContoller.modalTransitionStyle = .crossDissolve
+        self.present(navContoller, animated: true, completion: nil)
     }
     
     func setupFetchObserver() {

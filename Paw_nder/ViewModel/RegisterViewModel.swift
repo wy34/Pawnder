@@ -20,6 +20,7 @@ class RegisterViewModel {
         return fullName != "" && email != "" && password != ""
     }
     
+    
     // MARK: - Helpers
     func registerUser(completion: @escaping (Result<Bool, Error>) -> Void) {
         let credentials = Credentials(fullName: fullName, email: email, password: password, profileImage: bindableImage.value)

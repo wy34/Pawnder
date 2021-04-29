@@ -119,7 +119,9 @@ class SettingsVC: LoadingViewController {
     }
     
     @objc func handleLogoutTapped() {
-
+        settingsVM.logoutUser { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func handleSelectPhotoTapped(notification: Notification) {
@@ -230,6 +232,7 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
             logoutButton.backgroundColor = lightRed
             cell.contentView.addSubview(logoutButton)
             logoutButton.fill(superView: cell)
+            logoutButton.addTarget(self, action: #selector(handleLogoutTapped), for: .touchUpInside)
             return cell
         }
     }
