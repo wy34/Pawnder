@@ -16,8 +16,8 @@ class LoginViewModel {
         return email != "" && password != ""
     }
     
-    var formButtonColor: UIColor {
-        return isFormValid ? .black : .lightGray
+    var formButtonColor: (bgColor: UIColor, textColor: UIColor) {
+        return isFormValid ? (lightRed, .white) : (.lightGray, .gray)
     }
     
     func loginUser(completion: @escaping (Error?) -> Void) {

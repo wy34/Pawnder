@@ -20,6 +20,9 @@ class RegisterViewModel {
         return fullName != "" && email != "" && password != ""
     }
     
+    var formButtonColor: (bgColor: UIColor, textColor: UIColor) {
+        return isFormValid ? (lightRed, .white) : (.lightGray, .gray)
+    }
     
     // MARK: - Helpers
     func registerUser(completion: @escaping (Result<Bool, Error>) -> Void) {

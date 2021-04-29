@@ -25,6 +25,11 @@ let bob3 = "bob3"
 let bob4 = "bob4"
 let vikram1 = "vikram1"
 
+// MARK: - SF Symbols
+let person = UIImage(systemName: "person")!
+let envelope = UIImage(systemName: "envelope")!
+let lock = UIImage(systemName: "lock")!
+
 // MARK: - Colors
 let bgWhite = #colorLiteral(red: 0.9968960881, green: 0.9921532273, blue: 1, alpha: 1)
 let lightGray = #colorLiteral(red: 0.8566066027, green: 0.8525324464, blue: 0.8597565293, alpha: 1)

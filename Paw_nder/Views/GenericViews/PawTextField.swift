@@ -26,4 +26,13 @@ class PawTextField: UITextField {
         self.backgroundColor = bgColor
         self.layer.cornerRadius = cornerRadius
     }
+    
+    init(placeholder: String, bgColor: UIColor = .clear, font: UIFont) {
+        super.init(frame: .zero)
+        self.placeholder = placeholder
+        self.backgroundColor = bgColor
+        self.font = font
+    }
+    
+    
 }

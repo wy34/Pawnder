@@ -17,10 +17,10 @@ class LoginVC: LoadingViewController {
     private let iconImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
     private let containerView = PawView(bgColor: .white, cornerRadius: 35)
     private let titleLabel = PawLabel(text: "Login", font: .systemFont(ofSize: 30, weight: .bold), alignment: .left)
-    private let emailTextField = PawTextField(placeholder: "Email")
-    private let passwordTextField = PawTextField(placeholder: "Password")
-    private let newUserButton = PawButton(title: "New User?", textColor: lightRed, font: UIFont.systemFont(ofSize: 16, weight: .bold))
-    private let loginButton = PawButton(title: "Login", textColor: .lightGray, font: UIFont.systemFont(ofSize: 16, weight: .bold))
+    private let emailTextField = IconTextfield(placeholder: "Email", font: .systemFont(ofSize: 16, weight: .medium), icon: envelope)
+    private let passwordTextField = IconTextfield(placeholder: "Password", font: .systemFont(ofSize: 16, weight: .medium), icon: lock)
+    private let newUserButton = PawButton(title: "New User?", textColor: .lightGray, font: UIFont.systemFont(ofSize: 16, weight: .bold))
+    private let loginButton = PawButton(title: "Login", textColor: .gray, font: UIFont.systemFont(ofSize: 16, weight: .bold))
     private lazy var buttonStack = PawStackView(views: [newUserButton, loginButton], spacing: 15, distribution: .fillEqually)
     private lazy var formStack = PawStackView(views: [titleLabel, emailTextField, passwordTextField, buttonStack], spacing: 18, axis: .vertical, distribution: .fillEqually, alignment: .fill)
     
@@ -35,11 +35,13 @@ class LoginVC: LoadingViewController {
     // MARK: - Helpers
     func configureUI() {
         navigationController?.setNavigationBarHidden(true, animated: true)
-        emailTextField.addBorderTo(side: .bottom, bgColor: lightGray, dimension: 1)
-        passwordTextField.addBorderTo(side: .bottom, bgColor: lightGray, dimension: 1)
+        emailTextField.addBorderTo(side: .bottom, bgColor: lightGray, dimension: 2)
+        passwordTextField.addBorderTo(side: .bottom, bgColor: lightGray, dimension: 2)
         passwordTextField.isSecureTextEntry = true
-        loginButton.contentHorizontalAlignment = .right
+        loginButton.contentHorizontalAlignment = .center
         loginButton.isEnabled = false
+        loginButton.backgroundColor = .lightGray
+        loginButton.layer.cornerRadius = 10
         newUserButton.contentHorizontalAlignment = .left
     }
     
@@ -48,7 +50,7 @@ class LoginVC: LoadingViewController {
         gradientView.fill(superView: view)
         
         iconImageView.center(to: view, by: .centerX)
-        iconImageView.center(to: view, by: .centerY, withMultiplierOf: 0.2)
+        iconImageView.center(to: view, by: .centerY, withMultiplierOf: 0.175)
         iconImageView.setDimension(wConst: 45, hConst: 45)
         
         containerView.setDimension(width: view.widthAnchor, height: view.heightAnchor, wMult: 0.8, hMult: 0.3)
@@ -74,6 +76,7 @@ class LoginVC: LoadingViewController {
     }
     
     @objc func handleNewUserTapped() {
+        view.endEditing(true)
         navigationController?.pushViewController(RegisterVC(), animated: true)
     }
     
@@ -99,6 +102,7 @@ class LoginVC: LoadingViewController {
         }
         
         loginButton.isEnabled = loginVM.isFormValid
-        loginButton.setTitleColor(loginVM.formButtonColor, for: .normal)
+        loginButton.backgroundColor = loginVM.formButtonColor.bgColor
+        loginButton.setTitleColor(loginVM.formButtonColor.textColor, for: .normal)
     }
 }
