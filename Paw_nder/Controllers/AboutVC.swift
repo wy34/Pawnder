@@ -9,6 +9,12 @@ import UIKit
 
 class AboutVC: UIViewController {
     // MARK: - Properties
+    var aboutVM: AboutViewModel? {
+        didSet {
+            guard let aboutVM = aboutVM else { return }
+            userImageView.setImage(imageUrlString: aboutVM.firstImageUrl, completion: nil)
+        }
+    }
     
     // MARK: - Views
     private lazy var scrollView: UIScrollView = {
@@ -36,7 +42,6 @@ class AboutVC: UIViewController {
     // MARK: - Helpers
     func configureUI() {
         bioLabel.numberOfLines = 0
-        bioLabel.backgroundColor = .red
         dismissButton.backgroundColor = .white.withAlphaComponent(0.5)
         dismissButton.layer.cornerRadius = 35/2
         dismissButton.addTarget(self, action: #selector(handleDismissTapped), for: .touchUpInside)
@@ -46,7 +51,7 @@ class AboutVC: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         scrollView.fill(superView: view)
-        contentView.anchor(top: scrollView.topAnchor, trailing: scrollView.trailingAnchor, bottom: scrollView.bottomAnchor, leading: scrollView.leadingAnchor)
+        contentView.fill(superView: scrollView)
         contentView.setDimension(width: scrollView.widthAnchor, height: scrollView.heightAnchor, hMult: 1.25)
     }
     
@@ -70,7 +75,7 @@ class AboutVC: UIViewController {
 // MARK: - UIScrollViewDelegate
 extension AboutVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let changeY = -scrollView.contentOffset.y
+        let changeY = -scrollView.contentOffset.y 
         var width = view.frame.width + changeY * 2
         width = max(view.frame.width, width)
         userImageView.frame = .init(x: min(0, -changeY), y: min(0, -changeY), width: width, height: width)

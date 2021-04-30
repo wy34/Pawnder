@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CardViewDelegate: AnyObject {
-    func showAboutVC()
+    func showAboutVC(cardViewModel: CardViewModel?)
 }
 
 class CardView: LoadingView {
@@ -144,6 +144,6 @@ class CardView: LoadingView {
     }
     
     @objc private func handleAboutTapped() {
-        delegate?.showAboutVC()
+        delegate?.showAboutVC(cardViewModel: cardVM)
     }
 }

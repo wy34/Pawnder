@@ -151,9 +151,9 @@ extension HomeVC: SettingsVCDelegate {
 
 // MARK: - CardViewDelegate
 extension HomeVC: CardViewDelegate {
-    func showAboutVC() {
+    func showAboutVC(cardViewModel: CardViewModel?) {
         let aboutVC = AboutVC()
-//        let navController = UINavigationController(rootViewController: aboutVC)
+        aboutVC.aboutVM = AboutViewModel(cardViewModel: cardViewModel)
         aboutVC.modalPresentationStyle = .fullScreen
         present(aboutVC, animated: true, completion: nil)
     }

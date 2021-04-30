@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4C2E7C9A263BA66000DDA4E5 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2E7C99263BA66000DDA4E5 /* AboutVC.swift */; };
+		4C2E7C9C263BC1DD00DDA4E5 /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2E7C9B263BC1DD00DDA4E5 /* AboutViewModel.swift */; };
 		4C3D1A32263A00D100185926 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A31263A00D100185926 /* LoginVC.swift */; };
 		4C3D1A34263A0CAD00185926 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A33263A0CAD00185926 /* GradientView.swift */; };
 		4C3D1A36263A2A4D00185926 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A35263A2A4D00185926 /* LoginViewModel.swift */; };
@@ -56,6 +57,7 @@
 
 /* Begin PBXFileReference section */
 		4C2E7C99263BA66000DDA4E5 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
+		4C2E7C9B263BC1DD00DDA4E5 /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
 		4C3D1A31263A00D100185926 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		4C3D1A33263A0CAD00185926 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		4C3D1A35263A2A4D00185926 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				4C65D8E926320E3000B1F4FB /* RegisterViewModel.swift */,
 				4C3D1A35263A2A4D00185926 /* LoginViewModel.swift */,
 				4CC677452637BCFF00C321E3 /* SettingsViewModel.swift */,
+				4C2E7C9B263BC1DD00DDA4E5 /* AboutViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				4C49BAC9262E8191006F046B /* Constants.swift in Sources */,
 				4C49BAB7262E3BF9006F046B /* PawLabel.swift in Sources */,
 				4C75AE492633963C00255A7A /* Credentials.swift in Sources */,
+				4C2E7C9C263BC1DD00DDA4E5 /* AboutViewModel.swift in Sources */,
 				4C3D1A36263A2A4D00185926 /* LoginViewModel.swift in Sources */,
 				4C634982263519C6006AE44B /* LoadingButton.swift in Sources */,
 				4C49BA93262E3928006F046B /* HomeVC.swift in Sources */,
