@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol CardViewDelegate: AnyObject {
+    func showAboutVC()
+}
+
 class CardView: LoadingView {
     // MARK: - Properties
     private var cardVM: CardViewModel?
     private var selectedBarColor = UIColor.white
     private var deselectedBarColor = #colorLiteral(red: 0.817677021, green: 0.8137882352, blue: 0.8206836581, alpha: 0.5)
+    
+    weak var delegate: CardViewDelegate?
     
     // MARK: - Views
     private let imagePageBar = PawStackView(views: [], spacing: 5, distribution: .fillEqually, alignment: .fill)
@@ -46,6 +52,7 @@ class CardView: LoadingView {
     private func configureUI() {
         cardImageView.layer.cornerRadius = 15
         cardImageView.backgroundColor = .white
+        aboutButton.addTarget(self, action: #selector(handleAboutTapped), for: .touchUpInside)
     }
     
     private func layoutUI() {
@@ -134,5 +141,9 @@ class CardView: LoadingView {
                 }
             }
         }
+    }
+    
+    @objc private func handleAboutTapped() {
+        delegate?.showAboutVC()
     }
 }

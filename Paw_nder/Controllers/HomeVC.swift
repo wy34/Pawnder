@@ -92,6 +92,7 @@ class HomeVC: LoadingViewController {
         
         homeViewModel.cardViewModels.forEach({ cardVM in
             let cardView = CardView()
+            cardView.delegate = self
             cardView.setupCardWith(cardVM: cardVM)
             cardViews.append(cardView)
         })
@@ -145,5 +146,15 @@ extension HomeVC: HomeBottomControlsStackDelegate {
 extension HomeVC: SettingsVCDelegate {
     func updateCardDeck() {
         homeViewModel.fetchUsers()
+    }
+}
+
+// MARK: - CardViewDelegate
+extension HomeVC: CardViewDelegate {
+    func showAboutVC() {
+        let aboutVC = AboutVC()
+//        let navController = UINavigationController(rootViewController: aboutVC)
+        aboutVC.modalPresentationStyle = .fullScreen
+        present(aboutVC, animated: true, completion: nil)
     }
 }

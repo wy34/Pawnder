@@ -72,6 +72,7 @@ class FirebaseManager {
     func fetchUsers(currentUser: User, completion: @escaping (Result<[CardViewModel], Error>) -> Void) {
         var users = [User]()
         let usersCollection = Firestore.firestore().collection("users")
+        let currentUserId = Auth.auth().currentUser?.uid
         
         usersCollection
             .whereField("age", isGreaterThanOrEqualTo: currentUser.minAgePreference ?? 0)
@@ -84,8 +85,10 @@ class FirebaseManager {
             snapshots?.documents.forEach({ (snapshot) in
                 let snapshotData = snapshot.data()
                 let user = User(dictionary: snapshotData)
-                self?.lastFetchedUser = user
-                users.append(user)
+                if user.uid != currentUserId {
+                    self?.lastFetchedUser = user
+                    users.append(user)
+                }
             })
             
             let cardViewModels = users.map({ $0.toCardViewModel() })

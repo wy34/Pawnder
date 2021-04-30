@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C2E7C9A263BA66000DDA4E5 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2E7C99263BA66000DDA4E5 /* AboutVC.swift */; };
 		4C3D1A32263A00D100185926 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A31263A00D100185926 /* LoginVC.swift */; };
 		4C3D1A34263A0CAD00185926 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A33263A0CAD00185926 /* GradientView.swift */; };
 		4C3D1A36263A2A4D00185926 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A35263A2A4D00185926 /* LoginViewModel.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C2E7C99263BA66000DDA4E5 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 		4C3D1A31263A00D100185926 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		4C3D1A33263A0CAD00185926 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		4C3D1A35263A2A4D00185926 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				4C5EAD6E2631199200653AE0 /* RegisterVC.swift */,
 				4C63496D2634B258006AE44B /* SettingsVC.swift */,
 				4C3D1A31263A00D100185926 /* LoginVC.swift */,
+				4C2E7C99263BA66000DDA4E5 /* AboutVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				4C3D1A38263A586E00185926 /* IconTextfields.swift in Sources */,
 				4C75AE44263394AD00255A7A /* FirebaseManager.swift in Sources */,
 				4C49BAC1262E3D79006F046B /* PawButton.swift in Sources */,
+				4C2E7C9A263BA66000DDA4E5 /* AboutVC.swift in Sources */,
 				4CC677462637BCFF00C321E3 /* SettingsViewModel.swift in Sources */,
 				4C49BA91262E3928006F046B /* SceneDelegate.swift in Sources */,
 				4C49BAC5262E7CE7006F046B /* HomeBottomControlsStack.swift in Sources */,
