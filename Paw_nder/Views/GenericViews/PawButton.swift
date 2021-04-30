@@ -37,6 +37,13 @@ class PawButton: UIButton {
         self.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
     }
     
+    init(image: UIImage, tintColor: UIColor, font: UIFont) {
+        super.init(frame: .zero)
+        self.init(type: .system)
+        self.tintColor = tintColor
+        self.setImage(image.applyingSymbolConfiguration(.init(font: font))!.withRenderingMode(.alwaysTemplate), for: .normal)
+    }
+    
     init(title: String, textColor: UIColor = .black, font: UIFont) {
         super.init(frame: .zero)
         self.init(type: .system)

@@ -29,6 +29,7 @@ let vikram1 = "vikram1"
 let person = UIImage(systemName: "person")!
 let envelope = UIImage(systemName: "envelope")!
 let lock = UIImage(systemName: "lock")!
+let info = UIImage(systemName: "info.circle")!
 
 // MARK: - Colors
 let bgWhite = #colorLiteral(red: 0.9968960881, green: 0.9921532273, blue: 1, alpha: 1)

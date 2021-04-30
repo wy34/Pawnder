@@ -18,6 +18,7 @@ class CardView: LoadingView {
     private let cardImageView = PawImageView(image: UIImage(), contentMode: .scaleAspectFill)
     private let infoLabel = PawLabel(attributedText: .init())
     private let temporaryCoverView = PawView(bgColor: lightGray, cornerRadius: 15)
+    private let aboutButton = PawButton(image: info, tintColor: .white, font: UIFont.systemFont(ofSize: 30, weight: .bold))
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -48,12 +49,16 @@ class CardView: LoadingView {
     }
     
     private func layoutUI() {
-        addSubviews(cardImageView, temporaryCoverView)
+        addSubviews(cardImageView, temporaryCoverView, aboutButton)
         cardImageView.fill(superView: self, withPaddingOnAllSides: 15)
         temporaryCoverView.fill(superView: self, withPaddingOnAllSides: 15)
 
         cardImageView.addSubviews(infoLabel, imagePageBar)
-        infoLabel.anchor(trailing: cardImageView.trailingAnchor, bottom: cardImageView.bottomAnchor, leading: cardImageView.leadingAnchor, paddingTrailing: 20, paddingBottom: 20, paddingLeading: 20)
+        infoLabel.anchor(bottom: cardImageView.bottomAnchor, leading: cardImageView.leadingAnchor, paddingTrailing: 20, paddingBottom: 20, paddingLeading: 20)
+        infoLabel.setDimension(width: cardImageView.widthAnchor, wMult: 0.7)
+        
+        aboutButton.anchor(trailing: cardImageView.trailingAnchor, leading: infoLabel.trailingAnchor, paddingTrailing: 20, paddingLeading: 20)
+        aboutButton.center(to: infoLabel, by: .centerY)
         
         imagePageBar.anchor(top: cardImageView.topAnchor, trailing: cardImageView.trailingAnchor, leading: cardImageView.leadingAnchor, paddingTop: 10, paddingTrailing: 10, paddingLeading: 10)
         imagePageBar.setDimension(hConst: 5)
