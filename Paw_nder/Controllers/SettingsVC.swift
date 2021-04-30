@@ -156,6 +156,10 @@ class SettingsVC: LoadingViewController {
     @objc func handleAgeTextfieldChanged(textField: UITextField) {
         settingsVM.user?.age = Int(textField.text ?? "") ?? 0
     }
+    
+    @objc func handleBioTextfieldChanged(textField: UITextField) {
+        settingsVM.user?.bio = textField.text ?? ""
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -219,7 +223,8 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
                     cell.setTextfield(text: "\(settingsVM.user?.age ?? 0)", ph: "Enter Age")
                     cell.textfield.addTarget(self, action: #selector(handleAgeTextfieldChanged(textField:)), for: .editingChanged)
                 default:
-                    cell.setTextfield(text: "", ph: "Enter Bio")
+                    cell.setTextfield(text: "\(settingsVM.user?.bio ?? "")", ph: "Enter Bio")
+                    cell.textfield.addTarget(self, action: #selector(handleBioTextfieldChanged(textField:)), for: .editingChanged)
             }
             return cell
         } else if indexPath.section == 5 {

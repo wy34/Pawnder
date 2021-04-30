@@ -27,6 +27,10 @@ class CardViewModel {
         return imageUrlsDictionary.count == 0 ? [""] : sortedUrls
     }
     
+    var userInfo: (name: String, age: Int?, breed: String?) {
+        return (user.name, user.age, user.breed)
+    }
+    
     var infoText: NSAttributedString {
         return setupTextualInformation()
     }

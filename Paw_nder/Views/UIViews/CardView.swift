@@ -64,8 +64,7 @@ class CardView: LoadingView {
         infoLabel.anchor(bottom: cardImageView.bottomAnchor, leading: cardImageView.leadingAnchor, paddingTrailing: 20, paddingBottom: 20, paddingLeading: 20)
         infoLabel.setDimension(width: cardImageView.widthAnchor, wMult: 0.7)
         
-        aboutButton.anchor(trailing: cardImageView.trailingAnchor, leading: infoLabel.trailingAnchor, paddingTrailing: 20, paddingLeading: 20)
-        aboutButton.center(to: infoLabel, by: .centerY)
+        aboutButton.anchor(trailing: cardImageView.trailingAnchor, bottom: cardImageView.bottomAnchor, leading: infoLabel.trailingAnchor, paddingTrailing: 20, paddingBottom: 20, paddingLeading: 20)
         
         imagePageBar.anchor(top: cardImageView.topAnchor, trailing: cardImageView.trailingAnchor, leading: cardImageView.leadingAnchor, paddingTop: 10, paddingTrailing: 10, paddingLeading: 10)
         imagePageBar.setDimension(hConst: 5)

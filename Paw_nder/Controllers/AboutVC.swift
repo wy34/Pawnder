@@ -12,7 +12,8 @@ class AboutVC: UIViewController {
     var aboutVM: AboutViewModel? {
         didSet {
             guard let aboutVM = aboutVM else { return }
-            userImageView.setImage(imageUrlString: aboutVM.firstImageUrl, completion: nil)
+            imagePagingVC.setupImages(aboutVM: aboutVM)
+            nameLabel.text = aboutVM.userInfo.name
         }
     }
     
@@ -20,7 +21,6 @@ class AboutVC: UIViewController {
     private lazy var scrollView: UIScrollView = {
         let sv = UIScrollView()
         sv.backgroundColor = .white
-        sv.alwaysBounceVertical = true
         sv.contentInsetAdjustmentBehavior = .never
         sv.delegate = self
         return sv
@@ -28,9 +28,9 @@ class AboutVC: UIViewController {
     
     private let contentView = PawView(bgColor: .blue)
     
-    private let dismissButton = PawButton(image: downArrow, tintColor: .darkGray, font: .boldSystemFont(ofSize: 16))
-    private let userImageView = PawImageView(image: UIImage(named: bob4)!, contentMode: .scaleAspectFill)
-    private let bioLabel = PawLabel(text: "klfjwie skfj sfij wei fiejw iorj isjf oewj f wiejowi fj ifj woejwoie  wie fiwje fowjef oiw oiw ejoiw ewi eji weijowie joiw iwje owij wiej oiw ej wijoe iwje owije oiwje  iwj wjeiojw eojowje klfjwie skfj sfij wei fiejw iorj isjf oewj f wiejowi fj ifj woejwoie  wie fiwje fowjef oiw oiw ejoiw ewi eji weijowie joiw iwje owij wiej oiw ej wijoe iwje owije oiwje  iwj wjeiojw eojowje klfjwie skfj sfij wei fiejw iorj isjf oewj f wiejowi fj ifj woejwoie  wie fiwje fowjef oiw oiw ejoiw ewi eji weijowie joiw iwje owij wiej oiw ej wijoe iwje owije oiwje  iwj wjeiojw eojowje", font: .systemFont(ofSize: 16, weight: .medium))
+    private let dismissButton = PawButton(image: downArrow, tintColor: .darkGray, font: .boldSystemFont(ofSize: 18))
+    private let imagePagingVC = PagingController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
+    private let nameLabel = PawLabel(text: "", font: .systemFont(ofSize: 16, weight: .medium))
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -39,31 +39,34 @@ class AboutVC: UIViewController {
         configureUI()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        imagePagingVC.view.frame = .init(x: 0, y: 0, width: view.frame.width, height: view.frame.width)
+    }
+    
     // MARK: - Helpers
     func configureUI() {
-        bioLabel.numberOfLines = 0
-        dismissButton.backgroundColor = .white.withAlphaComponent(0.5)
+        dismissButton.backgroundColor = .white.withAlphaComponent(0.75)
         dismissButton.layer.cornerRadius = 35/2
         dismissButton.addTarget(self, action: #selector(handleDismissTapped), for: .touchUpInside)
+        nameLabel.backgroundColor = .red
     }
     
     func layoutScrollView() {
         view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
         scrollView.fill(superView: view)
+        scrollView.addSubview(contentView)
         contentView.fill(superView: scrollView)
         contentView.setDimension(width: scrollView.widthAnchor, height: scrollView.heightAnchor, hMult: 1.25)
     }
     
     func layoutUI() {
         layoutScrollView()
-        
-        contentView.addSubviews(userImageView, dismissButton, bioLabel)
-        userImageView.frame = .init(x: 0, y: 0, width: view.frame.width, height: view.frame.width)
+        contentView.addSubviews(imagePagingVC.view, dismissButton, nameLabel)
         dismissButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, paddingLeading: 20)
         dismissButton.setDimension(wConst: 35, hConst: 35)
-        bioLabel.anchor(top: userImageView.bottomAnchor, trailing: view.trailingAnchor, leading: view.leadingAnchor)
-        bioLabel.setDimension(hConst: 600)
+        nameLabel.anchor(top: imagePagingVC.view.bottomAnchor, trailing: view.trailingAnchor, leading: view.leadingAnchor)
+        nameLabel.setDimension(hConst: 100)
     }
     
     // MARK: - Selector
@@ -78,6 +81,6 @@ extension AboutVC: UIScrollViewDelegate {
         let changeY = -scrollView.contentOffset.y 
         var width = view.frame.width + changeY * 2
         width = max(view.frame.width, width)
-        userImageView.frame = .init(x: min(0, -changeY), y: min(0, -changeY), width: width, height: width)
+        imagePagingVC.view.frame = .init(x: min(0, -changeY), y: min(0, -changeY), width: width, height: width)
     }
 }

@@ -17,4 +17,12 @@ class AboutViewModel {
     var firstImageUrl: String {
         return cardViewModel?.firstImageUrl ?? ""
     }
+    
+    var imageUrls: [String] {
+        return cardViewModel?.imageUrls ?? [""]
+    }
+    
+    var userInfo: (name: String, age: Int?, breed: String?) {
+        return cardViewModel!.userInfo
+    }
 }

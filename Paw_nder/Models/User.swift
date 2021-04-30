@@ -12,6 +12,7 @@ struct User {
     var name: String
     var age: Int?
     var breed: String?
+    var bio: String?
     var imageUrls: [String: String]?
     var minAgePreference: Int?
     var maxAgePreference: Int?
@@ -21,6 +22,7 @@ struct User {
         self.name = dictionary["fullName"] as? String ?? ""
         self.age = dictionary["age"] as? Int ?? 0
         self.breed = dictionary["breed"] as? String ?? "N/A"
+        self.bio = dictionary["bio"] as? String ?? "N/A"
         self.imageUrls = dictionary["imageUrls"] as? [String: String]
         self.minAgePreference = dictionary["minAgePreference"] as? Int
         self.maxAgePreference = dictionary["maxAgePreference"] as? Int
