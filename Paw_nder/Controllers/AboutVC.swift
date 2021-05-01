@@ -1,8 +1,8 @@
 //
-//  AboutVC.swift
+//  Scroll.swift
 //  Paw_nder
 //
-//  Created by William Yeung on 4/29/21.
+//  Created by William Yeung on 4/30/21.
 //
 
 import UIKit
@@ -13,47 +13,34 @@ class AboutVC: UIViewController {
         didSet {
             guard let aboutVM = aboutVM else { return }
             imagePagingVC.setupImages(aboutVM: aboutVM)
-            nameLabel.text = aboutVM.userInfo.name
+            label.text = aboutVM.userInfo.name
         }
     }
-    
+
     // MARK: - Views
-    private lazy var scrollView: UIScrollView = {
+    lazy var scrollView: UIScrollView = {
         let sv = UIScrollView()
-        sv.backgroundColor = .white
-        sv.contentInsetAdjustmentBehavior = .never
-        sv.delegate = self
+        sv.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
         return sv
     }()
     
     private let contentView = PawView(bgColor: .blue)
-    
     private let dismissButton = PawButton(image: downArrow, tintColor: .darkGray, font: .boldSystemFont(ofSize: 18))
+    private let label = PawLabel(text: "", textColor: .white, font: .systemFont(ofSize: 16, weight: .semibold), alignment: .left)
+    private let headerContainerView = PawView(bgColor: .gray)
     private let imagePagingVC = PagingController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
-    private let nameLabel = PawLabel(text: "", font: .systemFont(ofSize: 16, weight: .medium))
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        layoutScrollView()
         layoutUI()
         configureUI()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        imagePagingVC.view.frame = .init(x: 0, y: 0, width: view.frame.width, height: view.frame.width)
-    }
-    
     // MARK: - Helpers
-    func configureUI() {
-        dismissButton.backgroundColor = .white.withAlphaComponent(0.75)
-        dismissButton.layer.cornerRadius = 35/2
-        dismissButton.addTarget(self, action: #selector(handleDismissTapped), for: .touchUpInside)
-        nameLabel.backgroundColor = .red
-    }
-    
     func layoutScrollView() {
-        view.addSubview(scrollView)
+        view.addSubviews(scrollView)
         scrollView.fill(superView: view)
         scrollView.addSubview(contentView)
         contentView.fill(superView: scrollView)
@@ -61,26 +48,27 @@ class AboutVC: UIViewController {
     }
     
     func layoutUI() {
-        layoutScrollView()
-        contentView.addSubviews(imagePagingVC.view, dismissButton, nameLabel)
+        contentView.addSubviews(label, headerContainerView, imagePagingVC.view, dismissButton)
+        
+        label.anchor(top: contentView.topAnchor, trailing: view.trailingAnchor, bottom: contentView.bottomAnchor, leading: view.leadingAnchor, paddingTop: UIScreen.main.bounds.height * 0.45, paddingTrailing: 10, paddingBottom: 10, paddingLeading: 10)
+        
+        headerContainerView.anchor(top: view.topAnchor, trailing: view.trailingAnchor, bottom: label.topAnchor, leading: view.leadingAnchor)
+        imagePagingVC.view.fill(superView: headerContainerView)
+        
         dismissButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, paddingLeading: 20)
         dismissButton.setDimension(wConst: 35, hConst: 35)
-        nameLabel.anchor(top: imagePagingVC.view.bottomAnchor, trailing: view.trailingAnchor, leading: view.leadingAnchor)
-        nameLabel.setDimension(hConst: 100)
+    }
+    
+    func configureUI() {
+        label.numberOfLines = 0
+        label.backgroundColor = .clear
+        dismissButton.backgroundColor = .white
+        dismissButton.layer.cornerRadius = 35/2
+        dismissButton.addTarget(self, action: #selector(handleDismissTapped), for: .touchUpInside)
     }
     
     // MARK: - Selector
     @objc func handleDismissTapped() {
         dismiss(animated: true, completion: nil)
-    }
-}
-
-// MARK: - UIScrollViewDelegate
-extension AboutVC: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let changeY = -scrollView.contentOffset.y 
-        var width = view.frame.width + changeY * 2
-        width = max(view.frame.width, width)
-        imagePagingVC.view.frame = .init(x: min(0, -changeY), y: min(0, -changeY), width: width, height: width)
     }
 }

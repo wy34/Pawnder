@@ -9,21 +9,44 @@ import UIKit
 
 class PagingController: UIPageViewController {
     // MARK: - Properties
+    var aboutVM: AboutViewModel?
     
     // MARK: - Views
-    var controllers = [PhotoController]()
+    private var controllers = [PhotoController]()
+    private let pagingControlStack = PawStackView(views: [], spacing: 5, distribution: .fillEqually, alignment: .fill)
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         dataSource = self
+        delegate = self
+        layoutUI()
     }
 
     // MARK: - Helpers
+    func layoutUI() {
+        view.addSubview(pagingControlStack)
+        pagingControlStack.center(to: view, by: .centerX)
+        pagingControlStack.anchor(bottom: view.bottomAnchor, paddingBottom: 25)
+        view.bringSubviewToFront(pagingControlStack)
+    }
+    
     func setupImages(aboutVM: AboutViewModel) {
+        self.aboutVM = aboutVM
         controllers = aboutVM.imageUrls.map({ PhotoController(imageUrlString: $0) })
         setViewControllers([controllers.first!], direction: .forward, animated: true, completion: nil)
+        setupPagingControl()
+    }
+    
+    func setupPagingControl() {
+        aboutVM?.imageUrls.forEach({ _ in
+            let pagingIndicator = PawView(bgColor: mediumTransparentGray)
+            pagingIndicator.setDimension(wConst: 12, hConst: 12)
+            pagingIndicator.layer.cornerRadius = 12/2
+            pagingControlStack.addArrangedSubview(pagingIndicator)
+        })
+        pagingControlStack.subviews[0].backgroundColor = .white
     }
 }
 
@@ -40,11 +63,17 @@ extension PagingController: UIPageViewControllerDelegate, UIPageViewControllerDa
         if index == controllers.count - 1 { return nil }
         return controllers[index + 1]
     }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        let currentPhotoController = viewControllers?.first
+        if let index = controllers.firstIndex(where: { $0 == currentPhotoController }) {
+            pagingControlStack.arrangedSubviews.forEach({ $0.backgroundColor = mediumTransparentGray })
+            pagingControlStack.arrangedSubviews[index].backgroundColor = .white
+        }
+    }
 }
 
-
-
-
+// MARK: - PhotoController
 class PhotoController: UIViewController {
     // MARK: - Views
     let imageView = PawImageView(image: UIImage(named: bob3)!, contentMode: .scaleAspectFill)
