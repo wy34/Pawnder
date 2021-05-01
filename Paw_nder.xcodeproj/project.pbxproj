@@ -47,6 +47,7 @@
 		4C75AE522633C2D900255A7A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C75AE512633C2D900255A7A /* LoadingView.swift */; };
 		4C7611BB263C9809007A2D01 /* PagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7611BA263C9809007A2D01 /* PagingController.swift */; };
 		4C7611BD263CCBCA007A2D01 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7611BC263CCBCA007A2D01 /* AboutVC.swift */; };
+		4C7611BF263D102E007A2D01 /* NewCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7611BE263D102E007A2D01 /* NewCard.swift */; };
 		4CA40BE6262F4DE000B11232 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BE5262F4DE000B11232 /* CardView.swift */; };
 		4CA40BEA262F716A00B11232 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BE9262F716A00B11232 /* User.swift */; };
 		4CA40BEF262F7F4F00B11232 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */; };
@@ -99,6 +100,7 @@
 		4C75AE512633C2D900255A7A /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		4C7611BA263C9809007A2D01 /* PagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingController.swift; sourceTree = "<group>"; };
 		4C7611BC263CCBCA007A2D01 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
+		4C7611BE263D102E007A2D01 /* NewCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCard.swift; sourceTree = "<group>"; };
 		4CA40BE5262F4DE000B11232 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		4CA40BE9262F716A00B11232 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				4C63496D2634B258006AE44B /* SettingsVC.swift */,
 				4C3D1A31263A00D100185926 /* LoginVC.swift */,
 				4C7611BC263CCBCA007A2D01 /* AboutVC.swift */,
+				4C7611BE263D102E007A2D01 /* NewCard.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -497,6 +500,7 @@
 				4C49BAC1262E3D79006F046B /* PawButton.swift in Sources */,
 				4CC677462637BCFF00C321E3 /* SettingsViewModel.swift in Sources */,
 				4C49BA91262E3928006F046B /* SceneDelegate.swift in Sources */,
+				4C7611BF263D102E007A2D01 /* NewCard.swift in Sources */,
 				4C49BAC5262E7CE7006F046B /* HomeBottomControlsStack.swift in Sources */,
 				4C49BABB262E3C6C006F046B /* PawView.swift in Sources */,
 				4C49BAB1262E3AE4006F046B /* PawStackView.swift in Sources */,

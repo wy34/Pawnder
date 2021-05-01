@@ -28,5 +28,6 @@ class PawLabel: UILabel {
         self.text = text
         self.textColor = textColor
         self.font = font
+        self.textAlignment = alignment
     }
 }
