@@ -96,7 +96,7 @@ class SettingsVC: LoadingViewController {
         }
         
         dismissLoader()
-        dismiss(animated: true) { self.delegate?.updateCardDeck() }
+        self.delegate?.updateCardDeck()
     }
     
     // MARK: - Selectors
@@ -133,6 +133,7 @@ class SettingsVC: LoadingViewController {
     }
     
     @objc func handleKeyboardShow(notification: Notification) {
+        tabBarController?.tabBar.isHidden = true
         if let frame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let height = frame.cgRectValue.height - UIApplication.shared.windows[0].safeAreaInsets.bottom
             tableView.contentInset = .init(top: 0, left: 0, bottom: height, right: 0)
@@ -143,6 +144,7 @@ class SettingsVC: LoadingViewController {
     @objc func handleKeyboardHide() {
         tableView.contentInset = .zero
         tableView.scrollIndicatorInsets = .zero
+        tabBarController?.tabBar.isHidden = false
     }
     
     @objc func handleNameTextfieldChanged(textField: UITextField) {

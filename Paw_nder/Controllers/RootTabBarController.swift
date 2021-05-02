@@ -10,7 +10,6 @@ import UIKit
 class RootTabBarController: UITabBarController {
     // MARK: - Properties
     
-    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +29,7 @@ class RootTabBarController: UITabBarController {
         
         tabBar.itemWidth = tabBar.bounds.width / 5
         tabBar.itemPositioning = .centered
-        tabBar.tintColor = .red
+        tabBar.tintColor = lightRed
         tabBar.backgroundColor = .white
         
         UITabBar.appearance().backgroundImage = UIImage()
@@ -43,10 +42,10 @@ class RootTabBarController: UITabBarController {
         redVC.view.backgroundColor = .white
         redVC.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "cloud")!.withBaselineOffset(fromBottom: tabBar.bounds.height/3), tag: 1)
         
-        let blueVC = UIViewController()
-        blueVC.view.backgroundColor = .white
-        blueVC.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "cloud")!.withBaselineOffset(fromBottom: tabBar.bounds.height/3), tag: 2)
+        let settingsVC = UINavigationController(rootViewController: SettingsVC())
+        settingsVC.view.backgroundColor = .white
+        settingsVC.tabBarItem = UITabBarItem(title: "", image: person.withBaselineOffset(fromBottom: tabBar.bounds.height/3), tag: 2)
         
-        viewControllers = [homeVC, redVC, blueVC]
+        viewControllers = [homeVC, redVC, settingsVC]
     }
 }

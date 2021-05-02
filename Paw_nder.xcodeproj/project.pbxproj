@@ -12,6 +12,7 @@
 		4C3D1A34263A0CAD00185926 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A33263A0CAD00185926 /* GradientView.swift */; };
 		4C3D1A36263A2A4D00185926 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A35263A2A4D00185926 /* LoginViewModel.swift */; };
 		4C3D1A38263A586E00185926 /* IconTextfields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A37263A586E00185926 /* IconTextfields.swift */; };
+		4C491A85263EFB9B009BCE40 /* CopySettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C491A84263EFB9B009BCE40 /* CopySettingsVC.swift */; };
 		4C49BA8F262E3928006F046B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BA8E262E3928006F046B /* AppDelegate.swift */; };
 		4C49BA91262E3928006F046B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BA90262E3928006F046B /* SceneDelegate.swift */; };
 		4C49BA93262E3928006F046B /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BA92262E3928006F046B /* HomeVC.swift */; };
@@ -63,6 +64,7 @@
 		4C3D1A33263A0CAD00185926 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		4C3D1A35263A2A4D00185926 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		4C3D1A37263A586E00185926 /* IconTextfields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextfields.swift; sourceTree = "<group>"; };
+		4C491A84263EFB9B009BCE40 /* CopySettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopySettingsVC.swift; sourceTree = "<group>"; };
 		4C49BA8B262E3928006F046B /* Paw_nder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Paw_nder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C49BA8E262E3928006F046B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C49BA90262E3928006F046B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				4C63496D2634B258006AE44B /* SettingsVC.swift */,
 				4C3D1A31263A00D100185926 /* LoginVC.swift */,
 				4C7611BC263CCBCA007A2D01 /* AboutVC.swift */,
+				4C491A84263EFB9B009BCE40 /* CopySettingsVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -485,6 +488,7 @@
 				4C65D8EA26320E3000B1F4FB /* RegisterViewModel.swift in Sources */,
 				4C49BA8F262E3928006F046B /* AppDelegate.swift in Sources */,
 				4C63496E2634B258006AE44B /* SettingsVC.swift in Sources */,
+				4C491A85263EFB9B009BCE40 /* CopySettingsVC.swift in Sources */,
 				4CFD2260263E5E1A00C65277 /* RootTabBarController.swift in Sources */,
 				4C65D94B26324A6600B1F4FB /* Bindable.swift in Sources */,
 				4C5EAD7226311BE900653AE0 /* PawTextField.swift in Sources */,
