@@ -40,6 +40,7 @@ class HomeVC: LoadingViewController {
     }
     
     private func layoutUI() {
+        edgesForExtendedLayout = []
         view.addSubviews(mainStack)
         mainStack.fill(superView: view)
         
@@ -48,9 +49,9 @@ class HomeVC: LoadingViewController {
         navbarStack.center(to: navbarView, by: .centerY, withMultiplierOf: 1.35)
         navbarStack.anchor(trailing: navbarView.trailingAnchor, leading: navbarView.leadingAnchor)
         
-        bottomControlsView.setDimension(width: view.widthAnchor, height: view.heightAnchor, hMult: 0.15)
+        bottomControlsView.setDimension(width: view.widthAnchor, height: view.heightAnchor, hMult: 0.1)
         bottomControlsView.addSubview(bottomControlsStack)
-        bottomControlsStack.center(to: bottomControlsView, by: .centerY, withMultiplierOf: 0.75)
+        bottomControlsStack.center(to: bottomControlsView, by: .centerY, withMultiplierOf: 0.7)
         bottomControlsStack.anchor(trailing: bottomControlsView.trailingAnchor, leading: bottomControlsView.leadingAnchor)
         
         let cardView = CardView()
