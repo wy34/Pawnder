@@ -32,6 +32,7 @@ let lock = UIImage(systemName: "lock")!
 let info = UIImage(systemName: "info.circle")!
 let downArrow = UIImage(systemName: "arrow.down")!
 let xmark = UIImage(systemName: "xmark")!
+let photos = UIImage(systemName: "photo.fill.on.rectangle.fill")!
 
 // MARK: - Colors
 let bgWhite = #colorLiteral(red: 0.9968960881, green: 0.9921532273, blue: 1, alpha: 1)

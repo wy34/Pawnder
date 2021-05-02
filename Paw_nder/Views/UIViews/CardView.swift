@@ -21,13 +21,18 @@ class CardView: LoadingView {
     
     // MARK: - Views
     private let containerView = PawView(bgColor: .white, cornerRadius: 25)
+    
+    private let photoCountIcon = PawButton(image: photos, tintColor: .white, font: .boldSystemFont(ofSize: 14))
+    private let photoCountLabel = PawLabel(text: "3", textColor: .white, font: .boldSystemFont(ofSize: 14))
+    private lazy var photoCountStack = PawStackView(views: [photoCountIcon, photoCountLabel], spacing: 5, distribution: .fillEqually, alignment: .fill)
+
     private let profileImageView = PawImageView(image: UIImage(named: bob3)!, contentMode: .scaleAspectFill)
     private let nameLabel = PawLabel(text: "Rex", textColor: .black, font: .boldSystemFont(ofSize: 26), alignment: .left)
+    private let breedAgeLabel = PawLabel(text: "Golden Retriever", textColor: lightRed, font: .systemFont(ofSize: 12, weight: .semibold), alignment: .left)
+    private lazy var topStack = PawStackView(views: [nameLabel, breedAgeLabel], spacing: 5, axis: .vertical, distribution: .fillEqually, alignment: .fill)
+    
     private let bioLabel = PawLabel(text: "Potty trained. Loves walks and belly rubs", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
-    private let breedLabel = PawLabel(text: "Golden Retriever", textColor: lightRed, font: .systemFont(ofSize: 12, weight: .semibold), alignment: .left)
-    private let ageLabel = PawLabel(text: "5.5 years", textColor: lightRed, font: .systemFont(ofSize: 12, weight: .semibold), alignment: .right)
-    private lazy var bottomLabelStack = PawStackView(views: [breedLabel, ageLabel], distribution: .fillEqually, alignment: .fill)
-    private lazy var overallLabelStack = PawStackView(views: [nameLabel, bioLabel, bottomLabelStack], spacing: 10, axis: .vertical, distribution: .fillEqually, alignment: .fill)
+    private lazy var overallLabelStack = PawStackView(views: [topStack, bioLabel], spacing: 5, axis: .vertical, distribution: .fillEqually, alignment: .fill)
     private let aboutButton = PawButton(image: info, tintColor: .black, font: .systemFont(ofSize: 20, weight: .medium))
     private let temporaryCoverView = PawView(bgColor: lightGray, cornerRadius: 25)
     
@@ -45,11 +50,14 @@ class CardView: LoadingView {
     }
     
     // MARK: - Helpers
-    private func configureUI() { profileImageView.layer.cornerRadius = 25
+    private func configureUI() {
+        photoCountIcon.imageView?.contentMode = .scaleAspectFit
+        profileImageView.layer.cornerRadius = 25
         profileImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         containerView.layer.shadowOpacity = 0.25
         containerView.layer.shadowOffset = .init(width: 0, height: 0)
         aboutButton.addTarget(self, action: #selector(handleAboutTapped), for: .touchUpInside)
+        bioLabel.numberOfLines = 2
     }
     
     private func layoutUI() {
@@ -64,6 +72,10 @@ class CardView: LoadingView {
         aboutButton.setDimension(wConst: 50, hConst: 50)
         aboutButton.anchor(top: profileImageView.bottomAnchor, trailing: profileImageView.trailingAnchor, paddingTrailing: 5)
         temporaryCoverView.fill(superView: containerView)
+        
+        profileImageView.addSubview(photoCountStack)
+        photoCountStack.setDimension(wConst: 45, hConst: 45)
+        photoCountStack.anchor(top: profileImageView.topAnchor, leading: profileImageView.leadingAnchor, paddingTop: 6, paddingLeading: 16)
     }
     
     private func startLoadingCards() {
@@ -84,10 +96,10 @@ class CardView: LoadingView {
     
     func setupCardWith(cardVM: CardViewModel) {
         self.cardVM = cardVM
+        photoCountLabel.text = "\(cardVM.imageUrls.count)"
         profileImageView.setImage(imageUrlString: cardVM.firstImageUrl) { self.stopLoadingCards() }
         nameLabel.text = cardVM.userInfo.name
-        breedLabel.text = cardVM.userInfo.breed
-        ageLabel.text = cardVM.userAge
+        breedAgeLabel.text = cardVM.userBreedAge
         bioLabel.text = cardVM.userInfo.bio
     }
     

@@ -52,6 +52,10 @@ class HomeVC: LoadingViewController {
         bottomControlsView.addSubview(bottomControlsStack)
         bottomControlsStack.center(to: bottomControlsView, by: .centerY, withMultiplierOf: 0.75)
         bottomControlsStack.anchor(trailing: bottomControlsView.trailingAnchor, leading: bottomControlsView.leadingAnchor)
+        
+        let cardView = CardView()
+        cardsDeckView.addSubview(cardView)
+        cardView.fill(superView: cardsDeckView)
     }
     
     func setupAuthStateChangeListener() {

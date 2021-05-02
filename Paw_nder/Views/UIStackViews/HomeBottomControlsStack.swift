@@ -56,12 +56,16 @@ class HomeBottomControlsStack: UIStackView {
         refreshBtn.addTarget(self, action: #selector(handleRefreshTapped), for: .touchUpInside)
 //        dismissBtn
 //        starBtn
-//        heartBtn
+        heartBtn.addTarget(self, action: #selector(handleHeartTapped), for: .touchUpInside)
 //        lightningBtn
     }
     
     // MARK: - Selectors
     @objc func handleRefreshTapped() {
         delegate?.handleRefreshTapped()
+    }
+    
+    @objc func handleHeartTapped() {
+        delegate?.handleHeartTapped()
     }
 }

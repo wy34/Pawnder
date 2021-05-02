@@ -32,13 +32,17 @@ class CardViewModel {
     var userAge: String {
         if let age = user.age {
             if age > 1 {
-                return "\(age) yrs old"
+                return "\(age) YRS"
             } else {
-                return "\(age) yr old"
+                return "\(age) YR"
             }
         }
         
         return "N/A"
+    }
+    
+    var userBreedAge: String {
+        return "\(user.breed?.uppercased() ?? "N/A")  •  \(userAge)"
     }
     
     // MARK: - Init

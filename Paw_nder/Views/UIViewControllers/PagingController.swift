@@ -28,6 +28,8 @@ class PagingController: UIPageViewController {
     func layoutUI() {
         view.addSubview(pagingControlStack)
         pagingControlStack.center(to: view, by: .centerX)
+        pagingControlStack.setDimension(width: view.widthAnchor, wMult: 0.5)
+        pagingControlStack.setDimension(hConst: 5)
         pagingControlStack.anchor(bottom: view.bottomAnchor, paddingBottom: 25)
         view.bringSubviewToFront(pagingControlStack)
     }
@@ -40,10 +42,11 @@ class PagingController: UIPageViewController {
     }
     
     func setupPagingControl() {
+        if aboutVM?.imageUrls.count == 1 { return }
+        
         aboutVM?.imageUrls.forEach({ _ in
             let pagingIndicator = PawView(bgColor: mediumTransparentGray)
-            pagingIndicator.setDimension(wConst: 12, hConst: 12)
-            pagingIndicator.layer.cornerRadius = 12/2
+            pagingIndicator.layer.cornerRadius = 5/2
             pagingControlStack.addArrangedSubview(pagingIndicator)
         })
         pagingControlStack.subviews[0].backgroundColor = .white
