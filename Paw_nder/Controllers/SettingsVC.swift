@@ -220,7 +220,8 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
                     cell.setTextfield(text: settingsVM.user?.breed, ph: "Enter Breed")
                     cell.textfield.addTarget(self, action: #selector(handleBreedTextfieldChanged(textField:)), for: .editingChanged)
                 case 3:
-                    cell.setTextfield(text: "\(settingsVM.user?.age ?? 0)", ph: "Enter Age")
+                    cell.setTextfield(text: "\(settingsVM.user?.age ?? 0)", ph: "Enter Age (yrs)")
+                    cell.textfield.keyboardType = .decimalPad
                     cell.textfield.addTarget(self, action: #selector(handleAgeTextfieldChanged(textField:)), for: .editingChanged)
                 default:
                     cell.setTextfield(text: "\(settingsVM.user?.bio ?? "")", ph: "Enter Bio")

@@ -20,11 +20,16 @@ class CardView: LoadingView {
     weak var delegate: CardViewDelegate?
     
     // MARK: - Views
-    private let imagePageBar = PawStackView(views: [], spacing: 5, distribution: .fillEqually, alignment: .fill)
-    private let cardImageView = PawImageView(image: UIImage(), contentMode: .scaleAspectFill)
-    private let infoLabel = PawLabel(attributedText: .init())
-    private let temporaryCoverView = PawView(bgColor: lightGray, cornerRadius: 15)
-    private let aboutButton = PawButton(image: info, tintColor: .white, font: UIFont.systemFont(ofSize: 30, weight: .bold))
+    private let containerView = PawView(bgColor: .white, cornerRadius: 25)
+    private let profileImageView = PawImageView(image: UIImage(named: bob3)!, contentMode: .scaleAspectFill)
+    private let nameLabel = PawLabel(text: "Rex", textColor: .black, font: .boldSystemFont(ofSize: 26), alignment: .left)
+    private let bioLabel = PawLabel(text: "Potty trained. Loves walks and belly rubs", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
+    private let breedLabel = PawLabel(text: "Golden Retriever", textColor: lightRed, font: .systemFont(ofSize: 12, weight: .semibold), alignment: .left)
+    private let ageLabel = PawLabel(text: "5.5 years", textColor: lightRed, font: .systemFont(ofSize: 12, weight: .semibold), alignment: .right)
+    private lazy var bottomLabelStack = PawStackView(views: [breedLabel, ageLabel], distribution: .fillEqually, alignment: .fill)
+    private lazy var overallLabelStack = PawStackView(views: [nameLabel, bioLabel, bottomLabelStack], spacing: 10, axis: .vertical, distribution: .fillEqually, alignment: .fill)
+    private let aboutButton = PawButton(image: info, tintColor: .black, font: .systemFont(ofSize: 20, weight: .medium))
+    private let temporaryCoverView = PawView(bgColor: lightGray, cornerRadius: 25)
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -39,35 +44,26 @@ class CardView: LoadingView {
         fatalError()
     }
     
-    override func layoutSubviews() {
-        let gradient = CAGradientLayer()
-        gradient.colors = [UIColor.clear.cgColor, UIColor.black.withAlphaComponent(0.45).cgColor]
-        gradient.startPoint = .init(x: 0.5, y: 0.5)
-        gradient.endPoint = .init(x: 0.5, y: 1)
-        gradient.frame = self.frame
-        cardImageView.layer.insertSublayer(gradient, at: 0)
-    }
-    
     // MARK: - Helpers
-    private func configureUI() {
-        cardImageView.layer.cornerRadius = 15
-        cardImageView.backgroundColor = .white
+    private func configureUI() { profileImageView.layer.cornerRadius = 25
+        profileImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        containerView.layer.shadowOpacity = 0.25
+        containerView.layer.shadowOffset = .init(width: 0, height: 0)
         aboutButton.addTarget(self, action: #selector(handleAboutTapped), for: .touchUpInside)
     }
     
     private func layoutUI() {
-        addSubviews(cardImageView, temporaryCoverView, aboutButton)
-        cardImageView.fill(superView: self, withPaddingOnAllSides: 15)
-        temporaryCoverView.fill(superView: self, withPaddingOnAllSides: 15)
-
-        cardImageView.addSubviews(infoLabel, imagePageBar)
-        infoLabel.anchor(bottom: cardImageView.bottomAnchor, leading: cardImageView.leadingAnchor, paddingTrailing: 20, paddingBottom: 20, paddingLeading: 20)
-        infoLabel.setDimension(width: cardImageView.widthAnchor, wMult: 0.7)
+        addSubview(containerView)
+        containerView.setDimension(width: widthAnchor, height: heightAnchor, wMult: 0.85, hMult: 0.85)
+        containerView.center(x: centerXAnchor, y: centerYAnchor)
         
-        aboutButton.anchor(trailing: cardImageView.trailingAnchor, bottom: cardImageView.bottomAnchor, leading: infoLabel.trailingAnchor, paddingTrailing: 20, paddingBottom: 20, paddingLeading: 20)
-        
-        imagePageBar.anchor(top: cardImageView.topAnchor, trailing: cardImageView.trailingAnchor, leading: cardImageView.leadingAnchor, paddingTop: 10, paddingTrailing: 10, paddingLeading: 10)
-        imagePageBar.setDimension(hConst: 5)
+        containerView.addSubviews(profileImageView, overallLabelStack, aboutButton, temporaryCoverView)
+        profileImageView.setDimension(width: containerView.widthAnchor, height: containerView.heightAnchor, hMult: 0.75)
+        profileImageView.anchor(top: containerView.topAnchor, trailing: containerView.trailingAnchor, leading: containerView.leadingAnchor)
+        overallLabelStack.anchor(top: profileImageView.bottomAnchor, trailing: containerView.trailingAnchor, bottom: containerView.bottomAnchor, leading: containerView.leadingAnchor, paddingTop: 15, paddingTrailing: 15, paddingBottom: 15, paddingLeading: 15)
+        aboutButton.setDimension(wConst: 50, hConst: 50)
+        aboutButton.anchor(top: profileImageView.bottomAnchor, trailing: profileImageView.trailingAnchor, paddingTrailing: 5)
+        temporaryCoverView.fill(superView: containerView)
     }
     
     private func startLoadingCards() {
@@ -82,44 +78,20 @@ class CardView: LoadingView {
     }
     
     private func setupGestures() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(gesture:)))
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(gesture:)))
-        addGestureRecognizer(tapGesture)
         addGestureRecognizer(panGesture)
-    }
-    
-    private func setupImageTappedHandler() {
-        self.cardVM?.imageTappedHandler = { [weak self] (tappedImageUrl, imageIndex) in
-            guard let self = self else { return }
-            
-            self.cardImageView.setImage(imageUrlString: tappedImageUrl, completion: nil)
-            
-            for (index, subview) in self.imagePageBar.arrangedSubviews.enumerated() {
-                subview.backgroundColor = index == imageIndex ? self.selectedBarColor : self.deselectedBarColor
-            }
-        }
     }
     
     func setupCardWith(cardVM: CardViewModel) {
         self.cardVM = cardVM
-        setupImageTappedHandler()
-        cardImageView.setImage(imageUrlString: cardVM.firstImageUrl) { self.stopLoadingCards() }
-        infoLabel.attributedText = cardVM.infoText
-        cardVM.imageUrls.forEach({ _ in imagePageBar.addArrangedSubview(PawView(bgColor: deselectedBarColor, cornerRadius: 3)) })
-        imagePageBar.subviews[0].backgroundColor = selectedBarColor
+        profileImageView.setImage(imageUrlString: cardVM.firstImageUrl) { self.stopLoadingCards() }
+        nameLabel.text = cardVM.userInfo.name
+        breedLabel.text = cardVM.userInfo.breed
+        ageLabel.text = cardVM.userAge
+        bioLabel.text = cardVM.userInfo.bio
     }
     
     // MARK: - Selectors
-    @objc private func handleTap(gesture: UITapGestureRecognizer) {
-        let tapLocation = gesture.location(in: cardImageView)
-
-        if tapLocation.x > cardImageView.frame.width / 2 && tapLocation.x <= cardImageView.frame.width {
-            cardVM?.showNextImage()
-        } else if tapLocation.x < cardImageView.frame.width / 2 && tapLocation.x >= 0 {
-            cardVM?.showPrevImage()
-        }
-    }
-    
     @objc private func handlePan(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: self)
         
