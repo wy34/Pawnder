@@ -8,9 +8,7 @@
 import UIKit
 
 // MARK: - Asset Images
-//let user: UIImage = #imageLiteral(resourceName: "top_left_profile")
 let icon: UIImage = #imageLiteral(resourceName: "app_icon")
-//let message: UIImage = #imageLiteral(resourceName: "top_right_messages")
 let refresh: UIImage  = #imageLiteral(resourceName: "refresh_circle")
 let dismiss: UIImage = #imageLiteral(resourceName: "dismiss_circle")
 let star: UIImage = #imageLiteral(resourceName: "super_like_circle")
@@ -37,6 +35,7 @@ let downArrow = UIImage(systemName: "arrow.down")!
 let xmark = UIImage(systemName: "xmark")!
 let photos = UIImage(systemName: "photo.fill.on.rectangle.fill")!
 let chat = UIImage(systemName: "message")!
+let checkmark = UIImage(systemName: "checkmark")!
 
 // MARK: - Colors
 let bgWhite = #colorLiteral(red: 0.9968960881, green: 0.9921532273, blue: 1, alpha: 1)

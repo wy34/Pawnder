@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4C2A564F264046DB0085F887 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A564E264046DB0085F887 /* UIApplication.swift */; };
+		4C2A5651264059A60085F887 /* FilterViewLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A5650264059A60085F887 /* FilterViewLauncher.swift */; };
 		4C2E7C9C263BC1DD00DDA4E5 /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2E7C9B263BC1DD00DDA4E5 /* AboutViewModel.swift */; };
 		4C3D1A32263A00D100185926 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A31263A00D100185926 /* LoginVC.swift */; };
 		4C3D1A34263A0CAD00185926 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A33263A0CAD00185926 /* GradientView.swift */; };
@@ -61,6 +62,7 @@
 
 /* Begin PBXFileReference section */
 		4C2A564E264046DB0085F887 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		4C2A5650264059A60085F887 /* FilterViewLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewLauncher.swift; sourceTree = "<group>"; };
 		4C2E7C9B263BC1DD00DDA4E5 /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
 		4C3D1A31263A00D100185926 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		4C3D1A33263A0CAD00185926 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 		4C75AE5A2633C3CC00255A7A /* UIViews */ = {
 			isa = PBXGroup;
 			children = (
+				4C2A5650264059A60085F887 /* FilterViewLauncher.swift */,
 				4C75AE512633C2D900255A7A /* LoadingView.swift */,
 				4CA40BE5262F4DE000B11232 /* CardView.swift */,
 				4C6349702634C26C006AE44B /* ImagePickerHeaderView.swift */,
@@ -493,6 +496,7 @@
 				4C49BA8F262E3928006F046B /* AppDelegate.swift in Sources */,
 				4C63496E2634B258006AE44B /* SettingsVC.swift in Sources */,
 				4C491A85263EFB9B009BCE40 /* CopySettingsVC.swift in Sources */,
+				4C2A5651264059A60085F887 /* FilterViewLauncher.swift in Sources */,
 				4CFD2260263E5E1A00C65277 /* RootTabBarController.swift in Sources */,
 				4C65D94B26324A6600B1F4FB /* Bindable.swift in Sources */,
 				4C5EAD7226311BE900653AE0 /* PawTextField.swift in Sources */,

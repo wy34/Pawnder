@@ -15,6 +15,8 @@ class HomeVC: LoadingViewController {
     // MARK: - Views
     private let navbarView = PawView()
     private lazy var navbarStack = HomeNavbarStack(distribution: .fillEqually)
+    
+    private let filterViewLauncher = FilterViewLauncher()
 
     private let cardsDeckView = PawView()
     
@@ -129,6 +131,10 @@ extension HomeVC: HomeNavbarStackDelegate {
     
     func handleFilterTapped() {
         print("show filtering menu")
+        filterViewLauncher.showFilterView()
+//        UIView.animate(withDuration: 0.25) {
+//            self.filterVC.view.transform = .identity
+//        }
     }
 }
 
