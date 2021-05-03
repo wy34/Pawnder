@@ -8,15 +8,11 @@
 import UIKit
 import Firebase
 
-protocol SettingsVCDelegate: AnyObject {
-    func updateCardDeck()
-}
 
 class SettingsVC: LoadingViewController {
     // MARK: - Properties
     var imagePickerButtonTag: Int?
     var settingsVM = SettingsViewModel.shared
-    weak var delegate: SettingsVCDelegate?
     
     // MARK: - Views
     private lazy var tableView: UITableView = {
@@ -96,7 +92,7 @@ class SettingsVC: LoadingViewController {
         }
         
         dismissLoader()
-        self.delegate?.updateCardDeck()
+        NotificationCenter.default.post(Notification(name: .didSaveSettings, object: nil, userInfo: nil))
     }
     
     // MARK: - Selectors
@@ -119,8 +115,10 @@ class SettingsVC: LoadingViewController {
     }
     
     @objc func handleLogoutTapped() {
-        settingsVM.logoutUser { [weak self] in
-            self?.dismiss(animated: true, completion: nil)
+        settingsVM.logoutUser {
+            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+                UIApplication.rootTabBarController.setupViewControllers()
+            }
         }
     }
     
@@ -263,3 +261,4 @@ extension SettingsVC: UIImagePickerControllerDelegate, UINavigationControllerDel
         dismiss(animated: true, completion: nil)
     }
 }
+

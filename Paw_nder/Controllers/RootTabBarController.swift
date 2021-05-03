@@ -35,17 +35,26 @@ class RootTabBarController: UITabBarController {
         UITabBar.appearance().backgroundImage = UIImage()
         UITabBar.appearance().shadowImage = UIImage()
         
+        setupViewControllers()
+    }
+    
+    func setupViewControllers() {
+        self.selectedIndex = 0
+                
         let homeVC = HomeVC()
-        homeVC.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "house")!.withBaselineOffset(fromBottom: tabBar.bounds.height/3), tag: 0)
+        homeVC.tabBarItem = UITabBarItem(title: nil, image: paw, tag: 0)
+        homeVC.tabBarItem.imageInsets = .init(top: 12, left: 0, bottom: -12, right: 0)
         
         let redVC = UIViewController()
         redVC.view.backgroundColor = .white
-        redVC.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "cloud")!.withBaselineOffset(fromBottom: tabBar.bounds.height/3), tag: 1)
+        redVC.tabBarItem = UITabBarItem(title: nil, image: message, tag: 1)
+        redVC.tabBarItem.imageInsets = .init(top: 12, left: 0, bottom: -12, right: 0)
         
         let settingsVC = UINavigationController(rootViewController: SettingsVC())
         settingsVC.view.backgroundColor = .white
-        settingsVC.tabBarItem = UITabBarItem(title: "", image: person.withBaselineOffset(fromBottom: tabBar.bounds.height/3), tag: 2)
+        settingsVC.tabBarItem = UITabBarItem(title: nil, image: user, tag: 2)
+        settingsVC.tabBarItem.imageInsets = .init(top: 12, left: 0, bottom: -12, right: 0)
         
-        viewControllers = [homeVC, redVC, settingsVC]
+        setViewControllers([homeVC, redVC, settingsVC], animated: true)
     }
 }

@@ -8,8 +8,8 @@
 import UIKit
 
 protocol HomeNavbarStackDelegate: AnyObject {
-    func handleUserTapped()
-    func handleMessageTapped()
+    func handleRefreshTapped()
+    func handleFilterTapped()
 }
 
 class HomeNavbarStack: UIStackView {
@@ -17,9 +17,9 @@ class HomeNavbarStack: UIStackView {
     weak var delegate: HomeNavbarStackDelegate?
     
     // MARK: - Views
-    private let userBtn = PawButton(image: user)
+    private let refreshBtn = PawButton(image: UIImage(named: "refresh")!.withRenderingMode(.alwaysTemplate), tintColor: .gray)
     private let heartImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
-    private let messageBtn = PawButton(image: message)
+    private let filterBtn = PawButton(image: UIImage(named: "filter")!.withRenderingMode(.alwaysTemplate), tintColor: .gray)
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -43,22 +43,22 @@ class HomeNavbarStack: UIStackView {
     
     // MARK: - Helpers
     private func layoutUI() {
-        let views = [userBtn, UIView(), heartImageView, UIView(), messageBtn]
+        let views = [refreshBtn, UIView(), heartImageView, UIView(), filterBtn]
         views.forEach({ addArrangedSubview($0) })
         heartImageView.setDimension(wConst: 45, hConst: 45)
     }
     
     private func setupButtonActions() {
-        userBtn.addTarget(self, action: #selector(handleUserTapped), for: .touchUpInside)
-        messageBtn.addTarget(self, action: #selector(handleMessageTapped), for: .touchUpInside)
+        refreshBtn.addTarget(self, action: #selector(handleUserTapped), for: .touchUpInside)
+        filterBtn.addTarget(self, action: #selector(handleFilterTapped), for: .touchUpInside)
     }
     
     // MARK: - Selectors
     @objc func handleUserTapped() {
-        delegate?.handleUserTapped()
+        delegate?.handleRefreshTapped()
     }
     
-    @objc func handleMessageTapped() {
-        
+    @objc func handleFilterTapped() {
+        delegate?.handleFilterTapped()
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C2A564F264046DB0085F887 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A564E264046DB0085F887 /* UIApplication.swift */; };
 		4C2E7C9C263BC1DD00DDA4E5 /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2E7C9B263BC1DD00DDA4E5 /* AboutViewModel.swift */; };
 		4C3D1A32263A00D100185926 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A31263A00D100185926 /* LoginVC.swift */; };
 		4C3D1A34263A0CAD00185926 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A33263A0CAD00185926 /* GradientView.swift */; };
@@ -59,6 +60,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C2A564E264046DB0085F887 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		4C2E7C9B263BC1DD00DDA4E5 /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
 		4C3D1A31263A00D100185926 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		4C3D1A33263A0CAD00185926 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				4C65D964263275D400B1F4FB /* UIViewController.swift */,
 				4C75AE3F2633819B00255A7A /* UIImageView.swift */,
 				4C6349732634C6F9006AE44B /* Notification.Name.swift */,
+				4C2A564E264046DB0085F887 /* UIApplication.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C2A564F264046DB0085F887 /* UIApplication.swift in Sources */,
 				4C3D1A34263A0CAD00185926 /* GradientView.swift in Sources */,
 				4C49BAA8262E3A74006F046B /* UIView.swift in Sources */,
 				4CF953912639056800D80587 /* SliderCell.swift in Sources */,

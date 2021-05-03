@@ -29,6 +29,9 @@ class HomeVC: LoadingViewController {
         layoutUI()
         configureUI()
         setupAuthStateChangeListener()
+        setupNotificationObservers()
+        
+        cardsDeckView.backgroundColor = .red
     }
     
     // MARK: - Helpers
@@ -44,7 +47,7 @@ class HomeVC: LoadingViewController {
         view.addSubviews(mainStack)
         mainStack.fill(superView: view)
         
-        navbarView.setDimension(width: view.widthAnchor, height: view.heightAnchor, hMult: 0.13)
+        navbarView.setDimension(width: view.widthAnchor, height: view.heightAnchor, hMult: 0.15)
         navbarView.addSubview(navbarStack)
         navbarStack.center(to: navbarView, by: .centerY, withMultiplierOf: 1.35)
         navbarStack.anchor(trailing: navbarView.trailingAnchor, leading: navbarView.leadingAnchor)
@@ -73,6 +76,10 @@ class HomeVC: LoadingViewController {
         createCardDeck()
         setupFetchObserver()
         homeViewModel.fetchUsers()
+    }
+    
+    func setupNotificationObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleSaveRefresh), name: Notification.Name.didSaveSettings, object: nil)
     }
     
     func presentLoginScreen() {
@@ -107,29 +114,26 @@ class HomeVC: LoadingViewController {
             $0.fill(superView: cardsDeckView)
         })
     }
+    
+    // MARK: - Selectors
+    @objc func handleSaveRefresh() {
+        homeViewModel.fetchUsers()
+    }
 }
 
 // MARK: - HomeNavbarStackDelegate
 extension HomeVC: HomeNavbarStackDelegate {
-    func handleUserTapped() {
-        let settingsVC = SettingsVC()
-        settingsVC.delegate = self
-        let navController = UINavigationController(rootViewController: settingsVC)
-        navController.modalPresentationStyle = .fullScreen
-        present(navController, animated: true)
+    func handleRefreshTapped() {
+        homeViewModel.fetchUsers()
     }
     
-    func handleMessageTapped() {
-        
+    func handleFilterTapped() {
+        print("show filtering menu")
     }
 }
 
 // MARK: - HomeBottomControlsDelegate
 extension HomeVC: HomeBottomControlsStackDelegate {
-    func handleRefreshTapped() {
-        homeViewModel.fetchUsers()
-    }
-    
     func handleDismissTapped() {
         
     }
@@ -144,13 +148,6 @@ extension HomeVC: HomeBottomControlsStackDelegate {
     
     func handleLightningTapped() {
         
-    }
-}
-
-// MARK: - SettingsVCDelegate
-extension HomeVC: SettingsVCDelegate {
-    func updateCardDeck() {
-        homeViewModel.fetchUsers()
     }
 }
 

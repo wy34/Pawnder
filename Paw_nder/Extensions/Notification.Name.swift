@@ -10,4 +10,5 @@ import Foundation
 extension Notification.Name {
     static let didOpenImagePicker = Notification.Name("didOpenImagePicker")
     static let didSelectPhoto = Notification.Name("didSelectPhoto")
+    static let didSaveSettings = Notification.Name("didSaveSettings")
 }

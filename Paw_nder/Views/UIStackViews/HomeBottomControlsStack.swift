@@ -8,7 +8,6 @@
 import UIKit
 
 protocol HomeBottomControlsStackDelegate: AnyObject {
-    func handleRefreshTapped()
     func handleDismissTapped()
     func handleStarTapped()
     func handleHeartTapped()
@@ -20,7 +19,6 @@ class HomeBottomControlsStack: UIStackView {
     weak var delegate: HomeBottomControlsStackDelegate?
     
     // MARK: - Views
-    private let refreshBtn = PawButton(image: refresh)
     private let dismissBtn = PawButton(image: dismiss)
     private let starBtn = PawButton(image: star)
     private let heartBtn = PawButton(image: heart)
@@ -48,12 +46,11 @@ class HomeBottomControlsStack: UIStackView {
     
     // MARK: - Helpers
     private func layoutUI() {
-        let views = [refreshBtn, dismissBtn, starBtn, heartBtn, lightningBtn]
+        let views = [dismissBtn, starBtn, heartBtn, lightningBtn]
         views.forEach({ self.addArrangedSubview($0) })
     }
     
     private func setupButtonActions() {
-        refreshBtn.addTarget(self, action: #selector(handleRefreshTapped), for: .touchUpInside)
 //        dismissBtn
 //        starBtn
         heartBtn.addTarget(self, action: #selector(handleHeartTapped), for: .touchUpInside)
@@ -61,10 +58,6 @@ class HomeBottomControlsStack: UIStackView {
     }
     
     // MARK: - Selectors
-    @objc func handleRefreshTapped() {
-        delegate?.handleRefreshTapped()
-    }
-    
     @objc func handleHeartTapped() {
         delegate?.handleHeartTapped()
     }
