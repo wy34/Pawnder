@@ -8,26 +8,39 @@
 import UIKit
 import SwiftUI
 
+//struct FilterType {
+//    let id: String
+//    let title: String
+//    let cells: [UITableViewCell]
+//    let bgColor: UIColor
+//}
+
 class FilterViewLauncher: UIView {
     // MARK: - Properties
-//    let keyWindow = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first
-    
+
     // MARK: - Views
     private let blackBgView = PawView(bgColor: .black.withAlphaComponent(0.5))
     
-    private let filterCardView = PawView(bgColor: .blue, cornerRadius: 30)
+    private let filterCardView = PawView(bgColor: .white, cornerRadius: 30)
     private let dismissButton = PawButton(image: xmark, tintColor: .black, font: .systemFont(ofSize: 16, weight: .bold))
     private let filterTitle = PawLabel(text: "Filters", font: .systemFont(ofSize: 22, weight: .bold), alignment: .center)
     private let saveButton = PawButton(image: checkmark, tintColor: .black, font: .systemFont(ofSize: 16, weight: .bold))
     private lazy var headingStack = PawStackView(views: [dismissButton, filterTitle, saveButton], distribution: .fillEqually, alignment: .fill)
     
-    private lazy var tableView: UITableView = {
-        let tv = UITableView()
-        tv.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        tv.delegate = self
-        tv.dataSource = self
-        return tv
-    }()
+    private let locationLabel = PawLabel(text: "Location", textColor: .black, font: .systemFont(ofSize: 18, weight: .bold), alignment: .left)
+    private let locationTextField = PawTextField(placeholder: "Location", bgColor: .red, cornerRadius: 10)
+    private lazy var locationStack = PawStackView(views: [locationLabel, locationTextField], spacing: -5, axis: .vertical, distribution: .fillEqually, alignment: .fill)
+    
+    private let genderLabel = PawLabel(text: "Gender", textColor: .black, font: .systemFont(ofSize: 18, weight: .bold), alignment: .left)
+    private let genderTextField = PawTextField(placeholder: "Gender", bgColor: .red, cornerRadius: 10)
+    private lazy var genderStack = PawStackView(views: [genderLabel, genderTextField], spacing: -5, axis: .vertical, distribution: .fillEqually, alignment: .fill)
+    
+    private let ageLabel = PawLabel(text: "Age", textColor: .black, font: .systemFont(ofSize: 18, weight: .bold), alignment: .left)
+    private let ageTextField = PawTextField(placeholder: "Age", bgColor: .red, cornerRadius: 10)
+    private lazy var ageStack = PawStackView(views: [ageLabel, ageTextField], spacing: -5, axis: .vertical, distribution: .fillEqually, alignment: .fill)
+
+    private lazy var bodyStack = PawStackView(views: [locationStack, genderStack, ageStack], axis: .vertical, distribution: .fillEqually, alignment: .fill)
+    private lazy var formStack = PawStackView(views: [headingStack, bodyStack], axis: .vertical, distribution: .fill, alignment: .fill)
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -48,11 +61,9 @@ class FilterViewLauncher: UIView {
     }
     
     func layoutFilterCard() {
-        filterCardView.addSubviews(headingStack, tableView)
-        headingStack.setDimension(width: filterCardView.widthAnchor, height: filterCardView.heightAnchor, wMult: 0.85, hMult: 0.15)
-        headingStack.center(to: filterCardView, by: .centerX)
-        headingStack.anchor(top: filterCardView.topAnchor, paddingTop: 30)
-        tableView.anchor(top: headingStack.bottomAnchor, trailing: headingStack.trailingAnchor, bottom: filterCardView.bottomAnchor, leading: headingStack.leadingAnchor, paddingTop: 30, paddingBottom: 30)
+        filterCardView.addSubviews(formStack)
+        formStack.fill(superView: filterCardView, withPaddingOnAllSides: 30)
+        headingStack.setDimension(height: formStack.heightAnchor, hMult: 0.2)
     }
     
     func showFilterView() {
@@ -83,6 +94,7 @@ class FilterViewLauncher: UIView {
     @objc func dismissFilterView() {
         UIView.animate(withDuration: 0.4) { [weak self] in
             guard let self = self else { return }
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             self.blackBgView.alpha = 0
             if let keyWindow = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first {
                 self.filterCardView.frame.origin.y = -keyWindow.frame.height / 2
@@ -91,22 +103,6 @@ class FilterViewLauncher: UIView {
     }
 }
 
-// MARK: - UITableViewDelegate, UITableViewDataSource
-extension FilterViewLauncher: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .red
-        return cell
-    }
-}
 
 
 

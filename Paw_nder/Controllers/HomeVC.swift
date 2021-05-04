@@ -21,9 +21,9 @@ class HomeVC: LoadingViewController {
     private let cardsDeckView = PawView()
     
     private let bottomControlsView = PawView()
-    private let bottomControlsStack = HomeBottomControlsStack(distribution: .fillEqually)
+    private let bottomControlsStack = HomeBottomControlsStack(distribution: .fillEqually, alignment: .top)
     
-    private lazy var mainStack = PawStackView(views: [navbarView, cardsDeckView, bottomControlsView], axis: .vertical, alignment: .fill)
+    private lazy var mainStack = PawStackView(views: [navbarView, cardsDeckView, bottomControlsView], axis: .vertical, alignment: .center)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -32,13 +32,11 @@ class HomeVC: LoadingViewController {
         configureUI()
         setupAuthStateChangeListener()
         setupNotificationObservers()
-        
-        cardsDeckView.backgroundColor = .red
     }
     
     // MARK: - Helpers
     private func configureUI() {
-        view.backgroundColor = bgWhite
+        view.backgroundColor = bgLightGray
         mainStack.bringSubviewToFront(cardsDeckView)
         navbarStack.delegate = self
         bottomControlsStack.delegate = self
@@ -47,18 +45,17 @@ class HomeVC: LoadingViewController {
     private func layoutUI() {
         edgesForExtendedLayout = []
         view.addSubviews(mainStack)
-        mainStack.fill(superView: view)
+        mainStack.anchor(top: view.topAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 15, paddingBottom: 15)
         
-        navbarView.setDimension(width: view.widthAnchor, height: view.heightAnchor, hMult: 0.15)
+        navbarView.setDimension(width: view.widthAnchor, height: view.heightAnchor, hMult: 0.125)
         navbarView.addSubview(navbarStack)
         navbarStack.center(to: navbarView, by: .centerY, withMultiplierOf: 1.35)
         navbarStack.anchor(trailing: navbarView.trailingAnchor, leading: navbarView.leadingAnchor)
-        
-        bottomControlsView.setDimension(width: view.widthAnchor, height: view.heightAnchor, hMult: 0.1)
+
+        bottomControlsView.setDimension(width: view.widthAnchor, height: view.heightAnchor, wMult: 0.6, hMult: 0.15)
         bottomControlsView.addSubview(bottomControlsStack)
-        bottomControlsStack.center(to: bottomControlsView, by: .centerY, withMultiplierOf: 0.7)
-        bottomControlsStack.anchor(trailing: bottomControlsView.trailingAnchor, leading: bottomControlsView.leadingAnchor)
-        
+        bottomControlsStack.fill(superView: bottomControlsView)
+
         let cardView = CardView()
         cardsDeckView.addSubview(cardView)
         cardView.fill(superView: cardsDeckView)
@@ -130,31 +127,21 @@ extension HomeVC: HomeNavbarStackDelegate {
     }
     
     func handleFilterTapped() {
-        print("show filtering menu")
         filterViewLauncher.showFilterView()
-//        UIView.animate(withDuration: 0.25) {
-//            self.filterVC.view.transform = .identity
-//        }
     }
 }
 
 // MARK: - HomeBottomControlsDelegate
 extension HomeVC: HomeBottomControlsStackDelegate {
-    func handleDismissTapped() {
-        
+    func handleDislikeTapped() {
+        print("should swipe left")
     }
     
-    func handleStarTapped() {
-        
+    func handleLikeTapped() {
+        print("should swipe right")
     }
     
-    func handleHeartTapped() {
-        
-    }
     
-    func handleLightningTapped() {
-        
-    }
 }
 
 // MARK: - CardViewDelegate

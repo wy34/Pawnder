@@ -20,7 +20,7 @@ class RootTabBarController: UITabBarController {
     private func setupTabbar() {
         let layer = CAShapeLayer()
         layer.shadowOpacity = 0.2
-        layer.shadowRadius = 15
+        layer.shadowRadius = 20
         
         let roundedRect = CGRect(x: 0, y: 0, width: self.tabBar.bounds.width, height: self.tabBar.bounds.height * 2)
         layer.path = UIBezierPath(roundedRect: roundedRect, cornerRadius: 30).cgPath
@@ -30,7 +30,7 @@ class RootTabBarController: UITabBarController {
         tabBar.itemWidth = tabBar.bounds.width / 5
         tabBar.itemPositioning = .centered
         tabBar.tintColor = lightRed
-        tabBar.backgroundColor = .white
+        tabBar.backgroundColor = bgLightGray
         
         UITabBar.appearance().backgroundImage = UIImage()
         UITabBar.appearance().shadowImage = UIImage()

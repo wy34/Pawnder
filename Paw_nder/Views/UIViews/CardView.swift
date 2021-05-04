@@ -62,9 +62,8 @@ class CardView: LoadingView {
     
     private func layoutUI() {
         addSubview(containerView)
-        containerView.setDimension(width: widthAnchor, height: heightAnchor, wMult: 0.85, hMult: 0.85)
-        containerView.center(x: centerXAnchor)
-        containerView.center(to: self, by: .centerY, withMultiplierOf: 1)
+
+        containerView.anchor(top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, leading: leadingAnchor, paddingTop: 30, paddingTrailing: 30, paddingBottom: 15, paddingLeading: 30)
         
         containerView.addSubviews(profileImageView, overallLabelStack, aboutButton, temporaryCoverView)
         profileImageView.setDimension(width: containerView.widthAnchor, height: containerView.heightAnchor, hMult: 0.75)

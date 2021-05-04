@@ -13,6 +13,7 @@ class SettingsVC: LoadingViewController {
     // MARK: - Properties
     var imagePickerButtonTag: Int?
     var settingsVM = SettingsViewModel.shared
+    let safeAreaInsetBottom = UIApplication.shared.windows[0].safeAreaInsets.bottom
     
     // MARK: - Views
     private lazy var tableView: UITableView = {
@@ -24,6 +25,7 @@ class SettingsVC: LoadingViewController {
         tv.backgroundColor = #colorLiteral(red: 0.9541934133, green: 0.9496539235, blue: 0.9577021003, alpha: 1)
         tv.tableFooterView = UIView()
         tv.keyboardDismissMode = .interactive
+        tv.automaticallyAdjustsScrollIndicatorInsets = true
         tv.allowsSelection = false
         return tv
     }()
@@ -50,9 +52,7 @@ class SettingsVC: LoadingViewController {
     func configureNavbar(){
         navigationItem.title = "Settings"
         navigationController?.navigationBar.prefersLargeTitles = true
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(handleDoneTapped))
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(handleSaveTapped))
-        navigationItem.leftBarButtonItem = doneButton
         navigationItem.rightBarButtonItem = saveButton
     }
     
@@ -96,10 +96,6 @@ class SettingsVC: LoadingViewController {
     }
     
     // MARK: - Selectors
-    @objc func handleDoneTapped() {
-        dismiss(animated: true, completion: nil)
-    }
-    
     @objc func handleSaveTapped() {
         showLoader()
         
@@ -133,7 +129,7 @@ class SettingsVC: LoadingViewController {
     @objc func handleKeyboardShow(notification: Notification) {
         tabBarController?.tabBar.isHidden = true
         if let frame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let height = frame.cgRectValue.height - UIApplication.shared.windows[0].safeAreaInsets.bottom
+            let height = frame.cgRectValue.height - safeAreaInsetBottom
             tableView.contentInset = .init(top: 0, left: 0, bottom: height, right: 0)
             tableView.scrollIndicatorInsets = .init(top: 0, left: 0, bottom: height, right: 0)
         }
