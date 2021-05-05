@@ -22,9 +22,9 @@ class FilterViewLauncher: UIView {
     private let blackBgView = PawView(bgColor: .black.withAlphaComponent(0.5))
     
     private let filterCardView = PawView(bgColor: .white, cornerRadius: 30)
-    private let dismissButton = PawButton(image: xmark, tintColor: .black, font: .systemFont(ofSize: 16, weight: .bold))
+    private let dismissButton = PawButton(image: SFSymbols.xmark, tintColor: .black, font: .systemFont(ofSize: 16, weight: .bold))
     private let filterTitle = PawLabel(text: "Filters", font: .systemFont(ofSize: 22, weight: .bold), alignment: .center)
-    private let saveButton = PawButton(image: checkmark, tintColor: .black, font: .systemFont(ofSize: 16, weight: .bold))
+    private let saveButton = PawButton(image: SFSymbols.checkmark, tintColor: .black, font: .systemFont(ofSize: 16, weight: .bold))
     private lazy var headingStack = PawStackView(views: [dismissButton, filterTitle, saveButton], distribution: .fillEqually, alignment: .fill)
     
     private let locationLabel = PawLabel(text: "Location", textColor: .black, font: .systemFont(ofSize: 18, weight: .bold), alignment: .left)

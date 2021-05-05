@@ -34,20 +34,21 @@ class AboutVC: UIViewController {
     
     private let contentView = PawView(bgColor: .white)
     
-    private let dismissButton = PawButton(image: downArrow, tintColor: .darkGray, font: .boldSystemFont(ofSize: 18))
+    private let dismissButton = PawButton(image: SFSymbols.downArrow, tintColor: .darkGray, font: .boldSystemFont(ofSize: 18))
     
     private let headerContainerView = PawView(bgColor: .gray)
     private let imagePagingVC = PagingController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
     
     private let bodyContainerView = PawView(bgColor: .clear)
+    
     private let namelabel = PawLabel(text: "", textColor: .black, font: .systemFont(ofSize: 30, weight: .bold), alignment: .left)
     private let breedAgeLabel = PawLabel(text: "Golden Retriever", textColor: lightRed, font: .systemFont(ofSize: 14, weight: .semibold), alignment: .left)
     private lazy var headingStack = PawStackView(views: [namelabel, breedAgeLabel], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
     
-    private let likeButton = PawButton(image: heart, tintColor: .white, font: .systemFont(ofSize: 16, weight: .bold))
-    private let dislikeButton = PawButton(image: xmark, tintColor: .white, font: .systemFont(ofSize: 16, weight: .bold))
-    private lazy var buttonStack = PawStackView(views: [dislikeButton, likeButton], distribution: .fillEqually, alignment: .fill)
-    
+    private let likeButton = PawButton(image: SFSymbols.heart, tintColor: lightRed, font: .systemFont(ofSize: 16, weight: .bold))
+    private let dislikeButton = PawButton(image: SFSymbols.xmark, tintColor: lightGray, font: .systemFont(ofSize: 16, weight: .bold))
+    private lazy var likeDislikeStack = PawStackView(views: [dislikeButton, likeButton], spacing: 5, distribution: .fillEqually, alignment: .fill)
+        
     private let genderLabel = PaddedLabel(text: Gender.female.rawValue, font: .systemFont(ofSize: 14, weight: .bold), padding: 5)
     
     private let bioLabel = PawLabel(text: "Golden Retriever", textColor: .gray, font: .systemFont(ofSize: 20, weight: .semibold), alignment: .left)
@@ -60,9 +61,6 @@ class AboutVC: UIViewController {
         layoutScrollView()
         layoutUI()
         configureUI()
-        
-//        namelabel.backgroundColor = .red
-//        breedAgeLabel.backgroundColor = .blue
     }
     
     // MARK: - Helpers
@@ -77,6 +75,10 @@ class AboutVC: UIViewController {
         bioLabel.numberOfLines = 0
         messageButton.layer.cornerRadius = 25
         messageButton.backgroundColor = .black
+        likeButton.layer.cornerRadius = 12
+        dislikeButton.layer.cornerRadius = 12
+        likeButton.backgroundColor = lightPink
+        dislikeButton.backgroundColor = darkTransparentGray
     }
     
     func layoutScrollView() {
@@ -97,16 +99,26 @@ class AboutVC: UIViewController {
         bodyContainerView.center(to: contentView, by: .centerX)
         bodyContainerView.setDimension(width: contentView.widthAnchor, height: contentView.heightAnchor, wMult: 0.85)
         
-        bodyContainerView.addSubviews(headingStack, genderLabel, bioLabel, messageButton)
-        headingStack.anchor(top: bodyContainerView.topAnchor, trailing: bodyContainerView.trailingAnchor, leading: bodyContainerView.leadingAnchor, paddingTop: 30)
-        genderLabel.anchor(top: headingStack.bottomAnchor, leading: headingStack.leadingAnchor, paddingTop: 10)
-        bioLabel.anchor(top: genderLabel.bottomAnchor, trailing: headingStack.trailingAnchor, leading: headingStack.leadingAnchor, paddingTop: 30)
-        
-        messageButton.anchor(top: bioLabel.bottomAnchor, trailing: headingStack.trailingAnchor, leading: headingStack.leadingAnchor, paddingTop: 60)
-        messageButton.setDimension(hConst: 50)
+        layoutBodyViews()
         
         headerContainerView.anchor(top: view.topAnchor, trailing: view.trailingAnchor, bottom: bodyContainerView.topAnchor, leading: view.leadingAnchor)
         imagePagingVC.view.fill(superView: headerContainerView)
+    }
+    
+    func layoutBodyViews() {
+        bodyContainerView.addSubviews(headingStack, likeDislikeStack, genderLabel, bioLabel, messageButton)
+        
+        headingStack.anchor(top: bodyContainerView.topAnchor, trailing: bodyContainerView.trailingAnchor, leading: bodyContainerView.leadingAnchor, paddingTop: 30)
+        headingStack.setDimension(width: bodyContainerView.widthAnchor, wMult: 0.7)
+        
+        likeDislikeStack.anchor(top: headingStack.topAnchor, trailing: bodyContainerView.trailingAnchor, leading: headingStack.trailingAnchor, paddingLeading: 10)
+        likeDislikeStack.setDimension(height: namelabel.heightAnchor)
+        
+        genderLabel.anchor(top: headingStack.bottomAnchor, leading: headingStack.leadingAnchor, paddingTop: 10)
+        bioLabel.anchor(top: genderLabel.bottomAnchor, trailing: likeDislikeStack.trailingAnchor, leading: headingStack.leadingAnchor, paddingTop: 30)
+        
+        messageButton.anchor(top: bioLabel.bottomAnchor, trailing: likeDislikeStack.trailingAnchor, leading: headingStack.leadingAnchor, paddingTop: 60)
+        messageButton.setDimension(hConst: 50)
     }
     
     // MARK: - Selector

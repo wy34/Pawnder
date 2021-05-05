@@ -24,15 +24,18 @@ let bob4 = "bob4"
 let vikram1 = "vikram1"
 
 // MARK: - SF Symbols
-let person = UIImage(systemName: "person")!
-let envelope = UIImage(systemName: "envelope")!
-let lock = UIImage(systemName: "lock")!
-let info = UIImage(systemName: "info.circle")!
-let downArrow = UIImage(systemName: "arrow.down")!
-let xmark = UIImage(systemName: "xmark")!
-let photos = UIImage(systemName: "photo.fill.on.rectangle.fill")!
-let chat = UIImage(systemName: "message")!
-let checkmark = UIImage(systemName: "checkmark")!
+struct SFSymbols {
+    static let person = UIImage(systemName: "person")!
+    static let envelope = UIImage(systemName: "envelope")!
+    static let lock = UIImage(systemName: "lock")!
+    static let info = UIImage(systemName: "info.circle")!
+    static let downArrow = UIImage(systemName: "arrow.down")!
+    static let xmark = UIImage(systemName: "xmark")!
+    static let photos = UIImage(systemName: "photo.fill.on.rectangle.fill")!
+    static let chat = UIImage(systemName: "message")!
+    static let checkmark = UIImage(systemName: "checkmark")!
+    static let heart = UIImage(systemName: "heart.fill")!
+}
 
 // MARK: - Colors
 let bgWhite = #colorLiteral(red: 0.9968960881, green: 0.9921532273, blue: 1, alpha: 1)
@@ -43,6 +46,7 @@ let lightRed = #colorLiteral(red: 1, green: 0.3450980392, blue: 0.3921568627, al
 let lightTransparentGray = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.247749856)
 let mediumTransparentGray = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5028261809)
 let darkTransparentGray = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7460937501)
+let lightPink = #colorLiteral(red: 1, green: 0.6349166036, blue: 1, alpha: 1)
 
 // MARK: - Notification UserInfo key
 let buttonTag = "tappedButtonTag"

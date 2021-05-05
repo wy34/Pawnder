@@ -24,9 +24,9 @@ class RegisterVC: LoadingViewController {
     private let slideupView = PawView(bgColor: bgWhite, cornerRadius: 35)
     
     private let titleLabel = PawLabel(text: "Sign Up", font: .systemFont(ofSize: 30, weight: .bold), alignment: .left)
-    private let nameTextField = IconTextfield(placeholder: "Full name", font: .systemFont(ofSize: 16, weight: .medium), icon: person)
-    private let emailTextField = IconTextfield(placeholder: "Email", font: .systemFont(ofSize: 16, weight: .medium), icon: envelope)
-    private let passwordTextField = IconTextfield(placeholder: "Password", font: .systemFont(ofSize: 16, weight: .medium), icon: lock)
+    private let nameTextField = IconTextfield(placeholder: "Full name", font: .systemFont(ofSize: 16, weight: .medium), icon: SFSymbols.person)
+    private let emailTextField = IconTextfield(placeholder: "Email", font: .systemFont(ofSize: 16, weight: .medium), icon: SFSymbols.envelope)
+    private let passwordTextField = IconTextfield(placeholder: "Password", font: .systemFont(ofSize: 16, weight: .medium), icon: SFSymbols.lock)
     
     private let existingUserButton = PawButton(title: "Existing User?", textColor: .lightGray, font: UIFont.systemFont(ofSize: 16, weight: .bold))
     private let registerButton = PawButton(title: "Sign Up", textColor: .gray, font: UIFont.systemFont(ofSize: 16, weight: .bold))

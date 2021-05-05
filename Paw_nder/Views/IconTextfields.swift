@@ -40,7 +40,7 @@ class IconTextfield: PawTextField {
 // MARK: - Previews
 struct Home: UIViewRepresentable {
     func makeUIView(context: Context) -> IconTextfield {
-        let homeVC = IconTextfield(placeholder: "Email", font: .systemFont(ofSize: 16, weight: .medium), icon: person)
+        let homeVC = IconTextfield(placeholder: "Email", font: .systemFont(ofSize: 16, weight: .medium), icon: SFSymbols.person)
         return homeVC
     }
     

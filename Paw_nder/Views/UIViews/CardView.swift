@@ -22,7 +22,7 @@ class CardView: LoadingView {
     // MARK: - Views
     private let containerView = PawView(bgColor: .white, cornerRadius: 25)
     
-    private let photoCountIcon = PawButton(image: photos, tintColor: .white, font: .boldSystemFont(ofSize: 14))
+    private let photoCountIcon = PawButton(image: SFSymbols.photos, tintColor: .white, font: .boldSystemFont(ofSize: 14))
     private let photoCountLabel = PawLabel(text: "3", textColor: .white, font: .boldSystemFont(ofSize: 14))
     private lazy var photoCountStack = PawStackView(views: [photoCountIcon, photoCountLabel], spacing: 5, distribution: .fillEqually, alignment: .fill)
 
@@ -33,7 +33,7 @@ class CardView: LoadingView {
     
     private let bioLabel = PawLabel(text: "Potty trained. Loves walks and belly rubs", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
     private lazy var overallLabelStack = PawStackView(views: [topStack, bioLabel], spacing: 5, axis: .vertical, distribution: .fillEqually, alignment: .fill)
-    private let aboutButton = PawButton(image: info, tintColor: .black, font: .systemFont(ofSize: 20, weight: .medium))
+    private let aboutButton = PawButton(image: SFSymbols.info, tintColor: .black, font: .systemFont(ofSize: 20, weight: .medium))
     private let temporaryCoverView = PawView(bgColor: lightGray, cornerRadius: 25)
     
     // MARK: - Init
