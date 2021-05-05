@@ -25,4 +25,8 @@ class AboutViewModel {
     var userInfo: (name: String, age: Int?, breed: String?, bio: String?) {
         return cardViewModel!.userInfo
     }
+    
+    var userBreedAge: String {
+        return cardViewModel?.userBreedAge ?? ""
+    }
 }

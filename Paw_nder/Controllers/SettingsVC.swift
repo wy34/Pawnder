@@ -166,7 +166,7 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
             imagePickerHeaderView.setCurrentUserImage(urlStringsDictionary: settingsVM.user?.imageUrls)
             return imagePickerHeaderView
         } else if 1...5 ~= section {
-            let headerLabel = PaddedLabel(text: "", font: .systemFont(ofSize: 16, weight: .bold))
+            let headerLabel = PaddedLabel(text: "", font: .systemFont(ofSize: 16, weight: .bold), padding: 0)
             switch section {
                 case 1:
                     headerLabel.text = "Name"
@@ -216,7 +216,7 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
                     cell.setTextfield(text: settingsVM.user?.breed, ph: "Enter Breed")
                     cell.textfield.addTarget(self, action: #selector(handleBreedTextfieldChanged(textField:)), for: .editingChanged)
                 case 3:
-                    cell.setTextfield(text: "\(settingsVM.user?.age ?? 0)", ph: "Enter Age (yrs)")
+                    cell.setTextfield(text: settingsVM.userAge, ph: "Enter Age (yrs)")
                     cell.textfield.keyboardType = .decimalPad
                     cell.textfield.addTarget(self, action: #selector(handleAgeTextfieldChanged(textField:)), for: .editingChanged)
                 default:

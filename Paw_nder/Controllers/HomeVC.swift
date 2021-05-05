@@ -52,7 +52,7 @@ class HomeVC: LoadingViewController {
         navbarStack.center(to: navbarView, by: .centerY, withMultiplierOf: 1.35)
         navbarStack.anchor(trailing: navbarView.trailingAnchor, leading: navbarView.leadingAnchor)
 
-        bottomControlsView.setDimension(width: view.widthAnchor, height: view.heightAnchor, wMult: 0.6, hMult: 0.15)
+        bottomControlsView.setDimension(width: view.widthAnchor, height: view.heightAnchor, wMult: 0.5, hMult: 0.125)
         bottomControlsView.addSubview(bottomControlsStack)
         bottomControlsStack.fill(superView: bottomControlsView)
 
@@ -78,7 +78,8 @@ class HomeVC: LoadingViewController {
     }
     
     func setupNotificationObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleSaveRefresh), name: Notification.Name.didSaveSettings, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNewUserRegistered), name: Notification.Name.didRegisterNewUser, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUpdatedSettings), name: Notification.Name.didSaveSettings, object: nil)
     }
     
     func presentLoginScreen() {
@@ -115,7 +116,11 @@ class HomeVC: LoadingViewController {
     }
     
     // MARK: - Selectors
-    @objc func handleSaveRefresh() {
+    @objc func handleNewUserRegistered() {
+        setupHomeContent()
+    }
+    
+    @objc func handleUpdatedSettings() {
         homeViewModel.fetchUsers()
     }
 }

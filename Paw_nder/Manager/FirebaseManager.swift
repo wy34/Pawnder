@@ -58,7 +58,7 @@ class FirebaseManager {
     
     func saveUserToDB(fullName: String, imageUrlString: String?, completion: @escaping (Result<Bool, Error>) -> Void) {
         let uid = Auth.auth().currentUser?.uid ?? ""
-        let docData: [String: Any] = ["fullName": fullName, "uid": uid, "imageUrls": ["1": imageUrlString]]
+        let docData: [String: Any] = ["fullName": fullName, "uid": uid, "imageUrls": ["1": imageUrlString], "age": 0]
         Firestore.firestore().collection("users").document(uid).setData(docData) { (error) in
             if let error = error {
                 completion(.failure(error))
@@ -77,6 +77,7 @@ class FirebaseManager {
         usersCollection
             .whereField("age", isGreaterThanOrEqualTo: currentUser.minAgePreference ?? 0)
             .whereField("age", isLessThanOrEqualTo: (currentUser.maxAgePreference == 0 ? 100 : currentUser.maxAgePreference) ?? 100).getDocuments { [weak self] (snapshots, error) in
+                
             if let error = error {
                 completion(.failure(error))
                 return

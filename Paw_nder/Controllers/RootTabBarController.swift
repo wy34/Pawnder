@@ -19,7 +19,7 @@ class RootTabBarController: UITabBarController {
     // MARK: - Helpers
     private func setupTabbar() {
         let layer = CAShapeLayer()
-        layer.shadowOpacity = 0.2
+        layer.shadowOpacity = 0.1
         layer.shadowRadius = 20
         
         let roundedRect = CGRect(x: 0, y: 0, width: self.tabBar.bounds.width, height: self.tabBar.bounds.height * 2)

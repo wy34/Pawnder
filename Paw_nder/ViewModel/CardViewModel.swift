@@ -31,7 +31,9 @@ class CardViewModel {
     
     var userAge: String {
         if let age = user.age {
-            if age > 1 {
+            if age == 0 {
+                return "N/A"
+            } else if age > 1 {
                 return "\(age) YRS"
             } else {
                 return "\(age) YR"

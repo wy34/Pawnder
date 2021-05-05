@@ -66,7 +66,7 @@ class CardView: LoadingView {
         containerView.anchor(top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, leading: leadingAnchor, paddingTop: 30, paddingTrailing: 30, paddingBottom: 15, paddingLeading: 30)
         
         containerView.addSubviews(profileImageView, overallLabelStack, aboutButton, temporaryCoverView)
-        profileImageView.setDimension(width: containerView.widthAnchor, height: containerView.heightAnchor, hMult: 0.75)
+        profileImageView.setDimension(width: containerView.widthAnchor, height: containerView.heightAnchor, hMult: 0.74)
         profileImageView.anchor(top: containerView.topAnchor, trailing: containerView.trailingAnchor, leading: containerView.leadingAnchor)
         overallLabelStack.anchor(top: profileImageView.bottomAnchor, trailing: containerView.trailingAnchor, bottom: containerView.bottomAnchor, leading: containerView.leadingAnchor, paddingTop: 15, paddingTrailing: 15, paddingBottom: 15, paddingLeading: 15)
         aboutButton.setDimension(wConst: 50, hConst: 50)

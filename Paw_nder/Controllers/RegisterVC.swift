@@ -159,7 +159,8 @@ class RegisterVC: LoadingViewController {
             self.dismissLoader()
             switch result {
                 case .success(_):
-                    self.showAlert(title: "Success", message: "Welcome new user!")
+                    NotificationCenter.default.post(Notification(name: .didRegisterNewUser, object: nil, userInfo: nil))
+                    self.dismiss(animated: true, completion: nil)                 
                 case .failure(let error):
                     self.showAlert(title: "Error", message: error.localizedDescription)
             }

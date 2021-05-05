@@ -14,6 +14,19 @@ class SettingsViewModel {
     var user: User?
     var selectedImages = [Int: UIImage]()
     
+    var userAge: String {
+        if let age = user?.age {
+            if age == 0 {
+                return "N/A"
+            } else if age > 1 {
+                return "\(age)"
+            } else {
+                return "\(age)"
+            }
+        }
+        
+        return "N/A"
+    }
     
     var ageSliderMinFloatValue: Float {
         return Float(user?.minAgePreference ?? 0) / 100
