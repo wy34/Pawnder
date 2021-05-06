@@ -11,6 +11,8 @@ import Firebase
 class HomeVC: LoadingViewController {
     // MARK: - Properties
     var homeViewModel = HomeViewModel()
+    var topCardView: CardView?
+    var previousCardView: CardView?
     
     // MARK: - Views
     private let navbarView = PawView()
@@ -93,7 +95,9 @@ class HomeVC: LoadingViewController {
     func setupFetchObserver() {
         homeViewModel.fetchUserHandler = { [weak self] in
             guard let self = self else { return }
+            self.topCardView = nil
             self.createCardDeck()
+            NotificationCenter.default.post(Notification(name: .didFetchUsers))
         }
     }
     
@@ -111,7 +115,11 @@ class HomeVC: LoadingViewController {
         
         cardViews.reversed().forEach({
             cardsDeckView.addSubview($0)
+            cardsDeckView.sendSubviewToBack($0)
             $0.fill(superView: cardsDeckView)
+            self.previousCardView?.nextCardView = $0
+            self.previousCardView = $0
+            if self.topCardView == nil { self.topCardView = $0 }
         })
     }
     
@@ -143,14 +151,24 @@ extension HomeVC: HomeBottomControlsStackDelegate {
     }
     
     func handleLikeTapped() {
-        print("should swipe right")
+        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: [.curveEaseOut]) {
+            let degrees = 30 * CGFloat.pi / 180
+            self.topCardView?.transform = CGAffineTransform(translationX: 800, y: 0).rotated(by: degrees)
+        } completion: { _ in
+            self.topCardView?.removeFromSuperview()
+            self.topCardView = self.topCardView?.nextCardView
+        }
+        
+        NotificationCenter.default.post(Notification(name: .didLikedUser))
     }
-    
-    
 }
-
+#warning("issue with dragging -> pressing like -> resetting -> only resetting last card")
 // MARK: - CardViewDelegate
 extension HomeVC: CardViewDelegate {
+    func resetTopCardView() {
+        topCardView = topCardView?.nextCardView
+    }
+    
     func showAboutVC(cardViewModel: CardViewModel?) {
         let aboutVC = AboutVC()
         aboutVC.aboutVM = AboutViewModel(cardViewModel: cardViewModel)

@@ -15,9 +15,18 @@ class RegisterViewModel {
     var fullName = ""
     var email = ""
     var password = ""
+    var gender: Gender? = nil
+    
+    var genderSelectionColor: (maleColor: UIColor, femaleColor: UIColor) {
+        if gender == .male {
+            return (lightBlue, .lightGray)
+        } else {
+            return (.lightGray, lightRed)
+        }
+    }
     
     var isFormValid: Bool {
-        return fullName != "" && email != "" && password != ""
+        return gender != nil && fullName != "" && email != "" && password != ""
     }
     
     var formButtonColor: (bgColor: UIColor, textColor: UIColor) {
@@ -26,7 +35,7 @@ class RegisterViewModel {
     
     // MARK: - Helpers
     func registerUser(completion: @escaping (Result<Bool, Error>) -> Void) {
-        let credentials = Credentials(fullName: fullName, email: email, password: password, profileImage: bindableImage.value)
+        let credentials = Credentials(gender: gender?.rawValue ?? "", fullName: fullName, email: email, password: password, profileImage: bindableImage.value)
         FirebaseManager.shared.registerUser(credentials: credentials, completion: completion)
     }
 }

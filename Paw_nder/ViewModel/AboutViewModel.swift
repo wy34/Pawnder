@@ -5,7 +5,7 @@
 //  Created by William Yeung on 4/30/21.
 //
 
-import Foundation
+import UIKit
 
 class AboutViewModel {
     var cardViewModel: CardViewModel?
@@ -22,8 +22,18 @@ class AboutViewModel {
         return cardViewModel?.imageUrls ?? [""]
     }
     
-    var userInfo: (name: String, age: Int?, breed: String?, bio: String?) {
+    var userInfo: (name: String, age: Int?, breed: String?, gender: Gender, bio: String?) {
         return cardViewModel!.userInfo
+    }
+    
+    var userGender: (text: String, color: UIColor) {
+        let gender = userInfo.gender
+        
+        if gender == .male {
+            return (gender.rawValue, lightBlue)
+        } else {
+            return (gender.rawValue, lightRed)
+        }
     }
     
     var userBreedAge: String {

@@ -8,6 +8,7 @@
 import UIKit
 
 struct Credentials {
+    var gender: String
     var fullName: String
     var email: String
     var password: String

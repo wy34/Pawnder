@@ -36,6 +36,7 @@ class HomeBottomControlsStack: UIStackView {
         configureUI()
         layoutUI()
         setupButtonActions()
+        setupNotificationObserver()
         self.spacing = spacing
         self.axis = axis
         self.distribution = distribution
@@ -62,12 +63,35 @@ class HomeBottomControlsStack: UIStackView {
         likeBtn.addTarget(self, action: #selector(handleHeartTapped), for: .touchUpInside)
     }
     
+    private func changeButtonEnableStateTo(_ enable: Bool) {
+        likeBtn.isEnabled = enable ? true : false
+        dislikeBtn.isEnabled = enable ? true : false
+    }
+    
+    private func setupNotificationObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(enableButtons), name: .didLikedUser, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleCardDrag), name: .didDragCard, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(enableButtons), name: .didFinishDraggingCard, object: nil)
+    }
+    
     // MARK: - Selectors
     @objc func handleDislikeTapped() {
+        changeButtonEnableStateTo(false)
         delegate?.handleDislikeTapped()
     }
     
     @objc func handleHeartTapped() {
+        changeButtonEnableStateTo(false)
         delegate?.handleLikeTapped()
+    }
+    
+    @objc func handleCardDrag() {
+        changeButtonEnableStateTo(false)
+    }
+    
+    @objc func enableButtons() {
+        Timer.scheduledTimer(withTimeInterval: 0.15, repeats: false) { [weak self] _ in
+            self?.changeButtonEnableStateTo(true)
+        }
     }
 }

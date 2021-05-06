@@ -8,6 +8,7 @@
 import UIKit
 
 protocol CardViewDelegate: AnyObject {
+    func resetTopCardView()
     func showAboutVC(cardViewModel: CardViewModel?)
 }
 
@@ -18,6 +19,8 @@ class CardView: LoadingView {
     private var deselectedBarColor = #colorLiteral(red: 0.817677021, green: 0.8137882352, blue: 0.8206836581, alpha: 0.5)
     
     weak var delegate: CardViewDelegate?
+    
+    var nextCardView: CardView?
     
     // MARK: - Views
     private let containerView = PawView(bgColor: .white, cornerRadius: 25)
@@ -106,6 +109,7 @@ class CardView: LoadingView {
     // MARK: - Selectors
     @objc private func handlePan(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: self)
+        NotificationCenter.default.post(Notification(name: .didDragCard))
         
         if gesture.state == .changed {
             self.transform = CGAffineTransform(rotationAngle: (translation.x / 20) * .pi / 180).translatedBy(x: translation.x, y: translation.y)
@@ -121,7 +125,9 @@ class CardView: LoadingView {
             } completion: { (_) in
                 if translation.x > 200 || translation.x < -200 {
                     self.removeFromSuperview()
+                    self.delegate?.resetTopCardView()
                 }
+                NotificationCenter.default.post(Notification(name: .didFinishDraggingCard))
             }
         }
     }

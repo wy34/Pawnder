@@ -24,16 +24,16 @@ class FirebaseManager {
                 return
             }
             
-            self.storeProfileImage(fullName: credentials.fullName, image: credentials.profileImage, completion: completion)
+            self.storeProfileImage(credentials: credentials, completion: completion)
         }
     }
     
-    func storeProfileImage(fullName: String, image: UIImage?, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func storeProfileImage(credentials: Credentials, completion: @escaping (Result<Bool, Error>) -> Void) {
         let imageName = UUID().uuidString
         let storageRef = Storage.storage().reference().child("profileImages/\(imageName)")
         var imageData: Data?
         
-        if let pickedImage = image {
+        if let pickedImage = credentials.profileImage {
             imageData = pickedImage.pngData()
         } else {
             imageData = UIImage(named: "profile")?.pngData()
@@ -51,14 +51,14 @@ class FirebaseManager {
                     return
                 }
 
-                self?.saveUserToDB(fullName: fullName, imageUrlString: url?.absoluteString, completion: completion)
+                self?.saveUserToDB(credentials: credentials, imageUrlString: url!.absoluteString, completion: completion)
             }
         }
     }
     
-    func saveUserToDB(fullName: String, imageUrlString: String?, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func saveUserToDB(credentials: Credentials, imageUrlString: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         let uid = Auth.auth().currentUser?.uid ?? ""
-        let docData: [String: Any] = ["fullName": fullName, "uid": uid, "imageUrls": ["1": imageUrlString], "age": 0]
+        let docData: [String: Any] = ["fullName": credentials.fullName, "uid": uid, "imageUrls": ["1": imageUrlString], "age": 0, "gender": credentials.gender]
         Firestore.firestore().collection("users").document(uid).setData(docData) { (error) in
             if let error = error {
                 completion(.failure(error))
@@ -136,7 +136,7 @@ class FirebaseManager {
     
     func updateUser(user: User, completion: @escaping (Error?) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-        let docData: [String: Any] = ["uid": currentUserId, "fullName": user.name, "breed": user.breed ?? "", "age": user.age ?? "", "bio": user.bio ?? "", "imageUrls": user.imageUrls ?? [0: ""], "minAgePreference": user.minAgePreference ?? 0, "maxAgePreference": user.maxAgePreference ?? 0]
+        let docData: [String: Any] = ["uid": currentUserId, "fullName": user.name, "breed": user.breed ?? "", "age": user.age ?? "", "bio": user.bio ?? "", "imageUrls": user.imageUrls ?? [0: ""], "gender": user.gender.rawValue, "minAgePreference": user.minAgePreference ?? 0, "maxAgePreference": user.maxAgePreference ?? 0]
         
         Firestore.firestore().collection("users").document("\(currentUserId)").setData(docData) { (error) in
             if let error = error {

@@ -7,10 +7,6 @@
 
 import UIKit
 
-enum Gender: String {
-    case male = "Male"
-    case female = "Female"
-}
 
 class AboutVC: UIViewController {
     // MARK: - Properties
@@ -20,6 +16,8 @@ class AboutVC: UIViewController {
             imagePagingVC.setupImages(aboutVM: aboutVM)
             namelabel.text = aboutVM.userInfo.name
             breedAgeLabel.text = aboutVM.userBreedAge
+            genderLabel.text = aboutVM.userGender.text
+            genderLabel.backgroundColor = aboutVM.userGender.color
             bioLabel.text = aboutVM.userInfo.bio
         }
     }
@@ -47,9 +45,9 @@ class AboutVC: UIViewController {
     
     private let likeButton = PawButton(image: SFSymbols.heart, tintColor: lightRed, font: .systemFont(ofSize: 16, weight: .bold))
     private let dislikeButton = PawButton(image: SFSymbols.xmark, tintColor: lightGray, font: .systemFont(ofSize: 16, weight: .bold))
-    private lazy var likeDislikeStack = PawStackView(views: [dislikeButton, likeButton], spacing: 5, distribution: .fillEqually, alignment: .fill)
+    private lazy var likeDislikeStack = PawStackView(views: [dislikeButton, likeButton], spacing: 8, distribution: .fillEqually, alignment: .fill)
         
-    private let genderLabel = PaddedLabel(text: Gender.female.rawValue, font: .systemFont(ofSize: 14, weight: .bold), padding: 5)
+    private let genderLabel = PaddedLabel(text: "", font: .systemFont(ofSize: 14, weight: .bold), padding: 5)
     
     private let bioLabel = PawLabel(text: "Golden Retriever", textColor: .gray, font: .systemFont(ofSize: 20, weight: .semibold), alignment: .left)
     
@@ -69,7 +67,6 @@ class AboutVC: UIViewController {
         dismissButton.layer.cornerRadius = 35/2
         dismissButton.addTarget(self, action: #selector(handleDismissTapped), for: .touchUpInside)
         genderLabel.textColor = .white
-        genderLabel.backgroundColor = lightRed
         genderLabel.layer.cornerRadius = 10
         genderLabel.clipsToBounds = true
         bioLabel.numberOfLines = 0

@@ -27,7 +27,7 @@ class PawButton: UIButton {
     
     init(image: UIImage, tintColor: UIColor = .black) {
         super.init(frame: .zero)
-        self.setImage(image, for: .normal)
+        self.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
         self.tintColor = tintColor
     }
     

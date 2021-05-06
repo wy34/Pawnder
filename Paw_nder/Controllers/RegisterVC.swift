@@ -24,6 +24,14 @@ class RegisterVC: LoadingViewController {
     private let slideupView = PawView(bgColor: bgWhite, cornerRadius: 35)
     
     private let titleLabel = PawLabel(text: "Sign Up", font: .systemFont(ofSize: 30, weight: .bold), alignment: .left)
+    
+    private let maleButton = PawButton(image: male, tintColor: .lightGray)
+    private let separatorView = PawView(bgColor: lightGray)
+    private let femaleButton = PawButton(image: female, tintColor: .lightGray)
+    private lazy var genderSelectStack = PawStackView(views: [maleButton, separatorView, femaleButton], spacing: 10, distribution: .fill)
+    
+    private lazy var headerStack = PawStackView(views: [titleLabel, genderSelectStack], spacing: 10, distribution: .fill)
+    
     private let nameTextField = IconTextfield(placeholder: "Full name", font: .systemFont(ofSize: 16, weight: .medium), icon: SFSymbols.person)
     private let emailTextField = IconTextfield(placeholder: "Email", font: .systemFont(ofSize: 16, weight: .medium), icon: SFSymbols.envelope)
     private let passwordTextField = IconTextfield(placeholder: "Password", font: .systemFont(ofSize: 16, weight: .medium), icon: SFSymbols.lock)
@@ -32,7 +40,7 @@ class RegisterVC: LoadingViewController {
     private let registerButton = PawButton(title: "Sign Up", textColor: .gray, font: UIFont.systemFont(ofSize: 16, weight: .bold))
     private lazy var buttonStack = PawStackView(views: [existingUserButton, registerButton], spacing: 15, distribution: .fillEqually)
     
-    private lazy var formStack = PawStackView(views: [titleLabel, nameTextField, emailTextField, passwordTextField, buttonStack], spacing: 18, axis: .vertical, distribution: .fillEqually, alignment: .fill)
+    private lazy var formStack = PawStackView(views: [headerStack, nameTextField, emailTextField, passwordTextField, buttonStack], spacing: 18, axis: .vertical, distribution: .fillEqually, alignment: .fill)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -43,6 +51,8 @@ class RegisterVC: LoadingViewController {
         setupSwipeGesture()
         setupFormActions()
         setupImagePickerObserver()
+        
+        separatorView.setDimension(wConst: 2, hConst: 25)
     }
 
     // MARK: - Helpers
@@ -84,6 +94,8 @@ class RegisterVC: LoadingViewController {
         slideupView.addSubview(formStack)
         formStack.center(x: slideupView.centerXAnchor, y: slideupView.centerYAnchor)
         formStack.setDimension(width: slideupView.widthAnchor, height: slideupView.heightAnchor, wMult: 0.8, hMult: 0.8)
+        
+        genderSelectStack.setDimension(width: formStack.widthAnchor, height: titleLabel.heightAnchor, wMult: 0.25)
     }
     
     private func setupKeyboardListener() {
@@ -93,6 +105,8 @@ class RegisterVC: LoadingViewController {
     
     private func setupFormActions() {
         profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectPhoto)))
+        maleButton.addTarget(self, action: #selector(handleGenderSelected(button:)), for: .touchUpInside)
+        femaleButton.addTarget(self, action: #selector(handleGenderSelected(button:)), for: .touchUpInside)
         nameTextField.addTarget(self, action: #selector(handleTextfieldChanged), for: .editingChanged)
         emailTextField.addTarget(self, action: #selector(handleTextfieldChanged), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(handleTextfieldChanged), for: .editingChanged)
@@ -111,6 +125,12 @@ class RegisterVC: LoadingViewController {
             guard let self = self else { return }
             self.profileImageView.setProfileImage(uiImage: pickedImage!)
         }
+    }
+    
+    private func updateRegisterButtonStatus(){
+        registerButton.setTitleColor(registerVM.formButtonColor.textColor, for: .normal)
+        registerButton.backgroundColor = registerVM.formButtonColor.bgColor
+        registerButton.isEnabled = registerVM.isFormValid ? true : false
     }
     
     // MARK: - Selector
@@ -136,6 +156,13 @@ class RegisterVC: LoadingViewController {
         view.endEditing(true)
     }
     
+    @objc func handleGenderSelected(button: UIButton) {
+        registerVM.gender = button == maleButton ? .male : .female
+        maleButton.tintColor = registerVM.genderSelectionColor.maleColor
+        femaleButton.tintColor = registerVM.genderSelectionColor.femaleColor
+        updateRegisterButtonStatus()
+    }
+    
     @objc func handleTextfieldChanged(textfield: UITextField) {
         if textfield == nameTextField {
             registerVM.fullName = textfield.text ?? ""
@@ -145,9 +172,7 @@ class RegisterVC: LoadingViewController {
             registerVM.password = textfield.text ?? ""
         }
             
-        registerButton.setTitleColor(registerVM.formButtonColor.textColor, for: .normal)
-        registerButton.backgroundColor = registerVM.formButtonColor.bgColor
-        registerButton.isEnabled = registerVM.isFormValid ? true : false
+        updateRegisterButtonStatus()
     }
     
     @objc func handleSignUpTapped() {
@@ -178,5 +203,33 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
         guard let pickedImage = info[.editedImage] as? UIImage else { return }
         registerVM.bindableImage.value = pickedImage
         dismiss(animated: true, completion: nil)
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+struct Register: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> RegisterVC {
+        let registerVC = RegisterVC()
+        return registerVC
+    }
+    
+    func updateUIViewController(_ uiViewController: RegisterVC, context: Context) {
+        
+    }
+}
+
+struct Register_Previews: PreviewProvider {
+    static var previews: some View {
+        return Register()
     }
 }

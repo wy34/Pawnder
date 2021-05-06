@@ -35,6 +35,7 @@ class HomeNavbarStack: UIStackView {
         super.init(frame: .zero)
         layoutUI()
         setupButtonActions()
+        setupNotificationObserver()
         self.spacing = spacing
         self.axis = axis
         self.distribution = distribution
@@ -49,16 +50,25 @@ class HomeNavbarStack: UIStackView {
     }
     
     private func setupButtonActions() {
-        refreshBtn.addTarget(self, action: #selector(handleUserTapped), for: .touchUpInside)
+        refreshBtn.addTarget(self, action: #selector(handleRefreshTapped), for: .touchUpInside)
         filterBtn.addTarget(self, action: #selector(handleFilterTapped), for: .touchUpInside)
     }
     
+    private func setupNotificationObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUsersFetched), name: .didFetchUsers, object: nil)
+    }
+    
     // MARK: - Selectors
-    @objc func handleUserTapped() {
+    @objc func handleRefreshTapped() {
+        refreshBtn.isEnabled = false
         delegate?.handleRefreshTapped()
     }
     
     @objc func handleFilterTapped() {
         delegate?.handleFilterTapped()
+    }
+    
+    @objc func handleUsersFetched() {
+        refreshBtn.isEnabled = true
     }
 }

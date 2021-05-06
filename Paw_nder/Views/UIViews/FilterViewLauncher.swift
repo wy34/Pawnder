@@ -8,12 +8,6 @@
 import UIKit
 import SwiftUI
 
-//struct FilterType {
-//    let id: String
-//    let title: String
-//    let cells: [UITableViewCell]
-//    let bgColor: UIColor
-//}
 
 class FilterViewLauncher: UIView {
     // MARK: - Properties
