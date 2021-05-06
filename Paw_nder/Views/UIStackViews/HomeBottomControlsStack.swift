@@ -60,7 +60,7 @@ class HomeBottomControlsStack: UIStackView {
     
     private func setupButtonActions() {
         dislikeBtn.addTarget(self, action: #selector(handleDislikeTapped), for: .touchUpInside)
-        likeBtn.addTarget(self, action: #selector(handleHeartTapped), for: .touchUpInside)
+        likeBtn.addTarget(self, action: #selector(handleLikeTapped), for: .touchUpInside)
     }
     
     private func changeButtonEnableStateTo(_ enable: Bool) {
@@ -69,19 +69,17 @@ class HomeBottomControlsStack: UIStackView {
     }
     
     private func setupNotificationObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(enableButtons), name: .didLikedUser, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(enableButtons), name: .didLikedUser, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleCardDrag), name: .didDragCard, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(enableButtons), name: .didFinishDraggingCard, object: nil)
     }
     
     // MARK: - Selectors
     @objc func handleDislikeTapped() {
-        changeButtonEnableStateTo(false)
         delegate?.handleDislikeTapped()
     }
     
-    @objc func handleHeartTapped() {
-        changeButtonEnableStateTo(false)
+    @objc func handleLikeTapped() {
         delegate?.handleLikeTapped()
     }
     
@@ -90,8 +88,8 @@ class HomeBottomControlsStack: UIStackView {
     }
     
     @objc func enableButtons() {
-        Timer.scheduledTimer(withTimeInterval: 0.15, repeats: false) { [weak self] _ in
-            self?.changeButtonEnableStateTo(true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            self.changeButtonEnableStateTo(true)
         }
     }
 }

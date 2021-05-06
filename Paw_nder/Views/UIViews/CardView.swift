@@ -115,19 +115,20 @@ class CardView: LoadingView {
             self.transform = CGAffineTransform(rotationAngle: (translation.x / 20) * .pi / 180).translatedBy(x: translation.x, y: translation.y)
         } else if gesture.state == .ended {
             UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: [.curveEaseOut]) {
-                if translation.x > 200 {
+                if translation.x > 175 {
                     self.transform = CGAffineTransform(translationX: 800, y: 0)
-                } else if translation.x < -200 {
+                } else if translation.x < -175 {
                     self.transform = CGAffineTransform(translationX: -800, y: 0)
                 } else {
                     self.transform = .identity
                 }
             } completion: { (_) in
-                if translation.x > 200 || translation.x < -200 {
+                if translation.x > 175 || translation.x < -175 {
                     self.removeFromSuperview()
                     self.delegate?.resetTopCardView()
+                } else {
+                    NotificationCenter.default.post(Notification(name: .didFinishDraggingCard))
                 }
-                NotificationCenter.default.post(Notification(name: .didFinishDraggingCard))
             }
         }
     }

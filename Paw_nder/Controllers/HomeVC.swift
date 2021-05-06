@@ -96,6 +96,7 @@ class HomeVC: LoadingViewController {
         homeViewModel.fetchUserHandler = { [weak self] in
             guard let self = self else { return }
             self.topCardView = nil
+            self.previousCardView = nil
             self.createCardDeck()
             NotificationCenter.default.post(Notification(name: .didFetchUsers))
         }
@@ -112,7 +113,7 @@ class HomeVC: LoadingViewController {
             cardView.setupCardWith(cardVM: cardVM)
             cardViews.append(cardView)
         })
-        
+                
         cardViews.reversed().forEach({
             cardsDeckView.addSubview($0)
             cardsDeckView.sendSubviewToBack($0)
@@ -121,6 +122,32 @@ class HomeVC: LoadingViewController {
             self.previousCardView = $0
             if self.topCardView == nil { self.topCardView = $0 }
         })
+    }
+    
+    private func performSwipeAnimation(translation: CGFloat, rotation: CGFloat) {
+        let duration = 0.5
+        
+        let translationAnimation = CABasicAnimation(keyPath: "position.x")
+        translationAnimation.toValue = translation
+        translationAnimation.duration = duration
+        translationAnimation.timingFunction = CAMediaTimingFunction(name: .easeOut)
+        translationAnimation.fillMode = .forwards
+        translationAnimation.isRemovedOnCompletion = false
+        
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotationAnimation.toValue = rotation * CGFloat.pi / 180
+        rotationAnimation.duration = duration
+        
+        let currentTopCardView = topCardView
+        topCardView = topCardView?.nextCardView
+        CATransaction.setCompletionBlock {
+            currentTopCardView?.removeFromSuperview()
+        }
+        
+        currentTopCardView?.layer.add(translationAnimation, forKey: "translation")
+        currentTopCardView?.layer.add(rotationAnimation, forKey: "rotation")
+        
+        CATransaction.commit()
     }
     
     // MARK: - Selectors
@@ -147,26 +174,19 @@ extension HomeVC: HomeNavbarStackDelegate {
 // MARK: - HomeBottomControlsDelegate
 extension HomeVC: HomeBottomControlsStackDelegate {
     func handleDislikeTapped() {
-        print("should swipe left")
+        performSwipeAnimation(translation: -700, rotation: -15)
     }
     
     func handleLikeTapped() {
-        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: [.curveEaseOut]) {
-            let degrees = 30 * CGFloat.pi / 180
-            self.topCardView?.transform = CGAffineTransform(translationX: 800, y: 0).rotated(by: degrees)
-        } completion: { _ in
-            self.topCardView?.removeFromSuperview()
-            self.topCardView = self.topCardView?.nextCardView
-        }
-        
-        NotificationCenter.default.post(Notification(name: .didLikedUser))
+        performSwipeAnimation(translation: 700, rotation: 15)
     }
 }
-#warning("issue with dragging -> pressing like -> resetting -> only resetting last card")
+
 // MARK: - CardViewDelegate
 extension HomeVC: CardViewDelegate {
     func resetTopCardView() {
         topCardView = topCardView?.nextCardView
+        NotificationCenter.default.post(Notification(name: .didFinishDraggingCard))
     }
     
     func showAboutVC(cardViewModel: CardViewModel?) {
