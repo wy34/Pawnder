@@ -63,7 +63,7 @@ class HomeVC: LoadingViewController {
         cardView.fill(superView: cardsDeckView)
     }
     
-    func setupAuthStateChangeListener() {
+    private func setupAuthStateChangeListener() {
         Auth.auth().addStateDidChangeListener { [weak self] auth, user in
             if let _ = user {
                 self?.setupHomeContent()
@@ -73,18 +73,18 @@ class HomeVC: LoadingViewController {
         }
     }
     
-    func setupHomeContent() {
+    private func setupHomeContent() {
         createCardDeck()
         setupFetchObserver()
         homeViewModel.fetchUsers()
     }
     
-    func setupNotificationObservers() {
+    private func setupNotificationObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleNewUserRegistered), name: Notification.Name.didRegisterNewUser, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleUpdatedSettings), name: Notification.Name.didSaveSettings, object: nil)
     }
     
-    func presentLoginScreen() {
+    private func presentLoginScreen() {
         let loginVC = LoginVC()
         let navContoller = UINavigationController(rootViewController: loginVC)
         navContoller.modalPresentationStyle = .fullScreen
@@ -92,7 +92,7 @@ class HomeVC: LoadingViewController {
         self.present(navContoller, animated: true, completion: nil)
     }
     
-    func setupFetchObserver() {
+    private func setupFetchObserver() {
         homeViewModel.fetchUserHandler = { [weak self] in
             guard let self = self else { return }
             self.topCardView = nil
@@ -150,7 +150,7 @@ class HomeVC: LoadingViewController {
         CATransaction.commit()
     }
     
-    func addSwipeData(for otherUserId: String, like: Bool) {
+    private func addSwipeData(for otherUserId: String, like: Bool) {
         FirebaseManager.shared.addUserSwipe(for: otherUserId, like: like) { [weak self] error in
             if let error = error {
                 self?.showAlert(title: "Error", message: error.localizedDescription)
@@ -159,12 +159,20 @@ class HomeVC: LoadingViewController {
         }
     }
     
+    func swipe(like: Bool) {
+        guard let topCardView = topCardView else { return }
+        let translation: CGFloat = like ? 700 : -700
+        let rotation: CGFloat = like ? 15 : -15
+        performSwipeAnimation(translation: translation, rotation: rotation)
+        addSwipeData(for: topCardView.userId, like: like)
+    }
+    
     // MARK: - Selectors
     @objc func handleNewUserRegistered() {
         setupHomeContent()
     }
     
-    @objc func handleUpdatedSettings() {
+    @objc func handleUpdatedSettings() { 
         homeViewModel.fetchUsers()
     }
 }
@@ -183,22 +191,22 @@ extension HomeVC: HomeNavbarStackDelegate {
 // MARK: - HomeBottomControlsDelegate
 extension HomeVC: HomeBottomControlsStackDelegate {
     func handleDislikeTapped() {
-        guard let topCardView = topCardView else { return }
-        performSwipeAnimation(translation: -700, rotation: -15)
-        addSwipeData(for: topCardView.userId, like: false)
+        swipe(like: false)
     }
     
     func handleLikeTapped() {
-        guard let topCardView = topCardView else { return }
-        performSwipeAnimation(translation: 700, rotation: 15)
-        addSwipeData(for: topCardView.userId, like: true)
+        swipe(like: true)
     }
 }
 
 // MARK: - CardViewDelegate
 extension HomeVC: CardViewDelegate {
-    func displaySwipeError(error: Error) {
-        showAlert(title: "Error", message: error.localizedDescription)
+    func handleCardSwipe(userId: String, like: Bool) {
+        FirebaseManager.shared.addUserSwipe(for: userId, like: like) { [weak self] error in
+            if let error = error {
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+            }
+        }
     }
     
     func resetTopCardView() {
@@ -208,8 +216,10 @@ extension HomeVC: CardViewDelegate {
     
     func showAboutVC(cardViewModel: CardViewModel?) {
         let aboutVC = AboutVC()
+        aboutVC.homeVC = self
         aboutVC.aboutVM = AboutViewModel(cardViewModel: cardViewModel)
         aboutVC.modalPresentationStyle = .fullScreen
         present(aboutVC, animated: true, completion: nil)
     }
 }
+

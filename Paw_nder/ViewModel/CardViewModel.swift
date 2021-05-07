@@ -51,15 +51,4 @@ class CardViewModel {
     init(user: User) {
         self.user = user
     }
-    
-    // MARK: - Helpers
-    func addSwipeData(for otherUserId: String, like: Bool, completion: @escaping (Error?) -> Void) {
-        FirebaseManager.shared.addUserSwipe(for: otherUserId, like: like) { error in
-            if let error = error {
-                completion(error)
-            }
-            
-            completion(nil)
-        }
-    }
 }

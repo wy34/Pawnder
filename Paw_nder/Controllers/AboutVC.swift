@@ -21,7 +21,9 @@ class AboutVC: UIViewController {
             bioLabel.text = aboutVM.userInfo.bio
         }
     }
-
+    
+    var homeVC: HomeVC?
+    
     // MARK: - Views
     lazy var scrollView: UIScrollView = {
         let sv = UIScrollView()
@@ -130,11 +132,11 @@ class AboutVC: UIViewController {
     }
     
     @objc func handleDislikeTapped() {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true) { self.homeVC?.swipe(like: false) }
     }
     
     @objc func handleLikeTapped() {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true) { self.homeVC?.swipe(like: true) }
     }
 }
 
