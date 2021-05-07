@@ -10,6 +10,7 @@ import UIKit
 protocol CardViewDelegate: AnyObject {
     func resetTopCardView()
     func showAboutVC(cardViewModel: CardViewModel?)
+    func displaySwipeError(error: Error)
 }
 
 class CardView: LoadingView {
@@ -21,6 +22,10 @@ class CardView: LoadingView {
     weak var delegate: CardViewDelegate?
     
     var nextCardView: CardView?
+    
+    var userId: String {
+        return cardVM?.userInfo.uid ?? ""
+    }
     
     // MARK: - Views
     private let containerView = PawView(bgColor: .white, cornerRadius: 25)
@@ -106,6 +111,14 @@ class CardView: LoadingView {
         bioLabel.text = cardVM.userInfo.bio
     }
     
+    func addUserSwipe(like: Bool) {
+        self.cardVM?.addSwipeData(for: self.userId, like: like, completion: { error in
+            if let error = error {
+                self.delegate?.displaySwipeError(error: error)
+            }
+        })
+    }
+    
     // MARK: - Selectors
     @objc private func handlePan(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: self)
@@ -117,8 +130,10 @@ class CardView: LoadingView {
             UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: [.curveEaseOut]) {
                 if translation.x > 175 {
                     self.transform = CGAffineTransform(translationX: 800, y: 0)
+                    self.addUserSwipe(like: true)
                 } else if translation.x < -175 {
                     self.transform = CGAffineTransform(translationX: -800, y: 0)
+                    self.addUserSwipe(like: false)
                 } else {
                     self.transform = .identity
                 }

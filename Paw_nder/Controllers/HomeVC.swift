@@ -150,6 +150,15 @@ class HomeVC: LoadingViewController {
         CATransaction.commit()
     }
     
+    func addSwipeData(for otherUserId: String, like: Bool) {
+        FirebaseManager.shared.addUserSwipe(for: otherUserId, like: like) { [weak self] error in
+            if let error = error {
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+                return
+            }
+        }
+    }
+    
     // MARK: - Selectors
     @objc func handleNewUserRegistered() {
         setupHomeContent()
@@ -174,16 +183,24 @@ extension HomeVC: HomeNavbarStackDelegate {
 // MARK: - HomeBottomControlsDelegate
 extension HomeVC: HomeBottomControlsStackDelegate {
     func handleDislikeTapped() {
+        guard let topCardView = topCardView else { return }
         performSwipeAnimation(translation: -700, rotation: -15)
+        addSwipeData(for: topCardView.userId, like: false)
     }
     
     func handleLikeTapped() {
+        guard let topCardView = topCardView else { return }
         performSwipeAnimation(translation: 700, rotation: 15)
+        addSwipeData(for: topCardView.userId, like: true)
     }
 }
 
 // MARK: - CardViewDelegate
 extension HomeVC: CardViewDelegate {
+    func displaySwipeError(error: Error) {
+        showAlert(title: "Error", message: error.localizedDescription)
+    }
+    
     func resetTopCardView() {
         topCardView = topCardView?.nextCardView
         NotificationCenter.default.post(Notification(name: .didFinishDraggingCard))

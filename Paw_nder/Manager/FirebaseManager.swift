@@ -136,7 +136,17 @@ class FirebaseManager {
     
     func updateUser(user: User, completion: @escaping (Error?) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-        let docData: [String: Any] = ["uid": currentUserId, "fullName": user.name, "breed": user.breed ?? "", "age": user.age ?? "", "bio": user.bio ?? "", "imageUrls": user.imageUrls ?? [0: ""], "gender": user.gender.rawValue, "minAgePreference": user.minAgePreference ?? 0, "maxAgePreference": user.maxAgePreference ?? 0]
+        let docData: [String: Any] = [
+            "uid": currentUserId,
+            "fullName": user.name,
+            "breed": user.breed ?? "",
+            "age": user.age ?? "",
+            "bio": user.bio ?? "",
+            "imageUrls": user.imageUrls ?? [0: ""],
+            "gender": user.gender.rawValue,
+            "minAgePreference": user.minAgePreference ?? 0,
+            "maxAgePreference": user.maxAgePreference ?? 0
+        ]
         
         Firestore.firestore().collection("users").document("\(currentUserId)").setData(docData) { (error) in
             if let error = error {
@@ -145,6 +155,33 @@ class FirebaseManager {
             }
             
             completion(nil)
+        }
+    }
+    
+    func addUserSwipe(for otherUserId: String, like: Bool, completion: @escaping (Error?) -> Void) {
+        let currentUserId = Auth.auth().currentUser?.uid ?? ""
+        let swipeData = [otherUserId: (like ? 1 : 0)]
+        
+        Firestore.firestore().collection("swipes").document(currentUserId).getDocument { snapshot, error in
+            if snapshot?.exists == true {
+                Firestore.firestore().collection("swipes").document(currentUserId).updateData(swipeData) { error in
+                    if let error = error {
+                        completion(error)
+                        return
+                    }
+                    
+                    completion(nil)
+                }
+            } else {
+                Firestore.firestore().collection("swipes").document(currentUserId).setData(swipeData) { error in
+                    if let error = error {
+                        completion(error)
+                        return
+                    }
+                    
+                    completion(nil)
+                }
+            }
         }
     }
 }

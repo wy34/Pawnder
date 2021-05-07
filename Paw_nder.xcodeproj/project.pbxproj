@@ -222,7 +222,6 @@
 				4C75AE552633C3B200255A7A /* UIImageViews */,
 				4C75AE572633C3B800255A7A /* UIViewControllers */,
 				4C75AE592633C3C200255A7A /* UIStackViews */,
-				4C75AE5A2633C3CC00255A7A /* UIViews */,
 				4C5A3E5E264332F0007EEC00 /* UITextfield */,
 			);
 			path = Views;
@@ -313,6 +312,7 @@
 			children = (
 				4C49BACC262E84B0006F046B /* HomeNavbarStack.swift */,
 				4C49BAC4262E7CE7006F046B /* HomeBottomControlsStack.swift */,
+				4C75AE5A2633C3CC00255A7A /* UIViews */,
 			);
 			path = UIStackViews;
 			sourceTree = "<group>";

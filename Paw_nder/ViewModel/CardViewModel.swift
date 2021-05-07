@@ -25,8 +25,8 @@ class CardViewModel {
         return imageUrlsDictionary.count == 0 ? [""] : sortedUrls
     }
     
-    var userInfo: (name: String, age: Int?, breed: String?, gender: Gender, bio: String?) {
-        return (user.name, user.age, user.breed, user.gender, user.bio)
+    var userInfo: (uid: String, name: String, age: Int?, breed: String?, gender: Gender, bio: String?) {
+        return (user.uid, user.name, user.age, user.breed, user.gender, user.bio)
     }
     
     var userAge: String {
@@ -50,5 +50,16 @@ class CardViewModel {
     // MARK: - Init
     init(user: User) {
         self.user = user
+    }
+    
+    // MARK: - Helpers
+    func addSwipeData(for otherUserId: String, like: Bool, completion: @escaping (Error?) -> Void) {
+        FirebaseManager.shared.addUserSwipe(for: otherUserId, like: like) { error in
+            if let error = error {
+                completion(error)
+            }
+            
+            completion(nil)
+        }
     }
 }

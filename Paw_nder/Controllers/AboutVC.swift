@@ -44,7 +44,7 @@ class AboutVC: UIViewController {
     private lazy var headingStack = PawStackView(views: [namelabel, breedAgeLabel], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
     
     private let likeButton = PawButton(image: SFSymbols.heart, tintColor: lightRed, font: .systemFont(ofSize: 16, weight: .bold))
-    private let dislikeButton = PawButton(image: SFSymbols.xmark, tintColor: lightGray, font: .systemFont(ofSize: 16, weight: .bold))
+    private let dislikeButton = PawButton(image: SFSymbols.xmark, tintColor: .white, font: .systemFont(ofSize: 16, weight: .bold))
     private lazy var likeDislikeStack = PawStackView(views: [dislikeButton, likeButton], spacing: 8, distribution: .fillEqually, alignment: .fill)
         
     private let genderLabel = PaddedLabel(text: "", font: .systemFont(ofSize: 14, weight: .bold), padding: 5)
@@ -59,6 +59,7 @@ class AboutVC: UIViewController {
         layoutScrollView()
         layoutUI()
         configureUI()
+        setupButtonActions()
     }
     
     // MARK: - Helpers
@@ -75,7 +76,7 @@ class AboutVC: UIViewController {
         likeButton.layer.cornerRadius = 12
         dislikeButton.layer.cornerRadius = 12
         likeButton.backgroundColor = lightPink
-        dislikeButton.backgroundColor = darkTransparentGray
+        dislikeButton.backgroundColor = .lightGray
     }
     
     func layoutScrollView() {
@@ -118,8 +119,22 @@ class AboutVC: UIViewController {
         messageButton.setDimension(hConst: 50)
     }
     
+    func setupButtonActions() {
+        dislikeButton.addTarget(self, action: #selector(handleDislikeTapped), for: .touchUpInside)
+        likeButton.addTarget(self, action: #selector(handleLikeTapped), for: .touchUpInside)
+    }
+    
     // MARK: - Selector
     @objc func handleDismissTapped() {
         dismiss(animated: true, completion: nil)
     }
+    
+    @objc func handleDislikeTapped() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func handleLikeTapped() {
+        dismiss(animated: true, completion: nil)
+    }
 }
+
