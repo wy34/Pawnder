@@ -69,7 +69,7 @@ class FirebaseManager {
         }
     }
     
-    func fetchUsers(currentUser: User, completion: @escaping (Result<[CardViewModel], Error>) -> Void) {
+    func fetchUsers(currentUser: User, swipes: [String: Int], completion: @escaping (Result<[CardViewModel], Error>) -> Void) {
         var users = [User]()
         let usersCollection = Firestore.firestore().collection("users")
         let currentUserId = Auth.auth().currentUser?.uid
@@ -86,7 +86,8 @@ class FirebaseManager {
             snapshots?.documents.forEach({ (snapshot) in
                 let snapshotData = snapshot.data()
                 let user = User(dictionary: snapshotData)
-                if user.uid != currentUserId {
+                
+                if user.uid != currentUserId && swipes[user.uid] == nil {
                     self?.lastFetchedUser = user
                     users.append(user)
                 }
@@ -170,6 +171,7 @@ class FirebaseManager {
                         return
                     }
                     
+                    self.checkMatchingUser(currentUserId: currentUserId, otherUserId: otherUserId)
                     completion(nil)
                 }
             } else {
@@ -179,8 +181,23 @@ class FirebaseManager {
                         return
                     }
                     
+                    self.checkMatchingUser(currentUserId: currentUserId, otherUserId: otherUserId)
                     completion(nil)
                 }
+            }
+        }
+    }
+    
+    func checkMatchingUser(currentUserId: String, otherUserId: String) {
+        Firestore.firestore().collection("swipes").document(otherUserId).getDocument { snapshot, error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            
+            guard let data = snapshot?.data() as? [String: Int] else { return }
+            
+            if data[currentUserId] == 1 {
+                print("Matching \(currentUserId) and \(otherUserId)")
             }
         }
     }
