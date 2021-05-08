@@ -29,6 +29,7 @@
 		4C49BAC5262E7CE7006F046B /* HomeBottomControlsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BAC4262E7CE7006F046B /* HomeBottomControlsStack.swift */; };
 		4C49BAC9262E8191006F046B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BAC8262E8191006F046B /* Constants.swift */; };
 		4C49BACD262E84B0006F046B /* HomeNavbarStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C49BACC262E84B0006F046B /* HomeNavbarStack.swift */; };
+		4C540B542645D123009B39F2 /* MatchingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C540B532645D123009B39F2 /* MatchingView.swift */; };
 		4C5A3E6126434563007EEC00 /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5A3E6026434563007EEC00 /* Gender.swift */; };
 		4C5EAD6F2631199200653AE0 /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5EAD6E2631199200653AE0 /* RegisterVC.swift */; };
 		4C5EAD7226311BE900653AE0 /* PawTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5EAD7126311BE900653AE0 /* PawTextField.swift */; };
@@ -86,6 +87,7 @@
 		4C49BAC4262E7CE7006F046B /* HomeBottomControlsStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomControlsStack.swift; sourceTree = "<group>"; };
 		4C49BAC8262E8191006F046B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4C49BACC262E84B0006F046B /* HomeNavbarStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavbarStack.swift; sourceTree = "<group>"; };
+		4C540B532645D123009B39F2 /* MatchingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingView.swift; sourceTree = "<group>"; };
 		4C5A3E6026434563007EEC00 /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		4C5EAD6E2631199200653AE0 /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		4C5EAD7126311BE900653AE0 /* PawTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawTextField.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				4CA40BE5262F4DE000B11232 /* CardView.swift */,
 				4C6349702634C26C006AE44B /* ImagePickerHeaderView.swift */,
 				4C3D1A33263A0CAD00185926 /* GradientView.swift */,
+				4C540B532645D123009B39F2 /* MatchingView.swift */,
 			);
 			path = UIViews;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				4C49BA91262E3928006F046B /* SceneDelegate.swift in Sources */,
 				4C49BAC5262E7CE7006F046B /* HomeBottomControlsStack.swift in Sources */,
 				4C49BABB262E3C6C006F046B /* PawView.swift in Sources */,
+				4C540B542645D123009B39F2 /* MatchingView.swift in Sources */,
 				4C49BAB1262E3AE4006F046B /* PawStackView.swift in Sources */,
 				4CA40BEF262F7F4F00B11232 /* CardViewModel.swift in Sources */,
 				4C6349712634C26C006AE44B /* ImagePickerHeaderView.swift in Sources */,

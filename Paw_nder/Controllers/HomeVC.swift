@@ -20,6 +20,8 @@ class HomeVC: LoadingViewController {
     
     private let filterViewLauncher = FilterViewLauncher()
 
+    private let matchingView = MatchingView()
+
     private let cardsDeckView = PawView()
     
     private let bottomControlsView = PawView()
@@ -82,6 +84,7 @@ class HomeVC: LoadingViewController {
     private func setupNotificationObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleNewUserRegistered), name: Notification.Name.didRegisterNewUser, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleUpdatedSettings), name: Notification.Name.didSaveSettings, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleMatch), name: .didFindMatch, object: nil)
     }
     
     private func presentLoginScreen() {
@@ -174,6 +177,10 @@ class HomeVC: LoadingViewController {
     
     @objc func handleUpdatedSettings() { 
         homeViewModel.fetchUsers()
+    }
+    
+    @objc func handleMatch() {
+        matchingView.showMatchingView()
     }
 }
 

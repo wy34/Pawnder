@@ -21,15 +21,6 @@ class HomeViewModel {
             switch result {
                 case .success(let user):
                     self.fetchSwipes(for: user)
-//                    FirebaseManager.shared.fetchUsers(currentUser: user) { result in
-//                        switch result {
-//                            case .success(let cardViewModels):
-//                                self.cardViewModels = cardViewModels
-//                                self.fetchUserHandler?()
-//                            case .failure(let error):
-//                               print(error)
-//                        }
-//                    }
                 case .failure(let error):
                     print(error)
             }

@@ -96,30 +96,3 @@ class FilterViewLauncher: UIView {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-struct Filter: UIViewRepresentable {
-    func makeUIView(context: Context) -> FilterViewLauncher {
-        let filter = FilterViewLauncher()
-        return filter
-    }
-    
-    func updateUIView(_ uiView: FilterViewLauncher, context: Context) {
-        
-    }
-}
-
-struct FilterView_Previews: PreviewProvider {
-    static var previews: some View {
-        return Filter()
-            .edgesIgnoringSafeArea(.all)
-    }
-}

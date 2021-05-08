@@ -37,6 +37,7 @@ struct SFSymbols {
     static let chat = UIImage(systemName: "message")!
     static let checkmark = UIImage(systemName: "checkmark")!
     static let heart = UIImage(systemName: "heart.fill")!
+    static let rightArrow = UIImage(systemName: "arrow.right")!
 }
 
 // MARK: - Colors

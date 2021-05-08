@@ -16,4 +16,5 @@ extension Notification.Name {
     static let didLikedUser = Notification.Name("didLikedUser")
     static let didDragCard = Notification.Name("didDragCard")
     static let didFinishDraggingCard = Notification.Name("didFinishDraggingCard")
+    static let didFindMatch = Notification.Name("didFindMatch")
 }

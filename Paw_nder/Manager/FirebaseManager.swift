@@ -87,7 +87,8 @@ class FirebaseManager {
                 let snapshotData = snapshot.data()
                 let user = User(dictionary: snapshotData)
                 
-                if user.uid != currentUserId && swipes[user.uid] == nil {
+//                swipes[user.uid] == nil
+                if user.uid != currentUserId && true {
                     self?.lastFetchedUser = user
                     users.append(user)
                 }
@@ -163,6 +164,10 @@ class FirebaseManager {
         let currentUserId = Auth.auth().currentUser?.uid ?? ""
         let swipeData = [otherUserId: (like ? 1 : 0)]
         
+        if like == true {
+            checkMatchingUser(currentUserId: currentUserId, otherUserId: otherUserId)
+        }
+        
         Firestore.firestore().collection("swipes").document(currentUserId).getDocument { snapshot, error in
             if snapshot?.exists == true {
                 Firestore.firestore().collection("swipes").document(currentUserId).updateData(swipeData) { error in
@@ -171,7 +176,6 @@ class FirebaseManager {
                         return
                     }
                     
-                    self.checkMatchingUser(currentUserId: currentUserId, otherUserId: otherUserId)
                     completion(nil)
                 }
             } else {
@@ -181,7 +185,6 @@ class FirebaseManager {
                         return
                     }
                     
-                    self.checkMatchingUser(currentUserId: currentUserId, otherUserId: otherUserId)
                     completion(nil)
                 }
             }
@@ -198,6 +201,7 @@ class FirebaseManager {
             
             if data[currentUserId] == 1 {
                 print("Matching \(currentUserId) and \(otherUserId)")
+                NotificationCenter.default.post(Notification(name: .didFindMatch))
             }
         }
     }
