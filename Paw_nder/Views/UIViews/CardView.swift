@@ -27,6 +27,14 @@ class CardView: LoadingView {
         return cardVM?.userInfo.uid ?? ""
     }
     
+    var userName: String {
+        return cardVM?.userInfo.name ?? ""
+    }
+    
+    var firstImageUrl: String? {
+        return cardVM?.firstImageUrl
+    }
+    
     // MARK: - Views
     private let containerView = PawView(bgColor: .white, cornerRadius: 25)
     

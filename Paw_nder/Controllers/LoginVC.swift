@@ -53,7 +53,7 @@ class LoginVC: LoadingViewController {
         iconImageView.center(to: view, by: .centerY, withMultiplierOf: 0.175)
         iconImageView.setDimension(wConst: 45, hConst: 45)
         
-        containerView.setDimension(width: view.widthAnchor, height: view.heightAnchor, wMult: 0.8, hMult: 0.3)
+        containerView.setDimension(width: view.widthAnchor, height: view.widthAnchor, wMult: 0.8, hMult: 0.6)
         containerView.center(to: view, by: .centerX)
         containerView.center(to: view, by: .centerY, withMultiplierOf: 0.75)
         

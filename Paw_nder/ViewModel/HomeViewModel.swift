@@ -10,6 +10,7 @@ import Firebase
 
 class HomeViewModel {
     // MARK: - Properties
+    var currentUser: User?
     var users = [User]()
     var cardViewModels = [CardViewModel(user: .init(dictionary: ["": ""]))]
     var swipes = [String: Int]()
@@ -20,6 +21,7 @@ class HomeViewModel {
         FirebaseManager.shared.fetchCurrentUser { result in
             switch result {
                 case .success(let user):
+                    self.currentUser = user
                     self.fetchSwipes(for: user)
                 case .failure(let error):
                     print(error)

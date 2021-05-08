@@ -180,6 +180,7 @@ class HomeVC: LoadingViewController {
     }
     
     @objc func handleMatch() {
+        matchingView.matchedUserInfo = (topCardView?.userName, topCardView?.firstImageUrl, homeViewModel.currentUser?.imageUrls?["1"])
         matchingView.showMatchingView()
     }
 }
