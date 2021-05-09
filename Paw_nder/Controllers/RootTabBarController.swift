@@ -45,16 +45,15 @@ class RootTabBarController: UITabBarController {
         homeVC.tabBarItem = UITabBarItem(title: nil, image: paw, tag: 0)
         homeVC.tabBarItem.imageInsets = .init(top: 14, left: 0, bottom: -14, right: 0)
         
-        let redVC = UIViewController()
-        redVC.view.backgroundColor = .white
-        redVC.tabBarItem = UITabBarItem(title: nil, image: message, tag: 1)
-        redVC.tabBarItem.imageInsets = .init(top: 14, left: 0, bottom: -14, right: 0)
+        let messagesVC = MessagesVC()
+        messagesVC.tabBarItem = UITabBarItem(title: nil, image: message, tag: 1)
+        messagesVC.tabBarItem.imageInsets = .init(top: 14, left: 0, bottom: -14, right: 0)
         
         let settingsVC = UINavigationController(rootViewController: SettingsVC())
         settingsVC.view.backgroundColor = .white
         settingsVC.tabBarItem = UITabBarItem(title: nil, image: user, tag: 2)
         settingsVC.tabBarItem.imageInsets = .init(top: 14, left: 0, bottom: -14, right: 0)
         
-        setViewControllers([homeVC, redVC, settingsVC], animated: true)
+        setViewControllers([homeVC, messagesVC, settingsVC], animated: true)
     }
 }

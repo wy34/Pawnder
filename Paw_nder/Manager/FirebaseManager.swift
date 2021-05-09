@@ -200,7 +200,6 @@ class FirebaseManager {
             guard let data = snapshot?.data() as? [String: Int] else { return }
             
             if data[currentUserId] == 1 {
-                print("Matching \(currentUserId) and \(otherUserId)")
                 NotificationCenter.default.post(Notification(name: .didFindMatch))
             }
         }

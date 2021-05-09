@@ -17,7 +17,7 @@ class PawImageView: UIImageView {
         fatalError()
     }
     
-    init(image: UIImage, contentMode: UIImageView.ContentMode) {
+    init(image: UIImage?, contentMode: UIImageView.ContentMode) {
         super.init(frame: .zero)
         self.image = image
         self.contentMode = contentMode

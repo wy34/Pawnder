@@ -14,8 +14,8 @@ class MatchingView: UIView {
         didSet {
             guard let likedUserName = matchedUserInfo.0, let likedUserImageUrl = matchedUserInfo.1,  let currentUserImageUrl = matchedUserInfo.2 else { return }
             matchingUsersLabel.text = "You and \(likedUserName) liked each other"
-            user1ImageView.setImage(imageUrlString: "https://i.ytimg.com/vi/8kFfHnre85o/maxresdefault.jpg", completion: nil)
-            user2ImageView.setImage(imageUrlString: "https://www.noracooks.com/wp-content/uploads/2020/05/square.jpg", completion: nil)
+            user1ImageView.setImage(imageUrlString: currentUserImageUrl, completion: nil)
+            user2ImageView.setImage(imageUrlString: likedUserImageUrl, completion: nil)
         }
     }
 
@@ -28,8 +28,8 @@ class MatchingView: UIView {
     private let matchingUsersLabel = PawLabel(text: "", textColor: .white, font: .systemFont(ofSize: 16, weight: .bold), alignment: .center)
     private lazy var headingLabelStack = PawStackView(views: [matchTitleLabel, matchingUsersLabel], axis: .vertical, alignment: .fill)
     
-    private let user1ImageView = PawImageView(image: UIImage(named: bob1)!, contentMode: .scaleAspectFill)
-    private let user2ImageView = PawImageView(image: UIImage(named: bob2)!, contentMode: .scaleAspectFill)
+    private let user1ImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
+    private let user2ImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
     
     private let messageButton = PawButton(title: "Send a Message", textColor: .white, bgColor: lightRed)
     private let backToSwipeButton = PawButton(image: SFSymbols.rightArrow, tintColor: lightRed, font: .systemFont(ofSize: 18, weight: .bold))
@@ -80,7 +80,7 @@ class MatchingView: UIView {
             
         buttonStack.center(to: user2ImageView, by: .centerY, withMultiplierOf: 1.7)
         buttonStack.setDimension(width: contentView.widthAnchor)
-        messageButton.setDimension(width: contentView.widthAnchor, height: contentView.heightAnchor, wMult: 0.7, hMult: 0.05)
+        messageButton.setDimension(width: contentView.widthAnchor, height: contentView.widthAnchor, wMult: 0.7, hMult: 0.12)
         backToSwipeButton.setDimension(wConst: backToSwipeButtonSide, hConst: backToSwipeButtonSide)
     }
     

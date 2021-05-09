@@ -11,6 +11,7 @@ import Firebase
 class HomeVC: LoadingViewController {
     // MARK: - Properties
     var homeViewModel = HomeViewModel()
+    var currentTopCardView: CardView?
     var topCardView: CardView?
     var previousCardView: CardView?
     
@@ -141,10 +142,10 @@ class HomeVC: LoadingViewController {
         rotationAnimation.toValue = rotation * CGFloat.pi / 180
         rotationAnimation.duration = duration
         
-        let currentTopCardView = topCardView
+        currentTopCardView = topCardView
         topCardView = topCardView?.nextCardView
-        CATransaction.setCompletionBlock {
-            currentTopCardView?.removeFromSuperview()
+        CATransaction.setCompletionBlock { [weak self] in
+            self?.currentTopCardView?.removeFromSuperview()
         }
         
         currentTopCardView?.layer.add(translationAnimation, forKey: "translation")
@@ -180,7 +181,9 @@ class HomeVC: LoadingViewController {
     }
     
     @objc func handleMatch() {
-        matchingView.matchedUserInfo = (topCardView?.userName, topCardView?.firstImageUrl, homeViewModel.currentUser?.imageUrls?["1"])
+//        matchingView.matchedUserInfo = (topCardView?.userName, topCardView?.firstImageUrl, homeViewModel.currentUser?.imageUrls?["1"])
+
+        matchingView.matchedUserInfo = (currentTopCardView?.userName, currentTopCardView?.firstImageUrl, homeViewModel.currentUser?.imageUrls?["1"])
         matchingView.showMatchingView()
     }
 }
@@ -218,7 +221,9 @@ extension HomeVC: CardViewDelegate {
     }
     
     func resetTopCardView() {
+        #warning("need to swipe slow for match view to display images, otherwise, currentTopCardView is nil")
         topCardView = topCardView?.nextCardView
+        currentTopCardView = topCardView
         NotificationCenter.default.post(Notification(name: .didFinishDraggingCard))
     }
     
