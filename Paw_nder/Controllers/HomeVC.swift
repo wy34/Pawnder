@@ -128,7 +128,7 @@ class HomeVC: LoadingViewController {
         })
     }
     
-    private func performSwipeAnimation(translation: CGFloat, rotation: CGFloat) {
+    private func performSwipeAnimationWhenPressed(translation: CGFloat, rotation: CGFloat) {
         let duration = 0.5
         
         let translationAnimation = CABasicAnimation(keyPath: "position.x")
@@ -154,7 +154,7 @@ class HomeVC: LoadingViewController {
         CATransaction.commit()
     }
     
-    private func addSwipeData(for otherUserId: String, like: Bool) {
+    private func addSwipeDataWhenPressed(for otherUserId: String, like: Bool) {
         FirebaseManager.shared.addUserSwipe(for: otherUserId, like: like) { [weak self] error in
             if let error = error {
                 self?.showAlert(title: "Error", message: error.localizedDescription)
@@ -163,12 +163,12 @@ class HomeVC: LoadingViewController {
         }
     }
     
-    func swipe(like: Bool) {
+    func swipeWhenPressed(like: Bool) {
         guard let topCardView = topCardView else { return }
         let translation: CGFloat = like ? 700 : -700
         let rotation: CGFloat = like ? 15 : -15
-        performSwipeAnimation(translation: translation, rotation: rotation)
-        addSwipeData(for: topCardView.userId, like: like)
+        performSwipeAnimationWhenPressed(translation: translation, rotation: rotation)
+        addSwipeDataWhenPressed(for: topCardView.userId, like: like)
     }
     
     // MARK: - Selectors
@@ -181,8 +181,6 @@ class HomeVC: LoadingViewController {
     }
     
     @objc func handleMatch() {
-//        matchingView.matchedUserInfo = (topCardView?.userName, topCardView?.firstImageUrl, homeViewModel.currentUser?.imageUrls?["1"])
-
         matchingView.matchedUserInfo = (currentTopCardView?.userName, currentTopCardView?.firstImageUrl, homeViewModel.currentUser?.imageUrls?["1"])
         matchingView.showMatchingView()
     }
@@ -202,11 +200,11 @@ extension HomeVC: HomeNavbarStackDelegate {
 // MARK: - HomeBottomControlsDelegate
 extension HomeVC: HomeBottomControlsStackDelegate {
     func handleDislikeTapped() {
-        swipe(like: false)
+        swipeWhenPressed(like: false)
     }
     
     func handleLikeTapped() {
-        swipe(like: true)
+        swipeWhenPressed(like: true)
     }
 }
 
@@ -221,10 +219,8 @@ extension HomeVC: CardViewDelegate {
     }
     
     func resetTopCardView() {
-        #warning("need to swipe slow for match view to display images, otherwise, currentTopCardView is nil")
-        topCardView = topCardView?.nextCardView
         currentTopCardView = topCardView
-        NotificationCenter.default.post(Notification(name: .didFinishDraggingCard))
+        topCardView = topCardView?.nextCardView
     }
     
     func showAboutVC(cardViewModel: CardViewModel?) {

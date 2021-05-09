@@ -68,28 +68,34 @@ class HomeBottomControlsStack: UIStackView {
         dislikeBtn.isEnabled = enable ? true : false
     }
     
+    private func disableLikeDislikeBy(seconds: Double) {
+        changeButtonEnableStateTo(false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            self.changeButtonEnableStateTo(true)
+        }
+    }
+    
     private func setupNotificationObserver() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(enableButtons), name: .didLikedUser, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleCardDrag), name: .didDragCard, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(disableButtons), name: .didDragCard, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(enableButtons), name: .didFinishDraggingCard, object: nil)
     }
     
     // MARK: - Selectors
     @objc func handleDislikeTapped() {
         delegate?.handleDislikeTapped()
+        disableLikeDislikeBy(seconds: 0.15)
     }
     
     @objc func handleLikeTapped() {
         delegate?.handleLikeTapped()
+        disableLikeDislikeBy(seconds: 0.15)
     }
     
-    @objc func handleCardDrag() {
+    @objc func disableButtons() {
         changeButtonEnableStateTo(false)
     }
     
     @objc func enableButtons() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-            self.changeButtonEnableStateTo(true)
-        }
+        self.changeButtonEnableStateTo(true)
     }
 }

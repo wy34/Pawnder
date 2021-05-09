@@ -124,11 +124,11 @@ class AboutVC: UIViewController {
     }
     
     @objc func handleDislikeTapped() {
-        dismiss(animated: true) { self.homeVC?.swipe(like: false) }
+        dismiss(animated: true) { self.homeVC?.swipeWhenPressed(like: false) }
     }
     
     @objc func handleLikeTapped() {
-        dismiss(animated: true) { self.homeVC?.swipe(like: true) }
+        dismiss(animated: true) { self.homeVC?.swipeWhenPressed(like: true) }
     }
 }
 

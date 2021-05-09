@@ -119,6 +119,12 @@ class CardView: LoadingView {
         bioLabel.text = cardVM.userInfo.bio
     }
     
+    private func swipeCardWith(translationX: CGFloat, like: Bool) {
+        self.transform = CGAffineTransform(translationX: translationX, y: 0)
+        self.delegate?.handleCardSwipe(userId: self.userId, like: like)
+        self.delegate?.resetTopCardView()
+    }
+    
     // MARK: - Selectors
     @objc private func handlePan(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: self)
@@ -127,22 +133,19 @@ class CardView: LoadingView {
         if gesture.state == .changed {
             self.transform = CGAffineTransform(rotationAngle: (translation.x / 20) * .pi / 180).translatedBy(x: translation.x, y: translation.y)
         } else if gesture.state == .ended {
+            NotificationCenter.default.post(Notification(name: .didFinishDraggingCard))
+            
             UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: [.curveEaseOut]) {
                 if translation.x > 175 {
-                    self.transform = CGAffineTransform(translationX: 800, y: 0)
-                    self.delegate?.handleCardSwipe(userId: self.userId, like: true)
+                    self.swipeCardWith(translationX: 800, like: true)
                 } else if translation.x < -175 {
-                    self.transform = CGAffineTransform(translationX: -800, y: 0)
-                    self.delegate?.handleCardSwipe(userId: self.userId, like: false)
+                    self.swipeCardWith(translationX: -800, like: false)
                 } else {
                     self.transform = .identity
                 }
             } completion: { (_) in
                 if translation.x > 175 || translation.x < -175 {
                     self.removeFromSuperview()
-                    self.delegate?.resetTopCardView()
-                } else {
-                    NotificationCenter.default.post(Notification(name: .didFinishDraggingCard))
                 }
             }
         }
