@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Firebase
 
 class NewMatchesView: UIView {
     // MARK: - Properties
+    var matches = [Match]()
     
     // MARK: - Views
     private lazy var collectionView: UICollectionView = {
@@ -28,6 +30,9 @@ class NewMatchesView: UIView {
         super.init(frame: frame)
         configureUI()
         layoutUI()
+        #warning("Need to find a way to call this again if user logs out and then logs in")
+        fetchMatches()
+        setupNotificationObservers()
     }
     
     required init?(coder: NSCoder) {
@@ -35,24 +40,53 @@ class NewMatchesView: UIView {
     }
     
     // MARK: - Helpers
-    func configureUI() {
+    private func configureUI() {
 
     }
     
-    func layoutUI() {
+    private func layoutUI() {
         addSubviews(collectionView)
         collectionView.fill(superView: self)
+    }
+    
+    private func fetchMatches() {
+        guard Auth.auth().currentUser != nil else { return }
+        
+        FirebaseManager.shared.fetchMatches { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+                case .success(let matches):
+                    DispatchQueue.main.async {
+                        self.matches = matches
+                        self.collectionView.reloadData()
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func setupNotificationObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNewMatchRefresh), name: .didFindMatch, object: nil)
+    }
+    
+    // MARK: - Selector
+    @objc func handleNewMatchRefresh() {
+        fetchMatches()
+        collectionView.reloadData()
     }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension NewMatchesView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return matches.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NewMatchMessageCell.reuseId, for: indexPath) as! NewMatchMessageCell
+        cell.setupWith(userMatch: matches[indexPath.item])
         return cell
     }
     

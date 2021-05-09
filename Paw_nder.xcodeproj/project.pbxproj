@@ -48,6 +48,7 @@
 		4C65D94B26324A6600B1F4FB /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65D94A26324A6600B1F4FB /* Bindable.swift */; };
 		4C65D965263275D400B1F4FB /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65D964263275D400B1F4FB /* UIViewController.swift */; };
 		4C65D9682632798E00B1F4FB /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65D9672632798E00B1F4FB /* LoadingViewController.swift */; };
+		4C68459A264882FD0003988C /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C684599264882FD0003988C /* Match.swift */; };
 		4C75AE3C2633644A00255A7A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C75AE3B2633644A00255A7A /* HomeViewModel.swift */; };
 		4C75AE402633819B00255A7A /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C75AE3F2633819B00255A7A /* UIImageView.swift */; };
 		4C75AE44263394AD00255A7A /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C75AE43263394AD00255A7A /* FirebaseManager.swift */; };
@@ -109,6 +110,7 @@
 		4C65D94A26324A6600B1F4FB /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		4C65D964263275D400B1F4FB /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		4C65D9672632798E00B1F4FB /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		4C684599264882FD0003988C /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		4C75AE3B2633644A00255A7A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		4C75AE3F2633819B00255A7A /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		4C75AE43263394AD00255A7A /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
@@ -224,7 +226,6 @@
 		4C49BAAF262E3AD4006F046B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4C5EAF632647923E00F415B7 /* UICollectionViewCell */,
 				4C634980263519B5006AE44B /* UIButton */,
 				4C63497B2634E929006AE44B /* UITableViewCell */,
 				4C6349762634E4FB006AE44B /* UILabel */,
@@ -233,6 +234,7 @@
 				4C75AE572633C3B800255A7A /* UIViewControllers */,
 				4C75AE5A2633C3CC00255A7A /* UIViews */,
 				4C75AE592633C3C200255A7A /* UIStackViews */,
+				4C5EAF632647923E00F415B7 /* UICollectionViewCell */,
 				4C5A3E5E264332F0007EEC00 /* UITextfield */,
 			);
 			path = Views;
@@ -355,6 +357,7 @@
 				4C75AE482633963C00255A7A /* Credentials.swift */,
 				4CA40BE9262F716A00B11232 /* User.swift */,
 				4C5A3E6026434563007EEC00 /* Gender.swift */,
+				4C684599264882FD0003988C /* Match.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -521,6 +524,7 @@
 				4C634982263519C6006AE44B /* LoadingButton.swift in Sources */,
 				4C49BA93262E3928006F046B /* HomeVC.swift in Sources */,
 				4C75AE3C2633644A00255A7A /* HomeViewModel.swift in Sources */,
+				4C68459A264882FD0003988C /* Match.swift in Sources */,
 				4C49BABE262E3D2D006F046B /* PawImageView.swift in Sources */,
 				4C75AE522633C2D900255A7A /* LoadingView.swift in Sources */,
 				4CA40BEA262F716A00B11232 /* User.swift in Sources */,

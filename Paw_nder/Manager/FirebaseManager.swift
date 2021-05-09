@@ -13,6 +13,7 @@ class FirebaseManager {
     static let shared = FirebaseManager()
     var imageCache = NSCache<NSString, UIImage>()
     var lastFetchedUser: User?
+    var users = [String: User]()
     
     // MARK: - Helpers
     func registerUser(credentials: Credentials, completion: @escaping (Result<Bool, Error>) -> Void) {
@@ -89,7 +90,8 @@ class FirebaseManager {
                 
 //                swipes[user.uid] == nil
                 if user.uid != currentUserId && true {
-                    self?.lastFetchedUser = user
+//                    self?.lastFetchedUser = user
+                    self?.users[user.uid] = user
                     users.append(user)
                 }
             })
@@ -165,7 +167,7 @@ class FirebaseManager {
         let swipeData = [otherUserId: (like ? 1 : 0)]
         
         if like == true {
-            checkMatchingUser(currentUserId: currentUserId, otherUserId: otherUserId)
+            checkMatchingUser(currentUserId: currentUserId, otherUserId: otherUserId, completion: completion)
         }
         
         Firestore.firestore().collection("swipes").document(currentUserId).getDocument { snapshot, error in
@@ -191,8 +193,8 @@ class FirebaseManager {
         }
     }
     
-    func checkMatchingUser(currentUserId: String, otherUserId: String) {
-        Firestore.firestore().collection("swipes").document(otherUserId).getDocument { snapshot, error in
+    func checkMatchingUser(currentUserId: String, otherUserId: String, completion: @escaping (Error?) -> Void) {
+        Firestore.firestore().collection("swipes").document(otherUserId).getDocument { [weak self] snapshot, error in
             if let error = error {
                 print(error.localizedDescription)
             }
@@ -200,9 +202,44 @@ class FirebaseManager {
             guard let data = snapshot?.data() as? [String: Int] else { return }
             
             if data[currentUserId] == 1 {
-                NotificationCenter.default.post(Notification(name: .didFindMatch))
+                self?.addUserMatch(currentUserId: currentUserId, otherUserId: otherUserId, completion: completion)
             }
         }
+    }
+    
+    func addUserMatch(currentUserId: String, otherUserId: String, completion: @escaping (Error?) -> Void) {
+        let data = ["name": self.users[otherUserId]?.name ?? "", "imageUrlString": self.users[otherUserId]?.imageUrls?["1"] ?? "", "uid": otherUserId]
+        
+        Firestore.firestore().collection("matches_messages").document(currentUserId).collection("matches").document(otherUserId).setData(data) { error in
+            if let error = error {
+                print(error.localizedDescription)
+                completion(error)
+                return
+            }
+            
+            NotificationCenter.default.post(Notification(name: .didFindMatch))
+            completion(nil)
+        }
+    }
+    
+    func fetchMatches(completion: @escaping (Result<[Match], Error>) -> Void) {
+        let currentUserId = Auth.auth().currentUser?.uid ?? ""
+        var matches = [Match]()
+        
+        Firestore.firestore().collection("matches_messages").document(currentUserId).collection("matches").getDocuments { snapshots, error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    completion(.failure(error))
+                    return
+                }
+                
+                snapshots?.documents.forEach({ doc in
+                    let match = Match(dictionary: doc.data())
+                    matches.append(match)
+                })
+                
+                completion(.success(matches))
+            }
     }
 }
 

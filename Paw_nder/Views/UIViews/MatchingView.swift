@@ -110,27 +110,3 @@ class MatchingView: UIView {
         }
     }
 }
-
-
-
-
-
-
-// MARK: - Previews
-struct Login: UIViewRepresentable {
-    func makeUIView(context: Context) -> MatchingView {
-        let loginVC = MatchingView()
-        return loginVC
-    }
-    
-    func updateUIView(_ uiView: MatchingView, context: Context) {
-        
-    }
-}
-
-struct Login_Previews: PreviewProvider {
-    static var previews: some View {
-        Login()
-            .edgesIgnoringSafeArea(.all)
-    }
-}

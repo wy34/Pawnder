@@ -41,4 +41,10 @@ class NewMatchMessageCell: UICollectionViewCell {
         userImageView.center(to: self, by: .centerX)
         userNameLabel.anchor(top: userImageView.bottomAnchor, trailing: userImageView.trailingAnchor, bottom: bottomAnchor, leading: userImageView.leadingAnchor)
     }
+    
+    func setupWith(userMatch: Match?) {
+        guard let match = userMatch else { return }
+        userImageView.setImage(imageUrlString: match.imageUrlString, completion: nil)
+        userNameLabel.text = match.name
+    }
 }

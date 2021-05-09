@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase
+
 
 class MessagesVC: UIViewController {
     // MARK: - Properties
@@ -20,6 +22,7 @@ class MessagesVC: UIViewController {
         super.viewDidLoad()
         configureUI()
         layoutUI()
+//        fetchMatches()
     }
     
     // MARK: - Helpers
@@ -40,6 +43,6 @@ class MessagesVC: UIViewController {
         newMatchesView.anchor(top: iconImageView.bottomAnchor, trailing: view.trailingAnchor, leading: view.leadingAnchor, paddingTop: 35)
         newMatchesView.setDimension(height: view.widthAnchor, hMult: 0.25)
         
-        userMessageContainerView.anchor(top: newMatchesView.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 35)
+        userMessageContainerView.anchor(top: newMatchesView.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 15)
     }
 }
