@@ -56,4 +56,20 @@ class RootTabBarController: UITabBarController {
         
         setViewControllers([homeVC, messagesVC, settingsVC], animated: true)
     }
+    
+    func showTabbar() {
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            guard let self = self else { return }
+            self.tabBar.frame.origin.y = self.view.frame.height - self.tabBar.bounds.height
+            self.tabBar.layoutIfNeeded()
+        }
+    }
+    
+    func hideTabbar() {
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            guard let self = self else { return }
+            self.tabBar.frame.origin.y = self.view.frame.height
+            self.tabBar.layoutIfNeeded()
+        }
+    }
 }

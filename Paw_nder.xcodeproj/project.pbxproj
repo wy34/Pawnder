@@ -57,6 +57,9 @@
 		4C75AE522633C2D900255A7A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C75AE512633C2D900255A7A /* LoadingView.swift */; };
 		4C7611BB263C9809007A2D01 /* PagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7611BA263C9809007A2D01 /* PagingController.swift */; };
 		4C7611BD263CCBCA007A2D01 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7611BC263CCBCA007A2D01 /* AboutVC.swift */; };
+		4C8F8CF32649B1DA00A62E85 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F8CF22649B1DA00A62E85 /* Message.swift */; };
+		4C8F8CF52649B28400A62E85 /* MessageBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F8CF42649B28400A62E85 /* MessageBubbleCell.swift */; };
+		4C8F8CF72649B2D800A62E85 /* PawTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F8CF62649B2D800A62E85 /* PawTextView.swift */; };
 		4CA40BE6262F4DE000B11232 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BE5262F4DE000B11232 /* CardView.swift */; };
 		4CA40BEA262F716A00B11232 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BE9262F716A00B11232 /* User.swift */; };
 		4CA40BEF262F7F4F00B11232 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */; };
@@ -120,6 +123,9 @@
 		4C75AE512633C2D900255A7A /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		4C7611BA263C9809007A2D01 /* PagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingController.swift; sourceTree = "<group>"; };
 		4C7611BC263CCBCA007A2D01 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
+		4C8F8CF22649B1DA00A62E85 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		4C8F8CF42649B28400A62E85 /* MessageBubbleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubbleCell.swift; sourceTree = "<group>"; };
+		4C8F8CF62649B2D800A62E85 /* PawTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawTextView.swift; sourceTree = "<group>"; };
 		4CA40BE5262F4DE000B11232 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		4CA40BE9262F716A00B11232 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
@@ -253,6 +259,7 @@
 				4C49BAC0262E3D79006F046B /* PawButton.swift */,
 				4C5EAD7126311BE900653AE0 /* PawTextField.swift */,
 				4CF953922639062D00D80587 /* PawSlider.swift */,
+				4C8F8CF62649B2D800A62E85 /* PawTextView.swift */,
 			);
 			path = GenericViews;
 			sourceTree = "<group>";
@@ -277,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				4C5EAF642647926000F415B7 /* NewMatchMessageCell.swift */,
+				4C8F8CF42649B28400A62E85 /* MessageBubbleCell.swift */,
 			);
 			path = UICollectionViewCell;
 			sourceTree = "<group>";
@@ -361,6 +369,7 @@
 				4CA40BE9262F716A00B11232 /* User.swift */,
 				4C5A3E6026434563007EEC00 /* Gender.swift */,
 				4C684599264882FD0003988C /* Match.swift */,
+				4C8F8CF22649B1DA00A62E85 /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -527,7 +536,9 @@
 				4C634982263519C6006AE44B /* LoadingButton.swift in Sources */,
 				4C49BA93262E3928006F046B /* HomeVC.swift in Sources */,
 				4C75AE3C2633644A00255A7A /* HomeViewModel.swift in Sources */,
+				4C8F8CF32649B1DA00A62E85 /* Message.swift in Sources */,
 				4C68459A264882FD0003988C /* Match.swift in Sources */,
+				4C8F8CF52649B28400A62E85 /* MessageBubbleCell.swift in Sources */,
 				4C49BABE262E3D2D006F046B /* PawImageView.swift in Sources */,
 				4C75AE522633C2D900255A7A /* LoadingView.swift in Sources */,
 				4CA40BEA262F716A00B11232 /* User.swift in Sources */,
@@ -548,6 +559,7 @@
 				4C7611BD263CCBCA007A2D01 /* AboutVC.swift in Sources */,
 				4C5EAD6F2631199200653AE0 /* RegisterVC.swift in Sources */,
 				4C3D1A32263A00D100185926 /* LoginVC.swift in Sources */,
+				4C8F8CF72649B2D800A62E85 /* PawTextView.swift in Sources */,
 				4C65D965263275D400B1F4FB /* UIViewController.swift in Sources */,
 				4C75AE402633819B00255A7A /* UIImageView.swift in Sources */,
 				4C3D1A38263A586E00185926 /* IconTextfields.swift in Sources */,
