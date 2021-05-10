@@ -12,7 +12,7 @@ class FirebaseManager {
     // MARK: - Properties
     static let shared = FirebaseManager()
     var imageCache = NSCache<NSString, UIImage>()
-    var lastFetchedUser: User?
+//    var lastFetchedUser: User?
     var users = [String: User]()
     
     // MARK: - Helpers
@@ -88,10 +88,11 @@ class FirebaseManager {
                 let snapshotData = snapshot.data()
                 let user = User(dictionary: snapshotData)
                 
+                self?.users[user.uid] = user
+                
 //                swipes[user.uid] == nil
                 if user.uid != currentUserId && true {
 //                    self?.lastFetchedUser = user
-                    self?.users[user.uid] = user
                     users.append(user)
                 }
             })
@@ -203,6 +204,7 @@ class FirebaseManager {
             
             if data[currentUserId] == 1 {
                 self?.addUserMatch(currentUserId: currentUserId, otherUserId: otherUserId, completion: completion)
+                self?.addUserMatch(currentUserId: otherUserId, otherUserId: currentUserId, completion: completion)
             }
         }
     }

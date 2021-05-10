@@ -49,6 +49,7 @@
 		4C65D965263275D400B1F4FB /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65D964263275D400B1F4FB /* UIViewController.swift */; };
 		4C65D9682632798E00B1F4FB /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65D9672632798E00B1F4FB /* LoadingViewController.swift */; };
 		4C68459A264882FD0003988C /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C684599264882FD0003988C /* Match.swift */; };
+		4C68459C2648E6E20003988C /* MessageLogVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C68459B2648E6E20003988C /* MessageLogVC.swift */; };
 		4C75AE3C2633644A00255A7A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C75AE3B2633644A00255A7A /* HomeViewModel.swift */; };
 		4C75AE402633819B00255A7A /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C75AE3F2633819B00255A7A /* UIImageView.swift */; };
 		4C75AE44263394AD00255A7A /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C75AE43263394AD00255A7A /* FirebaseManager.swift */; };
@@ -111,6 +112,7 @@
 		4C65D964263275D400B1F4FB /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		4C65D9672632798E00B1F4FB /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		4C684599264882FD0003988C /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
+		4C68459B2648E6E20003988C /* MessageLogVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLogVC.swift; sourceTree = "<group>"; };
 		4C75AE3B2633644A00255A7A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		4C75AE3F2633819B00255A7A /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		4C75AE43263394AD00255A7A /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
@@ -209,7 +211,7 @@
 				4C3D1A31263A00D100185926 /* LoginVC.swift */,
 				4C7611BC263CCBCA007A2D01 /* AboutVC.swift */,
 				4C5EAF5E2646EB2D00F415B7 /* MessagesVC.swift */,
-				4C491A84263EFB9B009BCE40 /* CopySettingsVC.swift */,
+				4C68459B2648E6E20003988C /* MessageLogVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -217,6 +219,7 @@
 		4C49BAAD262E3AA1006F046B /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				4C491A84263EFB9B009BCE40 /* CopySettingsVC.swift */,
 				4C49BA97262E3929006F046B /* Assets.xcassets */,
 				4C49BA99262E3929006F046B /* LaunchScreen.storyboard */,
 			);
@@ -536,6 +539,7 @@
 				4C2A5651264059A60085F887 /* FilterViewLauncher.swift in Sources */,
 				4CFD2260263E5E1A00C65277 /* RootTabBarController.swift in Sources */,
 				4C65D94B26324A6600B1F4FB /* Bindable.swift in Sources */,
+				4C68459C2648E6E20003988C /* MessageLogVC.swift in Sources */,
 				4C5EAD7226311BE900653AE0 /* PawTextField.swift in Sources */,
 				4C6349782634E509006AE44B /* PaddedLabel.swift in Sources */,
 				4CA40BE6262F4DE000B11232 /* CardView.swift in Sources */,

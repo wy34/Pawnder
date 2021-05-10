@@ -8,9 +8,15 @@
 import UIKit
 import Firebase
 
-class NewMatchesView: UIView {
+protocol NewMatchesViewDelegate: AnyObject {
+    func didPressMatchedUser()
+}
+
+class NewMatchesView: UIViewController {
     // MARK: - Properties
     var matches = [Match]()
+    
+    weak var delegate: NewMatchesViewDelegate?
     
     // MARK: - Views
     private lazy var collectionView: UICollectionView = {
@@ -25,18 +31,18 @@ class NewMatchesView: UIView {
         return cv
     }()
     
-    // MARK: - Init
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
         configureUI()
         layoutUI()
-        #warning("Need to find a way to call this again if user logs out and then logs in")
-        fetchMatches()
         setupNotificationObservers()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        #warning("don't want to put this here, instead find a way to do it when user logs in/out. Currently already refreshing when a new match is saved")
+        fetchMatches()
     }
     
     // MARK: - Helpers
@@ -45,8 +51,8 @@ class NewMatchesView: UIView {
     }
     
     private func layoutUI() {
-        addSubviews(collectionView)
-        collectionView.fill(superView: self)
+        view.addSubviews(collectionView)
+        collectionView.fill(superView: view)
     }
     
     private func fetchMatches() {
@@ -62,7 +68,7 @@ class NewMatchesView: UIView {
                         self.collectionView.reloadData()
                     }
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    self.showAlert(title: "Error", message: error.localizedDescription)
             }
         }
     }
@@ -91,7 +97,7 @@ extension NewMatchesView: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: frame.height, height: frame.height)
+        return .init(width: view.frame.height, height: view.frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -100,5 +106,9 @@ extension NewMatchesView: UICollectionViewDelegate, UICollectionViewDataSource, 
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return -10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.didPressMatchedUser()
     }
 }

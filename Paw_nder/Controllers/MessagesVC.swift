@@ -22,27 +22,42 @@ class MessagesVC: UIViewController {
         super.viewDidLoad()
         configureUI()
         layoutUI()
-//        fetchMatches()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     // MARK: - Helpers
     private func configureUI() {
         view.backgroundColor = .gray
 
+        newMatchesView.delegate = self
         userMessageContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         userMessageContainerView.layer.cornerRadius = 30
     }
     
     private func layoutUI() {
-        view.addSubviews(iconImageView, newMatchesView, userMessageContainerView)
+        view.addSubviews(iconImageView, newMatchesView.view, userMessageContainerView)
         
         iconImageView.center(to: view, by: .centerX)
         iconImageView.center(to: view, by: .centerY, withMultiplierOf: 0.1875)
         iconImageView.setDimension(wConst: 45, hConst: 45)
         
-        newMatchesView.anchor(top: iconImageView.bottomAnchor, trailing: view.trailingAnchor, leading: view.leadingAnchor, paddingTop: 35)
-        newMatchesView.setDimension(height: view.widthAnchor, hMult: 0.25)
+        newMatchesView.view.anchor(top: iconImageView.bottomAnchor, trailing: view.trailingAnchor, leading: view.leadingAnchor, paddingTop: 35)
+        newMatchesView.view.setDimension(height: view.widthAnchor, hMult: 0.25)
+        addChild(newMatchesView)
         
-        userMessageContainerView.anchor(top: newMatchesView.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 15)
+        userMessageContainerView.anchor(top: newMatchesView.view.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 15)
+    }
+}
+
+// MARK: - NewMatchesViewDelegate
+extension MessagesVC: NewMatchesViewDelegate {
+    func didPressMatchedUser() {
+        let messageLogVC = MessageLogVC(collectionViewLayout: UICollectionViewFlowLayout())
+        navigationItem.backButtonTitle = ""
+        navigationController?.pushViewController(messageLogVC, animated: true)
     }
 }

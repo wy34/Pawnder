@@ -38,6 +38,8 @@ struct SFSymbols {
     static let checkmark = UIImage(systemName: "checkmark")!
     static let heart = UIImage(systemName: "heart.fill")!
     static let rightArrow = UIImage(systemName: "arrow.right")!
+    static let chevronLeft = UIImage(systemName: "chevron.left")!
+    static let ellipsis = UIImage(systemName: "ellipsis")!
 }
 
 // MARK: - Colors
