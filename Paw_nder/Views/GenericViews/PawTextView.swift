@@ -16,7 +16,7 @@ class PawTextView: UITextView {
         fatalError()
     }
     
-    init(placeholder: String, textColor: UIColor = .black, bgColor: UIColor) {
+    init(placeholder: String, textColor: UIColor, bgColor: UIColor) {
         super.init(frame: .zero, textContainer: nil)
         self.text = placeholder
         self.textColor = textColor

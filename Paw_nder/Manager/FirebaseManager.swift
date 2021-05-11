@@ -210,7 +210,7 @@ class FirebaseManager {
     }
     
     func addUserMatch(currentUserId: String, otherUserId: String, completion: @escaping (Error?) -> Void) {
-        let data = ["name": self.users[otherUserId]?.name ?? "", "imageUrlString": self.users[otherUserId]?.imageUrls?["1"] ?? "", "uid": otherUserId]
+        let data = ["name": self.users[otherUserId]?.name ?? "", "imageUrlString": self.users[otherUserId]?.imageUrls?["1"] ?? "", "matchedUserId": otherUserId]
         
         Firestore.firestore().collection("matches_messages").document(currentUserId).collection("matches").document(otherUserId).setData(data) { error in
             if let error = error {

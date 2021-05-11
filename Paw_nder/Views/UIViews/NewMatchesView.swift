@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 
 protocol NewMatchesViewDelegate: AnyObject {
-    func didPressMatchedUser()
+    func didPressMatchedUser(match: Match)
 }
 
 class NewMatchesView: UIViewController {
@@ -43,6 +43,10 @@ class NewMatchesView: UIViewController {
         super.viewDidAppear(animated)
         #warning("don't want to put this here, instead find a way to do it when user logs in/out. Currently already refreshing when a new match is saved")
         fetchMatches()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Helpers
@@ -109,6 +113,6 @@ extension NewMatchesView: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.didPressMatchedUser()
+        delegate?.didPressMatchedUser(match: matches[indexPath.item])
     }
 }

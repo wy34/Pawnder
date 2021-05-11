@@ -51,8 +51,10 @@ class RegisterVC: LoadingViewController {
         setupSwipeGesture()
         setupFormActions()
         setupImagePickerObserver()
-        
-        separatorView.setDimension(wConst: 2, hConst: 25)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     // MARK: - Helpers
@@ -70,6 +72,7 @@ class RegisterVC: LoadingViewController {
         emailTextField.addBorderTo(side: .bottom, bgColor: lightGray, dimension: 2)
         passwordTextField.addBorderTo(side: .bottom, bgColor: lightGray, dimension: 2)
         passwordTextField.isSecureTextEntry = true
+        separatorView.setDimension(wConst: 2, hConst: 25)
     }
     
     private func layoutUI() {

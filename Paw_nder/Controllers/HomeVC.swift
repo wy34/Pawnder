@@ -39,6 +39,10 @@ class HomeVC: LoadingViewController {
         setupNotificationObservers()
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     // MARK: - Helpers
     private func configureUI() {
         view.backgroundColor = bgLightGray

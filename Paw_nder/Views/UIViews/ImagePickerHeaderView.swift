@@ -31,6 +31,10 @@ class ImagePickerHeaderView: UIView {
         fatalError()
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     // MARK: - Helpers
     func layoutUI() {
         addSubview(buttonStack)

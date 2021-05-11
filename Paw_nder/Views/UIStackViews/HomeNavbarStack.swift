@@ -42,6 +42,10 @@ class HomeNavbarStack: UIStackView {
         self.alignment = alignment
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     // MARK: - Helpers
     private func layoutUI() {
         let views = [refreshBtn, UIView(), heartImageView, UIView(), filterBtn]

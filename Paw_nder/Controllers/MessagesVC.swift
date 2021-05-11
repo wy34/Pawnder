@@ -56,8 +56,9 @@ class MessagesVC: UIViewController {
 
 // MARK: - NewMatchesViewDelegate
 extension MessagesVC: NewMatchesViewDelegate {
-    func didPressMatchedUser() {
-        let messageLogVC = MessageLogVC(collectionViewLayout: UICollectionViewFlowLayout())
+    func didPressMatchedUser(match: Match) {
+        let messageLogVC = MessageLogVC()
+        messageLogVC.match = match
         navigationItem.backButtonTitle = ""
         navigationController?.pushViewController(messageLogVC, animated: true)
     }

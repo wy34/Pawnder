@@ -43,6 +43,10 @@ class HomeBottomControlsStack: UIStackView {
         self.alignment = alignment
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     // MARK: - Helpers
     private func configureUI() {
         likeBtn.imageView?.contentMode = .scaleAspectFit

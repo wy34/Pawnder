@@ -20,7 +20,7 @@ class MessageBubbleCell: UICollectionViewCell {
     // MARK: - Views
     private let bubbleContainerView = PawView(bgColor: .clear, cornerRadius: 20)
     private let messageTextView = PawTextView(placeholder: "Placeholder", textColor: .white, bgColor: .clear)
-    private let timestampLabel = PawLabel(text: "3:07 PM", textColor: .white, font: .systemFont(ofSize: 10), alignment: .center)
+    private let timestampLabel = PawLabel(text: "3:07 PM", textColor: .gray, font: .systemFont(ofSize: 10), alignment: .center)
     private let profileImageView = PawImageView(image: UIImage(named: bob2)!, contentMode: .scaleAspectFill)
     
     // MARK: - Init
@@ -50,24 +50,23 @@ class MessageBubbleCell: UICollectionViewCell {
         profileImageView.setDimension(wConst: 35, hConst: 35)
         profileImageView.anchor(bottom: bottomAnchor, leading: leadingAnchor, paddingBottom: 10, paddingLeading: 20)
         
-        bubbleContainerView.anchor(top: topAnchor, bottom: profileImageView.bottomAnchor, paddingTop: 10)
+        bubbleContainerView.anchor(top: topAnchor, bottom: profileImageView.bottomAnchor, paddingTop: 10, paddingBottom: 15)
         bubbleContainerView.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.75).isActive = true
         bubbleContainerViewLeadingAnchor = bubbleContainerView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 10)
         bubbleContainerViewTrailingAnchor = bubbleContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15)
         
         bubbleContainerView.addSubviews(timestampLabel, messageTextView)
         
-        timestampLabel.anchor(bottom: bubbleContainerView.bottomAnchor, paddingBottom: 8)
-        timestampLabelLeadingAnchor = timestampLabel.leadingAnchor.constraint(equalTo: bubbleContainerView.leadingAnchor, constant: 8)
-        timestampLabelTrailingAnchor = timestampLabel.trailingAnchor.constraint(equalTo: bubbleContainerView.trailingAnchor, constant: -8)
+        timestampLabel.anchor(top: bubbleContainerView.bottomAnchor, bottom: profileImageView.bottomAnchor, paddingTop: 3)
+        timestampLabelLeadingAnchor = timestampLabel.leadingAnchor.constraint(equalTo: bubbleContainerView.leadingAnchor)
+        timestampLabelTrailingAnchor = timestampLabel.trailingAnchor.constraint(equalTo: bubbleContainerView.trailingAnchor)
         
-        messageTextView.anchor(top: bubbleContainerView.topAnchor, trailing: bubbleContainerView.trailingAnchor, bottom: timestampLabel.topAnchor, leading: bubbleContainerView.leadingAnchor, paddingTop: 8, paddingTrailing: 8, paddingLeading: 8)
+        messageTextView.anchor(top: bubbleContainerView.topAnchor, trailing: bubbleContainerView.trailingAnchor, bottom: bubbleContainerView.bottomAnchor, leading: bubbleContainerView.leadingAnchor, paddingTop: 8, paddingTrailing: 8, paddingBottom: 8, paddingLeading: 8)
     }
     
     private func setupBasedOn(isCurrentUser: Bool) {
         bubbleContainerView.backgroundColor = isCurrentUser ? lightRed : lightGray
         messageTextView.textColor = isCurrentUser ? .white : .black
-        timestampLabel.textColor = isCurrentUser ? .white : .black
         
         profileImageView.isHidden = isCurrentUser ? true : false
         bubbleContainerViewLeadingAnchor?.isActive = isCurrentUser ? false : true
@@ -80,10 +79,7 @@ class MessageBubbleCell: UICollectionViewCell {
     
     func setupWith(message: Message?) {
         guard let message = message else { return }
-        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
         messageTextView.text = message.text
-        
-        let isCurrentUser = currentUserId == message.senderId
-        setupBasedOn(isCurrentUser: isCurrentUser)
+        setupBasedOn(isCurrentUser: message.isCurrentUser)
     }
 }

@@ -47,6 +47,10 @@ class SettingsVC: LoadingViewController {
             self?.navigationController?.navigationBar.sizeToFit()
         }
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 
     // MARK: - Helpers
     func configureNavbar(){
