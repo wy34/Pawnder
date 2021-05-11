@@ -11,9 +11,17 @@ import Firebase
 class FirebaseManager {
     // MARK: - Properties
     static let shared = FirebaseManager()
+    
     var imageCache = NSCache<NSString, UIImage>()
 //    var lastFetchedUser: User?
     var users = [String: User]()
+    let currentUserId = Auth.auth().currentUser?.uid ?? ""
+    var listenerRegistration: ListenerRegistration!
+    
+    // MARK: - Init
+    deinit {
+        listenerRegistration.remove()
+    }
     
     // MARK: - Helpers
     func registerUser(credentials: Credentials, completion: @escaping (Result<Bool, Error>) -> Void) {
@@ -242,6 +250,46 @@ class FirebaseManager {
                 
                 completion(.success(matches))
             }
+    }
+    
+    func addMessage(text: String, match: Match, completion: @escaping (Error?) -> Void) {
+        let data: [String: Any] = ["text": text, "fromId": currentUserId, "toId": match.matchedUserId, "timestamp": Timestamp(date: Date())]
+
+        Firestore.firestore().collection("matches_messages").document(currentUserId).collection(match.matchedUserId).document().setData(data) { error in
+            if let error = error {
+                completion(error)
+                return
+            }
+            
+            completion(nil)
+        }
+        
+        Firestore.firestore().collection("matches_messages").document(match.matchedUserId).collection(currentUserId).document().setData(data) { error in
+            if let error = error {
+                completion(error)
+                return
+            }
+            
+            completion(nil)
+        }
+    }
+    
+    func fetchMessages(match: Match, completion: @escaping (Result<[Message], Error>) -> Void) {
+        var messages = [Message]()
+        
+        listenerRegistration = Firestore.firestore().collection("matches_messages").document(currentUserId).collection(match.matchedUserId).order(by: "timestamp").addSnapshotListener { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            snapshot?.documentChanges.forEach({ change in
+                let data = change.document.data()
+                messages.append(.init(dictionary: data))
+            })
+            
+            completion(.success(messages))
+        }
     }
 }
 

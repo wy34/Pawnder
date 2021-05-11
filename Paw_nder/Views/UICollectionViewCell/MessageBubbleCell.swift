@@ -77,9 +77,11 @@ class MessageBubbleCell: UICollectionViewCell {
         bubbleContainerView.layer.maskedCorners = isCurrentUser ? [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner] : [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
     }
     
-    func setupWith(message: Message?) {
-        guard let message = message else { return }
+    func setupWith(match: Match?, message: Message?) {
+        guard let message = message, let match = match else { return }
         messageTextView.text = message.text
         setupBasedOn(isCurrentUser: message.isCurrentUser)
+        timestampLabel.text = message.timestamp.dateValue().stringValue(format: "M/dd/yy, h:mm a")
+        profileImageView.setImage(imageUrlString: match.imageUrlString, completion: nil)
     }
 }

@@ -11,7 +11,6 @@ import Firebase
 class MessageLogVC: UIViewController {
     // MARK: - Properties
     var messages = [Message]()
-    
     var messagesInputViewBottomAnchor: NSLayoutConstraint?
     var match: Match!
     
@@ -42,6 +41,11 @@ class MessageLogVC: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
         UIApplication.rootTabBarController.hideTabbar()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.rootTabBarController.showTabbar()
     }
     
     deinit {
@@ -76,25 +80,17 @@ class MessageLogVC: UIViewController {
         view.addGestureRecognizer(swipe)
     }
     
-    #warning("Refactor!!!")
     func fetchMessages() {
-        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-
-        Firestore.firestore().collection("matches_messages").document(currentUserId).collection(match.matchedUserId).order(by: "timestamp").addSnapshotListener { [weak self] snapshots, error in
-            guard let self = self else { return }
-            
-            if let error = error {
-                print(error.localizedDescription)
+        FirebaseManager.shared.fetchMessages(match: match) { [weak self] result in
+            switch result {
+                case .success(let messages):
+                    DispatchQueue.main.async {
+                        self?.messages = messages
+                        self?.collectionView.reloadData()
+                    }
+                case .failure(let error):
+                    self?.showAlert(title: "Error", message: error.localizedDescription)
             }
-            
-            snapshots?.documentChanges.forEach({ change in
-                if change.type == .added {
-                    let dictionary = change.document.data()
-                    self.messages.append(.init(dictionary: dictionary))
-                }
-            })
-            
-            self.collectionView.reloadData()
         }
     }
     
@@ -125,13 +121,13 @@ extension MessageLogVC: UICollectionViewDelegate, UICollectionViewDataSource, UI
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MessageBubbleCell.reuseId, for: indexPath) as! MessageBubbleCell
-        cell.setupWith(message: messages[indexPath.item])
+        cell.setupWith(match: match, message: messages[indexPath.item])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let dummyCell = MessageBubbleCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
-        dummyCell.setupWith(message: messages[indexPath.item])
+        dummyCell.setupWith(match: match, message: messages[indexPath.item])
         dummyCell.layoutIfNeeded()
         
         let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
@@ -153,27 +149,11 @@ extension MessageLogVC: UIGestureRecognizerDelegate {
 // MARK: - MessageInputViewDelegate
 extension MessageLogVC: MessageInputViewDelegate {
     func didPressSend(text: String) {
-        #warning("Refactor!!!")
-        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-        let data: [String: Any] = ["text": text, "fromId": currentUserId, "toId": match.matchedUserId, "timestamp": Timestamp(date: Date())]
-        
-        Firestore.firestore().collection("matches_messages").document(currentUserId).collection(match.matchedUserId).document().setData(data) { [weak self] error in
+        FirebaseManager.shared.addMessage(text: text, match: match) { [weak self] error in
             guard let self = self else { return }
             
             if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            
-            self.collectionView.scrollToItem(at: IndexPath(item: self.messages.count - 1, section: 0), at: .bottom, animated: true)
-        }
-        
-        Firestore.firestore().collection("matches_messages").document(match.matchedUserId).collection(currentUserId).document().setData(data) { [weak self] error in
-            guard let self = self else { return }
-            
-            if let error = error {
-                print(error.localizedDescription)
-                return
+                self.showAlert(title: "Error", message: error.localizedDescription)
             }
             
             self.collectionView.scrollToItem(at: IndexPath(item: self.messages.count - 1, section: 0), at: .bottom, animated: true)
