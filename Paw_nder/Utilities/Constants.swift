@@ -39,6 +39,7 @@ struct SFSymbols {
     static let heart = UIImage(systemName: "heart.fill")!
     static let rightArrow = UIImage(systemName: "arrow.right")!
     static let chevronLeft = UIImage(systemName: "chevron.left")!
+    static let chevronRight = UIImage(systemName: "chevron.right")!
     static let ellipsis = UIImage(systemName: "ellipsis")!
     static let paperplane = UIImage(systemName: "paperplane")!
 }

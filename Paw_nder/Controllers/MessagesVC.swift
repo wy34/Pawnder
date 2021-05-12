@@ -15,7 +15,8 @@ class MessagesVC: UIViewController {
     // MARK: - Views
     private let iconImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
     private let newMatchesView = NewMatchesView()
-    private let userMessageContainerView = PawView(bgColor: bgLightGray)
+    private let userMessagesVC = RecentMessagesVC()
+    private let searchBar = UISearchBar()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -31,15 +32,16 @@ class MessagesVC: UIViewController {
     
     // MARK: - Helpers
     private func configureUI() {
-        view.backgroundColor = .gray
+        view.backgroundColor = bgLightGray
 
         newMatchesView.delegate = self
-        userMessageContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        userMessageContainerView.layer.cornerRadius = 30
+        userMessagesVC.view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        userMessagesVC.view.layer.cornerRadius = 30
+        userMessagesVC.view.backgroundColor = bgLightGray
     }
     
     private func layoutUI() {
-        view.addSubviews(iconImageView, newMatchesView.view, userMessageContainerView)
+        view.addSubviews(iconImageView, newMatchesView.view, userMessagesVC.view)
         
         iconImageView.center(to: view, by: .centerX)
         iconImageView.center(to: view, by: .centerY, withMultiplierOf: 0.1875)
@@ -49,7 +51,7 @@ class MessagesVC: UIViewController {
         newMatchesView.view.setDimension(height: view.widthAnchor, hMult: 0.25)
         addChild(newMatchesView)
         
-        userMessageContainerView.anchor(top: newMatchesView.view.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 15)
+        userMessagesVC.view.anchor(top: newMatchesView.view.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 5)
     }
 }
 

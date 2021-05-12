@@ -28,9 +28,9 @@ class NewMatchMessageCell: UICollectionViewCell {
     
     // MARK: - Helpers
     func configureUI() {
-        userImageView.layer.cornerRadius = 10
+        userImageView.layer.cornerRadius = 18
         userImageView.layer.borderWidth = 2
-        userImageView.layer.borderColor = UIColor.white.cgColor
+        userImageView.layer.borderColor = UIColor.lightGray.cgColor
     }
     
     func layoutUI() {

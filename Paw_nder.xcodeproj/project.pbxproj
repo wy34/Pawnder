@@ -11,6 +11,9 @@
 		4C2A5651264059A60085F887 /* FilterViewLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A5650264059A60085F887 /* FilterViewLauncher.swift */; };
 		4C2E7C9C263BC1DD00DDA4E5 /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2E7C9B263BC1DD00DDA4E5 /* AboutViewModel.swift */; };
 		4C392FDC264B0F1D00A729F7 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C392FDB264B0F1D00A729F7 /* Date.swift */; };
+		4C392FDE264B289600A729F7 /* RecentMessagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C392FDD264B289600A729F7 /* RecentMessagesVC.swift */; };
+		4C392FE0264B4D6600A729F7 /* RecentMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C392FDF264B4D6600A729F7 /* RecentMessageCell.swift */; };
+		4C392FE2264B85EE00A729F7 /* RecentMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C392FE1264B85EE00A729F7 /* RecentMessage.swift */; };
 		4C3D1A32263A00D100185926 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A31263A00D100185926 /* LoginVC.swift */; };
 		4C3D1A34263A0CAD00185926 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A33263A0CAD00185926 /* GradientView.swift */; };
 		4C3D1A36263A2A4D00185926 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3D1A35263A2A4D00185926 /* LoginViewModel.swift */; };
@@ -77,6 +80,9 @@
 		4C2A5650264059A60085F887 /* FilterViewLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewLauncher.swift; sourceTree = "<group>"; };
 		4C2E7C9B263BC1DD00DDA4E5 /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
 		4C392FDB264B0F1D00A729F7 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		4C392FDD264B289600A729F7 /* RecentMessagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMessagesVC.swift; sourceTree = "<group>"; };
+		4C392FDF264B4D6600A729F7 /* RecentMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMessageCell.swift; sourceTree = "<group>"; };
+		4C392FE1264B85EE00A729F7 /* RecentMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMessage.swift; sourceTree = "<group>"; };
 		4C3D1A31263A00D100185926 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		4C3D1A33263A0CAD00185926 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		4C3D1A35263A2A4D00185926 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -307,6 +313,7 @@
 			children = (
 				4C63497C2634E940006AE44B /* SettingsCell.swift */,
 				4CF953902639056800D80587 /* SliderCell.swift */,
+				4C392FDF264B4D6600A729F7 /* RecentMessageCell.swift */,
 			);
 			path = UITableViewCell;
 			sourceTree = "<group>";
@@ -340,6 +347,7 @@
 			children = (
 				4C7611BA263C9809007A2D01 /* PagingController.swift */,
 				4C65D9672632798E00B1F4FB /* LoadingViewController.swift */,
+				4C392FDD264B289600A729F7 /* RecentMessagesVC.swift */,
 			);
 			path = UIViewControllers;
 			sourceTree = "<group>";
@@ -376,6 +384,7 @@
 				4C5A3E6026434563007EEC00 /* Gender.swift */,
 				4C684599264882FD0003988C /* Match.swift */,
 				4C8F8CF22649B1DA00A62E85 /* Message.swift */,
+				4C392FE1264B85EE00A729F7 /* RecentMessage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -542,6 +551,7 @@
 				4C5A3E6126434563007EEC00 /* Gender.swift in Sources */,
 				4C634982263519C6006AE44B /* LoadingButton.swift in Sources */,
 				4C49BA93262E3928006F046B /* HomeVC.swift in Sources */,
+				4C392FE0264B4D6600A729F7 /* RecentMessageCell.swift in Sources */,
 				4C75AE3C2633644A00255A7A /* HomeViewModel.swift in Sources */,
 				4C8F8CF32649B1DA00A62E85 /* Message.swift in Sources */,
 				4C68459A264882FD0003988C /* Match.swift in Sources */,
@@ -554,6 +564,7 @@
 				4C49BA8F262E3928006F046B /* AppDelegate.swift in Sources */,
 				4C63496E2634B258006AE44B /* SettingsVC.swift in Sources */,
 				4C491A85263EFB9B009BCE40 /* CopySettingsVC.swift in Sources */,
+				4C392FE2264B85EE00A729F7 /* RecentMessage.swift in Sources */,
 				4C2A5651264059A60085F887 /* FilterViewLauncher.swift in Sources */,
 				4CFD2260263E5E1A00C65277 /* RootTabBarController.swift in Sources */,
 				4C65D94B26324A6600B1F4FB /* Bindable.swift in Sources */,
@@ -564,6 +575,7 @@
 				4CF953932639062D00D80587 /* PawSlider.swift in Sources */,
 				4C5EAF652647926000F415B7 /* NewMatchMessageCell.swift in Sources */,
 				4C7611BD263CCBCA007A2D01 /* AboutVC.swift in Sources */,
+				4C392FDE264B289600A729F7 /* RecentMessagesVC.swift in Sources */,
 				4C5EAD6F2631199200653AE0 /* RegisterVC.swift in Sources */,
 				4C3D1A32263A00D100185926 /* LoginVC.swift in Sources */,
 				4C8F8CF72649B2D800A62E85 /* PawTextView.swift in Sources */,
