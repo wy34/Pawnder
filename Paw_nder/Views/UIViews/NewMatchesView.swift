@@ -41,8 +41,7 @@ class NewMatchesView: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        #warning("don't want to put this here, instead find a way to do it when user logs in/out. Currently already refreshing when a new match is saved")
-        fetchMatches()
+        fetchMatches(); #warning("Refactor!")
     }
     
     deinit {

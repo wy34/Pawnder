@@ -17,4 +17,10 @@ struct Match {
         self.name = dictionary["name"] as? String ?? ""
         self.imageUrlString = dictionary["imageUrlString"] as? String ?? ""
     }
+    
+    init(recentMessage: RecentMessage) {
+        self.matchedUserId = recentMessage.otherUserId
+        self.name = recentMessage.name
+        self.imageUrlString = recentMessage.profileImageUrl
+    }
 }

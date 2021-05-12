@@ -15,7 +15,7 @@ class MessagesVC: UIViewController {
     // MARK: - Views
     private let iconImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
     private let newMatchesView = NewMatchesView()
-    private let userMessagesVC = RecentMessagesVC()
+    private let recentMessagesVC = RecentMessagesVC()
     private let searchBar = UISearchBar()
     
     // MARK: - Lifecycle
@@ -35,13 +35,14 @@ class MessagesVC: UIViewController {
         view.backgroundColor = bgLightGray
 
         newMatchesView.delegate = self
-        userMessagesVC.view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        userMessagesVC.view.layer.cornerRadius = 30
-        userMessagesVC.view.backgroundColor = bgLightGray
+        recentMessagesVC.delegate = self
+        recentMessagesVC.view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        recentMessagesVC.view.layer.cornerRadius = 30
+        recentMessagesVC.view.backgroundColor = bgLightGray
     }
     
     private func layoutUI() {
-        view.addSubviews(iconImageView, newMatchesView.view, userMessagesVC.view)
+        view.addSubviews(iconImageView, newMatchesView.view, recentMessagesVC.view)
         
         iconImageView.center(to: view, by: .centerX)
         iconImageView.center(to: view, by: .centerY, withMultiplierOf: 0.1875)
@@ -51,16 +52,27 @@ class MessagesVC: UIViewController {
         newMatchesView.view.setDimension(height: view.widthAnchor, hMult: 0.25)
         addChild(newMatchesView)
         
-        userMessagesVC.view.anchor(top: newMatchesView.view.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 5)
+        recentMessagesVC.view.anchor(top: newMatchesView.view.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 5)
+    }
+    
+    private func navigateToMessageLogVC(match: Match) {
+        let messageLogVC = MessageLogVC()
+        messageLogVC.match = match
+        navigationItem.backButtonTitle = ""
+        navigationController?.pushViewController(messageLogVC, animated: true)
     }
 }
 
 // MARK: - NewMatchesViewDelegate
 extension MessagesVC: NewMatchesViewDelegate {
     func didPressMatchedUser(match: Match) {
-        let messageLogVC = MessageLogVC()
-        messageLogVC.match = match
-        navigationItem.backButtonTitle = ""
-        navigationController?.pushViewController(messageLogVC, animated: true)
+        navigateToMessageLogVC(match: match)
+    }
+}
+
+// MARK: - RecentMessagesVCDelegate
+extension MessagesVC: RecentMessagesVCDelegate {
+    func handleRowTapped(match: Match) {
+        navigateToMessageLogVC(match: match)
     }
 }

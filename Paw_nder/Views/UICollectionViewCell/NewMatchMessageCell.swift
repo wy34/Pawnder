@@ -12,7 +12,7 @@ class NewMatchMessageCell: UICollectionViewCell {
     static let reuseId = "NewMatchMessageCell"
     
     // MARK: - Views
-    private let userImageView = PawImageView(image: UIImage(named: bob3)!, contentMode: .scaleAspectFill)
+    private let userImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
     private let userNameLabel = PawLabel(text: "Bobfffffffrererererer", font: .systemFont(ofSize: 14, weight: .regular), alignment: .center)
     
     // MARK: - Init

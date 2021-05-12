@@ -15,7 +15,7 @@ class FirebaseManager {
     var imageCache = NSCache<NSString, UIImage>()
 //    var lastFetchedUser: User?
     var users = [String: User]()
-    let currentUserId = Auth.auth().currentUser?.uid ?? ""
+//    let currentUserId = Auth.auth().currentUser?.uid ?? ""
     var listenerRegistration: ListenerRegistration!
     
     // MARK: - Init
@@ -66,9 +66,9 @@ class FirebaseManager {
     }
     
     func saveUserToDB(credentials: Credentials, imageUrlString: String, completion: @escaping (Result<Bool, Error>) -> Void) {
-        let uid = Auth.auth().currentUser?.uid ?? ""
-        let docData: [String: Any] = ["fullName": credentials.fullName, "uid": uid, "imageUrls": ["1": imageUrlString], "age": 0, "gender": credentials.gender]
-        Firestore.firestore().collection("users").document(uid).setData(docData) { (error) in
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        let docData: [String: Any] = ["fullName": credentials.fullName, "uid": currentUserId, "imageUrls": ["1": imageUrlString], "age": 0, "gender": credentials.gender]
+        Firestore.firestore().collection("users").document(currentUserId).setData(docData) { (error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -81,8 +81,8 @@ class FirebaseManager {
     func fetchUsers(currentUser: User, swipes: [String: Int], completion: @escaping (Result<[CardViewModel], Error>) -> Void) {
         var users = [User]()
         let usersCollection = Firestore.firestore().collection("users")
-        let currentUserId = Auth.auth().currentUser?.uid
-        
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+
         usersCollection
             .whereField("age", isGreaterThanOrEqualTo: currentUser.minAgePreference ?? 0)
             .whereField("age", isLessThanOrEqualTo: (currentUser.maxAgePreference == 0 ? 100 : currentUser.maxAgePreference) ?? 100).getDocuments { [weak self] (snapshots, error) in
@@ -97,9 +97,8 @@ class FirebaseManager {
                 let user = User(dictionary: snapshotData)
                 
                 self?.users[user.uid] = user
-                
-//                swipes[user.uid] == nil
-                if user.uid != currentUserId && true {
+
+                if user.uid != currentUserId && swipes[user.uid] == nil {
 //                    self?.lastFetchedUser = user
                     users.append(user)
                 }
@@ -111,9 +110,9 @@ class FirebaseManager {
     }
     
     func fetchCurrentUser(completion: @escaping (Result<User, Error>) -> Void) {
-        let currentUserId = Auth.auth().currentUser?.uid
-        
-        Firestore.firestore().collection("users").document("\(currentUserId ?? "")").getDocument { (snapshot, error) in
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+
+        Firestore.firestore().collection("users").document(currentUserId).getDocument { (snapshot, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -172,7 +171,7 @@ class FirebaseManager {
     }
     
     func addUserSwipe(for otherUserId: String, like: Bool, completion: @escaping (Error?) -> Void) {
-        let currentUserId = Auth.auth().currentUser?.uid ?? ""
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
         let swipeData = [otherUserId: (like ? 1 : 0)]
         
         if like == true {
@@ -233,7 +232,8 @@ class FirebaseManager {
     }
     
     func fetchMatches(completion: @escaping (Result<[Match], Error>) -> Void) {
-        let currentUserId = Auth.auth().currentUser?.uid ?? ""
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+
         var matches = [Match]()
         
         Firestore.firestore().collection("matches_messages").document(currentUserId).collection("matches").getDocuments { snapshots, error in
@@ -253,6 +253,8 @@ class FirebaseManager {
     }
     
     func addMessage(text: String, match: Match, completion: @escaping (Error?) -> Void) {
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+
         let data: [String: Any] = ["text": text, "fromId": currentUserId, "toId": match.matchedUserId, "timestamp": Timestamp(date: Date())]
 
         Firestore.firestore().collection("matches_messages").document(currentUserId).collection(match.matchedUserId).document().setData(data) { error in
@@ -272,9 +274,13 @@ class FirebaseManager {
             
             completion(nil)
         }
+        
+        saveToRecentMessages(message: text, match: match, completion: completion)
     }
     
     func fetchMessages(match: Match, completion: @escaping (Result<[Message], Error>) -> Void) {
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+
         var messages = [Message]()
         
         listenerRegistration = Firestore.firestore().collection("matches_messages").document(currentUserId).collection(match.matchedUserId).order(by: "timestamp").addSnapshotListener { snapshot, error in
@@ -289,6 +295,59 @@ class FirebaseManager {
             })
             
             completion(.success(messages))
+        }
+    }
+    
+    func saveToRecentMessages(message: String, match: Match, completion: @escaping (Error?) -> Void) {
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        
+        let fromData: [String: Any] = ["name": match.name, "profileImageUrl": match.imageUrlString, "timestamp": Timestamp(date: Date()), "message": message, "otherUserId": match.matchedUserId]
+        
+        Firestore.firestore().collection("matches_messages").document(currentUserId).collection("recent_messages").document(match.matchedUserId).setData(fromData) { error in
+            if let error = error {
+                completion(error)
+                return
+            }
+            
+            completion(nil)
+        }
+        
+        let currentUserName = users[currentUserId]?.name ?? ""
+        let currentUserImageUrl = users[currentUserId]?.imageUrls!["1"] ?? ""
+        let toData: [String: Any] = ["name": currentUserName, "profileImageUrl": currentUserImageUrl, "timestamp": Timestamp(date: Date()), "message": message, "otherUserId": currentUserId]
+        
+        Firestore.firestore().collection("matches_messages").document(match.matchedUserId).collection("recent_messages").document(currentUserId).setData(toData) { error in
+            if let error = error {
+                completion(error)
+                return
+            }
+            
+            completion(nil)
+        }
+    }
+    
+    func fetchRecentMessages(completion: @escaping (Result<[RecentMessage], Error>) -> Void) {
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        
+        var recentMessagesDictionary = [String: RecentMessage]()
+        
+        Firestore.firestore().collection("matches_messages").document(currentUserId).collection("recent_messages").addSnapshotListener { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            snapshot?.documentChanges.forEach({ change in
+                if change.type == .added || change.type == .modified {
+                    let data = change.document.data()
+                    let recentMessage = RecentMessage(dictionary: data)
+                    recentMessagesDictionary[recentMessage.otherUserId] = recentMessage
+                }
+            })
+
+            var recentMessages = Array(recentMessagesDictionary.values)
+            recentMessages = recentMessages.sorted(by: { $0.timestamp.dateValue() > $1.timestamp.dateValue() })
+            completion(.success(recentMessages))
         }
     }
 }

@@ -55,7 +55,6 @@ class MessageLogVC: UIViewController {
     // MARK: - Helper
     func configureNavBar() {
         navigationItem.title = match.name
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: SFSymbols.ellipsis, style: .plain, target: nil, action: nil)
     }
     
     func configureUI() {
@@ -87,6 +86,7 @@ class MessageLogVC: UIViewController {
                     DispatchQueue.main.async {
                         self?.messages = messages
                         self?.collectionView.reloadData()
+//                        self?.collectionView.scrollToItem(at: IndexPath(item: self!.messages.count - 1, section: 0), at: .bottom, animated: true)
                     }
                 case .failure(let error):
                     self?.showAlert(title: "Error", message: error.localizedDescription)

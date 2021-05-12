@@ -12,7 +12,7 @@ class RecentMessageCell: UITableViewCell {
     static let reuseId = "UserMessageCell"
     
     // MARK: - Views
-    private let profileImageView = PawImageView(image: UIImage(named: bob1)!, contentMode: .scaleAspectFill)
+    private let profileImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
     private let nameLabel = PawLabel(text: "", textColor: .black, font: .systemFont(ofSize: 16, weight: .bold), alignment: .left)
     private let msgPreviewLabel = PawLabel(text: "", textColor: .gray, font: .systemFont(ofSize: 14, weight: .medium), alignment: .left)
     

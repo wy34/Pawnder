@@ -8,10 +8,15 @@
 import UIKit
 import Firebase
 
+protocol RecentMessagesVCDelegate: AnyObject {
+    func handleRowTapped(match: Match)
+}
+
 class RecentMessagesVC: UIViewController {
     // MARK: - Properties
     var searchBarStackTrailingAnchor: NSLayoutConstraint!
     var recentMessages: [RecentMessage] = []
+    weak var delegate: RecentMessagesVCDelegate?
     
     // MARK: - Views
     private let cancelButton = PawButton(title: "Cancel", font: .systemFont(ofSize: 16, weight: .medium))
@@ -34,8 +39,12 @@ class RecentMessagesVC: UIViewController {
         super.viewDidLoad()
         configureUI()
         layoutUI()
-        setupActions()
+        setupActionsAndObservers()
         fetchRecentMessages()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Helpers
@@ -64,7 +73,7 @@ class RecentMessagesVC: UIViewController {
         tableView.anchor(top: searchBarStack.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor)
     }
     
-    private func setupActions() {
+    private func setupActionsAndObservers() {
         cancelButton.addTarget(self, action: #selector(handleCancelPressed), for: .touchUpInside)
     }
     
@@ -79,38 +88,24 @@ class RecentMessagesVC: UIViewController {
         }
     }
     
-    #warning("Refactor this!")
-    var recentMessagesDictionary = [String: RecentMessage]()
-    
     private func fetchRecentMessages() {
-        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-        Firestore.firestore().collection("matches_messages").document(currentUserId).collection("recent_messages").addSnapshotListener { [weak self] snapshot, error in
-            if let error = error {
-                print(error.localizedDescription)
-                return
+        FirebaseManager.shared.fetchRecentMessages { [weak self] result in
+            switch result {
+                case .success(let recentMsgs):
+                    DispatchQueue.main.async {
+                        self?.recentMessages = recentMsgs
+                        self?.tableView.reloadData()
+                    }
+                case .failure(let error):
+                    self?.showAlert(title: "Error", message: error.localizedDescription)
             }
-
-            snapshot?.documentChanges.forEach({ change in
-                if change.type == .added || change.type == .modified {
-                    let data = change.document.data()
-                    let recentMessage = RecentMessage(dictionary: data)
-                    self?.recentMessagesDictionary[recentMessage.otherUserId] = recentMessage
-                }
-            })
-
-            self?.setRecentMessages()
         }
-    }
-    
-    private func setRecentMessages() {
-        let values = Array(recentMessagesDictionary.values)
-        recentMessages = values.sorted(by: { $0.timestamp.dateValue() > $1.timestamp.dateValue() })
-        tableView.reloadData()
     }
     
     // MARK: - Selector
     @objc func handleCancelPressed() {
         view.endEditing(true)
+        searchBar.text = nil
         showCancelButton(false)
     }
 }
@@ -119,6 +114,11 @@ class RecentMessagesVC: UIViewController {
 extension RecentMessagesVC: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         showCancelButton(true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let searchResults = recentMessages.filter({ $0.name.lowercased().contains(searchText.lowercased()) })
+        print(searchResults)
     }
 }
 
@@ -136,5 +136,6 @@ extension RecentMessagesVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        delegate?.handleRowTapped(match: Match(recentMessage: recentMessages[indexPath.row]))
     }
 }
