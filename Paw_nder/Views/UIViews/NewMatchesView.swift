@@ -19,6 +19,8 @@ class NewMatchesView: UIViewController {
     weak var delegate: NewMatchesViewDelegate?
     
     // MARK: - Views
+    private let titleLabel = PawLabel(text: "New Matches", textColor: .black, font: .systemFont(ofSize: 16, weight: .bold), alignment: .left)
+    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -54,8 +56,11 @@ class NewMatchesView: UIViewController {
     }
     
     private func layoutUI() {
-        view.addSubviews(collectionView)
-        collectionView.fill(superView: view)
+        view.addSubviews(titleLabel, collectionView)
+        titleLabel.anchor(top: view.topAnchor, trailing: view.trailingAnchor, leading: view.leadingAnchor, paddingTrailing: 25, paddingLeading: 25)
+        titleLabel.setDimension(hConst: 15)
+        
+        collectionView.anchor(top: titleLabel.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 15)
     }
     
     private func fetchMatches() {
@@ -100,7 +105,8 @@ extension NewMatchesView: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.height, height: view.frame.height)
+        let side = view.frame.height * 0.7
+        return .init(width: side, height: side)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

@@ -15,12 +15,13 @@ class FirebaseManager {
     var imageCache = NSCache<NSString, UIImage>()
 //    var lastFetchedUser: User?
     var users = [String: User]()
-//    let currentUserId = Auth.auth().currentUser?.uid ?? ""
-    var listenerRegistration: ListenerRegistration!
+    var messagesListener: ListenerRegistration!
+    var recentMessagesListener: ListenerRegistration!
     
     // MARK: - Init
     deinit {
-        listenerRegistration.remove()
+        messagesListener.remove()
+        recentMessagesListener.remove()
     }
     
     // MARK: - Helpers
@@ -98,7 +99,8 @@ class FirebaseManager {
                 
                 self?.users[user.uid] = user
 
-                if user.uid != currentUserId && swipes[user.uid] == nil {
+//                swipes[user.uid] == nil
+                if user.uid != currentUserId && true {
 //                    self?.lastFetchedUser = user
                     users.append(user)
                 }
@@ -283,7 +285,7 @@ class FirebaseManager {
 
         var messages = [Message]()
         
-        listenerRegistration = Firestore.firestore().collection("matches_messages").document(currentUserId).collection(match.matchedUserId).order(by: "timestamp").addSnapshotListener { snapshot, error in
+        messagesListener = Firestore.firestore().collection("matches_messages").document(currentUserId).collection(match.matchedUserId).order(by: "timestamp").addSnapshotListener { snapshot, error in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -331,7 +333,7 @@ class FirebaseManager {
         
         var recentMessagesDictionary = [String: RecentMessage]()
         
-        Firestore.firestore().collection("matches_messages").document(currentUserId).collection("recent_messages").addSnapshotListener { snapshot, error in
+        recentMessagesListener = Firestore.firestore().collection("matches_messages").document(currentUserId).collection("recent_messages").addSnapshotListener { snapshot, error in
             if let error = error {
                 completion(.failure(error))
                 return

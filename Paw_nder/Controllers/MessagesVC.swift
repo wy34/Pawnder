@@ -48,8 +48,8 @@ class MessagesVC: UIViewController {
         iconImageView.center(to: view, by: .centerY, withMultiplierOf: 0.1875)
         iconImageView.setDimension(wConst: 45, hConst: 45)
         
-        newMatchesView.view.anchor(top: iconImageView.bottomAnchor, trailing: view.trailingAnchor, leading: view.leadingAnchor, paddingTop: 35)
-        newMatchesView.view.setDimension(height: view.widthAnchor, hMult: 0.25)
+        newMatchesView.view.anchor(top: iconImageView.bottomAnchor, trailing: view.trailingAnchor, leading: view.leadingAnchor, paddingTop: 30)
+        newMatchesView.view.setDimension(height: view.widthAnchor, hMult: 0.35)
         addChild(newMatchesView)
         
         recentMessagesVC.view.anchor(top: newMatchesView.view.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 5)

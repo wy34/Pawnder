@@ -18,6 +18,9 @@ class RecentMessagesVC: UIViewController {
     var recentMessages: [RecentMessage] = []
     weak var delegate: RecentMessagesVCDelegate?
     
+    var isSearching = false
+    var searchedMessages = [RecentMessage]()
+    
     // MARK: - Views
     private let cancelButton = PawButton(title: "Cancel", font: .systemFont(ofSize: 16, weight: .medium))
     private let searchBar = UISearchBar()
@@ -50,7 +53,7 @@ class RecentMessagesVC: UIViewController {
     // MARK: - Helpers
     private func configureUI() {
         searchBar.delegate = self
-        searchBar.placeholder = "Search"
+        searchBar.placeholder = "Search User"
         searchBar.backgroundImage = UIImage()
         cancelButton.alpha = 0
         view.layer.shadowOpacity = 0.15
@@ -107,6 +110,12 @@ class RecentMessagesVC: UIViewController {
         view.endEditing(true)
         searchBar.text = nil
         showCancelButton(false)
+        
+        if isSearching {
+            isSearching = false
+            searchedMessages = []
+            tableView.reloadData()
+        }
     }
 }
 
@@ -118,24 +127,34 @@ extension RecentMessagesVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let searchResults = recentMessages.filter({ $0.name.lowercased().contains(searchText.lowercased()) })
-        print(searchResults)
+        
+        if searchText != "" {
+            isSearching = true
+            searchedMessages = searchResults
+        } else {
+            isSearching = false
+            searchedMessages = []
+        }
+        
+        tableView.reloadData()
     }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension RecentMessagesVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recentMessages.count
+        return isSearching ? searchedMessages.count : recentMessages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RecentMessageCell.reuseId, for: indexPath) as! RecentMessageCell
-        cell.setupWith(recentMessage: recentMessages[indexPath.row])
+        cell.setupWith(recentMessage: isSearching ? searchedMessages[indexPath.row] : recentMessages[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        delegate?.handleRowTapped(match: Match(recentMessage: recentMessages[indexPath.row]))
+        view.endEditing(true)
+        delegate?.handleRowTapped(match: Match(recentMessage: isSearching ? searchedMessages[indexPath.row] : recentMessages[indexPath.row]))
     }
 }
