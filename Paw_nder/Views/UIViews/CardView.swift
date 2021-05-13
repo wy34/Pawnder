@@ -38,8 +38,8 @@ class CardView: LoadingView {
     // MARK: - Views
     private let containerView = PawView(bgColor: .white, cornerRadius: 25)
     
-    private let photoCountIcon = PawButton(image: SFSymbols.photos, tintColor: .white, font: .boldSystemFont(ofSize: 14))
-    private let photoCountLabel = PawLabel(text: "3", textColor: .white, font: .boldSystemFont(ofSize: 14))
+    private let photoCountIcon = PawButton(image: SFSymbols.photos, tintColor: .white, font: .boldSystemFont(ofSize: 18))
+    private let photoCountLabel = PawLabel(text: "3", textColor: .white, font: .boldSystemFont(ofSize: 16))
     private lazy var photoCountStack = PawStackView(views: [photoCountIcon, photoCountLabel], spacing: 5, distribution: .fillEqually, alignment: .fill)
 
     private let profileImageView = PawImageView(image: UIImage(named: bob3)!, contentMode: .scaleAspectFill)
@@ -47,9 +47,10 @@ class CardView: LoadingView {
     private let breedAgeLabel = PawLabel(text: "Golden Retriever", textColor: lightRed, font: .systemFont(ofSize: 12, weight: .semibold), alignment: .left)
     private lazy var topStack = PawStackView(views: [nameLabel, breedAgeLabel], spacing: 5, axis: .vertical, distribution: .fillEqually, alignment: .fill)
     
-    private let bioLabel = PawLabel(text: "Potty trained. Loves walks and belly rubs", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
-    private lazy var overallLabelStack = PawStackView(views: [topStack, bioLabel], spacing: 5, axis: .vertical, distribution: .fillEqually, alignment: .fill)
-    private let aboutButton = PawButton(image: SFSymbols.info, tintColor: .black, font: .systemFont(ofSize: 20, weight: .medium))
+    private let locationLabel = PaddedLabel(text: "Los Angelos, CA", font: .systemFont(ofSize: 16, weight: .medium), padding: 8)
+    
+    private lazy var overallLabelStack = PawStackView(views: [topStack, locationLabel], spacing: 5, axis: .vertical, distribution: .fill, alignment: .leading)
+    private let aboutButton = PawButton(image: SFSymbols.info, tintColor: .black, font: .systemFont(ofSize: 25, weight: .medium))
     private let temporaryCoverView = PawView(bgColor: lightGray, cornerRadius: 25)
     
     // MARK: - Init
@@ -73,20 +74,23 @@ class CardView: LoadingView {
         containerView.layer.shadowOpacity = 0.25
         containerView.layer.shadowOffset = .init(width: 0, height: 0)
         aboutButton.addTarget(self, action: #selector(handleAboutTapped), for: .touchUpInside)
-        bioLabel.numberOfLines = 2
+        locationLabel.backgroundColor = lightTransparentGray
+        locationLabel.textColor = .white
+        locationLabel.layer.cornerRadius = 10
+        locationLabel.clipsToBounds = true
     }
     
     private func layoutUI() {
         addSubview(containerView)
-
         containerView.anchor(top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, leading: leadingAnchor, paddingTop: 30, paddingTrailing: 30, paddingBottom: 15, paddingLeading: 30)
         
         containerView.addSubviews(profileImageView, overallLabelStack, aboutButton, temporaryCoverView)
-        profileImageView.setDimension(width: containerView.widthAnchor, height: containerView.heightAnchor, hMult: 0.74)
+        profileImageView.setDimension(width: containerView.widthAnchor, height: containerView.widthAnchor, hMult: 1.15)
         profileImageView.anchor(top: containerView.topAnchor, trailing: containerView.trailingAnchor, leading: containerView.leadingAnchor)
-        overallLabelStack.anchor(top: profileImageView.bottomAnchor, trailing: containerView.trailingAnchor, bottom: containerView.bottomAnchor, leading: containerView.leadingAnchor, paddingTop: 15, paddingTrailing: 15, paddingBottom: 15, paddingLeading: 15)
-        aboutButton.setDimension(wConst: 50, hConst: 50)
-        aboutButton.anchor(top: profileImageView.bottomAnchor, trailing: profileImageView.trailingAnchor, paddingTrailing: 5)
+        overallLabelStack.setDimension(width: containerView.widthAnchor, wMult: 0.7)
+        overallLabelStack.anchor(top: profileImageView.bottomAnchor, bottom: containerView.bottomAnchor, leading: containerView.leadingAnchor, paddingTop: 12, paddingBottom: 15, paddingLeading: 18)
+        topStack.setDimension(height: overallLabelStack.heightAnchor, hMult: 0.6)
+        aboutButton.anchor(top: overallLabelStack.topAnchor, trailing: containerView.trailingAnchor, bottom: overallLabelStack.bottomAnchor, leading: overallLabelStack.trailingAnchor, paddingLeading: 10)
         temporaryCoverView.fill(superView: containerView)
         
         profileImageView.addSubview(photoCountStack)
@@ -116,7 +120,7 @@ class CardView: LoadingView {
         profileImageView.setImage(imageUrlString: cardVM.firstImageUrl) { self.stopLoadingCards() }
         nameLabel.text = cardVM.userInfo.name
         breedAgeLabel.text = cardVM.userBreedAge
-        bioLabel.text = cardVM.userInfo.bio
+//        bioLabel.text = cardVM.userInfo.bio
     }
     
     private func swipeCardWith(translationX: CGFloat, like: Bool) {
