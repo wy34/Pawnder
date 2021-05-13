@@ -34,6 +34,7 @@ class RecentMessagesVC: UIViewController {
         tv.backgroundColor = bgLightGray
         tv.separatorInset = .init(top: 0, left: 28, bottom: 0, right: 30)
         tv.rowHeight = 90
+        tv.tableFooterView = UIView()
         return tv
     }()
     

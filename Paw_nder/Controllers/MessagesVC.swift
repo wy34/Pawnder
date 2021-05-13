@@ -14,7 +14,7 @@ class MessagesVC: UIViewController {
     
     // MARK: - Views
     private let iconImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
-    private let newMatchesView = NewMatchesView()
+    private let newMatchesView = NewMatchesVC()
     private let recentMessagesVC = RecentMessagesVC()
     private let searchBar = UISearchBar()
     
@@ -64,7 +64,7 @@ class MessagesVC: UIViewController {
 }
 
 // MARK: - NewMatchesViewDelegate
-extension MessagesVC: NewMatchesViewDelegate {
+extension MessagesVC: NewMatchesVCDelegate {
     func didPressMatchedUser(match: Match) {
         navigateToMessageLogVC(match: match)
     }

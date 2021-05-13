@@ -8,15 +8,15 @@
 import UIKit
 import Firebase
 
-protocol NewMatchesViewDelegate: AnyObject {
+protocol NewMatchesVCDelegate: AnyObject {
     func didPressMatchedUser(match: Match)
 }
 
-class NewMatchesView: UIViewController {
+class NewMatchesVC: UIViewController {
     // MARK: - Properties
     var matches = [Match]()
     
-    weak var delegate: NewMatchesViewDelegate?
+    weak var delegate: NewMatchesVCDelegate?
     
     // MARK: - Views
     private let titleLabel = PawLabel(text: "New Matches", textColor: .black, font: .systemFont(ofSize: 16, weight: .bold), alignment: .left)
@@ -39,11 +39,7 @@ class NewMatchesView: UIViewController {
         configureUI()
         layoutUI()
         setupNotificationObservers()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        fetchMatches(); #warning("Refactor!")
+        fetchMatches()
     }
     
     deinit {
@@ -72,7 +68,7 @@ class NewMatchesView: UIViewController {
             switch result {
                 case .success(let matches):
                     DispatchQueue.main.async {
-                        self.matches = matches
+                        self.matches = matches.filter({ $0.startedConversation == false })
                         self.collectionView.reloadData()
                     }
                 case .failure(let error):
@@ -93,7 +89,7 @@ class NewMatchesView: UIViewController {
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
-extension NewMatchesView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension NewMatchesVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return matches.count
     }
