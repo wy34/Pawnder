@@ -20,6 +20,7 @@ class NewMatchesVC: UIViewController {
     
     // MARK: - Views
     private let titleLabel = PawLabel(text: "New Matches", textColor: .black, font: .systemFont(ofSize: 16, weight: .bold), alignment: .left)
+    private let noMatchesLabel = PawLabel(text: "No New Matches", textColor: .black, font: .systemFont(ofSize: 12, weight: .medium), alignment: .center)
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -52,11 +53,13 @@ class NewMatchesVC: UIViewController {
     }
     
     private func layoutUI() {
-        view.addSubviews(titleLabel, collectionView)
+        view.addSubviews(titleLabel, collectionView, noMatchesLabel)
         titleLabel.anchor(top: view.topAnchor, trailing: view.trailingAnchor, leading: view.leadingAnchor, paddingTrailing: 25, paddingLeading: 25)
         titleLabel.setDimension(hConst: 15)
         
         collectionView.anchor(top: titleLabel.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 15)
+        
+        noMatchesLabel.center(x: view.centerXAnchor, y: view.centerYAnchor, yPadding: -15)
     }
     
     private func fetchMatches() {
@@ -69,6 +72,8 @@ class NewMatchesVC: UIViewController {
                 case .success(let matches):
                     DispatchQueue.main.async {
                         self.matches = matches.filter({ $0.startedConversation == false })
+                        self.noMatchesLabel.isHidden = !self.matches.isEmpty
+                        self.titleLabel.isHidden = self.matches.isEmpty
                         self.collectionView.reloadData()
                     }
                 case .failure(let error):

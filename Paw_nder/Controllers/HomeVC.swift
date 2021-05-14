@@ -61,7 +61,7 @@ class HomeVC: LoadingViewController {
         navbarStack.center(to: navbarView, by: .centerY, withMultiplierOf: 1.35)
         navbarStack.anchor(trailing: navbarView.trailingAnchor, leading: navbarView.leadingAnchor)
 
-        bottomControlsView.setDimension(width: view.widthAnchor, height: view.heightAnchor, wMult: 0.5, hMult: 0.125)
+        bottomControlsView.setDimension(width: view.widthAnchor, height: view.heightAnchor, wMult: 0.6, hMult: 0.125)
         bottomControlsView.addSubview(bottomControlsStack)
         bottomControlsStack.fill(superView: bottomControlsView)
 

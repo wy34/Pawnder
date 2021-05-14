@@ -17,6 +17,7 @@ let message = UIImage(named: "bubble")!
 let user = UIImage(named: "user")!
 let male = UIImage(named: "male")!
 let female = UIImage(named: "female")!
+let mappin = UIImage(named: "pin")!
 
 // MARK: - Asset Names
 let bob1 = "bob1"
@@ -36,7 +37,7 @@ struct SFSymbols {
     static let photos = UIImage(systemName: "photo.fill.on.rectangle.fill")!
     static let chat = UIImage(systemName: "message")!
     static let checkmark = UIImage(systemName: "checkmark")!
-    static let heart = UIImage(systemName: "heart.fill")!
+    static let heart = UIImage(systemName: "heart")!
     static let rightArrow = UIImage(systemName: "arrow.right")!
     static let chevronLeft = UIImage(systemName: "chevron.left")!
     static let chevronRight = UIImage(systemName: "chevron.right")!

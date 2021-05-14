@@ -23,4 +23,12 @@ class PawImageView: UIImageView {
         self.contentMode = contentMode
         self.clipsToBounds = true
     }
+    
+    init(image: UIImage?, contentMode: UIImageView.ContentMode, tintColor: UIColor) {
+        super.init(frame: .zero)
+        self.image = image
+        self.tintColor = tintColor
+        self.contentMode = contentMode
+        self.clipsToBounds = true
+    }
 }

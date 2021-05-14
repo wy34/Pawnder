@@ -17,7 +17,8 @@ class AboutVC: UIViewController {
             namelabel.text = aboutVM.userInfo.name
             breedAgeLabel.text = aboutVM.userBreedAge
             genderLabel.text = aboutVM.userGender.text
-            genderLabel.backgroundColor = aboutVM.userGender.color
+            genderLabel.textColor = aboutVM.userGender.textColor
+            genderLabel.backgroundColor = aboutVM.userGender.bgColor
             bioLabel.text = aboutVM.userInfo.bio
         }
     }
@@ -45,13 +46,16 @@ class AboutVC: UIViewController {
     private let breedAgeLabel = PawLabel(text: "Golden Retriever", textColor: lightRed, font: .systemFont(ofSize: 14, weight: .semibold), alignment: .left)
     private lazy var headingStack = PawStackView(views: [namelabel, breedAgeLabel], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
         
-    private let genderLabel = PaddedLabel(text: "", font: .systemFont(ofSize: 14, weight: .bold), padding: 5)
+    private let genderLabel = PaddedLabel(text: "", font: .systemFont(ofSize: 14, weight: .bold), padding: 8)
+    private let locationLabel = IconLabel(text: "Los Angelos, CA", image: mappin, cornerRadius: 10)
+    
+    private let borderView = PawView(bgColor: lightGray)
     
     private let bioLabel = PawLabel(text: "Golden Retriever", textColor: .gray, font: .systemFont(ofSize: 20, weight: .semibold), alignment: .left)
     
-    private let likeButton = PawButton(image: SFSymbols.heart, tintColor: lightRed, font: .systemFont(ofSize: 16, weight: .bold))
+    private let likeButton = PawButton(image: SFSymbols.heart, tintColor: .white, font: .systemFont(ofSize: 16, weight: .bold))
     private let dislikeButton = PawButton(image: SFSymbols.xmark, tintColor: .white, font: .systemFont(ofSize: 16, weight: .bold))
-    private lazy var likeDislikeStack = PawStackView(views: [dislikeButton, likeButton], spacing: 8, distribution: .fillEqually, alignment: .fill)
+    private lazy var likeDislikeStack = PawStackView(views: [dislikeButton, likeButton], spacing: 12, distribution: .fillEqually, alignment: .fill)
         
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -67,14 +71,14 @@ class AboutVC: UIViewController {
         dismissButton.backgroundColor = .white.withAlphaComponent(0.75)
         dismissButton.layer.cornerRadius = 35/2
         dismissButton.addTarget(self, action: #selector(handleDismissTapped), for: .touchUpInside)
-        genderLabel.textColor = .white
+//        genderLabel.textColor = lightRed
         genderLabel.layer.cornerRadius = 10
         genderLabel.clipsToBounds = true
         bioLabel.numberOfLines = 0
-        likeButton.layer.cornerRadius = 12
-        dislikeButton.layer.cornerRadius = 12
-        likeButton.backgroundColor = lightPink
-        dislikeButton.backgroundColor = .lightGray
+        likeButton.layer.cornerRadius = 45/2
+        dislikeButton.layer.cornerRadius = 45/2
+        likeButton.backgroundColor = #colorLiteral(red: 0.4704266787, green: 0.8806294799, blue: 0.6199433804, alpha: 1)
+        dislikeButton.backgroundColor = lightRed
     }
     
     func layoutScrollView() {
@@ -88,7 +92,7 @@ class AboutVC: UIViewController {
     func layoutUI() {
         contentView.addSubviews(bodyContainerView, headerContainerView, imagePagingVC.view, dismissButton)
         
-        dismissButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, paddingTop: 10, paddingLeading: 30)
+        dismissButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, trailing: view.trailingAnchor, paddingTop: 10, paddingTrailing: 30)
         dismissButton.setDimension(wConst: 35, hConst: 35)
         
         bodyContainerView.anchor(top: contentView.topAnchor, paddingTop: UIScreen.main.bounds.height * 0.5)
@@ -102,15 +106,20 @@ class AboutVC: UIViewController {
     }
     
     func layoutBodyViews() {
-        bodyContainerView.addSubviews(headingStack, genderLabel, bioLabel, likeDislikeStack)
+        bodyContainerView.addSubviews(headingStack, genderLabel, locationLabel, borderView, bioLabel, likeDislikeStack)
         
         headingStack.anchor(top: bodyContainerView.topAnchor, trailing: bodyContainerView.trailingAnchor, leading: bodyContainerView.leadingAnchor, paddingTop: 30)
         
         genderLabel.anchor(top: headingStack.bottomAnchor, leading: headingStack.leadingAnchor, paddingTop: 10)
-        bioLabel.anchor(top: genderLabel.bottomAnchor, trailing: likeDislikeStack.trailingAnchor, leading: headingStack.leadingAnchor, paddingTop: 30)
+        locationLabel.anchor(top: genderLabel.bottomAnchor, leading: headingStack.leadingAnchor, paddingTop: 10)
+        borderView.anchor(top: locationLabel.bottomAnchor, trailing: headingStack.trailingAnchor, leading: headingStack.leadingAnchor, paddingTop: 25)
+        borderView.setDimension(hConst: 2)
+        bioLabel.anchor(top: borderView.bottomAnchor, trailing: headingStack.trailingAnchor, leading: headingStack.leadingAnchor, paddingTop: 20)
         
-        likeDislikeStack.anchor(top: bioLabel.bottomAnchor, trailing: headingStack.trailingAnchor, leading: headingStack.leadingAnchor, paddingTop: 60)
-        likeDislikeStack.setDimension(hConst: 50)
+        likeDislikeStack.anchor(top: bioLabel.bottomAnchor, paddingTop: 45)
+        likeDislikeStack.center(to: view, by: .centerX)
+        likeDislikeStack.setDimension(width: view.widthAnchor, wMult: 0.6)
+        likeDislikeStack.setDimension(hConst: 45)
     }
     
     func setupButtonActions() {
