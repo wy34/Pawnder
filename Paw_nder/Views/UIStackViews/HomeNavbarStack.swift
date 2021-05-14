@@ -60,6 +60,8 @@ class HomeNavbarStack: UIStackView {
     
     private func setupNotificationObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleUsersFetched), name: .didFetchUsers, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(disableButtons), name: .didDragCard, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(enableButtons), name: .didFinishDraggingCard, object: nil)
     }
     
     // MARK: - Selectors
@@ -74,5 +76,15 @@ class HomeNavbarStack: UIStackView {
     
     @objc func handleUsersFetched() {
         refreshBtn.isEnabled = true
+    }
+    
+    @objc func disableButtons() {
+        refreshBtn.isEnabled = false
+        filterBtn.isEnabled = false
+    }
+    
+    @objc func enableButtons() {
+        refreshBtn.isEnabled = true
+        filterBtn.isEnabled = true
     }
 }

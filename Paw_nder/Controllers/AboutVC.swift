@@ -35,7 +35,7 @@ class AboutVC: UIViewController {
     
     private let contentView = PawView(bgColor: .white)
     
-    private let dismissButton = PawButton(image: SFSymbols.downArrow, tintColor: .darkGray, font: .boldSystemFont(ofSize: 18))
+    private let dismissButton = PawButton(image: SFSymbols.xmark, tintColor: .darkGray, font: .boldSystemFont(ofSize: 15))
     
     private let headerContainerView = PawView(bgColor: .gray)
     private let imagePagingVC = PagingController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
@@ -71,7 +71,6 @@ class AboutVC: UIViewController {
         dismissButton.backgroundColor = .white.withAlphaComponent(0.75)
         dismissButton.layer.cornerRadius = 35/2
         dismissButton.addTarget(self, action: #selector(handleDismissTapped), for: .touchUpInside)
-//        genderLabel.textColor = lightRed
         genderLabel.layer.cornerRadius = 10
         genderLabel.clipsToBounds = true
         bioLabel.numberOfLines = 0
@@ -86,13 +85,13 @@ class AboutVC: UIViewController {
         scrollView.fill(superView: view)
         scrollView.addSubview(contentView)
         contentView.fill(superView: scrollView)
-        contentView.setDimension(width: scrollView.widthAnchor, height: scrollView.heightAnchor, hMult: 1.0005)
+        contentView.setDimension(width: scrollView.widthAnchor, height: scrollView.heightAnchor, hMult: 1.1)
     }
     
     func layoutUI() {
         contentView.addSubviews(bodyContainerView, headerContainerView, imagePagingVC.view, dismissButton)
         
-        dismissButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, trailing: view.trailingAnchor, paddingTop: 10, paddingTrailing: 30)
+        dismissButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, trailing: view.trailingAnchor, paddingTop: 10, paddingTrailing: 25)
         dismissButton.setDimension(wConst: 35, hConst: 35)
         
         bodyContainerView.anchor(top: contentView.topAnchor, paddingTop: UIScreen.main.bounds.height * 0.5)

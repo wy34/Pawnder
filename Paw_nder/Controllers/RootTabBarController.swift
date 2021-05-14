@@ -10,10 +10,16 @@ import UIKit
 class RootTabBarController: UITabBarController {
     // MARK: - Properties
     
+    // MARK: - Views
+    var homeVC: HomeVC?
+    var messagesVC: UINavigationController?
+    var settingsVC: UINavigationController?
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabbar()
+        setupNotificationObservers()
     }
     
     // MARK: - Helpers
@@ -41,20 +47,19 @@ class RootTabBarController: UITabBarController {
     func setupViewControllers() {
         self.selectedIndex = 0
                 
-        let homeVC = HomeVC()
-        homeVC.tabBarItem = UITabBarItem(title: nil, image: paw, tag: 0)
-        homeVC.tabBarItem.imageInsets = .init(top: 14, left: 0, bottom: -14, right: 0)
+        homeVC = HomeVC()
+        homeVC?.tabBarItem = UITabBarItem(title: nil, image: paw, tag: 0)
+        homeVC?.tabBarItem.imageInsets = .init(top: 14, left: 0, bottom: -14, right: 0)
         
-        let messagesVC = UINavigationController(rootViewController: MessagesVC())
-        messagesVC.tabBarItem = UITabBarItem(title: nil, image: message, tag: 1)
-        messagesVC.tabBarItem.imageInsets = .init(top: 14, left: 0, bottom: -14, right: 0)
+        messagesVC = UINavigationController(rootViewController: MessagesVC())
+        messagesVC?.tabBarItem = UITabBarItem(title: nil, image: message, tag: 1)
+        messagesVC?.tabBarItem.imageInsets = .init(top: 14, left: 0, bottom: -14, right: 0)
         
-        let settingsVC = UINavigationController(rootViewController: SettingsVC())
-        settingsVC.view.backgroundColor = .white
-        settingsVC.tabBarItem = UITabBarItem(title: nil, image: user, tag: 2)
-        settingsVC.tabBarItem.imageInsets = .init(top: 14, left: 0, bottom: -14, right: 0)
+        settingsVC = UINavigationController(rootViewController: SettingsVC())
+        settingsVC?.tabBarItem = UITabBarItem(title: nil, image: user, tag: 2)
+        settingsVC?.tabBarItem.imageInsets = .init(top: 14, left: 0, bottom: -14, right: 0)
         
-        setViewControllers([homeVC, messagesVC, settingsVC], animated: true)
+        setViewControllers([homeVC!, messagesVC!, settingsVC!], animated: true)
     }
     
     func showTabbar() {
@@ -71,5 +76,23 @@ class RootTabBarController: UITabBarController {
             self.tabBar.frame.origin.y = self.view.frame.height
             self.tabBar.layoutIfNeeded()
         }
+    }
+    
+    func setupNotificationObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(disableButtons), name: .didDragCard, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(enableButtons), name: .didFinishDraggingCard, object: nil)
+    }
+    
+    // MARK: - Selector
+    @objc func disableButtons() {
+        homeVC?.tabBarItem.isEnabled = false
+        messagesVC?.tabBarItem.isEnabled = false
+        settingsVC?.tabBarItem.isEnabled = false
+    }
+    
+    @objc func enableButtons() {
+        homeVC?.tabBarItem.isEnabled = true
+        messagesVC?.tabBarItem.isEnabled = true
+        settingsVC?.tabBarItem.isEnabled = true
     }
 }
