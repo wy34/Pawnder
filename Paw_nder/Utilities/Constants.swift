@@ -43,6 +43,9 @@ struct SFSymbols {
     static let chevronRight = UIImage(systemName: "chevron.right")!
     static let ellipsis = UIImage(systemName: "ellipsis")!
     static let paperplane = UIImage(systemName: "paperplane")!
+    static let gears = UIImage(systemName: "gearshape")!
+    static let plus = UIImage(systemName: "plus")!
+    static let saveCloud = UIImage(systemName: "icloud.and.arrow.up")!
 }
 
 // MARK: - Colors

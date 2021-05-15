@@ -1,0 +1,164 @@
+//
+//  NewSettingVC.swift
+//  Paw_nder
+//
+//  Created by William Yeung on 5/14/21.
+//
+
+import UIKit
+import SwiftUI
+
+class ProfileVC: LoadingViewController {
+    // MARK: - Properties
+    var imagePickerButtonTag: Int?
+    var settingsVM = SettingsViewModel.shared
+    
+    // MARK: - Views
+    private let settingsButton = PawButton(image: SFSymbols.gears, tintColor: .white, font: .systemFont(ofSize: 14, weight: .black))
+    private let saveButton = PawButton(image: SFSymbols.saveCloud, tintColor: .white, font: .systemFont(ofSize: 14, weight: .black))
+    private let imagePickerView = ImagePickerView()
+    
+    private let borderView = PawView(bgColor: lightGray)
+
+    private let infoContainerView = PawView(bgColor: lightGray)
+    private let nameLabel = PawLabel(text: "William Yeung", textColor: .black, font: .systemFont(ofSize: 25, weight: .bold), alignment: .left)
+    private let breedAgeLabel = PawLabel(text: "Golden Retriever • 34 yrs", textColor: lightRed, font: .systemFont(ofSize: 14, weight: .semibold), alignment: .left)
+    private lazy var headingStack = PawStackView(views: [nameLabel, breedAgeLabel], spacing: 5, axis: .vertical, distribution: .fill, alignment: .fill)
+        
+    private let genderLabel = PaddedLabel(text: "Female", font: .systemFont(ofSize: 14, weight: .bold), padding: 8)
+    private let locationLabel = IconLabel(text: "Los Angelos, CA", image: mappin, cornerRadius: 10)
+    
+    private let bioLabel = PawLabel(text: "William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
+    
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureUI()
+        layoutUI()
+        setupActionsAndObservers()
+        fetchCurrentUserInfo()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+
+    // MARK: - Helpers
+    private func configureUI() {
+        view.backgroundColor = bgLightGray
+        settingsButton.backgroundColor = .darkGray
+        settingsButton.layer.cornerRadius = 35/2
+        saveButton.backgroundColor = .darkGray
+        saveButton.layer.cornerRadius = 35/2
+        infoContainerView.layer.cornerRadius = 15
+        genderLabel.backgroundColor = #colorLiteral(red: 1, green: 0.4016966522, blue: 0.4617980123, alpha: 0.1497695853)
+        genderLabel.textColor = lightRed
+        genderLabel.layer.cornerRadius = 10
+        genderLabel.clipsToBounds = true
+        bioLabel.numberOfLines = 0
+        bioLabel.backgroundColor = .green
+    }
+
+    private func layoutUI() {
+        edgesForExtendedLayout = []
+        view.addSubviews(imagePickerView, settingsButton, saveButton, borderView, infoContainerView)
+        
+        settingsButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, trailing: view.trailingAnchor, paddingTop: 15, paddingTrailing: 25)
+        settingsButton.setDimension(wConst: 35, hConst: 35)
+        saveButton.anchor(top: settingsButton.bottomAnchor, trailing: settingsButton.trailingAnchor, paddingTop: 10)
+        saveButton.setDimension(wConst: 35, hConst: 35)
+        
+        imagePickerView.setDimension(width: view.widthAnchor, height: view.widthAnchor)
+        imagePickerView.center(to: view, by: .centerX)
+        imagePickerView.anchor(top: settingsButton.topAnchor)
+        
+        borderView.anchor(top: imagePickerView.bottomAnchor, paddingTop: 10)
+        borderView.setDimension(width: view.widthAnchor, height: view.widthAnchor, wMult: 0.9, hMult: 0.005)
+        borderView.center(to: imagePickerView, by: .centerX)
+        
+        infoContainerView.anchor(top: borderView.bottomAnchor, trailing: borderView.trailingAnchor, bottom: view.bottomAnchor, leading: borderView.leadingAnchor, paddingTop: 25, paddingBottom: 25)
+        
+        layoutTextualInfo()
+    }
+    
+    private func layoutTextualInfo(){
+        infoContainerView.addSubviews(headingStack, genderLabel, locationLabel, bioLabel)
+        
+        headingStack.anchor(top: infoContainerView.topAnchor, trailing: infoContainerView.trailingAnchor, leading: infoContainerView.leadingAnchor, paddingTop: 10, paddingTrailing: 10, paddingLeading: 10)
+        nameLabel.setDimension(hConst: 30)
+        breedAgeLabel.setDimension(hConst: 15)
+        
+        genderLabel.anchor(top: headingStack.bottomAnchor, leading: headingStack.leadingAnchor, paddingTop: 10)
+        locationLabel.anchor(top: genderLabel.topAnchor, bottom: genderLabel.bottomAnchor, leading: genderLabel.trailingAnchor, paddingLeading: 10)
+        
+        bioLabel.anchor(top: locationLabel.bottomAnchor, trailing: nameLabel.trailingAnchor, leading: nameLabel.leadingAnchor, paddingTop: 10)
+    }
+    
+    private func setupActionsAndObservers() {
+        settingsButton.addTarget(self, action: #selector(openSettings), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(saveImages), for: .touchUpInside)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleSelectPhotoTapped(notification:)), name: .didOpenImagePicker, object: nil)
+
+    }
+    
+    func fetchCurrentUserInfo() {
+        FirebaseManager.shared.fetchCurrentUser { [weak self] (result) in
+            switch result {
+            case .success(let user):
+                self?.settingsVM.user = user
+                self?.imagePickerView.setCurrentUserImage(urlStringsDictionary: self?.settingsVM.user?.imageUrls)
+            case .failure(let error):
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+            }
+        }
+    }
+    
+    private func handleUpdateCompletion(error: Error?) {
+//        if let error = error {
+//           showAlert(title: "Error", message: error.localizedDescription)
+//        }
+
+        dismissLoader()
+//        NotificationCenter.default.post(Notification(name: .didSaveSettings, object: nil, userInfo: nil))
+    }
+    
+    
+    // MARK: - Selector
+    @objc func openSettings() {
+//        let settingsVC = SettingsVC()
+//        navigationController?.pushViewController(settingsVC, animated: true)
+    }
+    
+    @objc func saveImages() {
+        showLoader()
+
+//        if settingsVM.selectedImages.count == 0 {
+//            settingsVM.updateUserInfo { [weak self] error in
+//                self?.handleUpdateCompletion(error: error)
+//            }
+//        } else {
+//            settingsVM.updateUserInfoWithImages { [weak self] error in
+//                self?.handleUpdateCompletion(error: error)
+//            }
+//        }
+    }
+    
+    @objc func handleSelectPhotoTapped(notification: Notification) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+        imagePickerButtonTag = notification.userInfo?[buttonTag] as? Int
+        present(imagePicker, animated: true)
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+extension ProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let selectedImage = info[.editedImage] as? UIImage else { return }
+        settingsVM.selectedImages[imagePickerButtonTag!] = selectedImage
+        NotificationCenter.default.post(Notification(name: .didSelectPhoto, object: nil, userInfo: [imagePickerButtonTag: selectedImage]))
+        dismiss(animated: true, completion: nil)
+    }
+}

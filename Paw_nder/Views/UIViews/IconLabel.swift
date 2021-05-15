@@ -13,7 +13,7 @@ class IconLabel: UIView {
     
     
     // MARK: - Views
-    private let label = PaddedLabel(text: "Los Angelos, CA", font: .systemFont(ofSize: 16, weight: .medium), padding: 8)
+    private let label = PaddedLabel(text: "Los Angelos, CA", font: .systemFont(ofSize: 14, weight: .medium), padding: 5)
 
     // MARK: - Init
     override init(frame: CGRect) {

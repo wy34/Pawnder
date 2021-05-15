@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C062F55264F0B20009D999D /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C062F54264F0B20009D999D /* ProfileVC.swift */; };
+		4C062F57264F7B01009D999D /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C062F56264F7B01009D999D /* ImagePickerView.swift */; };
 		4C2A564F264046DB0085F887 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A564E264046DB0085F887 /* UIApplication.swift */; };
 		4C2A5651264059A60085F887 /* FilterViewLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A5650264059A60085F887 /* FilterViewLauncher.swift */; };
 		4C2E7C9C263BC1DD00DDA4E5 /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2E7C9B263BC1DD00DDA4E5 /* AboutViewModel.swift */; };
@@ -45,7 +47,7 @@
 		4C6349742634C6F9006AE44B /* Notification.Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6349732634C6F9006AE44B /* Notification.Name.swift */; };
 		4C6349782634E509006AE44B /* PaddedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6349772634E509006AE44B /* PaddedLabel.swift */; };
 		4C63497D2634E940006AE44B /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C63497C2634E940006AE44B /* SettingsCell.swift */; };
-		4C634982263519C6006AE44B /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C634981263519C6006AE44B /* LoadingButton.swift */; };
+		4C634982263519C6006AE44B /* ImagePickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C634981263519C6006AE44B /* ImagePickerButton.swift */; };
 		4C65D8EA26320E3000B1F4FB /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65D8E926320E3000B1F4FB /* RegisterViewModel.swift */; };
 		4C65D8EF2632145F00B1F4FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C65D8EE2632145F00B1F4FB /* GoogleService-Info.plist */; };
 		4C65D94326322ABB00B1F4FB /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65D94226322ABB00B1F4FB /* ProfileImageView.swift */; };
@@ -77,6 +79,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C062F54264F0B20009D999D /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		4C062F56264F7B01009D999D /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		4C2A564E264046DB0085F887 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		4C2A5650264059A60085F887 /* FilterViewLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewLauncher.swift; sourceTree = "<group>"; };
 		4C2E7C9B263BC1DD00DDA4E5 /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
@@ -117,7 +121,7 @@
 		4C6349732634C6F9006AE44B /* Notification.Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.Name.swift; sourceTree = "<group>"; };
 		4C6349772634E509006AE44B /* PaddedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedLabel.swift; sourceTree = "<group>"; };
 		4C63497C2634E940006AE44B /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
-		4C634981263519C6006AE44B /* LoadingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
+		4C634981263519C6006AE44B /* ImagePickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerButton.swift; sourceTree = "<group>"; };
 		4C65D8E926320E3000B1F4FB /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		4C65D8EE2632145F00B1F4FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4C65D94226322ABB00B1F4FB /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
@@ -226,11 +230,11 @@
 				4CFD225F263E5E1A00C65277 /* RootTabBarController.swift */,
 				4C49BA92262E3928006F046B /* HomeVC.swift */,
 				4C5EAD6E2631199200653AE0 /* RegisterVC.swift */,
-				4C63496D2634B258006AE44B /* SettingsVC.swift */,
 				4C3D1A31263A00D100185926 /* LoginVC.swift */,
 				4C7611BC263CCBCA007A2D01 /* AboutVC.swift */,
 				4C5EAF5E2646EB2D00F415B7 /* MessagesVC.swift */,
 				4C68459B2648E6E20003988C /* MessageLogVC.swift */,
+				4C062F54264F0B20009D999D /* ProfileVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -238,6 +242,8 @@
 		4C49BAAD262E3AA1006F046B /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				4C63496D2634B258006AE44B /* SettingsVC.swift */,
+				4C6349702634C26C006AE44B /* ImagePickerHeaderView.swift */,
 				4C491A84263EFB9B009BCE40 /* CopySettingsVC.swift */,
 				4C49BA97262E3929006F046B /* Assets.xcassets */,
 				4C49BA99262E3929006F046B /* LaunchScreen.storyboard */,
@@ -323,7 +329,7 @@
 		4C634980263519B5006AE44B /* UIButton */ = {
 			isa = PBXGroup;
 			children = (
-				4C634981263519C6006AE44B /* LoadingButton.swift */,
+				4C634981263519C6006AE44B /* ImagePickerButton.swift */,
 			);
 			path = UIButton;
 			sourceTree = "<group>";
@@ -370,11 +376,11 @@
 				4C2A5650264059A60085F887 /* FilterViewLauncher.swift */,
 				4C75AE512633C2D900255A7A /* LoadingView.swift */,
 				4CA40BE5262F4DE000B11232 /* CardView.swift */,
-				4C6349702634C26C006AE44B /* ImagePickerHeaderView.swift */,
 				4C3D1A33263A0CAD00185926 /* GradientView.swift */,
 				4C540B532645D123009B39F2 /* MatchingView.swift */,
 				4C8F8CF82649E0BB00A62E85 /* MessageInputView.swift */,
 				4C86D3DF264DFD1B00094591 /* IconLabel.swift */,
+				4C062F56264F7B01009D999D /* ImagePickerView.swift */,
 			);
 			path = UIViews;
 			sourceTree = "<group>";
@@ -546,14 +552,16 @@
 				4C7611BB263C9809007A2D01 /* PagingController.swift in Sources */,
 				4C6349742634C6F9006AE44B /* Notification.Name.swift in Sources */,
 				4C49BAC9262E8191006F046B /* Constants.swift in Sources */,
+				4C062F57264F7B01009D999D /* ImagePickerView.swift in Sources */,
 				4C49BAB7262E3BF9006F046B /* PawLabel.swift in Sources */,
 				4C75AE492633963C00255A7A /* Credentials.swift in Sources */,
 				4C2E7C9C263BC1DD00DDA4E5 /* AboutViewModel.swift in Sources */,
 				4C5EAF6226478D4C00F415B7 /* NewMatchesVC.swift in Sources */,
 				4C3D1A36263A2A4D00185926 /* LoginViewModel.swift in Sources */,
+				4C062F55264F0B20009D999D /* ProfileVC.swift in Sources */,
 				4C8F8CF92649E0BB00A62E85 /* MessageInputView.swift in Sources */,
 				4C5A3E6126434563007EEC00 /* Gender.swift in Sources */,
-				4C634982263519C6006AE44B /* LoadingButton.swift in Sources */,
+				4C634982263519C6006AE44B /* ImagePickerButton.swift in Sources */,
 				4C49BA93262E3928006F046B /* HomeVC.swift in Sources */,
 				4C392FE0264B4D6600A729F7 /* RecentMessageCell.swift in Sources */,
 				4C75AE3C2633644A00255A7A /* HomeViewModel.swift in Sources */,

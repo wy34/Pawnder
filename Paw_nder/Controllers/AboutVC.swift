@@ -16,6 +16,7 @@ class AboutVC: UIViewController {
             imagePagingVC.setupImages(aboutVM: aboutVM)
             namelabel.text = aboutVM.userInfo.name
             breedAgeLabel.text = aboutVM.userBreedAge
+            breedAgeLabel.textColor = aboutVM.userGender.textColor
             genderLabel.text = aboutVM.userGender.text
             genderLabel.textColor = aboutVM.userGender.textColor
             genderLabel.backgroundColor = aboutVM.userGender.bgColor
