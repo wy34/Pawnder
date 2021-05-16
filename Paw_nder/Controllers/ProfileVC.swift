@@ -64,14 +64,12 @@ class ProfileVC: LoadingViewController {
         edgesForExtendedLayout = []
         view.addSubviews(imagePickerView, settingsButton, saveButton, borderView, infoContainerView)
         
-        settingsButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, trailing: view.trailingAnchor, paddingTop: 15, paddingTrailing: 25)
-        settingsButton.setDimension(wConst: 35, hConst: 35)
-        saveButton.anchor(top: settingsButton.bottomAnchor, trailing: settingsButton.trailingAnchor, paddingTop: 10)
+        saveButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, trailing: view.trailingAnchor, paddingTop: 15, paddingTrailing: 25)
         saveButton.setDimension(wConst: 35, hConst: 35)
         
         imagePickerView.setDimension(width: view.widthAnchor, height: view.widthAnchor)
         imagePickerView.center(to: view, by: .centerX)
-        imagePickerView.anchor(top: settingsButton.topAnchor)
+        imagePickerView.anchor(top: saveButton.topAnchor, paddingTop: 25)
         
         borderView.anchor(top: imagePickerView.bottomAnchor, paddingTop: 10)
         borderView.setDimension(width: view.widthAnchor, height: view.widthAnchor, wMult: 0.9, hMult: 0.005)
@@ -83,6 +81,7 @@ class ProfileVC: LoadingViewController {
     }
     
     private func layoutTextualInfo(){
+        #warning("add settings button here")
         infoContainerView.addSubviews(headingStack, genderLabel, locationLabel, bioLabel)
         
         headingStack.anchor(top: infoContainerView.topAnchor, trailing: infoContainerView.trailingAnchor, leading: infoContainerView.leadingAnchor, paddingTop: 10, paddingTrailing: 10, paddingLeading: 10)
@@ -107,7 +106,15 @@ class ProfileVC: LoadingViewController {
             switch result {
             case .success(let user):
                 self?.settingsVM.user = user
+                #warning("Refactor")
                 self?.imagePickerView.setCurrentUserImage(urlStringsDictionary: self?.settingsVM.user?.imageUrls)
+                self?.nameLabel.text = self?.settingsVM.user?.name
+                self?.breedAgeLabel.text = self?.settingsVM.userBreedAge
+                self?.breedAgeLabel.textColor = self?.settingsVM.userGender.textColor
+                self?.genderLabel.text = self?.settingsVM.userGender.text
+                self?.genderLabel.textColor = self?.settingsVM.userGender.textColor
+                self?.genderLabel.backgroundColor = self?.settingsVM.userGender.bgColor
+                self?.bioLabel.text = self?.settingsVM.user?.bio
             case .failure(let error):
                 self?.showAlert(title: "Error", message: error.localizedDescription)
             }
@@ -115,33 +122,27 @@ class ProfileVC: LoadingViewController {
     }
     
     private func handleUpdateCompletion(error: Error?) {
-//        if let error = error {
-//           showAlert(title: "Error", message: error.localizedDescription)
-//        }
+        if let error = error {
+           showAlert(title: "Error", message: error.localizedDescription)
+        }
 
         dismissLoader()
-//        NotificationCenter.default.post(Notification(name: .didSaveSettings, object: nil, userInfo: nil))
+        NotificationCenter.default.post(Notification(name: .didSaveSettings, object: nil, userInfo: nil))
     }
     
     
     // MARK: - Selector
     @objc func openSettings() {
-//        let settingsVC = SettingsVC()
-//        navigationController?.pushViewController(settingsVC, animated: true)
+        let settingsVC = SettingsVC()
+        navigationController?.pushViewController(settingsVC, animated: true)
     }
     
     @objc func saveImages() {
         showLoader()
-
-//        if settingsVM.selectedImages.count == 0 {
-//            settingsVM.updateUserInfo { [weak self] error in
-//                self?.handleUpdateCompletion(error: error)
-//            }
-//        } else {
-//            settingsVM.updateUserInfoWithImages { [weak self] error in
-//                self?.handleUpdateCompletion(error: error)
-//            }
-//        }
+        
+        settingsVM.updateUserImages { [weak self] error in
+            self?.handleUpdateCompletion(error: error)
+        }
     }
     
     @objc func handleSelectPhotoTapped(notification: Notification) {

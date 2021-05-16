@@ -28,6 +28,20 @@ class SettingsViewModel {
         return "N/A"
     }
     
+    var userBreedAge: String {
+        return "\(user?.breed?.uppercased() ?? "N/A")  •  \(userAge)"
+    }
+    
+    var userGender: (text: String, textColor: UIColor, bgColor: UIColor) {
+        let gender = user?.gender
+        
+        if gender == .male {
+            return (gender!.rawValue, lightBlue, #colorLiteral(red: 0, green: 0.6040372252, blue: 1, alpha: 0.1472674251))
+        } else {
+            return (gender!.rawValue, lightRed, #colorLiteral(red: 1, green: 0.4016966522, blue: 0.4617980123, alpha: 0.1497695853))
+        }
+    }
+    
     var ageSliderMinFloatValue: Float {
         return Float(user?.minAgePreference ?? 0) / 100
     }
@@ -55,8 +69,10 @@ class SettingsViewModel {
         }
     }
     
-    func updateUserInfoWithImages(completion: @escaping (Error?) -> Void) {
-        var dict = user?.imageUrls
+    func updateUserImages(completion: @escaping (Error?) -> Void) {
+        guard selectedImages.count > 0 else { completion(nil); return }
+
+        var imageDict = user?.imageUrls
         
         for (imageKey, image) in selectedImages {
             let imageName = UUID().uuidString
@@ -75,15 +91,14 @@ class SettingsViewModel {
                             completion(error)
                         }
                         
-                        dict!["\(imageKey)"] = url!.absoluteString
-                        self.user!.imageUrls = dict
-                        
-                        self.updateUserInfo { [weak self] (error) in
-                            if let _ = error {
+                        imageDict?["\(imageKey)"] = url!.absoluteString
+
+                        Firestore.firestore().collection("users").document(self.user!.uid).updateData(["imageUrls": imageDict ?? ["": ""]]) { error in
+                            if let error = error {
                                 completion(error)
                             }
-
-                            self?.selectedImages.removeAll()
+                            
+                            self.selectedImages.removeAll()
                             completion(nil)
                         }
                     }

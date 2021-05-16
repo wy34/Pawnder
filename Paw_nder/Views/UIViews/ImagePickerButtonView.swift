@@ -14,7 +14,7 @@ class ImagePickerButtonView: UIView {
     
     // MARK: - Views
     let imageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
-    let addButton = PawButton(image: SFSymbols.plus, tintColor: .white, font: .systemFont(ofSize: 10, weight: .black))
+    let addDeleteButton = PawButton(image: SFSymbols.plus, tintColor: .white, font: .systemFont(ofSize: 10, weight: .black))
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -29,7 +29,7 @@ class ImagePickerButtonView: UIView {
     
     init(imageCornerRadius: CGFloat, tagNumber: Int) {
         super.init(frame: .zero)
-        self.addButton.tag = tagNumber
+        self.addDeleteButton.tag = tagNumber
         configureUI(imageCornerRadius: imageCornerRadius)
         layoutUI()
     }
@@ -40,15 +40,22 @@ class ImagePickerButtonView: UIView {
         imageView.layer.cornerRadius = imageCornerRadius
         imageView.layer.borderWidth = 3
         imageView.layer.borderColor = lightTransparentGray.cgColor
-        addButton.backgroundColor = lightRed
-        addButton.layer.cornerRadius = 23/2
+        addDeleteButton.backgroundColor = lightRed
+        addDeleteButton.layer.cornerRadius = 23/2
+        addDeleteButton.layer.shadowOpacity = 0.15
     }
     
     private func layoutUI() {
-        addSubviews(imageView, addButton)
+        addSubviews(imageView, addDeleteButton)
         imageView.fill(superView: self, withPaddingOnAllSides: 5)
         
-        addButton.setDimension(wConst: 23, hConst: 23)
-        addButton.anchor(top: imageView.topAnchor, leading: imageView.leadingAnchor, paddingTop: -5, paddingLeading: -5)
+        addDeleteButton.setDimension(wConst: 23, hConst: 23)
+        addDeleteButton.anchor(top: imageView.topAnchor, leading: imageView.leadingAnchor, paddingTop: -5, paddingLeading: -5)
+    }
+    
+    func changeAddDeleteButtonImageTo(image: UIImage) {
+        addDeleteButton.setImage(image.applyingSymbolConfiguration(.init(font: .systemFont(ofSize: 10, weight: .black)))!.withRenderingMode(.alwaysTemplate), for: .normal)
+        addDeleteButton.backgroundColor = .white
+        addDeleteButton.tintColor = lightRed
     }
 }
