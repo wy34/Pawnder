@@ -72,6 +72,10 @@
 		4CA40BEA262F716A00B11232 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BE9262F716A00B11232 /* User.swift */; };
 		4CA40BEF262F7F4F00B11232 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */; };
 		4CC677462637BCFF00C321E3 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC677452637BCFF00C321E3 /* SettingsViewModel.swift */; };
+		4CD2810926521A2C005C1594 /* NewSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810826521A2C005C1594 /* NewSettingsVC.swift */; };
+		4CD2810B26521E95005C1594 /* NewSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810A26521E95005C1594 /* NewSettingsCell.swift */; };
+		4CD2810D26522260005C1594 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810C26522260005C1594 /* Setting.swift */; };
+		4CD2810F26522A40005C1594 /* EditSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810E26522A40005C1594 /* EditSettingsVC.swift */; };
 		4CF953912639056800D80587 /* SliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF953902639056800D80587 /* SliderCell.swift */; };
 		4CF953932639062D00D80587 /* PawSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF953922639062D00D80587 /* PawSlider.swift */; };
 		4CFD2260263E5E1A00C65277 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD225F263E5E1A00C65277 /* RootTabBarController.swift */; };
@@ -146,6 +150,10 @@
 		4CA40BE9262F716A00B11232 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		4CC677452637BCFF00C321E3 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		4CD2810826521A2C005C1594 /* NewSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSettingsVC.swift; sourceTree = "<group>"; };
+		4CD2810A26521E95005C1594 /* NewSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSettingsCell.swift; sourceTree = "<group>"; };
+		4CD2810C26522260005C1594 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		4CD2810E26522A40005C1594 /* EditSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsVC.swift; sourceTree = "<group>"; };
 		4CF953902639056800D80587 /* SliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderCell.swift; sourceTree = "<group>"; };
 		4CF953922639062D00D80587 /* PawSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawSlider.swift; sourceTree = "<group>"; };
 		4CFD225F263E5E1A00C65277 /* RootTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
@@ -235,6 +243,8 @@
 				4C5EAF5E2646EB2D00F415B7 /* MessagesVC.swift */,
 				4C68459B2648E6E20003988C /* MessageLogVC.swift */,
 				4C062F54264F0B20009D999D /* ProfileVC.swift */,
+				4CD2810826521A2C005C1594 /* NewSettingsVC.swift */,
+				4CD2810E26522A40005C1594 /* EditSettingsVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -321,6 +331,7 @@
 				4C63497C2634E940006AE44B /* SettingsCell.swift */,
 				4CF953902639056800D80587 /* SliderCell.swift */,
 				4C392FDF264B4D6600A729F7 /* RecentMessageCell.swift */,
+				4CD2810A26521E95005C1594 /* NewSettingsCell.swift */,
 			);
 			path = UITableViewCell;
 			sourceTree = "<group>";
@@ -386,6 +397,7 @@
 				4C684599264882FD0003988C /* Match.swift */,
 				4C8F8CF22649B1DA00A62E85 /* Message.swift */,
 				4C392FE1264B85EE00A729F7 /* RecentMessage.swift */,
+				4CD2810C26522260005C1594 /* Setting.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -535,6 +547,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CD2810926521A2C005C1594 /* NewSettingsVC.swift in Sources */,
 				4C2A564F264046DB0085F887 /* UIApplication.swift in Sources */,
 				4C3D1A34263A0CAD00185926 /* GradientView.swift in Sources */,
 				4C49BAA8262E3A74006F046B /* UIView.swift in Sources */,
@@ -542,6 +555,7 @@
 				4C49BACD262E84B0006F046B /* HomeNavbarStack.swift in Sources */,
 				4C86D3E0264DFD1B00094591 /* IconLabel.swift in Sources */,
 				4C7611BB263C9809007A2D01 /* PagingController.swift in Sources */,
+				4CD2810F26522A40005C1594 /* EditSettingsVC.swift in Sources */,
 				4C6349742634C6F9006AE44B /* Notification.Name.swift in Sources */,
 				4C49BAC9262E8191006F046B /* Constants.swift in Sources */,
 				4C062F57264F7B01009D999D /* ImagePickerView.swift in Sources */,
@@ -573,6 +587,7 @@
 				4CFD2260263E5E1A00C65277 /* RootTabBarController.swift in Sources */,
 				4C65D94B26324A6600B1F4FB /* Bindable.swift in Sources */,
 				4C68459C2648E6E20003988C /* MessageLogVC.swift in Sources */,
+				4CD2810B26521E95005C1594 /* NewSettingsCell.swift in Sources */,
 				4C5EAD7226311BE900653AE0 /* PawTextField.swift in Sources */,
 				4C6349782634E509006AE44B /* PaddedLabel.swift in Sources */,
 				4CA40BE6262F4DE000B11232 /* CardView.swift in Sources */,
@@ -599,6 +614,7 @@
 				4CA40BEF262F7F4F00B11232 /* CardViewModel.swift in Sources */,
 				4C6349712634C26C006AE44B /* ImagePickerHeaderView.swift in Sources */,
 				4C63497D2634E940006AE44B /* SettingsCell.swift in Sources */,
+				4CD2810D26522260005C1594 /* Setting.swift in Sources */,
 				4C65D9682632798E00B1F4FB /* LoadingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

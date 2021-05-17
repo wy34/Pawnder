@@ -127,7 +127,8 @@ class ProfileVC: LoadingViewController {
     
     // MARK: - Selector
     @objc func openSettings() {
-        let settingsVC = SettingsVC()
+        let settingsVC = NewSettingsVC()
+        navigationItem.backButtonTitle = ""
         navigationController?.pushViewController(settingsVC, animated: true)
     }
     
