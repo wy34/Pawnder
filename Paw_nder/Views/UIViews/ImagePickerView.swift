@@ -10,7 +10,7 @@ import SwiftUI
 
 class ImagePickerView: UIView {
     // MARK: - Properties
-    lazy var imagePickerViews = [imagePickerView1, imagePickerView2, imagePickerView3, imagePickerView4, imagePickerView5]
+    lazy var imagePickerViews = [imagePickerView1, imagePickerView2, imagePickerView3, imagePickerView4, imagePickerView5, imagePickerView6]
     
     // MARK: - Views
     private let imagePickerView1 = ImagePickerButtonView(imageCornerRadius: 15, tagNumber: 1)
@@ -18,7 +18,10 @@ class ImagePickerView: UIView {
     private let imagePickerView3 = ImagePickerButtonView(imageCornerRadius: 8, tagNumber: 3)
     private let imagePickerView4 = ImagePickerButtonView(imageCornerRadius: 8, tagNumber: 4)
     private let imagePickerView5 = ImagePickerButtonView(imageCornerRadius: 8, tagNumber: 5)
-    private lazy var pickerButtonsStack = PawStackView(views: [imagePickerView3, imagePickerView4, imagePickerView5], spacing: 5, distribution: .fillEqually, alignment: .fill)
+    private let imagePickerView6 = ImagePickerButtonView(imageCornerRadius: 8, tagNumber: 6)
+        
+    private lazy var rightVStack = PawStackView(views: [imagePickerView2, imagePickerView3, imagePickerView4], axis: .vertical, distribution: .fillEqually, alignment: .fill)
+    private lazy var bottomHStack = PawStackView(views: [imagePickerView5, imagePickerView6], axis: .horizontal, distribution: .fillEqually, alignment: .fill)
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -34,22 +37,12 @@ class ImagePickerView: UIView {
     
     // MARK: - Helpers
     private func layoutUI() {
-        addSubviews(imagePickerView1, imagePickerView2, pickerButtonsStack)
-        imagePickerView1.setDimension(width: widthAnchor, height: widthAnchor, wMult: 0.4, hMult: 0.475)
-        imagePickerView1.center(to: self, by: .centerX, withMultiplierOf: 0.65)
-        imagePickerView1.anchor(top: topAnchor, paddingTop: 20)
+        addSubviews(imagePickerView1, rightVStack, bottomHStack)
+        imagePickerView1.anchor(top: topAnchor, leading: leadingAnchor)
+        imagePickerView1.setDimension(width: widthAnchor, height: widthAnchor, wMult: 0.6, hMult: 0.6)
         
-        imagePickerView2.setDimension(width: widthAnchor, height: widthAnchor, wMult: 0.3, hMult: 0.75 / 2)
-        imagePickerView2.center(y: imagePickerView1.centerYAnchor)
-        imagePickerView2.anchor(leading: imagePickerView1.trailingAnchor, paddingLeading: 10)
-        
-        pickerButtonsStack.anchor(top: imagePickerView1.bottomAnchor)
-        pickerButtonsStack.center(to: self, by: .centerX)
-        pickerButtonsStack.setDimension(width: widthAnchor, wMult: 0.9)
-        
-        imagePickerView4.setDimension(height: widthAnchor, hMult: 0.75 / 2)
-        imagePickerView4.transform = CGAffineTransform(translationX: 0, y: 25)
-        imagePickerView5.transform = CGAffineTransform(translationX: 0, y: -20)
+        rightVStack.anchor(top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, leading: imagePickerView1.trailingAnchor)
+        bottomHStack.anchor(top: imagePickerView1.bottomAnchor, trailing: rightVStack.leadingAnchor, bottom: bottomAnchor, leading: leadingAnchor)
     }
     
     func setupButtonActions() {
@@ -66,7 +59,7 @@ class ImagePickerView: UIView {
         imagePickerButtonView.imageView.image = image
         imagePickerButtonView.imageView.contentMode = .scaleAspectFill
         imagePickerButtonView.imageView.clipsToBounds = true
-        imagePickerButtonView.changeAddDeleteButtonImageTo(image: SFSymbols.xmark)
+        imagePickerButtonView.changeButtonTo(delete: true)
     }
     
     func setCurrentUserImage(urlStringsDictionary: [String: String]?) {
@@ -84,9 +77,32 @@ class ImagePickerView: UIView {
         }
     }
     
+    private func viewFor(button: UIButton) -> ImagePickerButtonView {
+        switch button.tag {
+            case 1:
+                return imagePickerView1
+            case 2:
+                return imagePickerView2
+            case 3:
+                return imagePickerView3
+            case 4:
+                return imagePickerView4
+            case 5:
+                return imagePickerView5
+            default:
+                return imagePickerView6
+        }
+    }
+    
     // MARK: - Selector
     @objc func handleAddDeleteTapped(tappedButton: UIButton) {
-        NotificationCenter.default.post(Notification(name: .didOpenImagePicker, object: nil, userInfo: [buttonTag: tappedButton.tag]))
+        let imagePickerButtonView = viewFor(button: tappedButton)
+        
+        if imagePickerButtonView.imageView.image == nil {
+            NotificationCenter.default.post(Notification(name: .didOpenImagePicker, object: nil, userInfo: [buttonTag: tappedButton.tag]))
+        } else {
+            imagePickerButtonView.removeImageFor(buttonTag: tappedButton.tag)
+        }
     }
     
     @objc func handleImagePicked(notification: Notification) {
@@ -102,8 +118,10 @@ class ImagePickerView: UIView {
                 setImage(imagePickerButtonView: imagePickerView3, image: selectedImage)
             case 4:
                 setImage(imagePickerButtonView: imagePickerView4, image: selectedImage)
-            default:
+            case 5:
                 setImage(imagePickerButtonView: imagePickerView5, image: selectedImage)
+            default:
+                setImage(imagePickerButtonView: imagePickerView6, image: selectedImage)
         }
     }
 }

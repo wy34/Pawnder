@@ -36,7 +36,7 @@ class IconLabel: UIView {
     func configureLabelWith(image: UIImage, text: String, cornerRadius: CGFloat = 0) {
         let imageAttachment = NSTextAttachment()
         imageAttachment.image = image.withTintColor(.white)
-        imageAttachment.bounds = CGRect(x: 0, y: -4, width: imageAttachment.image!.size.width * 0.85, height: imageAttachment.image!.size.height * 0.85)
+        imageAttachment.bounds = CGRect(x: 0, y: -4, width: imageAttachment.image!.size.width * 0.7, height: imageAttachment.image!.size.height * 0.7)
         
         let completeText = NSMutableAttributedString(string: "")
         
@@ -56,24 +56,5 @@ class IconLabel: UIView {
     func layouUI() {
         addSubviews(label)
         label.anchor(top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, leading: leadingAnchor)
-    }
-}
-
-
-struct Icon: UIViewRepresentable {
-    func makeUIView(context: Context) -> IconLabel {
-        let icon = IconLabel()
-        return icon
-    }
-    
-    func updateUIView(_ uiView: IconLabel, context: Context) {
-        
-    }
-}
-
-struct Icon_Previews: PreviewProvider {
-    static var previews: some View {
-        Icon()
-            .previewLayout(.fixed(width: UIScreen.main.bounds.width, height: 20))
     }
 }

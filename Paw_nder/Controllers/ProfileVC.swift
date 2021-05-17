@@ -14,21 +14,19 @@ class ProfileVC: LoadingViewController {
     var settingsVM = SettingsViewModel.shared
     
     // MARK: - Views
-    private let settingsButton = PawButton(image: SFSymbols.gears, tintColor: .white, font: .systemFont(ofSize: 14, weight: .black))
-    private let saveButton = PawButton(image: SFSymbols.saveCloud, tintColor: .white, font: .systemFont(ofSize: 14, weight: .black))
+    private let saveButton = PawButton(image: SFSymbols.saveCloud, tintColor: .white, font: .systemFont(ofSize: 12, weight: .black))
     private let imagePickerView = ImagePickerView()
     
-    private let borderView = PawView(bgColor: lightGray)
-
     private let infoContainerView = PawView(bgColor: lightGray)
     private let nameLabel = PawLabel(text: "William Yeung", textColor: .black, font: .systemFont(ofSize: 25, weight: .bold), alignment: .left)
-    private let breedAgeLabel = PawLabel(text: "Golden Retriever • 34 yrs", textColor: lightRed, font: .systemFont(ofSize: 14, weight: .semibold), alignment: .left)
+    private let breedAgeLabel = PawLabel(text: "Golden Retriever • 34 yrs", textColor: lightRed, font: .systemFont(ofSize: 12, weight: .semibold), alignment: .left)
     private lazy var headingStack = PawStackView(views: [nameLabel, breedAgeLabel], spacing: 5, axis: .vertical, distribution: .fill, alignment: .fill)
-        
+    private let settingsButton = PawButton(image: SFSymbols.gears, tintColor: .white, font: .systemFont(ofSize: 14, weight: .black))
+    
     private let genderLabel = PaddedLabel(text: "Female", font: .systemFont(ofSize: 14, weight: .bold), padding: 8)
     private let locationLabel = IconLabel(text: "Los Angelos, CA", image: mappin, cornerRadius: 10)
     
-    private let bioLabel = PawLabel(text: "William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
+    private let bioLabel = PawLabel(text: "", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -47,9 +45,9 @@ class ProfileVC: LoadingViewController {
     // MARK: - Helpers
     private func configureUI() {
         view.backgroundColor = bgLightGray
-        settingsButton.backgroundColor = .darkGray
+        settingsButton.backgroundColor = .gray
         settingsButton.layer.cornerRadius = 35/2
-        saveButton.backgroundColor = .darkGray
+        saveButton.backgroundColor = .gray
         saveButton.layer.cornerRadius = 35/2
         infoContainerView.layer.cornerRadius = 15
         genderLabel.backgroundColor = #colorLiteral(red: 1, green: 0.4016966522, blue: 0.4617980123, alpha: 0.1497695853)
@@ -62,43 +60,40 @@ class ProfileVC: LoadingViewController {
 
     private func layoutUI() {
         edgesForExtendedLayout = []
-        view.addSubviews(imagePickerView, settingsButton, saveButton, borderView, infoContainerView)
+        view.addSubviews(imagePickerView, saveButton, infoContainerView)
         
-        saveButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, trailing: view.trailingAnchor, paddingTop: 15, paddingTrailing: 25)
+        saveButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, trailing: view.trailingAnchor, paddingTop: 10, paddingTrailing: 25)
         saveButton.setDimension(wConst: 35, hConst: 35)
         
-        imagePickerView.setDimension(width: view.widthAnchor, height: view.widthAnchor)
+        imagePickerView.setDimension(width: view.widthAnchor, height: view.heightAnchor, wMult: 0.9, hMult: 0.45)
         imagePickerView.center(to: view, by: .centerX)
-        imagePickerView.anchor(top: saveButton.topAnchor, paddingTop: 25)
+        imagePickerView.anchor(top: saveButton.bottomAnchor, paddingTop: 25)
         
-        borderView.anchor(top: imagePickerView.bottomAnchor, paddingTop: 10)
-        borderView.setDimension(width: view.widthAnchor, height: view.widthAnchor, wMult: 0.9, hMult: 0.005)
-        borderView.center(to: imagePickerView, by: .centerX)
-        
-        infoContainerView.anchor(top: borderView.bottomAnchor, trailing: borderView.trailingAnchor, bottom: view.bottomAnchor, leading: borderView.leadingAnchor, paddingTop: 25, paddingBottom: 25)
+        infoContainerView.anchor(top: imagePickerView.bottomAnchor, trailing: imagePickerView.trailingAnchor, bottom: view.bottomAnchor, leading: imagePickerView.leadingAnchor, paddingTop: 35, paddingBottom: 25)
         
         layoutTextualInfo()
     }
     
     private func layoutTextualInfo(){
-        #warning("add settings button here")
-        infoContainerView.addSubviews(headingStack, genderLabel, locationLabel, bioLabel)
+        infoContainerView.addSubviews(settingsButton, headingStack, genderLabel, locationLabel, bioLabel)
         
-        headingStack.anchor(top: infoContainerView.topAnchor, trailing: infoContainerView.trailingAnchor, leading: infoContainerView.leadingAnchor, paddingTop: 10, paddingTrailing: 10, paddingLeading: 10)
+        settingsButton.anchor(top: infoContainerView.topAnchor, trailing: infoContainerView.trailingAnchor, paddingTop: 15, paddingTrailing: 15)
+        settingsButton.setDimension(wConst: 35, hConst: 35)
+        
+        headingStack.anchor(top: settingsButton.topAnchor, trailing: settingsButton.leadingAnchor, leading: infoContainerView.leadingAnchor, paddingTrailing: 15, paddingLeading: 15)
         nameLabel.setDimension(hConst: 30)
         breedAgeLabel.setDimension(hConst: 15)
         
         genderLabel.anchor(top: headingStack.bottomAnchor, leading: headingStack.leadingAnchor, paddingTop: 10)
         locationLabel.anchor(top: genderLabel.topAnchor, bottom: genderLabel.bottomAnchor, leading: genderLabel.trailingAnchor, paddingLeading: 10)
         
-        bioLabel.anchor(top: locationLabel.bottomAnchor, trailing: nameLabel.trailingAnchor, leading: nameLabel.leadingAnchor, paddingTop: 10)
+        bioLabel.anchor(top: locationLabel.bottomAnchor, trailing: settingsButton.trailingAnchor, leading: nameLabel.leadingAnchor, paddingTop: 15)
     }
     
     private func setupActionsAndObservers() {
         settingsButton.addTarget(self, action: #selector(openSettings), for: .touchUpInside)
         saveButton.addTarget(self, action: #selector(saveImages), for: .touchUpInside)
         NotificationCenter.default.addObserver(self, selector: #selector(handleSelectPhotoTapped(notification:)), name: .didOpenImagePicker, object: nil)
-
     }
     
     func fetchCurrentUserInfo() {
@@ -129,7 +124,6 @@ class ProfileVC: LoadingViewController {
         dismissLoader()
         NotificationCenter.default.post(Notification(name: .didSaveSettings, object: nil, userInfo: nil))
     }
-    
     
     // MARK: - Selector
     @objc func openSettings() {

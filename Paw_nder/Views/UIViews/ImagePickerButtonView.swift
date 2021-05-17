@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SwiftUI
+import Firebase
 
 
 class ImagePickerButtonView: UIView {
@@ -53,9 +53,43 @@ class ImagePickerButtonView: UIView {
         addDeleteButton.anchor(top: imageView.topAnchor, leading: imageView.leadingAnchor, paddingTop: -5, paddingLeading: -5)
     }
     
-    func changeAddDeleteButtonImageTo(image: UIImage) {
-        addDeleteButton.setImage(image.applyingSymbolConfiguration(.init(font: .systemFont(ofSize: 10, weight: .black)))!.withRenderingMode(.alwaysTemplate), for: .normal)
-        addDeleteButton.backgroundColor = .white
-        addDeleteButton.tintColor = lightRed
+    func changeButtonTo(delete: Bool) {
+        if delete {
+            addDeleteButton.setImage(SFSymbols.xmark.applyingSymbolConfiguration(.init(font: .systemFont(ofSize: 10, weight: .black)))!.withRenderingMode(.alwaysTemplate), for: .normal)
+            addDeleteButton.backgroundColor = .white
+            addDeleteButton.tintColor = lightRed
+        } else {
+            addDeleteButton.setImage(SFSymbols.plus.applyingSymbolConfiguration(.init(font: .systemFont(ofSize: 10, weight: .black)))!.withRenderingMode(.alwaysTemplate), for: .normal)
+            addDeleteButton.backgroundColor = lightRed
+            addDeleteButton.tintColor = .white
+        }
+    }
+    
+//    func changeAddDeleteButtonImageTo(image: UIImage) {
+//        addDeleteButton.setImage(image.applyingSymbolConfiguration(.init(font: .systemFont(ofSize: 10, weight: .black)))!.withRenderingMode(.alwaysTemplate), for: .normal)
+//        addDeleteButton.backgroundColor = .white
+//        addDeleteButton.tintColor = lightRed
+//    }
+    
+    func removeImageFor(buttonTag: Int) {
+        FirebaseManager.shared.fetchCurrentUser { result in
+            switch result {
+                case .success(let user):
+                    var imageUrls = user.imageUrls
+                    
+                    imageUrls!["\(buttonTag)"] = nil
+                    
+                    Firestore.firestore().collection("users").document(user.uid).updateData(["imageUrls": imageUrls ?? ["": ""]]) { error in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        }
+                        
+                        self.imageView.image = nil
+                        self.changeButtonTo(delete: false)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+            }
+        }
     }
 }

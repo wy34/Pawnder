@@ -19,6 +19,7 @@ class FirebaseManager {
     var messagesListener: ListenerRegistration!
     var recentMessagesListener: ListenerRegistration!
     
+    
     // MARK: - Init
     deinit {
         matchesListener.remove()
@@ -175,6 +176,10 @@ class FirebaseManager {
             
             completion(nil)
         }
+    }
+    
+    func updateUserImages() {
+        
     }
     
     // MARK: - Swiping
