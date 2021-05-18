@@ -26,7 +26,7 @@ class ProfileVC: LoadingViewController {
     private let genderLabel = PaddedLabel(text: "Female", font: .systemFont(ofSize: 14, weight: .bold), padding: 8)
     private let locationLabel = IconLabel(text: "Los Angelos, CA", image: mappin, cornerRadius: 10)
     
-    private let bioLabel = PawLabel(text: "", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
+    private let bioLabel = PawLabel(text: "William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung William Yeung", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -87,7 +87,7 @@ class ProfileVC: LoadingViewController {
         genderLabel.anchor(top: headingStack.bottomAnchor, leading: headingStack.leadingAnchor, paddingTop: 10)
         locationLabel.anchor(top: genderLabel.topAnchor, bottom: genderLabel.bottomAnchor, leading: genderLabel.trailingAnchor, paddingLeading: 10)
         
-        bioLabel.anchor(top: locationLabel.bottomAnchor, trailing: settingsButton.trailingAnchor, leading: nameLabel.leadingAnchor, paddingTop: 15)
+        bioLabel.anchor(top: locationLabel.bottomAnchor, trailing: settingsButton.trailingAnchor, bottom: infoContainerView.bottomAnchor, leading: nameLabel.leadingAnchor, paddingTop: 15, paddingBottom: 15)
     }
     
     private func setupActionsAndObservers() {
@@ -109,7 +109,8 @@ class ProfileVC: LoadingViewController {
                 self?.genderLabel.text = self?.settingsVM.userGender.text
                 self?.genderLabel.textColor = self?.settingsVM.userGender.textColor
                 self?.genderLabel.backgroundColor = self?.settingsVM.userGender.bgColor
-                self?.bioLabel.text = self?.settingsVM.user?.bio
+//                self?.bioLabel.text = self?.settingsVM.user?.bio
+            
             case .failure(let error):
                 self?.showAlert(title: "Error", message: error.localizedDescription)
             }

@@ -1,5 +1,5 @@
 //
-//  EditSettingsVC.swift
+//  EditSettingsRootVC.swift
 //  Paw_nder
 //
 //  Created by William Yeung on 5/17/21.
@@ -7,26 +7,30 @@
 
 import UIKit
 
-class EditSettingsVC: UIViewController {
+class EditSettingsRootVC: UIViewController {
     // MARK: - Properties
     
     // MARK: - Views
-//    private let textfield = PawTextField(placeholder: <#T##String#>, bgColor: <#T##UIColor#>, cornerRadius: <#T##CGFloat#>)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureNavBar()
         configureUI()
         layoutUI()
     }
         
     // MARK: - Helpers
-    private func configureUI() {
+    func configureNavBar() {
+        navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
+    func configureUI() {
         view.backgroundColor = bgLightGray
     }
     
-    private func layoutUI() {
-        
+    func layoutUI() {
+        edgesForExtendedLayout = []
     }
         
     func configureWith(setting: Setting) {

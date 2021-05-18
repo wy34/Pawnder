@@ -14,9 +14,11 @@ class NewSettingsVC: UIViewController {
         Setting(name: "Breed", preview: "Golden Retriever", emoji: "🐶"),
         Setting(name: "Age", preview: "34", emoji: "💯"),
         Setting(name: "Gender", preview: "Male", emoji: "👫"),
-        Setting(name: "Location", preview: "Los Angeles", emoji: "📍"),
+        Setting(name: "Country", preview: "United States", emoji: "📍"),
         Setting(name: "Bio", preview: "Golden Retriever Golden Retriever Golden Retriever Golden Retriever Golden Retriever Golden Retriever", emoji: "🧬")
     ]
+    
+    let settingsVM = SettingsViewModel.shared
     
     // MARK: - Views
     private lazy var tableView: UITableView = {
@@ -39,6 +41,7 @@ class NewSettingsVC: UIViewController {
         configureNavBar()
         configureUI()
         layoutUI()
+        setupActionsAndObservers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,9 +65,21 @@ class NewSettingsVC: UIViewController {
         tableView.fill(superView: view)
     }
     
+    private func setupActionsAndObservers() {
+        logoutButton.addTarget(self, action: #selector(handleLogout), for: .touchUpInside)
+    }
+    
     // MARK: - Selector
     @objc func handleSaveSettings() {
         
+    }
+    
+    @objc func handleLogout() {
+        settingsVM.logoutUser {
+            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+                UIApplication.rootTabBarController.setupViewControllers()
+            }
+        }
     }
 }
 
@@ -81,10 +96,21 @@ extension NewSettingsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let editSettingsVC = EditSettingsVC()
+        var vc: EditSettingsRootVC
+        
+        switch indexPath.row {
+            case 0, 1: vc = EditSettingsDefaultVC()
+            case 2: vc = EditSettingsAgeVC()
+            case 3: vc = EditSettingsGenderVC()
+            case 4: vc = EditSettingsCountryVC()
+            default: vc = EditSettingsBioVC()
+        }
+        
+        vc.configureWith(setting: settings[indexPath.row])
+        navigationController?.pushViewController(vc, animated: true)
+        
+        tableView.deselectRow(at: indexPath, animated: true)
         navigationItem.backButtonTitle = ""
-        editSettingsVC.configureWith(setting: settings[indexPath.row])
-        navigationController?.pushViewController(editSettingsVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

@@ -71,11 +71,17 @@
 		4CA40BE6262F4DE000B11232 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BE5262F4DE000B11232 /* CardView.swift */; };
 		4CA40BEA262F716A00B11232 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BE9262F716A00B11232 /* User.swift */; };
 		4CA40BEF262F7F4F00B11232 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */; };
+		4CB95F9926531EC100A50237 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB95F9826531EC100A50237 /* PaddedTextField.swift */; };
+		4CB95F9B2653241B00A50237 /* EditSettingsBioVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB95F9A2653241B00A50237 /* EditSettingsBioVC.swift */; };
+		4CB95F9E265326A200A50237 /* EditSettingsGenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB95F9D265326A200A50237 /* EditSettingsGenderVC.swift */; };
+		4CB95FA026536FCC00A50237 /* EditSettingsRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB95F9F26536FCC00A50237 /* EditSettingsRootVC.swift */; };
+		4CB95FA22653721A00A50237 /* EditSettingsAgeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB95FA12653721A00A50237 /* EditSettingsAgeVC.swift */; };
+		4CB95FA42653722F00A50237 /* EditSettingsCountryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB95FA32653722F00A50237 /* EditSettingsCountryVC.swift */; };
 		4CC677462637BCFF00C321E3 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC677452637BCFF00C321E3 /* SettingsViewModel.swift */; };
 		4CD2810926521A2C005C1594 /* NewSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810826521A2C005C1594 /* NewSettingsVC.swift */; };
 		4CD2810B26521E95005C1594 /* NewSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810A26521E95005C1594 /* NewSettingsCell.swift */; };
 		4CD2810D26522260005C1594 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810C26522260005C1594 /* Setting.swift */; };
-		4CD2810F26522A40005C1594 /* EditSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810E26522A40005C1594 /* EditSettingsVC.swift */; };
+		4CD2810F26522A40005C1594 /* EditSettingsDefaultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810E26522A40005C1594 /* EditSettingsDefaultVC.swift */; };
 		4CF953912639056800D80587 /* SliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF953902639056800D80587 /* SliderCell.swift */; };
 		4CF953932639062D00D80587 /* PawSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF953922639062D00D80587 /* PawSlider.swift */; };
 		4CFD2260263E5E1A00C65277 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD225F263E5E1A00C65277 /* RootTabBarController.swift */; };
@@ -149,11 +155,17 @@
 		4CA40BE5262F4DE000B11232 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		4CA40BE9262F716A00B11232 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		4CB95F9826531EC100A50237 /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
+		4CB95F9A2653241B00A50237 /* EditSettingsBioVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsBioVC.swift; sourceTree = "<group>"; };
+		4CB95F9D265326A200A50237 /* EditSettingsGenderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsGenderVC.swift; sourceTree = "<group>"; };
+		4CB95F9F26536FCC00A50237 /* EditSettingsRootVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsRootVC.swift; sourceTree = "<group>"; };
+		4CB95FA12653721A00A50237 /* EditSettingsAgeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsAgeVC.swift; sourceTree = "<group>"; };
+		4CB95FA32653722F00A50237 /* EditSettingsCountryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsCountryVC.swift; sourceTree = "<group>"; };
 		4CC677452637BCFF00C321E3 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		4CD2810826521A2C005C1594 /* NewSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSettingsVC.swift; sourceTree = "<group>"; };
 		4CD2810A26521E95005C1594 /* NewSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSettingsCell.swift; sourceTree = "<group>"; };
 		4CD2810C26522260005C1594 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
-		4CD2810E26522A40005C1594 /* EditSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsVC.swift; sourceTree = "<group>"; };
+		4CD2810E26522A40005C1594 /* EditSettingsDefaultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsDefaultVC.swift; sourceTree = "<group>"; };
 		4CF953902639056800D80587 /* SliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderCell.swift; sourceTree = "<group>"; };
 		4CF953922639062D00D80587 /* PawSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawSlider.swift; sourceTree = "<group>"; };
 		4CFD225F263E5E1A00C65277 /* RootTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
@@ -244,7 +256,7 @@
 				4C68459B2648E6E20003988C /* MessageLogVC.swift */,
 				4C062F54264F0B20009D999D /* ProfileVC.swift */,
 				4CD2810826521A2C005C1594 /* NewSettingsVC.swift */,
-				4CD2810E26522A40005C1594 /* EditSettingsVC.swift */,
+				4CB95F9C2653255F00A50237 /* EditSettingsVC */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -304,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				4C3D1A37263A586E00185926 /* IconTextfields.swift */,
+				4CB95F9826531EC100A50237 /* PaddedTextField.swift */,
 			);
 			path = UITextfield;
 			sourceTree = "<group>";
@@ -414,6 +427,19 @@
 				4C2E7C9B263BC1DD00DDA4E5 /* AboutViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4CB95F9C2653255F00A50237 /* EditSettingsVC */ = {
+			isa = PBXGroup;
+			children = (
+				4CB95F9F26536FCC00A50237 /* EditSettingsRootVC.swift */,
+				4CD2810E26522A40005C1594 /* EditSettingsDefaultVC.swift */,
+				4CB95FA12653721A00A50237 /* EditSettingsAgeVC.swift */,
+				4CB95F9D265326A200A50237 /* EditSettingsGenderVC.swift */,
+				4CB95FA32653722F00A50237 /* EditSettingsCountryVC.swift */,
+				4CB95F9A2653241B00A50237 /* EditSettingsBioVC.swift */,
+			);
+			path = EditSettingsVC;
 			sourceTree = "<group>";
 		};
 		5270CC91026CEE1195147279 /* Frameworks */ = {
@@ -555,18 +581,20 @@
 				4C49BACD262E84B0006F046B /* HomeNavbarStack.swift in Sources */,
 				4C86D3E0264DFD1B00094591 /* IconLabel.swift in Sources */,
 				4C7611BB263C9809007A2D01 /* PagingController.swift in Sources */,
-				4CD2810F26522A40005C1594 /* EditSettingsVC.swift in Sources */,
+				4CD2810F26522A40005C1594 /* EditSettingsDefaultVC.swift in Sources */,
 				4C6349742634C6F9006AE44B /* Notification.Name.swift in Sources */,
 				4C49BAC9262E8191006F046B /* Constants.swift in Sources */,
 				4C062F57264F7B01009D999D /* ImagePickerView.swift in Sources */,
 				4C49BAB7262E3BF9006F046B /* PawLabel.swift in Sources */,
 				4C75AE492633963C00255A7A /* Credentials.swift in Sources */,
 				4C2E7C9C263BC1DD00DDA4E5 /* AboutViewModel.swift in Sources */,
+				4CB95FA22653721A00A50237 /* EditSettingsAgeVC.swift in Sources */,
 				4C5EAF6226478D4C00F415B7 /* NewMatchesVC.swift in Sources */,
 				4C3D1A36263A2A4D00185926 /* LoginViewModel.swift in Sources */,
 				4C062F55264F0B20009D999D /* ProfileVC.swift in Sources */,
 				4C8F8CF92649E0BB00A62E85 /* MessageInputView.swift in Sources */,
 				4C5A3E6126434563007EEC00 /* Gender.swift in Sources */,
+				4CB95FA42653722F00A50237 /* EditSettingsCountryVC.swift in Sources */,
 				4C634982263519C6006AE44B /* ImagePickerButtonView.swift in Sources */,
 				4C49BA93262E3928006F046B /* HomeVC.swift in Sources */,
 				4C392FE0264B4D6600A729F7 /* RecentMessageCell.swift in Sources */,
@@ -576,10 +604,12 @@
 				4C8F8CF52649B28400A62E85 /* MessageBubbleCell.swift in Sources */,
 				4C49BABE262E3D2D006F046B /* PawImageView.swift in Sources */,
 				4C75AE522633C2D900255A7A /* LoadingView.swift in Sources */,
+				4CB95F9B2653241B00A50237 /* EditSettingsBioVC.swift in Sources */,
 				4CA40BEA262F716A00B11232 /* User.swift in Sources */,
 				4C65D94326322ABB00B1F4FB /* ProfileImageView.swift in Sources */,
 				4C65D8EA26320E3000B1F4FB /* RegisterViewModel.swift in Sources */,
 				4C49BA8F262E3928006F046B /* AppDelegate.swift in Sources */,
+				4CB95F9E265326A200A50237 /* EditSettingsGenderVC.swift in Sources */,
 				4C63496E2634B258006AE44B /* SettingsVC.swift in Sources */,
 				4C491A85263EFB9B009BCE40 /* CopySettingsVC.swift in Sources */,
 				4C392FE2264B85EE00A729F7 /* RecentMessage.swift in Sources */,
@@ -588,6 +618,7 @@
 				4C65D94B26324A6600B1F4FB /* Bindable.swift in Sources */,
 				4C68459C2648E6E20003988C /* MessageLogVC.swift in Sources */,
 				4CD2810B26521E95005C1594 /* NewSettingsCell.swift in Sources */,
+				4CB95F9926531EC100A50237 /* PaddedTextField.swift in Sources */,
 				4C5EAD7226311BE900653AE0 /* PawTextField.swift in Sources */,
 				4C6349782634E509006AE44B /* PaddedLabel.swift in Sources */,
 				4CA40BE6262F4DE000B11232 /* CardView.swift in Sources */,
@@ -603,6 +634,7 @@
 				4C3D1A38263A586E00185926 /* IconTextfields.swift in Sources */,
 				4C75AE44263394AD00255A7A /* FirebaseManager.swift in Sources */,
 				4C5EAF5F2646EB2D00F415B7 /* MessagesVC.swift in Sources */,
+				4CB95FA026536FCC00A50237 /* EditSettingsRootVC.swift in Sources */,
 				4C49BAC1262E3D79006F046B /* PawButton.swift in Sources */,
 				4CC677462637BCFF00C321E3 /* SettingsViewModel.swift in Sources */,
 				4C49BA91262E3928006F046B /* SceneDelegate.swift in Sources */,

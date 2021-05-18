@@ -8,9 +8,6 @@
 import UIKit
 
 class PawTextField: UITextField {
-    // MARK: - Properties
-    let padding = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-    
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,6 +30,4 @@ class PawTextField: UITextField {
         self.backgroundColor = bgColor
         self.font = font
     }
-    
-    
 }
