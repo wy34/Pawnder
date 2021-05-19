@@ -8,7 +8,8 @@
 import Foundation
 
 struct Setting {
+    let index: Int
     let name: String
-    let preview: String?
+    var preview: String?
     let emoji: String
 }

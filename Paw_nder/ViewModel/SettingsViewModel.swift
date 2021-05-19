@@ -11,6 +11,7 @@ import Firebase
 class SettingsViewModel {
     // MARK: - Properties
     static let shared = SettingsViewModel()
+    
     var user: User?
     var selectedImages = [Int: UIImage]()
     
@@ -56,6 +57,19 @@ class SettingsViewModel {
     
     var ageSliderMaxLabel: String {
         return "Max: \(user?.maxAgePreference ?? 0)"
+    }
+    
+    var settingOptions: [Setting] {
+        guard let user = user else { return [] }
+        
+        return [
+            Setting(index: 0, name: "Name", preview: user.name, emoji: "👤"),
+            Setting(index: 1, name: "Breed", preview: user.breed, emoji: "🐶"),
+            Setting(index: 2, name: "Age", preview: "\(user.age ?? 0)", emoji: "💯"),
+            Setting(index: 3, name: "Gender", preview: user.gender.rawValue, emoji: "👫"),
+            Setting(index: 4, name: "Country", preview: "United States", emoji: "📍"),
+            Setting(index: 5, name: "Bio", preview: user.bio, emoji: "🧬")
+        ]
     }
     
     // MARK: - Helpers

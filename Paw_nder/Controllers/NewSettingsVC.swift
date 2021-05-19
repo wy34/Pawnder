@@ -9,15 +9,6 @@ import UIKit
 
 class NewSettingsVC: UIViewController {
     // MARK: - Properties
-    let settings = [
-        Setting(name: "Name", preview: "God", emoji: "👤"),
-        Setting(name: "Breed", preview: "Golden Retriever", emoji: "🐶"),
-        Setting(name: "Age", preview: "34", emoji: "💯"),
-        Setting(name: "Gender", preview: "Male", emoji: "👫"),
-        Setting(name: "Country", preview: "United States", emoji: "📍"),
-        Setting(name: "Bio", preview: "Golden Retriever Golden Retriever Golden Retriever Golden Retriever Golden Retriever Golden Retriever", emoji: "🧬")
-    ]
-    
     let settingsVM = SettingsViewModel.shared
     
     // MARK: - Views
@@ -69,6 +60,11 @@ class NewSettingsVC: UIViewController {
         logoutButton.addTarget(self, action: #selector(handleLogout), for: .touchUpInside)
     }
     
+    func updateNewSettingsPreview(settings: Setting) {
+        let cell = tableView.cellForRow(at: IndexPath(row: settings.index, section: 0)) as! NewSettingsCell
+        cell.configureWith(setting: settings)
+    }
+    
     // MARK: - Selector
     @objc func handleSaveSettings() {
         
@@ -86,12 +82,12 @@ class NewSettingsVC: UIViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension NewSettingsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return settings.count
+        return settingsVM.settingOptions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NewSettingsCell.reuseId, for: indexPath) as! NewSettingsCell
-        cell.configureWith(setting: settings[indexPath.row])
+        cell.configureWith(setting: settingsVM.settingOptions[indexPath.row])
         return cell
     }
     
@@ -106,7 +102,8 @@ extension NewSettingsVC: UITableViewDelegate, UITableViewDataSource {
             default: vc = EditSettingsBioVC()
         }
         
-        vc.configureWith(setting: settings[indexPath.row])
+        vc.newSettingsVC = self
+        vc.configureWith(setting: settingsVM.settingOptions[indexPath.row])
         navigationController?.pushViewController(vc, animated: true)
         
         tableView.deselectRow(at: indexPath, animated: true)

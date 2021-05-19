@@ -13,10 +13,17 @@ class EditSettingsDefaultVC: EditSettingsRootVC {
     
     // MARK: - Views
     private let textfield = PaddedTextField(placeholder: "", bgColor: .clear, padding: .init(top: 0, left: 15, bottom: 0, right: 15))
+    private let buttonContainerView = PawView(bgColor: .clear)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        settings?.preview = textfield.text
+        newSettingsVC?.updateNewSettingsPreview(settings: settings!)
     }
         
     // MARK: - Helpers
@@ -41,7 +48,7 @@ class EditSettingsDefaultVC: EditSettingsRootVC {
         
     override func configureWith(setting: Setting) {
         super.configureWith(setting: setting)
-        textfield.text = setting.name
+        textfield.text = setting.preview
         textfield.placeholder = setting.emoji + " " + setting.name
     }
     

@@ -9,10 +9,13 @@ import UIKit
 
 class EditSettingsAgeVC: EditSettingsRootVC {
     // MARK: - Properties
-    let ages = Array(stride(from: 0, through: 100, by: 1))
+    var ages = Array(repeating: false, count: 31)
+    var initialScrollDone = false
+    var userAge = 0
+    let settingsVM = SettingsViewModel.shared
     
     // MARK: - Views
-    private let ageLabel = PawLabel(text: "Your Age", textColor: .black, font: .systemFont(ofSize: 45, weight: .bold), alignment: .left)
+    private let ageLabel = PawLabel(text: "Your Age", textColor: .black, font: .systemFont(ofSize: 35, weight: .bold), alignment: .left)
     private let captionLabel = PawLabel(text: "We use this to tailor the app and allows other users to better match up with you.", textColor: .gray, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
     private lazy var labelStack = PawStackView(views: [ageLabel, captionLabel], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
     
@@ -22,16 +25,20 @@ class EditSettingsAgeVC: EditSettingsRootVC {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = bgLightGray
         cv.showsHorizontalScrollIndicator = false
-        cv.isPagingEnabled = true
-        cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        cv.register(AgeCell.self, forCellWithReuseIdentifier: AgeCell.reuseId)
         cv.delegate = self
         cv.dataSource = self
         return cv
     }()
-    
+        
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scrollToUserAge()
     }
     
     // MARK: - Helpers
@@ -44,10 +51,26 @@ class EditSettingsAgeVC: EditSettingsRootVC {
         super.layoutUI()
         view.addSubviews(labelStack, collectionView)
         labelStack.center(to: view, by: .centerY, withMultiplierOf: 0.5)
-        labelStack.anchor(trailing: view.trailingAnchor, leading: view.leadingAnchor, paddingTrailing: 15, paddingLeading: 15)
+        labelStack.anchor(trailing: view.trailingAnchor, leading: view.leadingAnchor, paddingTrailing: 25, paddingLeading: 25)
 
         collectionView.anchor(top: labelStack.bottomAnchor, trailing: view.trailingAnchor, leading: view.leadingAnchor, paddingTop: 15)
         collectionView.setDimension(height: view.widthAnchor, hMult: 0.4)
+    }
+    
+    override func configureWith(setting: Setting) {
+        userAge = Int(setting.preview ?? "") ?? 0
+    }
+    
+    private func scrollToUserAge() {
+        guard initialScrollDone == false else { return }
+        let indexPath = IndexPath(item: userAge, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: [.centeredVertically, .centeredHorizontally], animated: true)
+        initialScrollDone = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.26) {
+            let cell = self.collectionView.cellForItem(at: indexPath) as! AgeCell
+            cell.handleViewFor(selection: true)
+            self.ages[indexPath.item] = true
+        }
     }
 }
 
@@ -58,8 +81,9 @@ extension EditSettingsAgeVC: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .red
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AgeCell.reuseId, for: indexPath) as! AgeCell
+        cell.setupWith(age: indexPath.item)
+        ages[indexPath.item] == true ? cell.handleViewFor(selection: true) : cell.handleViewFor(selection: false)
         return cell
     }
     
@@ -69,6 +93,70 @@ extension EditSettingsAgeVC: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 0, left: 15, bottom: 0, right: 15)
+        return .init(top: 0, left: 25, bottom: 0, right: 25)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! AgeCell
+        
+        for cell in collectionView.visibleCells as! [AgeCell] {
+            cell.handleViewFor(selection: false)
+        }
+        
+        self.ages = Array(repeating: false, count: self.ages.count)
+        self.ages[indexPath.item] = true
+        
+        cell.handleViewFor(selection: true)
+        settingsVM.user?.age = indexPath.item
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        cell.alpha = 0
+        cell.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        
+        UIView.animate(withDuration: 0.65) {
+            cell.alpha = 1
+            cell.transform = .identity
+        }
+    }
+}
+
+
+class AgeCell: UICollectionViewCell {
+    // MARK: - Properties
+    static let reuseId = "AgeCell"
+    
+    // MARK: - Views
+    private let ageLabel = PawLabel(text: "35", textColor: .white, font: .systemFont(ofSize: 45, weight: .bold), alignment: .center)
+    
+    // MARK: - Init
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layoutUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+    
+    // MARK: - Helpers
+    private func layoutUI() {
+        addSubview(ageLabel)
+        ageLabel.fill(superView: self)
+    }
+    
+    func setupWith(age: Int) {
+        ageLabel.text = "\(age)"
+    }
+    
+    func handleViewFor(selection: Bool) {
+        UIView.animate(withDuration: 0.25) { [weak self] in
+            self?.layer.cornerRadius = 10
+            self?.layer.shadowOpacity = 0.25
+            self?.layer.borderColor = lightTransparentGray.cgColor
+            self?.layer.borderWidth = selection ? 3 : 0
+            self?.backgroundColor = selection ? .white : lightRed
+            self?.ageLabel.textColor = selection ? lightRed : .white
+        }
     }
 }

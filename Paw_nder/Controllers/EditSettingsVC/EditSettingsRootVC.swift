@@ -9,6 +9,8 @@ import UIKit
 
 class EditSettingsRootVC: UIViewController {
     // MARK: - Properties
+    var newSettingsVC: NewSettingsVC?
+    var settings: Setting?
     
     // MARK: - Views
     
@@ -34,6 +36,7 @@ class EditSettingsRootVC: UIViewController {
     }
         
     func configureWith(setting: Setting) {
+        self.settings = setting
         navigationItem.title = setting.emoji + " " + setting.name
     }
     
