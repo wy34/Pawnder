@@ -7,9 +7,13 @@
 
 import Foundation
 
+enum SettingType: String {
+    case name, breed, age, gender, country, bio
+}
+
 struct Setting {
     let index: Int
-    let name: String
+    let title: SettingType
     var preview: String?
     let emoji: String
 }

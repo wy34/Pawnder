@@ -49,7 +49,7 @@ class EditSettingsDefaultVC: EditSettingsRootVC {
     override func configureWith(setting: Setting) {
         super.configureWith(setting: setting)
         textfield.text = setting.preview
-        textfield.placeholder = setting.emoji + " " + setting.name
+        textfield.placeholder = setting.emoji + " " + setting.title.rawValue.capitalized
     }
     
     // MARK: - Selector

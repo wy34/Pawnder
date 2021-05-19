@@ -63,6 +63,21 @@ class NewSettingsVC: UIViewController {
     func updateNewSettingsPreview(settings: Setting) {
         let cell = tableView.cellForRow(at: IndexPath(row: settings.index, section: 0)) as! NewSettingsCell
         cell.configureWith(setting: settings)
+        
+        switch settings.title {
+            case .name:
+                settingsVM.user?.name = settings.preview ?? ""
+            case .breed:
+                settingsVM.user?.breed = settings.preview ?? ""
+            case .age:
+                settingsVM.user?.name = settings.preview ?? ""
+            case .gender:
+                settingsVM.user?.name = settings.preview ?? ""
+            case .country:
+                settingsVM.user?.name = settings.preview ?? ""
+            case .bio:
+                settingsVM.user?.name = settings.preview ?? ""
+        }
     }
     
     // MARK: - Selector

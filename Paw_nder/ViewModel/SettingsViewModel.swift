@@ -63,12 +63,12 @@ class SettingsViewModel {
         guard let user = user else { return [] }
         
         return [
-            Setting(index: 0, name: "Name", preview: user.name, emoji: "👤"),
-            Setting(index: 1, name: "Breed", preview: user.breed, emoji: "🐶"),
-            Setting(index: 2, name: "Age", preview: "\(user.age ?? 0)", emoji: "💯"),
-            Setting(index: 3, name: "Gender", preview: user.gender.rawValue, emoji: "👫"),
-            Setting(index: 4, name: "Country", preview: "United States", emoji: "📍"),
-            Setting(index: 5, name: "Bio", preview: user.bio, emoji: "🧬")
+            Setting(index: 0, title: .name, preview: user.name, emoji: "👤"),
+            Setting(index: 1, title: .breed, preview: user.breed, emoji: "🐶"),
+            Setting(index: 2, title: .age, preview: "\(user.age ?? 0)", emoji: "💯"),
+            Setting(index: 3, title: .gender, preview: user.gender.rawValue, emoji: "👫"),
+            Setting(index: 4, title: .country, preview: "United States", emoji: "📍"),
+            Setting(index: 5, title: .bio, preview: user.bio, emoji: "🧬")
         ]
     }
     

@@ -23,8 +23,8 @@ class EditSettingsBioVC: EditSettingsRootVC {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        settings?.preview = textView.text
-        newSettingsVC?.updateNewSettingsPreview(settings: settings!)
+//        settings?.preview = textView.text
+//        newSettingsVC?.updateNewSettingsPreview(settings: settings!)
     }
 
     // MARK: - Helpers
@@ -53,7 +53,7 @@ class EditSettingsBioVC: EditSettingsRootVC {
     override func configureWith(setting: Setting) {
         super.configureWith(setting: setting)
         textView.text = setting.preview
-        placeholderLabel.text = setting.emoji + " " + setting.name
+        placeholderLabel.text = setting.emoji + " " + setting.title.rawValue.capitalized
         characterCountLabel.text = "Characters left: " + String(bioCharacterLimit - setting.preview!.count)
     }
 }

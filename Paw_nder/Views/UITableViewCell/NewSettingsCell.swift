@@ -32,8 +32,6 @@ class NewSettingsCell: UITableViewCell {
         accessoryType = .disclosureIndicator
         previewLabel.textColor = .lightGray
         previewLabel.textAlignment = .right
-//        settingsLabel.backgroundColor = .red
-//        previewLabel.backgroundColor = .blue
     }
     
     private func layoutUI() {
@@ -45,7 +43,7 @@ class NewSettingsCell: UITableViewCell {
     }
     
     func configureWith(setting: Setting) {
-        settingsLabel.text = setting.name
+        settingsLabel.text = setting.title.rawValue.capitalized
         previewLabel.text = setting.preview
     }
 }

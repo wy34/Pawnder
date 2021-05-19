@@ -12,7 +12,6 @@ class EditSettingsAgeVC: EditSettingsRootVC {
     var ages = Array(repeating: false, count: 31)
     var initialScrollDone = false
     var userAge = 0
-    let settingsVM = SettingsViewModel.shared
     
     // MARK: - Views
     private let ageLabel = PawLabel(text: "Your Age", textColor: .black, font: .systemFont(ofSize: 35, weight: .bold), alignment: .left)
@@ -107,6 +106,7 @@ extension EditSettingsAgeVC: UICollectionViewDelegate, UICollectionViewDataSourc
         self.ages[indexPath.item] = true
         
         cell.handleViewFor(selection: true)
+        #warning("look at this")
         settingsVM.user?.age = indexPath.item
     }
     
@@ -120,6 +120,9 @@ extension EditSettingsAgeVC: UICollectionViewDelegate, UICollectionViewDataSourc
         }
     }
 }
+
+
+
 
 
 class AgeCell: UICollectionViewCell {
