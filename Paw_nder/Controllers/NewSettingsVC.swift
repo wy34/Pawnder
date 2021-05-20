@@ -70,13 +70,13 @@ class NewSettingsVC: UIViewController {
             case .breed:
                 settingsVM.user?.breed = settings.preview ?? ""
             case .age:
-                settingsVM.user?.name = settings.preview ?? ""
+                settingsVM.user?.age = Int(settings.preview ?? "") ?? 0
             case .gender:
-                settingsVM.user?.name = settings.preview ?? ""
-            case .country:
-                settingsVM.user?.name = settings.preview ?? ""
+                settingsVM.user?.gender = Gender(rawValue: settings.preview ?? "") ?? .male
             case .bio:
-                settingsVM.user?.name = settings.preview ?? ""
+                settingsVM.user?.bio = settings.preview ?? ""
+            default:
+                break
         }
     }
     
@@ -113,8 +113,8 @@ extension NewSettingsVC: UITableViewDelegate, UITableViewDataSource {
             case 0, 1: vc = EditSettingsDefaultVC()
             case 2: vc = EditSettingsAgeVC()
             case 3: vc = EditSettingsGenderVC()
-            case 4: vc = EditSettingsCountryVC()
-            default: vc = EditSettingsBioVC()
+            case 4: vc = EditSettingsBioVC()
+            default: vc = EditSettingsPreferenceVC()
         }
         
         vc.newSettingsVC = self

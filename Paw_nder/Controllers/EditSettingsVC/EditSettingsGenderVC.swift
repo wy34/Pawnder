@@ -9,6 +9,7 @@ import UIKit
 
 class EditSettingsGenderVC: EditSettingsRootVC {
     // MARK: - Properties
+    var selectedGender: Gender?
     
     // MARK: - Views
     private let headingLabel = PaddedLabel(text: "You are a: ", font: .systemFont(ofSize: 35, weight: .bold), padding: 5)
@@ -25,14 +26,19 @@ class EditSettingsGenderVC: EditSettingsRootVC {
         setupActionsAndObservers()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        let currentGender = settings?.preview
+        settings?.preview = selectedGender == nil ? currentGender : selectedGender?.rawValue
+        newSettingsVC?.updateNewSettingsPreview(settings: settings!)
+    }
+    
     // MARK: - Helpers
     override func configureUI() {
         super.configureUI()
-        genderLabel.textColor = .gray
         
         [maleButton, femaleButton].forEach({
             $0.layer.borderWidth = 3
-            $0.layer.borderColor = UIColor.lightGray.cgColor
             $0.layer.cornerRadius = 10
             $0.backgroundColor = .white
         })
@@ -47,6 +53,12 @@ class EditSettingsGenderVC: EditSettingsRootVC {
         
         labelStack.anchor(bottom: buttonStack.topAnchor, paddingBottom: 35)
         labelStack.center(to: view, by: .centerX)
+    }
+    
+    override func configureWith(setting: Setting) {
+        super.configureWith(setting: setting)
+        let gender = Gender(rawValue: setting.preview ?? "") ?? .male
+        configureButtonFor(gender: gender)
     }
     
     private func setupActionsAndObservers() {
@@ -65,8 +77,10 @@ class EditSettingsGenderVC: EditSettingsRootVC {
     @objc func handleGenderButtonPressed(button: UIButton) {
         if button == maleButton {
             configureButtonFor(gender: .male)
+            selectedGender = .male
         } else {
             configureButtonFor(gender: .female)
+            selectedGender = .female
         }
     }
 }

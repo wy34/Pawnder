@@ -23,8 +23,8 @@ class EditSettingsBioVC: EditSettingsRootVC {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        settings?.preview = textView.text
-//        newSettingsVC?.updateNewSettingsPreview(settings: settings!)
+        settings?.preview = textView.text
+        newSettingsVC?.updateNewSettingsPreview(settings: settings!)
     }
 
     // MARK: - Helpers

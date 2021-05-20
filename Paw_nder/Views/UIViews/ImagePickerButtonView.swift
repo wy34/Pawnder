@@ -65,12 +65,6 @@ class ImagePickerButtonView: UIView {
         }
     }
     
-//    func changeAddDeleteButtonImageTo(image: UIImage) {
-//        addDeleteButton.setImage(image.applyingSymbolConfiguration(.init(font: .systemFont(ofSize: 10, weight: .black)))!.withRenderingMode(.alwaysTemplate), for: .normal)
-//        addDeleteButton.backgroundColor = .white
-//        addDeleteButton.tintColor = lightRed
-//    }
-    
     func removeImageFor(buttonTag: Int) {
         FirebaseManager.shared.fetchCurrentUser { result in
             switch result {

@@ -67,8 +67,8 @@ class SettingsViewModel {
             Setting(index: 1, title: .breed, preview: user.breed, emoji: "🐶"),
             Setting(index: 2, title: .age, preview: "\(user.age ?? 0)", emoji: "💯"),
             Setting(index: 3, title: .gender, preview: user.gender.rawValue, emoji: "👫"),
-            Setting(index: 4, title: .country, preview: "United States", emoji: "📍"),
-            Setting(index: 5, title: .bio, preview: user.bio, emoji: "🧬")
+            Setting(index: 4, title: .bio, preview: user.bio, emoji: "🧬"),
+            Setting(index: 5, title: .preference, preview: "", emoji: "⚙️"),
         ]
     }
     

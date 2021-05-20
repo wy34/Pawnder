@@ -11,8 +11,7 @@ class EditSettingsRootVC: UIViewController {
     // MARK: - Properties
     var newSettingsVC: NewSettingsVC?
     var settings: Setting?
-    let settingsVM = SettingsViewModel.shared
-    
+
     // MARK: - Views
     
     // MARK: - Lifecycle
