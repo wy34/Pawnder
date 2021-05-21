@@ -43,7 +43,8 @@ class EditSettingsPreferenceVC: EditSettingsRootVC {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setSliderValues()
+        loadGenderPreference()
+        loadSliderValues()
     }
     
     // MARK: - Helpers
@@ -88,24 +89,41 @@ class EditSettingsPreferenceVC: EditSettingsRootVC {
     }
     
     private func setBorderColor(button: UIButton, borderColor: UIColor, gender: Gender) {
-        [maleButton, femaleButton, allButton].forEach({
-            if $0 != button {
-                $0.layer.borderColor = UIColor.lightGray.cgColor
-            } else {
-                $0.layer.borderColor = borderColor.cgColor
-            }
-        })
+        UIView.animate(withDuration: 0.25) { [weak self] in
+            [self?.maleButton, self?.femaleButton, self?.allButton].forEach({
+                if $0 != button {
+                    $0?.layer.borderColor = UIColor.lightGray.cgColor
+                    $0?.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+                } else {
+                    $0?.layer.borderColor = borderColor.cgColor
+                    $0?.transform = .identity
+                }
+            })
+        }
         
         settingsVM.user?.genderPreference = gender
     }
     
-    func setSliderValues() {
+    func loadSliderValues() {
         minSlider.value = settingsVM.ageSliderMinFloatValue
         minLabel.text = settingsVM.ageSliderMinLabel
         maxSlider.value = settingsVM.ageSliderMaxFloatValue
         maxLabel.text = settingsVM.ageSliderMaxLabel
         milesSlider.value = settingsVM.distanceSliderValue
         milesLabel.text = settingsVM.preferredDistanceLabel
+    }
+    
+    func loadGenderPreference() {
+        switch settingsVM.user?.genderPreference {
+            case .male: setBorderColor(button: maleButton, borderColor: lightBlue, gender: .male)
+            case .female: setBorderColor(button: femaleButton, borderColor: lightRed, gender: .female)
+            case .all: setBorderColor(button: allButton, borderColor: .purple, gender: .all)
+            default: break
+        }
+    }
+    
+    override func handleSave() {
+        super.handleSave()
     }
     
     // MARK: - Selector

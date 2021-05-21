@@ -20,12 +20,6 @@ class EditSettingsDefaultVC: EditSettingsRootVC {
         super.viewDidLoad()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        settings?.preview = textfield.text
-        newSettingsVC?.updateNewSettingsPreview(settings: settings!)
-    }
-        
     // MARK: - Helpers
     override func configureUI() {
         super.configureUI()
@@ -53,11 +47,14 @@ class EditSettingsDefaultVC: EditSettingsRootVC {
     }
     
     // MARK: - Selector
-    override func handleUndo() {
-        if settings?.title == .name {
-            textfield.text = settingsVM.userBackup?.name
-        } else {
-            textfield.text = settingsVM.userBackup?.breed
+    override func handleSave() {
+        switch self.settings!.title {
+            case .name:
+                self.settingsVM.user?.name = self.textfield.text ?? ""
+            default:
+                self.settingsVM.user?.breed = self.textfield.text ?? ""
         }
+        
+        super.handleSave()
     }
 }

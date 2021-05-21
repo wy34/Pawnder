@@ -20,12 +20,6 @@ class EditSettingsBioVC: EditSettingsRootVC {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        settings?.preview = textView.text
-        newSettingsVC?.updateNewSettingsPreview(settings: settings!)
-    }
 
     // MARK: - Helpers
     override func configureUI() {
@@ -57,9 +51,9 @@ class EditSettingsBioVC: EditSettingsRootVC {
         characterCountLabel.text = "Characters left: " + String(bioCharacterLimit - setting.preview!.count)
     }
     
-    override func handleUndo() {
-        textView.text = settingsVM.userBackup?.bio
-        placeholderLabel.isHidden = !textView.text.isEmpty
+    override func handleSave() {
+        settingsVM.user?.bio = textView.text
+        super.handleSave()
     }
 }
 

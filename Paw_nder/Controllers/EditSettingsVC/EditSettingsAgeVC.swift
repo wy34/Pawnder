@@ -40,12 +40,6 @@ class EditSettingsAgeVC: EditSettingsRootVC {
         scrollToUserAge()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        settings?.preview = "\(userAge)"
-        newSettingsVC?.updateNewSettingsPreview(settings: settings!)
-    }
-    
     // MARK: - Helpers
     override func configureUI() {
         super.configureUI()
@@ -79,22 +73,9 @@ class EditSettingsAgeVC: EditSettingsRootVC {
         }
     }
     
-    override func handleUndo() {
-        #warning("Look at this")
-        userAge = settingsVM.userBackup?.age ?? 0
-        
-        for cell in collectionView.visibleCells as! [AgeCell] {
-            cell.handleViewFor(selection: false)
-        }
-        
-        let indexPath = IndexPath(row: settings!.index, section: 0)
-
-        ages = Array(repeating: false, count: self.ages.count)
-        ages[indexPath.item] = true
-        
-        let cell = collectionView.cellForItem(at: indexPath) as! AgeCell
-        collectionView.scrollToItem(at: indexPath, at: [.centeredVertically, .centeredHorizontally], animated: true)
-        cell.handleViewFor(selection: true)
+    override func handleSave() {
+        settingsVM.user?.age = userAge
+        super.handleSave()
     }
 }
 

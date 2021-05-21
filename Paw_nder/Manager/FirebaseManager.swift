@@ -89,7 +89,8 @@ class FirebaseManager {
         var users = [User]()
         let usersCollection = Firestore.firestore().collection("users")
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-
+        
+        #warning("Add filter that matches genderPref, agePref, and distancePref")
         usersCollection
             .whereField("age", isGreaterThanOrEqualTo: currentUser.minAgePreference ?? 0)
             .whereField("age", isLessThanOrEqualTo: (currentUser.maxAgePreference == 0 ? 100 : currentUser.maxAgePreference) ?? 100).getDocuments { [weak self] (snapshots, error) in
@@ -158,6 +159,7 @@ class FirebaseManager {
     func updateUser(user: User, completion: @escaping (Error?) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
         
+        #warning("See if we can just save whatever was updated individually instead of everything everytime we click save")
         let docData: [String: Any] = [
             "uid": currentUserId,
             "fullName": user.name,

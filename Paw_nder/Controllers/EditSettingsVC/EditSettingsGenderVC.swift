@@ -26,13 +26,6 @@ class EditSettingsGenderVC: EditSettingsRootVC {
         setupActionsAndObservers()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        let currentGender = settings?.preview
-        settings?.preview = selectedGender == nil ? currentGender : selectedGender?.rawValue
-        newSettingsVC?.updateNewSettingsPreview(settings: settings!)
-    }
-    
     // MARK: - Helpers
     override func configureUI() {
         super.configureUI()
@@ -67,16 +60,22 @@ class EditSettingsGenderVC: EditSettingsRootVC {
     }
     
     func configureButtonFor(gender: Gender) {
-        genderLabel.text = gender == .male ? Gender.male.rawValue : Gender.female.rawValue
-        genderLabel.textColor = gender == .male ? lightBlue : lightRed
-        maleButton.layer.borderColor = gender == .male ? lightBlue.cgColor : UIColor.lightGray.cgColor
-        femaleButton.layer.borderColor = gender == .male ? UIColor.lightGray.cgColor : lightRed.cgColor
+        let maleScale: CGFloat = gender == .male ? 1 : 0.8
+        let femaleScale: CGFloat = gender == .female ? 1 : 0.8
+        
+        UIView.animate(withDuration: 0.25) { [weak self] in
+            self?.genderLabel.text = gender == .male ? Gender.male.rawValue : Gender.female.rawValue
+            self?.genderLabel.textColor = gender == .male ? lightBlue : lightRed
+            self?.maleButton.layer.borderColor = gender == .male ? lightBlue.cgColor : UIColor.lightGray.cgColor
+            self?.femaleButton.layer.borderColor = gender == .male ? UIColor.lightGray.cgColor : lightRed.cgColor
+            self?.maleButton.transform = CGAffineTransform(scaleX: maleScale, y: maleScale)
+            self?.femaleButton.transform = CGAffineTransform(scaleX: femaleScale, y: femaleScale)
+        }
     }
     
-    override func handleUndo() {
-        let prevGender = settingsVM.userBackup?.gender
-        configureButtonFor(gender: prevGender!)
-        selectedGender = nil
+    override func handleSave() {
+        settingsVM.user?.gender = selectedGender ?? .male
+        super.handleSave()
     }
     
     // MARK: - Selectors

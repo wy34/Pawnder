@@ -12,7 +12,7 @@ class NewSettingsVC: LoadingViewController {
     let settingsVM = SettingsViewModel.shared
     
     // MARK: - Views
-    private lazy var tableView: UITableView = {
+    lazy var tableView: UITableView = {
         let tv = UITableView(frame: .zero, style: .insetGrouped)
         tv.delegate = self
         tv.dataSource = self
@@ -43,7 +43,6 @@ class NewSettingsVC: LoadingViewController {
     // MARK: - Helpers
     private func configureNavBar() {
         navigationItem.title = "Settings"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSaveSettings))
     }
     
     private func configureUI() {
@@ -61,39 +60,7 @@ class NewSettingsVC: LoadingViewController {
         logoutButton.addTarget(self, action: #selector(handleLogout), for: .touchUpInside)
     }
     
-    func updateNewSettingsPreview(settings: Setting) {
-        let cell = tableView.cellForRow(at: IndexPath(row: settings.index, section: 0)) as! NewSettingsCell
-        cell.configureWith(setting: settings)
-        
-        switch settings.title {
-            case .name:
-                settingsVM.user?.name = settings.preview ?? ""
-            case .breed:
-                settingsVM.user?.breed = settings.preview ?? ""
-            case .age:
-                settingsVM.user?.age = Int(settings.preview ?? "") ?? 0
-            case .gender:
-                settingsVM.user?.gender = Gender(rawValue: settings.preview ?? "") ?? .male
-            case .bio:
-                settingsVM.user?.bio = settings.preview ?? ""
-            default:
-                break
-        }
-    }
-    
     // MARK: - Selector
-    @objc func handleSaveSettings() {
-        showLoader()
-        
-        settingsVM.updateUserInfo { [weak self] error in
-            if let error = error {
-                self?.showAlert(title: "Error", message: error.localizedDescription)
-            }
-            
-            self?.dismissLoader()
-        }
-    }
-    
     @objc func handleLogout() {
         settingsVM.logoutUser {
             Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in

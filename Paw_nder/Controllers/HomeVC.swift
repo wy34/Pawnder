@@ -130,6 +130,11 @@ class HomeVC: LoadingViewController {
             self.previousCardView = $0
             if self.topCardView == nil { self.topCardView = $0 }
         })
+        
+        #warning("If no cards, ie: no users match age pref., disabel all buttons on that page and show some sort of a message")
+        if cardViews.count == 0 {
+            print("no cards")
+        }
     }
     
     private func performSwipeAnimationWhenPressed(translation: CGFloat, rotation: CGFloat) {
