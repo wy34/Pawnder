@@ -53,4 +53,11 @@ class EditSettingsDefaultVC: EditSettingsRootVC {
     }
     
     // MARK: - Selector
+    override func handleUndo() {
+        if settings?.title == .name {
+            textfield.text = settingsVM.userBackup?.name
+        } else {
+            textfield.text = settingsVM.userBackup?.breed
+        }
+    }
 }

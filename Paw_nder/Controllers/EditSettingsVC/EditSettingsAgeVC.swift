@@ -78,6 +78,24 @@ class EditSettingsAgeVC: EditSettingsRootVC {
             self.ages[indexPath.item] = true
         }
     }
+    
+    override func handleUndo() {
+        #warning("Look at this")
+        userAge = settingsVM.userBackup?.age ?? 0
+        
+        for cell in collectionView.visibleCells as! [AgeCell] {
+            cell.handleViewFor(selection: false)
+        }
+        
+        let indexPath = IndexPath(row: settings!.index, section: 0)
+
+        ages = Array(repeating: false, count: self.ages.count)
+        ages[indexPath.item] = true
+        
+        let cell = collectionView.cellForItem(at: indexPath) as! AgeCell
+        collectionView.scrollToItem(at: indexPath, at: [.centeredVertically, .centeredHorizontally], animated: true)
+        cell.handleViewFor(selection: true)
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource

@@ -9,6 +9,7 @@ import UIKit
 
 class EditSettingsRootVC: UIViewController {
     // MARK: - Properties
+    let settingsVM = SettingsViewModel.shared
     var newSettingsVC: NewSettingsVC?
     var settings: Setting?
 
@@ -25,6 +26,7 @@ class EditSettingsRootVC: UIViewController {
     // MARK: - Helpers
     func configureNavBar() {
         navigationController?.navigationBar.shadowImage = UIImage()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .undo, target: self, action: #selector(handleUndo))
     }
     
     func configureUI() {
@@ -41,4 +43,7 @@ class EditSettingsRootVC: UIViewController {
     }
     
     // MARK: - Selector
+    @objc func handleUndo() {
+        
+    }
 }

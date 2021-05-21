@@ -98,6 +98,7 @@ class ProfileVC: LoadingViewController {
     
     private func setupFetchedUserInfo(user: User) {
         settingsVM.user = user
+        settingsVM.userBackup = user
         imagePickerView.setCurrentUserImage(urlStringsDictionary: settingsVM.user?.imageUrls)
         nameLabel.text = settingsVM.user?.name
         breedAgeLabel.text = settingsVM.userBreedAge

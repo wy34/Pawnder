@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewSettingsVC: UIViewController {
+class NewSettingsVC: LoadingViewController {
     // MARK: - Properties
     let settingsVM = SettingsViewModel.shared
     
@@ -52,6 +52,7 @@ class NewSettingsVC: UIViewController {
     }
     
     private func layoutUI() {
+        edgesForExtendedLayout = []
         view.addSubview(tableView)
         tableView.fill(superView: view)
     }
@@ -82,7 +83,15 @@ class NewSettingsVC: UIViewController {
     
     // MARK: - Selector
     @objc func handleSaveSettings() {
+        showLoader()
         
+        settingsVM.updateUserInfo { [weak self] error in
+            if let error = error {
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+            }
+            
+            self?.dismissLoader()
+        }
     }
     
     @objc func handleLogout() {

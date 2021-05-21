@@ -15,6 +15,7 @@ class FirebaseManager {
     var imageCache = NSCache<NSString, UIImage>()
 //    var lastFetchedUser: User?
     var users = [String: User]()
+    var currentUserListener: ListenerRegistration!
     var matchesListener: ListenerRegistration!
     var messagesListener: ListenerRegistration!
     var recentMessagesListener: ListenerRegistration!
@@ -22,6 +23,7 @@ class FirebaseManager {
     
     // MARK: - Init
     deinit {
+        currentUserListener.remove()
         matchesListener.remove()
         messagesListener.remove()
         recentMessagesListener.remove()
@@ -103,8 +105,7 @@ class FirebaseManager {
                 
                 self?.users[user.uid] = user
 
-//                swipes[user.uid] == nil
-                if user.uid != currentUserId && true {
+                if user.uid != currentUserId && swipes[user.uid] == nil {
 //                    self?.lastFetchedUser = user
                     users.append(user)
                 }
@@ -118,7 +119,7 @@ class FirebaseManager {
     func fetchCurrentUser(completion: @escaping (Result<User, Error>) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
 
-        Firestore.firestore().collection("users").document(currentUserId).getDocument { (snapshot, error) in
+        currentUserListener = Firestore.firestore().collection("users").document(currentUserId).addSnapshotListener { (snapshot, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -156,6 +157,7 @@ class FirebaseManager {
     // MARK: - Updating User
     func updateUser(user: User, completion: @escaping (Error?) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        
         let docData: [String: Any] = [
             "uid": currentUserId,
             "fullName": user.name,
@@ -164,8 +166,10 @@ class FirebaseManager {
             "bio": user.bio ?? "",
             "imageUrls": user.imageUrls ?? [0: ""],
             "gender": user.gender.rawValue,
+            "genderPreference": user.genderPreference?.rawValue ?? "",
             "minAgePreference": user.minAgePreference ?? 0,
-            "maxAgePreference": user.maxAgePreference ?? 0
+            "maxAgePreference": user.maxAgePreference ?? 0,
+            "distancePreference": user.distancePreference ?? 0
         ]
         
         Firestore.firestore().collection("users").document("\(currentUserId)").setData(docData) { (error) in

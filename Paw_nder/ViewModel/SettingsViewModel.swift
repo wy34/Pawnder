@@ -13,6 +13,7 @@ class SettingsViewModel {
     static let shared = SettingsViewModel()
     
     var user: User?
+    var userBackup: User?
     var selectedImages = [Int: UIImage]()
     
     var userAge: String {
@@ -59,6 +60,14 @@ class SettingsViewModel {
         return "Max: \(user?.maxAgePreference ?? 0)"
     }
     
+    var distanceSliderValue: Float {
+        return Float(user?.distancePreference ?? 0) / 150
+    }
+    
+    var preferredDistanceLabel: String {
+        return "\(user?.distancePreference ?? 0) miles"
+    }
+    
     var settingOptions: [Setting] {
         guard let user = user else { return [] }
         
@@ -74,6 +83,7 @@ class SettingsViewModel {
     
     // MARK: - Helpers
     func updateUserInfo(completion: @escaping (Error?) -> Void) {
+        self.userBackup = self.user
         FirebaseManager.shared.updateUser(user: self.user!) { (error) in
             if let _ = error {
                 completion(error)

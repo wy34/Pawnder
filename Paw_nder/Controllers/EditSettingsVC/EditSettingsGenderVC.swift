@@ -73,6 +73,12 @@ class EditSettingsGenderVC: EditSettingsRootVC {
         femaleButton.layer.borderColor = gender == .male ? UIColor.lightGray.cgColor : lightRed.cgColor
     }
     
+    override func handleUndo() {
+        let prevGender = settingsVM.userBackup?.gender
+        configureButtonFor(gender: prevGender!)
+        selectedGender = nil
+    }
+    
     // MARK: - Selectors
     @objc func handleGenderButtonPressed(button: UIButton) {
         if button == maleButton {

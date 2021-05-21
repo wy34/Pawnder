@@ -9,12 +9,12 @@ import UIKit
 
 class EditSettingsBioVC: EditSettingsRootVC {
     // MARK: - Properties
-    let bioCharacterLimit = 160
+    let bioCharacterLimit = 200
     
     // MARK: - Views
     private let placeholderLabel = PawLabel(text: "Add a bio", textColor: .lightGray, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
     private let textView = PawTextView(placeholder: "", textColor: .black, bgColor: .clear)
-    private let characterCountLabel = PawLabel(text: "Characters left: 160", textColor: .black, font: .systemFont(ofSize: 12), alignment: .right)
+    private lazy var characterCountLabel = PawLabel(text: "Characters left: \(bioCharacterLimit)", textColor: .black, font: .systemFont(ofSize: 12), alignment: .right)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -55,6 +55,11 @@ class EditSettingsBioVC: EditSettingsRootVC {
         textView.text = setting.preview
         placeholderLabel.text = setting.emoji + " " + setting.title.rawValue.capitalized
         characterCountLabel.text = "Characters left: " + String(bioCharacterLimit - setting.preview!.count)
+    }
+    
+    override func handleUndo() {
+        textView.text = settingsVM.userBackup?.bio
+        placeholderLabel.isHidden = !textView.text.isEmpty
     }
 }
 

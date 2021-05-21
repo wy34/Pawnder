@@ -15,8 +15,10 @@ struct User {
     var bio: String?
     var gender: Gender
     var imageUrls: [String: String]?
+    var genderPreference: Gender?
     var minAgePreference: Int?
     var maxAgePreference: Int?
+    var distancePreference: Int?
     
     init(dictionary: [String: Any]) {
         self.uid = dictionary["uid"] as? String ?? ""
@@ -26,8 +28,10 @@ struct User {
         self.bio = dictionary["bio"] as? String ?? "N/A"
         self.gender = Gender(rawValue: dictionary["gender"] as? String ?? "") ?? .male
         self.imageUrls = dictionary["imageUrls"] as? [String: String]
+        self.genderPreference = Gender(rawValue: dictionary["genderPreference"] as? String ?? "All") ?? .all
         self.minAgePreference = dictionary["minAgePreference"] as? Int
         self.maxAgePreference = dictionary["maxAgePreference"] as? Int
+        self.distancePreference = dictionary["distancePreference"] as? Int
     }
     
     func toCardViewModel() -> CardViewModel {
