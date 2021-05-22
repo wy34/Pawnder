@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewSettingsVC: LoadingViewController {
+class SettingsVC: LoadingViewController {
     // MARK: - Properties
     let settingsVM = SettingsViewModel.shared
     
@@ -25,6 +25,7 @@ class NewSettingsVC: LoadingViewController {
     }()
 
     private let logoutButton = PawButton(title: "Log out", textColor: .white, bgColor: lightRed)
+    private let logoutViewLauncher = LogoutViewLauncher()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -62,16 +63,18 @@ class NewSettingsVC: LoadingViewController {
     
     // MARK: - Selector
     @objc func handleLogout() {
-        settingsVM.logoutUser {
-            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-                UIApplication.rootTabBarController.setupViewControllers()
-            }
-        }
+        logoutViewLauncher.showLogoutView()
+        
+//        settingsVM.logoutUser {
+//            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+//                UIApplication.rootTabBarController.setupViewControllers()
+//            }
+//        }
     }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
-extension NewSettingsVC: UITableViewDelegate, UITableViewDataSource {
+extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return settingsVM.settingOptions.count
     }

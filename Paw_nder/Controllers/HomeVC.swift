@@ -21,7 +21,7 @@ class HomeVC: LoadingViewController {
     
     private let filterViewLauncher = FilterViewLauncher()
 
-    private let matchingView = MatchingView()
+    private let matchingView = MatchingViewLauncher()
 
     private let cardsDeckView = PawView()
     
@@ -29,6 +29,10 @@ class HomeVC: LoadingViewController {
     private let bottomControlsStack = HomeBottomControlsStack(distribution: .fillEqually, alignment: .top)
     
     private lazy var mainStack = PawStackView(views: [navbarView, cardsDeckView, bottomControlsView], axis: .vertical, alignment: .center)
+    
+    private let emptyStackImageView = PawImageView(image: crying, contentMode: .scaleAspectFit)
+    private let emptyStackLabel = PawLabel(text: "No More Users. Switch up your preferences or try again later.", textColor: .black, font: .systemFont(ofSize: 14, weight: .medium), alignment: .center)
+    private lazy var emptyStack = PawStackView(views: [emptyStackImageView, emptyStackLabel], spacing: 5, axis: .vertical)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -49,11 +53,16 @@ class HomeVC: LoadingViewController {
         mainStack.bringSubviewToFront(cardsDeckView)
         navbarStack.delegate = self
         bottomControlsStack.delegate = self
+        emptyStackLabel.numberOfLines = 0
     }
     
     private func layoutUI() {
         edgesForExtendedLayout = []
-        view.addSubviews(mainStack)
+        view.addSubviews(emptyStack, mainStack)
+        emptyStack.center(x: view.centerXAnchor, y: view.centerYAnchor)
+        emptyStack.setDimension(width: view.widthAnchor, wMult: 0.75)
+        emptyStackImageView.setDimension(wConst: 25, hConst: 25)
+        
         mainStack.anchor(top: view.topAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 15, paddingBottom: 15)
         
         navbarView.setDimension(width: view.widthAnchor, height: view.heightAnchor, hMult: 0.125)

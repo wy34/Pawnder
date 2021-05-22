@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 
-class MatchingView: UIView {
+class MatchingViewLauncher: UIView {
     // MARK: - Properties
     var matchedUserInfo: (String?, String?, String?) {
         didSet {

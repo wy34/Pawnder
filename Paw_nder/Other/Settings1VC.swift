@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 
 
-class SettingsVC: LoadingViewController {
+class Settings1VC: LoadingViewController {
     // MARK: - Properties
     var imagePickerButtonTag: Int?
     var settingsVM = SettingsViewModel.shared
@@ -164,7 +164,7 @@ class SettingsVC: LoadingViewController {
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
-extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
+extension Settings1VC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
 //            let imagePickerHeaderView = ImagePickerHeaderView()
@@ -255,7 +255,7 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
 }
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
-extension SettingsVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension Settings1VC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let selectedImage = info[.editedImage] as? UIImage else { return }
         settingsVM.selectedImages[imagePickerButtonTag!] = selectedImage

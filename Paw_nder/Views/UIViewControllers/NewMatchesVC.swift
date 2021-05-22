@@ -20,7 +20,7 @@ class NewMatchesVC: UIViewController {
     
     // MARK: - Views
     private let titleLabel = PawLabel(text: "New Matches", textColor: .black, font: .systemFont(ofSize: 16, weight: .bold), alignment: .left)
-    private let noMatchesLabel = PawLabel(text: "No New Matches", textColor: .black, font: .systemFont(ofSize: 12, weight: .medium), alignment: .center)
+    private let noMatchesLabel = PawLabel(text: "No New Matches", textColor: .black, font: .systemFont(ofSize: 14, weight: .medium), alignment: .center)
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

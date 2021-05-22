@@ -64,11 +64,11 @@ class ProfileVC: LoadingViewController {
         saveButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, trailing: view.trailingAnchor, paddingTop: 10, paddingTrailing: 25)
         saveButton.setDimension(wConst: 35, hConst: 35)
         
-        imagePickerView.setDimension(width: view.widthAnchor, height: view.heightAnchor, wMult: 0.9, hMult: 0.45)
+        imagePickerView.setDimension(width: view.widthAnchor, height: view.heightAnchor, wMult: 0.9, hMult: 0.425)
         imagePickerView.center(to: view, by: .centerX)
         imagePickerView.anchor(top: saveButton.bottomAnchor, paddingTop: 25)
         
-        infoContainerView.anchor(top: imagePickerView.bottomAnchor, trailing: imagePickerView.trailingAnchor, bottom: view.bottomAnchor, leading: imagePickerView.leadingAnchor, paddingTop: 35, paddingBottom: 25)
+        infoContainerView.anchor(top: imagePickerView.bottomAnchor, trailing: imagePickerView.trailingAnchor, bottom: view.bottomAnchor, leading: imagePickerView.leadingAnchor, paddingTop: 25, paddingBottom: 25)
         
         layoutTextualInfo()
     }
@@ -130,7 +130,7 @@ class ProfileVC: LoadingViewController {
     
     // MARK: - Selector
     @objc func openSettings() {
-        let settingsVC = NewSettingsVC()
+        let settingsVC = SettingsVC()
         navigationItem.backButtonTitle = ""
         navigationController?.pushViewController(settingsVC, animated: true)
     }

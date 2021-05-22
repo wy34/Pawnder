@@ -18,6 +18,7 @@ let user = UIImage(named: "user")!
 let male = UIImage(named: "male")!
 let female = UIImage(named: "female")!
 let mappin = UIImage(named: "pin")!
+let crying = UIImage(named: "crying")!
 
 // MARK: - Asset Names
 let bob1 = "bob1"

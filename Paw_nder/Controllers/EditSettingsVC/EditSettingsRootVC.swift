@@ -10,7 +10,7 @@ import UIKit
 class EditSettingsRootVC: LoadingViewController {
     // MARK: - Properties
     let settingsVM = SettingsViewModel.shared
-    var newSettingsVC: NewSettingsVC?
+    var newSettingsVC: SettingsVC?
     var settings: Setting?
 
     // MARK: - Views
