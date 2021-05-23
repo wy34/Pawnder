@@ -13,7 +13,7 @@ class RootTabBarController: UITabBarController {
     // MARK: - Views
     var homeVC: HomeVC?
     var messagesVC: UINavigationController?
-    var newSettingsVC: UINavigationController?
+    var settingsVC: UINavigationController?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -55,11 +55,11 @@ class RootTabBarController: UITabBarController {
         messagesVC?.tabBarItem = UITabBarItem(title: nil, image: message, tag: 1)
         messagesVC?.tabBarItem.imageInsets = .init(top: 14, left: 0, bottom: -14, right: 0)
         
-        newSettingsVC = UINavigationController(rootViewController: ProfileVC())
-        newSettingsVC?.tabBarItem = UITabBarItem(title: nil, image: user, tag: 2)
-        newSettingsVC?.tabBarItem.imageInsets = .init(top: 14, left: 0, bottom: -14, right: 0)
+        settingsVC = UINavigationController(rootViewController: ProfileVC())
+        settingsVC?.tabBarItem = UITabBarItem(title: nil, image: user, tag: 2)
+        settingsVC?.tabBarItem.imageInsets = .init(top: 14, left: 0, bottom: -14, right: 0)
         
-        setViewControllers([homeVC!, messagesVC!, newSettingsVC!], animated: true)
+        setViewControllers([homeVC!, messagesVC!, settingsVC!], animated: true)
     }
     
     func showTabbar() {
@@ -87,12 +87,12 @@ class RootTabBarController: UITabBarController {
     @objc func disableButtons() {
         homeVC?.tabBarItem.isEnabled = false
         messagesVC?.tabBarItem.isEnabled = false
-        newSettingsVC?.tabBarItem.isEnabled = false
+        settingsVC?.tabBarItem.isEnabled = false
     }
     
     @objc func enableButtons() {
         homeVC?.tabBarItem.isEnabled = true
         messagesVC?.tabBarItem.isEnabled = true
-        newSettingsVC?.tabBarItem.isEnabled = true
+        settingsVC?.tabBarItem.isEnabled = true
     }
 }

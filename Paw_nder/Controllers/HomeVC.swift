@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import CoreLocation
 import Firebase
 
 class HomeVC: LoadingViewController {
     // MARK: - Properties
+    var locationManager = CLLocationManager()
     var homeViewModel = HomeViewModel()
     var currentTopCardView: CardView?
     var topCardView: CardView?
@@ -31,7 +33,7 @@ class HomeVC: LoadingViewController {
     private lazy var mainStack = PawStackView(views: [navbarView, cardsDeckView, bottomControlsView], axis: .vertical, alignment: .center)
     
     private let emptyStackImageView = PawImageView(image: crying, contentMode: .scaleAspectFit)
-    private let emptyStackLabel = PawLabel(text: "No More Users. Switch up your preferences or try again later.", textColor: .black, font: .systemFont(ofSize: 14, weight: .medium), alignment: .center)
+    private let emptyStackLabel = PawLabel(text: "No Users. Switch up your preferences or try again later.", textColor: .black, font: .systemFont(ofSize: 14, weight: .medium), alignment: .center)
     private lazy var emptyStack = PawStackView(views: [emptyStackImageView, emptyStackLabel], spacing: 5, axis: .vertical)
     
     // MARK: - Lifecycle
@@ -39,6 +41,7 @@ class HomeVC: LoadingViewController {
         super.viewDidLoad()
         layoutUI()
         configureUI()
+//        checkLocationServices()
         setupAuthStateChangeListener()
         setupNotificationObservers()
     }
@@ -78,6 +81,35 @@ class HomeVC: LoadingViewController {
         cardsDeckView.addSubview(cardView)
         cardView.fill(superView: cardsDeckView)
     }
+    
+//    private func checkLocationServices() {
+//        if CLLocationManager.locationServicesEnabled() {
+//            setupLocationManager()
+//            checkLocationAuthorization()
+//        } else {
+//            let vc = UIViewController()
+//            vc.view.backgroundColor = .red
+//            present(vc, animated: true, completion: nil)
+//        }
+//    }
+    
+//    private func setupLocationManager() {
+//        locationManager.delegate = self
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//    }
+//
+//    private func checkLocationAuthorization() {
+//        switch locationManager.authorizationStatus {
+//            case .notDetermined:
+//                locationManager.requestWhenInUseAuthorization()
+//            case .authorizedWhenInUse:
+//                locationManager.startUpdatingLocation()
+//            case .restricted, .denied, .authorizedAlways:
+//                break
+//            @unknown default:
+//                break
+//        }
+//    }
     
     private func setupAuthStateChangeListener() {
         Auth.auth().addStateDidChangeListener { [weak self] auth, user in
@@ -250,3 +282,24 @@ extension HomeVC: CardViewDelegate {
     }
 }
 
+//// MARK: - CLLocationManagerDelegate
+//extension HomeVC: CLLocationManagerDelegate {
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        let geocoder = CLGeocoder()
+//        let location = locations[0]
+//
+//        geocoder.reverseGeocodeLocation(location) { placemarks, error in
+//            if let error = error {
+//                print(error)
+//            }
+//
+//            if let placemark = placemarks?.first {
+//                print(placemark.thoroughfare)
+//            }
+//        }
+//    }
+//
+//    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+//        checkLocationAuthorization()
+//    }
+//}

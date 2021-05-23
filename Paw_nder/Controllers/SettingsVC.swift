@@ -63,13 +63,8 @@ class SettingsVC: LoadingViewController {
     
     // MARK: - Selector
     @objc func handleLogout() {
+        logoutViewLauncher.delegate = self
         logoutViewLauncher.showLogoutView()
-        
-//        settingsVM.logoutUser {
-//            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-//                UIApplication.rootTabBarController.setupViewControllers()
-//            }
-//        }
     }
 }
 
@@ -93,6 +88,7 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
             case 2: vc = EditSettingsAgeVC()
             case 3: vc = EditSettingsGenderVC()
             case 4: vc = EditSettingsBioVC()
+            case 5: vc = EditSettingsLocationVC()
             default: vc = EditSettingsPreferenceVC()
         }
         
@@ -114,5 +110,18 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 100
+    }
+}
+
+// MARK: - LogoutViewLauncherDelegate
+extension SettingsVC: LogoutViewLauncherDelegate {
+    func didTapLogout() {
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { [weak self] _ in
+            self?.settingsVM.logoutUser {
+                Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
+                    UIApplication.rootTabBarController.setupViewControllers()
+                }
+            }
+        }
     }
 }

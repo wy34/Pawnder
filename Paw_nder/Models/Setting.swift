@@ -8,7 +8,7 @@
 import Foundation
 
 enum SettingType: String {
-    case name, breed, age, gender, bio, preference
+    case name, breed, age, gender, bio, location, preference
 }
 
 struct Setting {

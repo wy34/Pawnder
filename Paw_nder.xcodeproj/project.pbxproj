@@ -83,6 +83,7 @@
 		4CD2810B26521E95005C1594 /* NewSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810A26521E95005C1594 /* NewSettingsCell.swift */; };
 		4CD2810D26522260005C1594 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810C26522260005C1594 /* Setting.swift */; };
 		4CD2810F26522A40005C1594 /* EditSettingsDefaultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810E26522A40005C1594 /* EditSettingsDefaultVC.swift */; };
+		4CEDB3A9265A14E70031999E /* EditSettingsLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEDB3A8265A14E70031999E /* EditSettingsLocationVC.swift */; };
 		4CF953912639056800D80587 /* SliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF953902639056800D80587 /* SliderCell.swift */; };
 		4CF953932639062D00D80587 /* PawSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF953922639062D00D80587 /* PawSlider.swift */; };
 		4CFD2260263E5E1A00C65277 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD225F263E5E1A00C65277 /* RootTabBarController.swift */; };
@@ -168,6 +169,7 @@
 		4CD2810A26521E95005C1594 /* NewSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSettingsCell.swift; sourceTree = "<group>"; };
 		4CD2810C26522260005C1594 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		4CD2810E26522A40005C1594 /* EditSettingsDefaultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsDefaultVC.swift; sourceTree = "<group>"; };
+		4CEDB3A8265A14E70031999E /* EditSettingsLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsLocationVC.swift; sourceTree = "<group>"; };
 		4CF953902639056800D80587 /* SliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderCell.swift; sourceTree = "<group>"; };
 		4CF953922639062D00D80587 /* PawSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawSlider.swift; sourceTree = "<group>"; };
 		4CFD225F263E5E1A00C65277 /* RootTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 				4CB95FA12653721A00A50237 /* EditSettingsAgeVC.swift */,
 				4CB95F9D265326A200A50237 /* EditSettingsGenderVC.swift */,
 				4CB95F9A2653241B00A50237 /* EditSettingsBioVC.swift */,
+				4CEDB3A8265A14E70031999E /* EditSettingsLocationVC.swift */,
 				4C4AC211265616AB00AAB471 /* EditSettingsPreferenceVC.swift */,
 			);
 			path = EditSettingsVC;
@@ -601,6 +604,7 @@
 				4C49BA93262E3928006F046B /* HomeVC.swift in Sources */,
 				4C392FE0264B4D6600A729F7 /* RecentMessageCell.swift in Sources */,
 				4C75AE3C2633644A00255A7A /* HomeViewModel.swift in Sources */,
+				4CEDB3A9265A14E70031999E /* EditSettingsLocationVC.swift in Sources */,
 				4C8F8CF32649B1DA00A62E85 /* Message.swift in Sources */,
 				4C68459A264882FD0003988C /* Match.swift in Sources */,
 				4C8F8CF52649B28400A62E85 /* MessageBubbleCell.swift in Sources */,

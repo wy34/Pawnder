@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct User {
     var uid: String
@@ -13,6 +14,7 @@ struct User {
     var age: Int?
     var breed: String?
     var bio: String?
+    var location: String?
     var gender: Gender
     var imageUrls: [String: String]?
     var genderPreference: Gender?

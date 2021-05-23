@@ -7,20 +7,30 @@
 
 import UIKit
 
-class LogoutViewLauncher: NSObject {
+protocol LogoutViewLauncherDelegate: AnyObject {
+    func didTapLogout()
+}
+
+class LogoutViewLauncher: UIView {
     // MARK: - Properties
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
+    
+    weak var delegate: LogoutViewLauncherDelegate?
     
     // MARK: - Views
     private let blackBgView = PawView(bgColor: .black.withAlphaComponent(0.5))
     private let logoutView = PawView(bgColor: .white, cornerRadius: 30)
     
+    private let headingLabel = PawLabel(text: "Are you sure?", textColor: .black, font: .systemFont(ofSize: 18, weight: .bold), alignment: .center)
+    private let logOutButton = PawButton(title: "Log out", font: .systemFont(ofSize: 16, weight: .bold))
+    private let cancelButton = PawButton(title: "Cancel", font: .systemFont(ofSize: 16, weight: .medium))
+    private lazy var logoutStack = PawStackView(views: [headingLabel, logOutButton, cancelButton], spacing: 15, axis: .vertical, distribution: .fillEqually, alignment: .fill)
+    
     // MARK: - Init
-    override init() {
-        super.init()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         configureUI()
-        layoutUI()
         setupActionsAndGestures()
     }
     
@@ -32,16 +42,23 @@ class LogoutViewLauncher: NSObject {
     private func configureUI() {
         blackBgView.alpha = 0
         logoutView.alpha = 0
+        logOutButton.setTitleColor(.white, for: .normal)
+        logOutButton.backgroundColor = lightRed
+        logOutButton.layer.cornerRadius = 50/2
     }
     
-    private func layoutUI() {
-        
+    private func layoutLogoutCard() {
+        logoutView.addSubview(logoutStack)
+        logoutStack.setDimension(width: logoutView.widthAnchor, wMult: 0.85)
+        logoutStack.center(x: logoutView.centerXAnchor, y: logoutView.centerYAnchor)
+        logOutButton.setDimension(hConst: 50)
     }
     
     private func setupActionsAndGestures() {
         blackBgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissLogoutView)))
+        logOutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
+        cancelButton.addTarget(self, action: #selector(dismissLogoutView), for: .touchUpInside)
     }
-    
     
     func showLogoutView() {
         if let keyWindow = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first {
@@ -54,6 +71,8 @@ class LogoutViewLauncher: NSObject {
             let centerYPosition = screenHeight/2 - logoutViewHeight/2
             logoutView.frame = .init(x: centerXPosition, y: centerYPosition, width: logoutViewWidth, height: logoutViewHeight)
             logoutView.frame.origin.y = centerYPosition + 100
+            
+            layoutLogoutCard()
 
             UIView.animate(withDuration: 0.25) { [weak self] in
                 self?.blackBgView.alpha = 1
@@ -65,9 +84,7 @@ class LogoutViewLauncher: NSObject {
     
     // MARK: - Selector
     @objc func dismissLogoutView() {
-        let logoutViewWidth = screenWidth * 0.85
         let logoutViewHeight = screenWidth * 0.6
-        let centerXPosition = screenWidth/2 - logoutViewWidth/2
         let centerYPosition = screenHeight/2 - logoutViewHeight/2
         
         UIView.animate(withDuration: 0.25) { [weak self] in
@@ -79,5 +96,10 @@ class LogoutViewLauncher: NSObject {
             self?.blackBgView.removeFromSuperview()
             self?.logoutView.removeFromSuperview()
         }
+    }
+    
+    @objc func logout() {
+        dismissLogoutView()
+        delegate?.didTapLogout()
     }
 }
