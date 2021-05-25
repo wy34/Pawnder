@@ -21,6 +21,7 @@ class AboutVC: UIViewController {
             genderLabel.textColor = aboutVM.userGender.textColor
             genderLabel.backgroundColor = aboutVM.userGender.bgColor
             bioLabel.text = aboutVM.userInfo.bio
+            locationLabel.text = aboutVM.locationName
         }
     }
     

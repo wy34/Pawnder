@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 import CoreLocation
 
 struct User {
@@ -14,7 +15,8 @@ struct User {
     var age: Int?
     var breed: String?
     var bio: String?
-    var location: String?
+    var locationName: String?
+    var coordinate: CLLocation?
     var gender: Gender
     var imageUrls: [String: String]?
     var genderPreference: Gender?
@@ -34,9 +36,18 @@ struct User {
         self.minAgePreference = dictionary["minAgePreference"] as? Int
         self.maxAgePreference = dictionary["maxAgePreference"] as? Int
         self.distancePreference = dictionary["distancePreference"] as? Int
+        setLocationInfo(dictionary)
     }
     
     func toCardViewModel() -> CardViewModel {
         return CardViewModel(user: self)
+    }
+    
+    mutating func setLocationInfo(_ dict: [String: Any]) {
+        let locationDict = dict["location"] as? [String: Any]
+        locationName = locationDict?["name"] as? String ?? ""
+        
+        let geoPoint = locationDict?["coord"] as? GeoPoint
+        coordinate = CLLocation(latitude: geoPoint?.latitude ?? 0.0, longitude: geoPoint?.longitude ?? 0.0)
     }
 }

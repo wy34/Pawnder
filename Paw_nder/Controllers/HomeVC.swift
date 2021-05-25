@@ -11,7 +11,7 @@ import Firebase
 
 class HomeVC: LoadingViewController {
     // MARK: - Properties
-    var locationManager = CLLocationManager()
+    var locationManager = LocationManager.shared
     var homeViewModel = HomeViewModel()
     var currentTopCardView: CardView?
     var topCardView: CardView?
@@ -41,9 +41,10 @@ class HomeVC: LoadingViewController {
         super.viewDidLoad()
         layoutUI()
         configureUI()
-//        checkLocationServices()
         setupAuthStateChangeListener()
         setupNotificationObservers()
+        
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
     }
     
     deinit {
@@ -82,39 +83,16 @@ class HomeVC: LoadingViewController {
         cardView.fill(superView: cardsDeckView)
     }
     
-//    private func checkLocationServices() {
-//        if CLLocationManager.locationServicesEnabled() {
-//            setupLocationManager()
-//            checkLocationAuthorization()
-//        } else {
-//            let vc = UIViewController()
-//            vc.view.backgroundColor = .red
-//            present(vc, animated: true, completion: nil)
-//        }
-//    }
-    
-//    private func setupLocationManager() {
-//        locationManager.delegate = self
-//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//    }
-//
-//    private func checkLocationAuthorization() {
-//        switch locationManager.authorizationStatus {
-//            case .notDetermined:
-//                locationManager.requestWhenInUseAuthorization()
-//            case .authorizedWhenInUse:
-//                locationManager.startUpdatingLocation()
-//            case .restricted, .denied, .authorizedAlways:
-//                break
-//            @unknown default:
-//                break
-//        }
-//    }
-    
     private func setupAuthStateChangeListener() {
         Auth.auth().addStateDidChangeListener { [weak self] auth, user in
             if let _ = user {
                 self?.setupHomeContent()
+                self?.locationManager.locationManager.delegate = self
+                self?.locationManager.checkLocationServices(delegate: self!, completion: { error in
+                    if let error = error {
+                        self?.showAlert(title: "Error", message: error.localizedDescription)
+                    }
+                })
             } else {
                 self?.presentLoginScreen()
             }
@@ -282,24 +260,21 @@ extension HomeVC: CardViewDelegate {
     }
 }
 
-//// MARK: - CLLocationManagerDelegate
-//extension HomeVC: CLLocationManagerDelegate {
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        let geocoder = CLGeocoder()
-//        let location = locations[0]
-//
-//        geocoder.reverseGeocodeLocation(location) { placemarks, error in
-//            if let error = error {
-//                print(error)
-//            }
-//
-//            if let placemark = placemarks?.first {
-//                print(placemark.thoroughfare)
-//            }
-//        }
-//    }
-//
-//    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-//        checkLocationAuthorization()
-//    }
-//}
+// MARK: - CLLocationManagerDelegate
+extension HomeVC: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        locationManager.checkLocationAuthorization { error in
+            if let error = error {
+                self.showAlert(title: "Error", message: error.localizedDescription)
+            }
+        }
+    }
+}

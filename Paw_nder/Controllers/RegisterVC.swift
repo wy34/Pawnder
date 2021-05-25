@@ -41,7 +41,7 @@ class RegisterVC: LoadingViewController {
     private lazy var buttonStack = PawStackView(views: [existingUserButton, registerButton], spacing: 15, distribution: .fillEqually)
     
     private lazy var formStack = PawStackView(views: [headerStack, nameTextField, emailTextField, passwordTextField, buttonStack], spacing: 18, axis: .vertical, distribution: .fillEqually, alignment: .fill)
-    
+        
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -188,7 +188,7 @@ class RegisterVC: LoadingViewController {
             switch result {
                 case .success(_):
                     NotificationCenter.default.post(Notification(name: .didRegisterNewUser, object: nil, userInfo: nil))
-                    self.dismiss(animated: true, completion: nil)                 
+                    self.dismiss(animated: true, completion: nil)
                 case .failure(let error):
                     self.showAlert(title: "Error", message: error.localizedDescription)
             }

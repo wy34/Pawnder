@@ -106,7 +106,8 @@ class FirebaseManager {
                 
                 self?.users[user.uid] = user
 
-                if user.uid != currentUserId && swipes[user.uid] == nil {
+//                swipes[user.uid] == nil
+                if user.uid != currentUserId && true {
 //                    self?.lastFetchedUser = user
                     users.append(user)
                 }
@@ -166,6 +167,7 @@ class FirebaseManager {
             "breed": user.breed ?? "",
             "age": user.age ?? "",
             "bio": user.bio ?? "",
+            "location": ["name": user.locationName ?? "", "coord": GeoPoint(latitude: user.coordinate?.coordinate.latitude ?? 0, longitude: user.coordinate?.coordinate.longitude ?? 0)],
             "imageUrls": user.imageUrls ?? [0: ""],
             "gender": user.gender.rawValue,
             "genderPreference": user.genderPreference?.rawValue ?? "",

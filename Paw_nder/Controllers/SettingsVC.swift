@@ -44,6 +44,7 @@ class SettingsVC: LoadingViewController {
     // MARK: - Helpers
     private func configureNavBar() {
         navigationItem.title = "Settings"
+        navigationController?.navigationBar.isTranslucent = false
     }
     
     private func configureUI() {
@@ -92,7 +93,7 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
             default: vc = EditSettingsPreferenceVC()
         }
         
-        vc.newSettingsVC = self
+        vc.settingsVC = self
         vc.configureWith(setting: settingsVM.settingOptions[indexPath.row])
         navigationController?.pushViewController(vc, animated: true)
         

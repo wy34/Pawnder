@@ -126,6 +126,7 @@ class CardView: LoadingView {
         profileImageView.setImage(imageUrlString: cardVM.firstImageUrl) { self.stopLoadingCards() }
         nameLabel.text = cardVM.userInfo.name
         breedAgeLabel.text = cardVM.userBreedAge
+        locationLabel.text = cardVM.locationName
     }
     
     private func showLikeDislikeIndicators(translation: CGPoint) {

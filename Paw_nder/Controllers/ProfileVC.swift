@@ -106,6 +106,7 @@ class ProfileVC: LoadingViewController {
         genderLabel.textColor = settingsVM.userGender.textColor
         genderLabel.backgroundColor = settingsVM.userGender.bgColor
         bioLabel.text = settingsVM.user?.bio
+        locationLabel.text = settingsVM.locationName
     }
     
     func fetchCurrentUserInfo() {

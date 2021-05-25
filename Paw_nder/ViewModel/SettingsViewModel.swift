@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import CoreLocation
 
 class SettingsViewModel {
     // MARK: - Properties
@@ -76,9 +77,13 @@ class SettingsViewModel {
             Setting(index: 2, title: .age, preview: "\(user.age ?? 0)", emoji: "💯"),
             Setting(index: 3, title: .gender, preview: user.gender.rawValue, emoji: "👫"),
             Setting(index: 4, title: .bio, preview: user.bio, emoji: "🧬"),
-            Setting(index: 5, title: .location, preview: "user.location", emoji: "📍"),
+            Setting(index: 5, title: .location, preview: user.locationName, emoji: "📍"),
             Setting(index: 6, title: .preference, preview: "", emoji: "⚙️")
         ]
+    }
+    
+    var locationName: String {
+        return user?.locationName ?? ""
     }
     
     // MARK: - Helpers

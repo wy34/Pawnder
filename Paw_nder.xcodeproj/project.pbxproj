@@ -65,6 +65,8 @@
 		4C75AE522633C2D900255A7A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C75AE512633C2D900255A7A /* LoadingView.swift */; };
 		4C7611BB263C9809007A2D01 /* PagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7611BA263C9809007A2D01 /* PagingController.swift */; };
 		4C7611BD263CCBCA007A2D01 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7611BC263CCBCA007A2D01 /* AboutVC.swift */; };
+		4C779B28265CB30B00BB1DD9 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C779B27265CB30B00BB1DD9 /* LocationManager.swift */; };
+		4C779B2A265CB68300BB1DD9 /* CLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C779B29265CB68300BB1DD9 /* CLLocation.swift */; };
 		4C86D3E0264DFD1B00094591 /* IconLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C86D3DF264DFD1B00094591 /* IconLabel.swift */; };
 		4C8F8CF32649B1DA00A62E85 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F8CF22649B1DA00A62E85 /* Message.swift */; };
 		4C8F8CF52649B28400A62E85 /* MessageBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F8CF42649B28400A62E85 /* MessageBubbleCell.swift */; };
@@ -151,6 +153,8 @@
 		4C75AE512633C2D900255A7A /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		4C7611BA263C9809007A2D01 /* PagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingController.swift; sourceTree = "<group>"; };
 		4C7611BC263CCBCA007A2D01 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
+		4C779B27265CB30B00BB1DD9 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		4C779B29265CB68300BB1DD9 /* CLLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocation.swift; sourceTree = "<group>"; };
 		4C86D3DF264DFD1B00094591 /* IconLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLabel.swift; sourceTree = "<group>"; };
 		4C8F8CF22649B1DA00A62E85 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		4C8F8CF42649B28400A62E85 /* MessageBubbleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubbleCell.swift; sourceTree = "<group>"; };
@@ -235,6 +239,7 @@
 				4C6349732634C6F9006AE44B /* Notification.Name.swift */,
 				4C2A564E264046DB0085F887 /* UIApplication.swift */,
 				4C392FDB264B0F1D00A729F7 /* Date.swift */,
+				4C779B29265CB68300BB1DD9 /* CLLocation.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -357,6 +362,7 @@
 			isa = PBXGroup;
 			children = (
 				4C75AE43263394AD00255A7A /* FirebaseManager.swift */,
+				4C779B27265CB30B00BB1DD9 /* LocationManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -617,6 +623,7 @@
 				4C4AC212265616AB00AAB471 /* EditSettingsPreferenceVC.swift in Sources */,
 				4C49BA8F262E3928006F046B /* AppDelegate.swift in Sources */,
 				4CB95F9E265326A200A50237 /* EditSettingsGenderVC.swift in Sources */,
+				4C779B28265CB30B00BB1DD9 /* LocationManager.swift in Sources */,
 				4C63496E2634B258006AE44B /* Settings1VC.swift in Sources */,
 				4C491A85263EFB9B009BCE40 /* CopySettingsVC.swift in Sources */,
 				4C392FE2264B85EE00A729F7 /* RecentMessage.swift in Sources */,
@@ -626,6 +633,7 @@
 				4C68459C2648E6E20003988C /* MessageLogVC.swift in Sources */,
 				4CD2810B26521E95005C1594 /* NewSettingsCell.swift in Sources */,
 				4CB95F9926531EC100A50237 /* PaddedTextField.swift in Sources */,
+				4C779B2A265CB68300BB1DD9 /* CLLocation.swift in Sources */,
 				4C2536662658ACA700A09188 /* LogoutViewLauncher.swift in Sources */,
 				4C5EAD7226311BE900653AE0 /* PawTextField.swift in Sources */,
 				4C6349782634E509006AE44B /* PaddedLabel.swift in Sources */,
@@ -798,6 +806,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YNSMJAS38V;
 				INFOPLIST_FILE = Paw_nder/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -818,6 +827,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YNSMJAS38V;
 				INFOPLIST_FILE = Paw_nder/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -10,7 +10,7 @@ import UIKit
 class EditSettingsRootVC: LoadingViewController {
     // MARK: - Properties
     let settingsVM = SettingsViewModel.shared
-    var newSettingsVC: SettingsVC?
+    var settingsVC: SettingsVC?
     var settings: Setting?
 
     // MARK: - Views
@@ -54,7 +54,7 @@ class EditSettingsRootVC: LoadingViewController {
             }
 
             self.dismissLoader()
-            self.newSettingsVC?.tableView.reloadRows(at: [IndexPath(row: self.settings!.index, section: 0)], with: .automatic)
+            self.settingsVC?.tableView.reloadRows(at: [IndexPath(row: self.settings!.index, section: 0)], with: .automatic)
         }
     }
 }

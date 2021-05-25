@@ -10,10 +10,18 @@ import SwiftUI
 
 class IconLabel: UIView {
     // MARK: - Properties
+    var image: UIImage?
+    var cornerRadius: CGFloat = 0
     
+    var text: String? {
+        didSet {
+            guard let image = image, let text = text else { return }
+            configureLabelWith(image: image, text: text, cornerRadius: cornerRadius)
+        }
+    }
     
     // MARK: - Views
-    private let label = PaddedLabel(text: "Los Angelos, CA", font: .systemFont(ofSize: 14, weight: .medium), padding: 5)
+    private let label = PaddedLabel(text: "Los Angelos, CA", font: .systemFont(ofSize: 14, weight: .medium), padding: 6)
 
     // MARK: - Init
     override init(frame: CGRect) {
@@ -28,15 +36,17 @@ class IconLabel: UIView {
     
     init(text: String, image: UIImage, cornerRadius: CGFloat = 0) {
         super.init(frame: .zero)
+        self.image = image
+        self.cornerRadius = cornerRadius
         configureLabelWith(image: image, text: text, cornerRadius: cornerRadius)
         layouUI()
     }
     
     // MARK: - Helpers
-    func configureLabelWith(image: UIImage, text: String, cornerRadius: CGFloat = 0) {
+    private func configureLabelWith(image: UIImage, text: String, cornerRadius: CGFloat = 0) {
         let imageAttachment = NSTextAttachment()
         imageAttachment.image = image.withTintColor(.white)
-        imageAttachment.bounds = CGRect(x: 0, y: -4, width: imageAttachment.image!.size.width * 0.7, height: imageAttachment.image!.size.height * 0.7)
+        imageAttachment.bounds = CGRect(x: 0, y: -3, width: imageAttachment.image!.size.width * 0.7, height: imageAttachment.image!.size.height * 0.7)
         
         let completeText = NSMutableAttributedString(string: "")
         
@@ -53,7 +63,7 @@ class IconLabel: UIView {
         label.attributedText = completeText
     }
     
-    func layouUI() {
+    private func layouUI() {
         addSubviews(label)
         label.anchor(top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, leading: leadingAnchor)
     }

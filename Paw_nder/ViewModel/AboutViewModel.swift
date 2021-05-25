@@ -39,4 +39,8 @@ class AboutViewModel {
     var userBreedAge: String {
         return cardViewModel?.userBreedAge ?? ""
     }
+    
+    var locationName: String {
+        return cardViewModel?.locationName ?? ""
+    }
 }

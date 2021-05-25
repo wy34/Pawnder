@@ -47,6 +47,10 @@ class CardViewModel {
         return "\(user.breed?.uppercased() ?? "N/A")  •  \(userAge)"
     }
     
+    var locationName: String {
+        return user?.locationName ?? ""
+    }
+    
     // MARK: - Init
     init(user: User) {
         self.user = user
