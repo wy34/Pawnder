@@ -126,6 +126,7 @@ class CardView: LoadingView {
         profileImageView.setImage(imageUrlString: cardVM.firstImageUrl) { self.stopLoadingCards() }
         nameLabel.text = cardVM.userInfo.name
         breedAgeLabel.text = cardVM.userBreedAge
+        breedAgeLabel.textColor = cardVM.userBreedAgeColor
         locationLabel.text = cardVM.locationName
     }
     

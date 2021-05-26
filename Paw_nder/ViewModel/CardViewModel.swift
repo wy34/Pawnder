@@ -47,6 +47,10 @@ class CardViewModel {
         return "\(user.breed?.uppercased() ?? "N/A")  •  \(userAge)"
     }
     
+    var userBreedAgeColor: UIColor {
+        return user.gender == .male ? lightBlue : lightRed
+    }
+    
     var locationName: String {
         return user?.locationName ?? ""
     }

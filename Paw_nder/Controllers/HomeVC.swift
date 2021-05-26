@@ -16,6 +16,7 @@ class HomeVC: LoadingViewController {
     var currentTopCardView: CardView?
     var topCardView: CardView?
     var previousCardView: CardView?
+    var isFirstLocation = true
     
     // MARK: - Views
     private let navbarView = PawView()
@@ -33,7 +34,7 @@ class HomeVC: LoadingViewController {
     private lazy var mainStack = PawStackView(views: [navbarView, cardsDeckView, bottomControlsView], axis: .vertical, alignment: .center)
     
     private let emptyStackImageView = PawImageView(image: crying, contentMode: .scaleAspectFit)
-    private let emptyStackLabel = PawLabel(text: "No Users. Switch up your preferences or try again later.", textColor: .black, font: .systemFont(ofSize: 14, weight: .medium), alignment: .center)
+    private let emptyStackLabel = PawLabel(text: "Empty Stack. Switch up your preferences or try again later.", textColor: .black, font: .systemFont(ofSize: 14, weight: .medium), alignment: .center)
     private lazy var emptyStack = PawStackView(views: [emptyStackImageView, emptyStackLabel], spacing: 5, axis: .vertical)
     
     // MARK: - Lifecycle
@@ -269,8 +270,11 @@ extension HomeVC: CardViewDelegate {
 // MARK: - CLLocationManagerDelegate
 extension HomeVC: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        #warning("Maybe suggest an update in the settings page or just show an alert???")
-        print("at least a mile difference changed")
+        if !isFirstLocation {
+            showUpdateNewLocationAlert()
+        }
+        
+        isFirstLocation = false
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -281,6 +285,19 @@ extension HomeVC: CLLocationManagerDelegate {
         locationManager.checkLocationAuthorization { error in
             if let error = error {
                 self.showAlert(title: "Error", message: error.localizedDescription)
+            }
+        }
+    }
+    
+    private func showUpdateNewLocationAlert() {
+        let title = "New Location Detected"
+        let message = "Would you like to update to this new location? You can always do this in settings as well."
+        showAlert(title: title, message: message, leftButtonTitle: "No", rightButtonTitle: "Yes") { [weak self] alertAction in
+            guard let self = self else { return }
+            self.locationManager.saveUserLocation { error in
+                if let error = error {
+                    self.showAlert(title: "Error", message: error.localizedDescription)
+                }
             }
         }
     }

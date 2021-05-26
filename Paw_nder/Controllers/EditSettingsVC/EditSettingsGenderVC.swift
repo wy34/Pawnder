@@ -16,8 +16,8 @@ class EditSettingsGenderVC: EditSettingsRootVC {
     private let genderLabel = PaddedLabel(text: "?", font: .systemFont(ofSize: 35, weight: .bold), padding: 5)
     private lazy var labelStack = PawStackView(views: [headingLabel, genderLabel], spacing: -5, distribution: .fill, alignment: .center)
     
-    private let maleButton = PawButton(title: "🙎‍♂️", font: .systemFont(ofSize: 75, weight: .bold))
-    private let femaleButton = PawButton(title: "🙎‍♀️", font: .systemFont(ofSize: 75, weight: .bold))
+    private let maleButton = PawButton(title: "🙋‍♂️", font: .systemFont(ofSize: 75, weight: .bold))
+    private let femaleButton = PawButton(title: "🙋‍♀️", font: .systemFont(ofSize: 75, weight: .bold))
     private lazy var buttonStack = PawStackView(views: [maleButton, femaleButton], spacing: 10, distribution: .fillEqually, alignment: .fill)
 
     // MARK: - Lifecycle

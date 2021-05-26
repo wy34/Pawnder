@@ -12,9 +12,9 @@ class EditSettingsPreferenceVC: EditSettingsRootVC {
     
     // MARK: - Views
     private let iWannaMeetLabel = PawLabel(text: "I wanna meet:", textColor: .gray, font: .systemFont(ofSize: 18, weight: .bold), alignment: .left)
-    private let maleButton = PawButton(title: "🙎‍♂️", font: .systemFont(ofSize: 30, weight: .bold))
-    private let femaleButton = PawButton(title: "🙎‍♀️", font: .systemFont(ofSize: 30, weight: .bold))
-    private let allButton = PawButton(title: "🙎‍♂️🙎‍♀️", font: .systemFont(ofSize: 30, weight: .bold))
+    private let maleButton = PawButton(title: "🙋‍♂️", font: .systemFont(ofSize: 30, weight: .bold))
+    private let femaleButton = PawButton(title: "🙋‍♀️", font: .systemFont(ofSize: 30, weight: .bold))
+    private let allButton = PawButton(title: "🙋‍♂️🙋‍♀️", font: .systemFont(ofSize: 30, weight: .bold))
     private lazy var buttonStack = PawStackView(views: [maleButton, femaleButton, allButton], spacing: 10, distribution: .fillEqually, alignment: .fill)
     private lazy var genderStack = PawStackView(views: [iWannaMeetLabel, buttonStack], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
     
