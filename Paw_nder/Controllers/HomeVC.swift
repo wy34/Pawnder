@@ -228,7 +228,7 @@ extension HomeVC: HomeNavbarStackDelegate {
     }
     
     func handleFilterTapped() {
-        filterViewLauncher.showFilterView()
+        filterViewLauncher.showFilterViewFor(user: homeViewModel.currentUser)
     }
 }
 
@@ -270,6 +270,8 @@ extension HomeVC: CardViewDelegate {
 // MARK: - CLLocationManagerDelegate
 extension HomeVC: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print(isFirstLocation)
+        
         if !isFirstLocation {
             showUpdateNewLocationAlert()
         }

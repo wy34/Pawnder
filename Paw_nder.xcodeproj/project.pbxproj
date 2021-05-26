@@ -75,6 +75,7 @@
 		4CA40BE6262F4DE000B11232 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BE5262F4DE000B11232 /* CardView.swift */; };
 		4CA40BEA262F716A00B11232 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BE9262F716A00B11232 /* User.swift */; };
 		4CA40BEF262F7F4F00B11232 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */; };
+		4CAE8F55265EE712007C12EC /* PreferenceFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE8F54265EE712007C12EC /* PreferenceFormView.swift */; };
 		4CB95F9926531EC100A50237 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB95F9826531EC100A50237 /* PaddedTextField.swift */; };
 		4CB95F9B2653241B00A50237 /* EditSettingsBioVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB95F9A2653241B00A50237 /* EditSettingsBioVC.swift */; };
 		4CB95F9E265326A200A50237 /* EditSettingsGenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB95F9D265326A200A50237 /* EditSettingsGenderVC.swift */; };
@@ -163,6 +164,7 @@
 		4CA40BE5262F4DE000B11232 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		4CA40BE9262F716A00B11232 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		4CAE8F54265EE712007C12EC /* PreferenceFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceFormView.swift; sourceTree = "<group>"; };
 		4CB95F9826531EC100A50237 /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
 		4CB95F9A2653241B00A50237 /* EditSettingsBioVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsBioVC.swift; sourceTree = "<group>"; };
 		4CB95F9D265326A200A50237 /* EditSettingsGenderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsGenderVC.swift; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 				4C634981263519C6006AE44B /* ImagePickerButtonView.swift */,
 				4C062F56264F7B01009D999D /* ImagePickerView.swift */,
 				4C2536652658ACA700A09188 /* LogoutViewLauncher.swift */,
+				4CAE8F54265EE712007C12EC /* PreferenceFormView.swift */,
 			);
 			path = UIViews;
 			sourceTree = "<group>";
@@ -634,6 +637,7 @@
 				4CD2810B26521E95005C1594 /* NewSettingsCell.swift in Sources */,
 				4CB95F9926531EC100A50237 /* PaddedTextField.swift in Sources */,
 				4C779B2A265CB68300BB1DD9 /* CLLocation.swift in Sources */,
+				4CAE8F55265EE712007C12EC /* PreferenceFormView.swift in Sources */,
 				4C2536662658ACA700A09188 /* LogoutViewLauncher.swift in Sources */,
 				4C5EAD7226311BE900653AE0 /* PawTextField.swift in Sources */,
 				4C6349782634E509006AE44B /* PaddedLabel.swift in Sources */,

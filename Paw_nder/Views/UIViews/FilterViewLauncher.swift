@@ -11,41 +11,17 @@ import SwiftUI
 
 class FilterViewLauncher: UIView {
     // MARK: - Properties
-
+    
     // MARK: - Views
     private let blackBgView = PawView(bgColor: .black.withAlphaComponent(0.5))
     
-    private let filterCardView = PawView(bgColor: .white, cornerRadius: 30)
+    private let filterCardView = PawView(bgColor: bgLightGray, cornerRadius: 30)
     private let dismissButton = PawButton(image: SFSymbols.xmark, tintColor: .black, font: .systemFont(ofSize: 16, weight: .bold))
     private let filterTitle = PawLabel(text: "Filters", font: .systemFont(ofSize: 24, weight: .bold), alignment: .center)
     private let saveButton = PawButton(image: SFSymbols.checkmark, tintColor: .black, font: .systemFont(ofSize: 16, weight: .bold))
     private lazy var headingStack = PawStackView(views: [dismissButton, filterTitle, saveButton], distribution: .fillEqually, alignment: .fill)
     
-    private let iWannaMeetLabel = PawLabel(text: "I wanna meet:", textColor: .gray, font: .systemFont(ofSize: 18, weight: .bold), alignment: .left)
-    private let maleButton = PawButton(title: "🙋‍♂️", font: .systemFont(ofSize: 30, weight: .bold))
-    private let femaleButton = PawButton(title: "🙋‍♀️", font: .systemFont(ofSize: 30, weight: .bold))
-    private let allButton = PawButton(title: "🙋‍♂️🙋‍♀️", font: .systemFont(ofSize: 30, weight: .bold))
-    private lazy var buttonStack = PawStackView(views: [maleButton, femaleButton, allButton], spacing: 10, distribution: .fillEqually, alignment: .fill)
-    private lazy var genderStack = PawStackView(views: [iWannaMeetLabel, buttonStack], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
-    
-    private let ageRangeLabel = PawLabel(text: "Age range:", textColor: .gray, font: .systemFont(ofSize: 18, weight: .bold), alignment: .left)
-    private let minLabel = PawLabel(text: "Min: 0", textColor: .darkGray, font: .systemFont(ofSize: 14), alignment: .left)
-    private let minSlider = PawSlider(starting: 0, min: 0, max: 1)
-    private lazy var minStack = PawStackView(views: [minLabel, minSlider], distribution: .fill, alignment: .fill)
-
-    private let maxLabel = PawLabel(text: "Max: 0", textColor: .darkGray, font: .systemFont(ofSize: 14), alignment: .left)
-    private let maxSlider = PawSlider(starting: 0, min: 0, max: 1)
-    private lazy var maxStack = PawStackView(views: [maxLabel, maxSlider], distribution: .fill, alignment: .fill)
-
-    private lazy var ageStack = PawStackView(views: [ageRangeLabel, minStack, maxStack], spacing: 10, axis: .vertical, distribution: .fillEqually, alignment: .fill)
-    
-    private let distanceLabel = PawLabel(text: "Within:", textColor: .gray, font: .systemFont(ofSize: 18, weight: .bold), alignment: .left)
-    private let milesLabel = PawLabel(text: "0 mi", textColor: .darkGray, font: .systemFont(ofSize: 14), alignment: .left)
-    private let milesSlider = PawSlider(starting: 0, min: 0, max: 1)
-    private lazy var milesStack = PawStackView(views: [milesLabel, milesSlider], distribution: .fill, alignment: .fill)
-    private lazy var distanceStack = PawStackView(views: [distanceLabel, milesStack], spacing: 10, axis: .vertical, distribution: .fillEqually, alignment: .fill)
-    
-    private lazy var optionsStack = PawStackView(views: [genderStack, ageStack, distanceStack], axis: .vertical, distribution: .equalSpacing, alignment: .fill)
+    private let preferenceFormView = PreferenceFormView()
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -59,36 +35,23 @@ class FilterViewLauncher: UIView {
     }
     
     // MARK: - Helpers
-    func configureUI() {
+    private func configureUI() {
         dismissButton.contentHorizontalAlignment = .left
         saveButton.contentHorizontalAlignment = .right
         blackBgView.alpha = 0
-        
-        [maleButton, femaleButton, allButton].forEach({
-            $0.backgroundColor = .white
-            $0.layer.borderWidth = 3
-            $0.layer.cornerRadius = 20
-            $0.layer.borderColor = UIColor.lightGray.cgColor
-        })
     }
     
-    func layoutFilterCard() {
-        filterCardView.addSubviews(headingStack, optionsStack)
+    private func layoutFilterCard() {
+        filterCardView.addSubviews(headingStack, preferenceFormView)
         headingStack.setDimension(height: filterCardView.heightAnchor, hMult: 0.1)
         headingStack.anchor(top: filterCardView.topAnchor, trailing: filterCardView.trailingAnchor, leading: filterCardView.leadingAnchor, paddingTop: 15, paddingTrailing: 25, paddingLeading: 25)
-        
-        optionsStack.anchor(top: headingStack.bottomAnchor, trailing: headingStack.trailingAnchor, bottom: filterCardView.bottomAnchor, leading: headingStack.leadingAnchor, paddingTop: 15, paddingBottom: 50)
-        
-        genderStack.setDimension(height: filterCardView.widthAnchor, hMult: 0.25)
-        iWannaMeetLabel.setDimension(hConst: 20)
-
-        minLabel.setDimension(width: filterCardView.widthAnchor, wMult: 0.17)
-        maxLabel.setDimension(width: filterCardView.widthAnchor, wMult: 0.17)
-
-        milesLabel.setDimension(width: filterCardView.widthAnchor, wMult: 0.17)
+        preferenceFormView.anchor(top: headingStack.bottomAnchor, trailing: filterCardView.trailingAnchor, bottom: filterCardView.bottomAnchor, leading: filterCardView.leadingAnchor, paddingTop: 25, paddingBottom: 10)
     }
     
-    func showFilterView() {
+    func showFilterViewFor(user: User?) {
+        preferenceFormView.loadSliderValuesFor(user: user)
+        preferenceFormView.loadGenderPreference()
+        
         if let keyWindow = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first {
             keyWindow.addSubview(self.blackBgView)
             self.blackBgView.frame = keyWindow.frame
@@ -107,9 +70,10 @@ class FilterViewLauncher: UIView {
         }
     }
     
-    func setupActionsAndGestures() {
+    private func setupActionsAndGestures() {
         blackBgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissFilterView)))
         dismissButton.addTarget(self, action: #selector(dismissFilterView), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(saveAndApplyFilters), for: .touchUpInside)
     }
     
     // MARK: - Selector
@@ -122,5 +86,10 @@ class FilterViewLauncher: UIView {
                 self.filterCardView.frame.origin.y = keyWindow.frame.height
             }
         }
+    }
+    
+    @objc func saveAndApplyFilters() {
+        #warning("save filters")
+        
     }
 }

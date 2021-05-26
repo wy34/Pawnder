@@ -14,6 +14,7 @@ class SettingsViewModel {
     static let shared = SettingsViewModel()
     
     var user: User?
+    var userCopy: User?
     var selectedImages = [Int: UIImage]()
     
     var userAge: String {
@@ -88,11 +89,12 @@ class SettingsViewModel {
     
     // MARK: - Helpers
     func updateUserInfo(completion: @escaping (Error?) -> Void) {
+        userCopy = user
         FirebaseManager.shared.updateUser(user: self.user!) { (error) in
             if let _ = error {
                 completion(error)
             }
-            
+
             completion(nil)
         }
     }

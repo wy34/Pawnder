@@ -35,7 +35,7 @@ struct User {
         self.genderPreference = Gender(rawValue: dictionary["genderPreference"] as? String ?? "All") ?? .all
         self.minAgePreference = dictionary["minAgePreference"] as? Int
         self.maxAgePreference = dictionary["maxAgePreference"] as? Int
-        self.distancePreference = dictionary["distancePreference"] as? Int
+        self.distancePreference = dictionary["distancePreference"] as? Int ?? 150
         setLocationInfo(dictionary)
     }
     
