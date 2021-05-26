@@ -45,7 +45,7 @@ struct User {
     
     mutating func setLocationInfo(_ dict: [String: Any]) {
         let locationDict = dict["location"] as? [String: Any]
-        locationName = locationDict?["name"] as? String ?? ""
+        locationName = locationDict?["name"] as? String ?? "Location Unavailable"
         
         let geoPoint = locationDict?["coord"] as? GeoPoint
         coordinate = CLLocation(latitude: geoPoint?.latitude ?? 0.0, longitude: geoPoint?.longitude ?? 0.0)

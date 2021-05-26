@@ -37,6 +37,7 @@ class HomeViewModel {
                 return
             }
             
+            #warning("can refactor")
             if let swipes = snapshot?.data() as? [String: Int] {
                 self.swipes = swipes
                 self.fetchUsers(currentUser: user)

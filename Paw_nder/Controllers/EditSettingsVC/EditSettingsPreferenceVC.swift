@@ -30,7 +30,7 @@ class EditSettingsPreferenceVC: EditSettingsRootVC {
     private lazy var ageStack = PawStackView(views: [ageRangeLabel, minStack, maxStack], spacing: 10, axis: .vertical, distribution: .fillEqually, alignment: .fill)
     
     private let distanceLabel = PawLabel(text: "Within:", textColor: .gray, font: .systemFont(ofSize: 18, weight: .bold), alignment: .left)
-    private let milesLabel = PawLabel(text: "0 miles", textColor: .darkGray, font: .systemFont(ofSize: 14), alignment: .left)
+    private let milesLabel = PawLabel(text: "0 mi", textColor: .darkGray, font: .systemFont(ofSize: 14), alignment: .left)
     private let milesSlider = PawSlider(starting: 0, min: 0, max: 1)
     private lazy var milesStack = PawStackView(views: [milesLabel, milesSlider], distribution: .fill, alignment: .fill)
     private lazy var distanceStack = PawStackView(views: [distanceLabel, milesStack], spacing: 10, axis: .vertical, distribution: .fillEqually, alignment: .fill)

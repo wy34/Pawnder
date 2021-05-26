@@ -31,8 +31,8 @@ class EditSettingsLocationVC: EditSettingsRootVC {
     
     override func configureUI() {
         super.configureUI()
-        changeLocationButton.layer.cornerRadius = view.frame.width * 0.15 / 2
-        changeLocationButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
+        changeLocationButton.layer.cornerRadius = view.frame.width * 0.1 / 2
+        changeLocationButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
     }
     
     override func layoutUI() {
@@ -41,8 +41,8 @@ class EditSettingsLocationVC: EditSettingsRootVC {
         labelStack.center(to: view, by: .centerY, withMultiplierOf: 0.5)
         labelStack.anchor(trailing: view.trailingAnchor, leading: view.leadingAnchor, paddingTrailing: 25, paddingLeading: 25)
         
-        changeLocationButton.setDimension(width: view.widthAnchor, height: view.widthAnchor, wMult: 0.5, hMult: 0.15)
-        changeLocationButton.center(to: view, by: .centerY, withMultiplierOf: 0.85)
+        changeLocationButton.setDimension(width: view.widthAnchor, height: view.widthAnchor, wMult: 0.45, hMult: 0.1)
+        changeLocationButton.center(to: view, by: .centerY, withMultiplierOf: 0.8)
         changeLocationButton.center(to: view, by: .centerX)
     }
     

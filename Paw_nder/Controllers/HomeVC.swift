@@ -87,16 +87,21 @@ class HomeVC: LoadingViewController {
         Auth.auth().addStateDidChangeListener { [weak self] auth, user in
             if let _ = user {
                 self?.setupHomeContent()
-                self?.locationManager.locationManager.delegate = self
-                self?.locationManager.checkLocationServices(delegate: self!, completion: { error in
-                    if let error = error {
-                        self?.showAlert(title: "Error", message: error.localizedDescription)
-                    }
-                })
+                self?.setupLocationServices()
             } else {
+                self?.locationManager.locationManager.stopUpdatingLocation()
                 self?.presentLoginScreen()
             }
         }
+    }
+    
+    private func setupLocationServices() {
+        locationManager.locationManager.delegate = self
+        locationManager.checkLocationServices(delegate: self, completion: { [weak self] error in
+            if let error = error {
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+            }
+        })
     }
     
     private func setupHomeContent() {
@@ -116,7 +121,7 @@ class HomeVC: LoadingViewController {
         let navContoller = UINavigationController(rootViewController: loginVC)
         navContoller.modalPresentationStyle = .fullScreen
         navContoller.modalTransitionStyle = .crossDissolve
-        self.present(navContoller, animated: true, completion: nil)
+        present(navContoller, animated: true, completion: nil)
     }
     
     private func setupFetchObserver() {
@@ -202,6 +207,7 @@ class HomeVC: LoadingViewController {
     // MARK: - Selectors
     @objc func handleNewUserRegistered() {
         setupHomeContent()
+        setupLocationServices()
     }
     
     @objc func handleUpdatedSettings() { 
@@ -263,7 +269,8 @@ extension HomeVC: CardViewDelegate {
 // MARK: - CLLocationManagerDelegate
 extension HomeVC: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-
+        #warning("Maybe suggest an update in the settings page or just show an alert???")
+        print("at least a mile difference changed")
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

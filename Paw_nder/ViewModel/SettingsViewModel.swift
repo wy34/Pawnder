@@ -65,7 +65,7 @@ class SettingsViewModel {
     }
     
     var preferredDistanceLabel: String {
-        return "\(user?.distancePreference ?? 0) miles"
+        return "\(user?.distancePreference ?? 0) mi"
     }
     
     var settingOptions: [Setting] {

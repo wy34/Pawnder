@@ -16,7 +16,8 @@ class LocationManager {
     let locationManager = CLLocationManager()
     
     var hasPreviouslySavedLocation: Bool {
-        return UserDefaults.standard.bool(forKey: "location")
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return false }
+        return UserDefaults.standard.bool(forKey: currentUserId)
     }
     
     // MARK: - Helpers
@@ -31,29 +32,44 @@ class LocationManager {
     
     func setupLocationManager(delegate: CLLocationManagerDelegate) {
         locationManager.delegate = delegate
+        locationManager.distanceFilter = 1609.34
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
     
     func saveUserLocation(completion: @escaping (Error?) -> ()) {
         guard let location = locationManager.location else { return }
-        
+
         location.cityAndStateName { cityAndStateName, error in
             if let error = error {
-                print(error)
+                completion(error)
             }
             
             let currentUserId = Auth.auth().currentUser?.uid ?? ""
             let geoPoint = GeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
             
-            Firestore.firestore().collection("users").document(currentUserId).updateData(["location": ["name": cityAndStateName, "coord": geoPoint]]) { error in
+            Firestore.firestore().collection("users").document(currentUserId).updateData(["location": ["name": cityAndStateName ?? "", "coord": geoPoint]]) { error in
                 if let error = error {
                     completion(error)
                     return
                 }
 
-                UserDefaults.standard.setValue(true, forKey: "location")
+                UserDefaults.standard.setValue(true, forKey: currentUserId)
                 completion(nil)
             }
+        }
+    }
+    
+    func removeUserLocation(completion: @escaping (Error?) -> Void) {
+        let currentUserId = Auth.auth().currentUser?.uid ?? ""
+        
+        Firestore.firestore().collection("users").document(currentUserId).updateData(["location": FieldValue.delete()]) { error in
+            if let error = error {
+                completion(error)
+                return
+            }
+
+            UserDefaults.standard.setValue(false, forKey: currentUserId)
+            completion(nil)
         }
     }
 
@@ -61,12 +77,12 @@ class LocationManager {
         switch locationManager.authorizationStatus {
             case .notDetermined:
                 locationManager.requestWhenInUseAuthorization()
-            case .authorizedWhenInUse:
+            case .authorizedWhenInUse, .authorizedAlways:
                 locationManager.startUpdatingLocation()
                 if !hasPreviouslySavedLocation { saveUserLocation(completion: completion) }
-            case .restricted, .denied, .authorizedAlways:
-                #warning("need to show Location Unavailable")
-                break
+            case .restricted, .denied:
+                locationManager.stopUpdatingLocation()
+                if hasPreviouslySavedLocation { removeUserLocation(completion: completion) }
             @unknown default:
                 break
         }

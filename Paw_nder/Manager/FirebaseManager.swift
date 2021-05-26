@@ -85,15 +85,36 @@ class FirebaseManager {
     }
     
     // MARK: - Fetching Users
+    private func matchesDistancePref(_ currentUser: User, _ otherUser: User) -> Bool {
+        let currentUserCoord = currentUser.coordinate
+        let otherUserCoord = otherUser.coordinate
+        let distanceMeters = currentUserCoord?.distance(from: otherUserCoord!)
+        let distanceMiles = Int(distanceMeters! * 0.000621371)
+        return currentUser.distancePreference! >= distanceMiles
+    }
+    
+    private func matchesGenderPref(_ currentUser: User, _ otherUser: User) -> Bool {
+        if currentUser.genderPreference != .all {
+            if otherUser.gender == currentUser.genderPreference {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return true
+        }
+    }
+    
     func fetchUsers(currentUser: User, swipes: [String: Int], completion: @escaping (Result<[CardViewModel], Error>) -> Void) {
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
         var users = [User]()
         let usersCollection = Firestore.firestore().collection("users")
-        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
         
-        #warning("Add filter that matches genderPref, agePref, and distancePref")
         usersCollection
             .whereField("age", isGreaterThanOrEqualTo: currentUser.minAgePreference ?? 0)
             .whereField("age", isLessThanOrEqualTo: (currentUser.maxAgePreference == 0 ? 100 : currentUser.maxAgePreference) ?? 100).getDocuments { [weak self] (snapshots, error) in
+            
+            guard let self = self else { return }
                 
             if let error = error {
                 completion(.failure(error))
@@ -101,13 +122,11 @@ class FirebaseManager {
             }
             
             snapshots?.documents.forEach({ (snapshot) in
-                let snapshotData = snapshot.data()
-                let user = User(dictionary: snapshotData)
-                
-                self?.users[user.uid] = user
-
+                let user = User(dictionary: snapshot.data())
+                let isValidUser = user.uid != currentUserId && self.matchesDistancePref(currentUser, user) && self.matchesGenderPref(currentUser, user) && true
+                self.users[user.uid] = user
 //                swipes[user.uid] == nil
-                if user.uid != currentUserId && true {
+                if isValidUser {
 //                    self?.lastFetchedUser = user
                     users.append(user)
                 }
@@ -159,15 +178,15 @@ class FirebaseManager {
     // MARK: - Updating User
     func updateUser(user: User, completion: @escaping (Error?) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        let coord = GeoPoint(latitude: user.coordinate?.coordinate.latitude ?? 0, longitude: user.coordinate?.coordinate.longitude ?? 0)
         
-        #warning("See if we can just save whatever was updated individually instead of everything everytime we click save")
         let docData: [String: Any] = [
             "uid": currentUserId,
             "fullName": user.name,
             "breed": user.breed ?? "",
             "age": user.age ?? "",
             "bio": user.bio ?? "",
-            "location": ["name": user.locationName ?? "", "coord": GeoPoint(latitude: user.coordinate?.coordinate.latitude ?? 0, longitude: user.coordinate?.coordinate.longitude ?? 0)],
+            "location": ["name": user.locationName ?? "", "coord": coord],
             "imageUrls": user.imageUrls ?? [0: ""],
             "gender": user.gender.rawValue,
             "genderPreference": user.genderPreference?.rawValue ?? "",
