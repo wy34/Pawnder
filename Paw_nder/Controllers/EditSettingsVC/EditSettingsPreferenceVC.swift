@@ -180,7 +180,8 @@ class EditSettingsPreferenceVC: EditSettingsRootVC {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        preferenceFormView.loadSliderValuesFor(user: settingsVM.userCopy)
+        preferenceFormView.loadBreedPreference(user: settingsVM.userCopy)
+        preferenceFormView.loadSliderValuesFor()
         preferenceFormView.loadGenderPreference()
     }
     

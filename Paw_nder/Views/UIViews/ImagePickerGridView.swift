@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 
-class ImagePickerView: UIView {
+class ImagePickerGridView: UIView {
     // MARK: - Properties
     lazy var imagePickerViews = [imagePickerView1, imagePickerView2, imagePickerView3, imagePickerView4, imagePickerView5, imagePickerView6]
     

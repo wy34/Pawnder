@@ -20,12 +20,14 @@ class FilterViewLauncher: UIView {
     private let blackBgView = PawView(bgColor: .black.withAlphaComponent(0.5))
     
     private let filterCardView = PawView(bgColor: bgLightGray, cornerRadius: 30)
-    private let dismissButton = PawButton(image: SFSymbols.xmark, tintColor: .black, font: .systemFont(ofSize: 16, weight: .bold))
+    private let dismissButton = PawButton(image: SFSymbols.xmark, tintColor: lightRed, font: .systemFont(ofSize: 16, weight: .bold))
     private let filterTitle = PawLabel(text: "Filters", font: .systemFont(ofSize: 22, weight: .bold), alignment: .center)
-    private let saveButton = PawButton(image: SFSymbols.checkmark, tintColor: .black, font: .systemFont(ofSize: 16, weight: .bold))
-    private lazy var headingStack = PawStackView(views: [dismissButton, filterTitle, saveButton], distribution: .fillEqually, alignment: .fill)
+    private lazy var headingStack = PawStackView(views: [dismissButton, filterTitle, UIView()], distribution: .fillEqually, alignment: .fill)
     
     private let preferenceFormView = PreferenceFormView()
+    
+    private let saveButtonContainerView = PawView(bgColor: .clear)
+    private let saveButton = PawButton(title: "Save", textColor: .white, bgColor: lightRed)
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -41,19 +43,31 @@ class FilterViewLauncher: UIView {
     // MARK: - Helpers
     private func configureUI() {
         dismissButton.contentHorizontalAlignment = .left
-        saveButton.contentHorizontalAlignment = .right
         blackBgView.alpha = 0
+        saveButton.layer.cornerRadius = 50/2
+        saveButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
     }
     
     private func layoutFilterCard() {
-        filterCardView.addSubviews(headingStack, preferenceFormView)
-        headingStack.setDimension(height: filterCardView.heightAnchor, hMult: 0.1)
-        headingStack.anchor(top: filterCardView.topAnchor, trailing: filterCardView.trailingAnchor, leading: filterCardView.leadingAnchor, paddingTop: 15, paddingTrailing: 30, paddingLeading: 30)
-        preferenceFormView.anchor(top: headingStack.bottomAnchor, trailing: filterCardView.trailingAnchor, bottom: filterCardView.bottomAnchor, leading: filterCardView.leadingAnchor, paddingTop: 25, paddingBottom: 10)
+        filterCardView.addSubviews(headingStack, saveButtonContainerView, preferenceFormView)
+        headingStack.setDimension(hConst: 35)
+        headingStack.anchor(top: filterCardView.topAnchor, trailing: filterCardView.trailingAnchor, leading: filterCardView.leadingAnchor, paddingTop: 30, paddingTrailing: 30, paddingLeading: 30)
+        
+        saveButtonContainerView.anchor(bottom: filterCardView.bottomAnchor, paddingBottom: 30)
+        saveButtonContainerView.setDimension(width: filterCardView.widthAnchor, height: filterCardView.widthAnchor, hMult: 0.333)
+        saveButtonContainerView.addSubview(saveButton)
+        saveButton.center(x: saveButtonContainerView.centerXAnchor, y: saveButtonContainerView.centerYAnchor)
+        saveButton.setDimension(width: filterCardView.widthAnchor, wMult: 0.5)
+        saveButton.setDimension(hConst: 50)
+        
+        preferenceFormView.anchor(top: headingStack.bottomAnchor,  bottom: saveButtonContainerView.topAnchor, paddingTop: 25, paddingBottom: 15)
+        preferenceFormView.setDimension(width: filterCardView.widthAnchor)
+        
     }
     
     func showFilterViewFor(user: User?) {
-        preferenceFormView.loadSliderValuesFor(user: user)
+        preferenceFormView.loadBreedPreference(user: user)
+        preferenceFormView.loadSliderValuesFor()
         preferenceFormView.loadGenderPreference()
         
         if let keyWindow = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first {
@@ -61,7 +75,7 @@ class FilterViewLauncher: UIView {
             self.blackBgView.frame = keyWindow.frame
             
             keyWindow.addSubview(filterCardView)
-            let height = keyWindow.frame.width * 1.15
+            let height = keyWindow.frame.width * 1.75
             filterCardView.frame = .init(x: 0, y: keyWindow.frame.height, width: keyWindow.frame.width, height: height)
             
             layoutFilterCard()

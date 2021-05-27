@@ -35,6 +35,10 @@ class SettingsViewModel {
         return "\(user?.breed?.uppercased() ?? "N/A")  •  \(userAge)"
     }
     
+    var userBreedPreference: String {
+        return user?.breedPreference ?? ""
+    }
+    
     var userGender: (text: String, textColor: UIColor, bgColor: UIColor) {
         let gender = user?.gender
         

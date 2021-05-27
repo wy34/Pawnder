@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4C062F55264F0B20009D999D /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C062F54264F0B20009D999D /* ProfileVC.swift */; };
-		4C062F57264F7B01009D999D /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C062F56264F7B01009D999D /* ImagePickerView.swift */; };
+		4C062F57264F7B01009D999D /* ImagePickerGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C062F56264F7B01009D999D /* ImagePickerGridView.swift */; };
 		4C2536662658ACA700A09188 /* LogoutViewLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2536652658ACA700A09188 /* LogoutViewLauncher.swift */; };
 		4C2A564F264046DB0085F887 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A564E264046DB0085F887 /* UIApplication.swift */; };
 		4C2A5651264059A60085F887 /* FilterViewLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A5650264059A60085F887 /* FilterViewLauncher.swift */; };
@@ -95,7 +95,7 @@
 
 /* Begin PBXFileReference section */
 		4C062F54264F0B20009D999D /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
-		4C062F56264F7B01009D999D /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		4C062F56264F7B01009D999D /* ImagePickerGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerGridView.swift; sourceTree = "<group>"; };
 		4C2536652658ACA700A09188 /* LogoutViewLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewLauncher.swift; sourceTree = "<group>"; };
 		4C2A564E264046DB0085F887 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		4C2A5650264059A60085F887 /* FilterViewLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewLauncher.swift; sourceTree = "<group>"; };
@@ -408,7 +408,7 @@
 				4C8F8CF82649E0BB00A62E85 /* MessageInputView.swift */,
 				4C86D3DF264DFD1B00094591 /* IconLabel.swift */,
 				4C634981263519C6006AE44B /* ImagePickerButtonView.swift */,
-				4C062F56264F7B01009D999D /* ImagePickerView.swift */,
+				4C062F56264F7B01009D999D /* ImagePickerGridView.swift */,
 				4C2536652658ACA700A09188 /* LogoutViewLauncher.swift */,
 				4CAE8F54265EE712007C12EC /* PreferenceFormView.swift */,
 			);
@@ -599,7 +599,7 @@
 				4CD2810F26522A40005C1594 /* EditSettingsDefaultVC.swift in Sources */,
 				4C6349742634C6F9006AE44B /* Notification.Name.swift in Sources */,
 				4C49BAC9262E8191006F046B /* Constants.swift in Sources */,
-				4C062F57264F7B01009D999D /* ImagePickerView.swift in Sources */,
+				4C062F57264F7B01009D999D /* ImagePickerGridView.swift in Sources */,
 				4C49BAB7262E3BF9006F046B /* PawLabel.swift in Sources */,
 				4C75AE492633963C00255A7A /* Credentials.swift in Sources */,
 				4C2E7C9C263BC1DD00DDA4E5 /* AboutViewModel.swift in Sources */,

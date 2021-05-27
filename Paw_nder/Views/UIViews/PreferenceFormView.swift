@@ -13,14 +13,18 @@ class PreferenceFormView: UIView {
     let settingsVM = SettingsViewModel.shared
     
     // MARK: - Views
-    private let iWannaMeetLabel = PawLabel(text: "I wanna meet:", textColor: .gray, font: .systemFont(ofSize: 18, weight: .bold), alignment: .left)
+    private let iWannaMeetLabel = PawLabel(text: "I wanna meet:", textColor: .gray, font: .systemFont(ofSize: 20, weight: .bold), alignment: .left)
     private let maleButton = PawButton(title: "🙋‍♂️", font: .systemFont(ofSize: 30, weight: .bold))
     private let femaleButton = PawButton(title: "🙋‍♀️", font: .systemFont(ofSize: 30, weight: .bold))
     private let allButton = PawButton(title: "🙋‍♂️🙋‍♀️", font: .systemFont(ofSize: 30, weight: .bold))
     private lazy var buttonStack = PawStackView(views: [maleButton, femaleButton, allButton], spacing: 10, distribution: .fillEqually, alignment: .fill)
     private lazy var genderStack = PawStackView(views: [iWannaMeetLabel, buttonStack], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
     
-    private let ageRangeLabel = PawLabel(text: "Age range:", textColor: .gray, font: .systemFont(ofSize: 18, weight: .bold), alignment: .left)
+    private let breedLabel = PawLabel(text: "Breed:", textColor: .gray, font: .systemFont(ofSize: 20, weight: .bold), alignment: .left)
+    private let breedTextfield = PaddedTextField(placeholder: "🐶 Breed", bgColor: .white, padding: .init(top: 0, left: 20, bottom: 0, right: 20))
+    private lazy var breedStack = PawStackView(views: [breedLabel, breedTextfield], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
+    
+    private let ageRangeLabel = PawLabel(text: "Age range:", textColor: .gray, font: .systemFont(ofSize: 20, weight: .bold), alignment: .left)
     private let minLabel = PawLabel(text: "Min: 0", textColor: .darkGray, font: .systemFont(ofSize: 14), alignment: .left)
     private let minSlider = PawSlider(starting: 0, min: 0, max: 1)
     private lazy var minStack = PawStackView(views: [minLabel, minSlider], distribution: .fill, alignment: .fill)
@@ -29,13 +33,13 @@ class PreferenceFormView: UIView {
     private let maxSlider = PawSlider(starting: 0, min: 0, max: 1)
     private lazy var maxStack = PawStackView(views: [maxLabel, maxSlider], distribution: .fill, alignment: .fill)
 
-    private lazy var ageStack = PawStackView(views: [ageRangeLabel, minStack, maxStack], spacing: 10, axis: .vertical, distribution: .fillEqually, alignment: .fill)
+    private lazy var ageStack = PawStackView(views: [ageRangeLabel, minStack, maxStack], spacing: 8, axis: .vertical, distribution: .fillEqually, alignment: .fill)
     
-    private let distanceLabel = PawLabel(text: "Within:", textColor: .gray, font: .systemFont(ofSize: 18, weight: .bold), alignment: .left)
+    private let distanceLabel = PawLabel(text: "Within:", textColor: .gray, font: .systemFont(ofSize: 20, weight: .bold), alignment: .left)
     private let milesLabel = PawLabel(text: "0 mi", textColor: .darkGray, font: .systemFont(ofSize: 14), alignment: .left)
     private let milesSlider = PawSlider(starting: 0, min: 0, max: 1)
     private lazy var milesStack = PawStackView(views: [milesLabel, milesSlider], distribution: .fill, alignment: .fill)
-    private lazy var distanceStack = PawStackView(views: [distanceLabel, milesStack], spacing: 10, axis: .vertical, distribution: .fillEqually, alignment: .fill)
+    private lazy var distanceStack = PawStackView(views: [distanceLabel, milesStack], spacing: 8, axis: .vertical, distribution: .fillEqually, alignment: .fill)
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -63,16 +67,24 @@ class PreferenceFormView: UIView {
         minSlider.tintColor = lightRed
         maxSlider.tintColor = lightRed
         milesSlider.tintColor = lightRed
+        
+        breedTextfield.layer.cornerRadius = 50/2
+        breedTextfield.layer.borderWidth = 1
+        breedTextfield.layer.borderColor = UIColor.lightGray.cgColor
+        breedTextfield.font = .systemFont(ofSize: 20, weight: .medium)
     }
     
     func layoutUI() {
-        addSubviews(genderStack, ageStack, distanceStack)
+        addSubviews(genderStack, breedStack, ageStack, distanceStack)
         genderStack.center(to: self, by: .centerY, withMultiplierOf: 0.25)
         genderStack.anchor(trailing: trailingAnchor, leading: leadingAnchor, paddingTrailing: 25, paddingLeading: 25)
         genderStack.setDimension(height: widthAnchor, hMult: 0.25)
         iWannaMeetLabel.setDimension(hConst: 20)
         
-        ageStack.anchor(top: genderStack.bottomAnchor, trailing: genderStack.trailingAnchor, leading: genderStack.leadingAnchor, paddingTop: 20)
+        breedStack.anchor(top: genderStack.bottomAnchor, trailing: genderStack.trailingAnchor, leading: genderStack.leadingAnchor, paddingTop: 20)
+        breedTextfield.setDimension(hConst: 50)
+        
+        ageStack.anchor(top: breedStack.bottomAnchor, trailing: genderStack.trailingAnchor, leading: genderStack.leadingAnchor, paddingTop: 20)
         minLabel.setDimension(width: widthAnchor, wMult: 0.17)
         maxLabel.setDimension(width: widthAnchor, wMult: 0.17)
         
@@ -87,6 +99,8 @@ class PreferenceFormView: UIView {
         minSlider.addTarget(self, action: #selector(handleAgeSliderChanged(slider:)), for: .valueChanged)
         maxSlider.addTarget(self, action: #selector(handleAgeSliderChanged(slider:)), for: .valueChanged)
         milesSlider.addTarget(self, action: #selector(handleMilesSliderChanged), for: .valueChanged)
+        breedTextfield.addTarget(self, action: #selector(handleBreedTextfieldChanged), for: .editingChanged)
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
     }
     
     private func setBorderColor(button: UIButton, borderColor: UIColor, gender: Gender) {
@@ -105,9 +119,14 @@ class PreferenceFormView: UIView {
         settingsVM.user?.genderPreference = gender
     }
     
-    func loadSliderValuesFor(user: User?) {
+    
+    func loadBreedPreference(user: User?) {
         guard let user = user else { return }
         settingsVM.user = user
+        breedTextfield.text = settingsVM.userBreedPreference
+    }
+    
+    func loadSliderValuesFor() {
         minSlider.value = settingsVM.ageSliderMinFloatValue
         minLabel.text = settingsVM.ageSliderMinLabel
         maxSlider.value = settingsVM.ageSliderMaxFloatValue
@@ -124,6 +143,7 @@ class PreferenceFormView: UIView {
             default: break
         }
     }
+
     
     // MARK: - Selectors
     @objc func handleGenderSelected(button: UIButton) {
@@ -164,6 +184,14 @@ class PreferenceFormView: UIView {
         let value = Int(milesSlider.value * 150)
         settingsVM.user?.distancePreference = value
         milesLabel.text = settingsVM.preferredDistanceLabel
+    }
+    
+    @objc func handleBreedTextfieldChanged() {
+        settingsVM.user?.breedPreference = breedTextfield.text
+    }
+    
+    @objc func dismissKeyboard() {
+        endEditing(true)
     }
 }
 

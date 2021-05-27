@@ -15,7 +15,7 @@ class ProfileVC: LoadingViewController {
     
     // MARK: - Views
     private let saveButton = PawButton(image: SFSymbols.saveCloud, tintColor: .white, font: .systemFont(ofSize: 12, weight: .black))
-    private let imagePickerView = ImagePickerView()
+    private let imagePickerView = ImagePickerGridView()
     
     private let infoContainerView = PawView(bgColor: lightGray)
     private let nameLabel = PawLabel(text: "William Yeung", textColor: .black, font: .systemFont(ofSize: 25, weight: .bold), alignment: .left)

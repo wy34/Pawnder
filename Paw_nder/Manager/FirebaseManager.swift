@@ -105,6 +105,22 @@ class FirebaseManager {
         }
     }
     
+    #warning("Pick up here")
+    private func matchesBreedPref(_ currentUser: User, _ otherUser: User) -> Bool {
+        var isMatch = false
+        let currentUserPrefKeywords = currentUser.breedPreference?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
+        let otherUserBreed = otherUser.breed?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
+    
+        for keyword in currentUserPrefKeywords! {
+            if otherUserBreed?.contains(keyword) != nil {
+                isMatch = true
+                break
+            }
+        }
+        
+        return isMatch
+    }
+    
     func fetchUsers(currentUser: User, swipes: [String: Int], completion: @escaping (Result<[CardViewModel], Error>) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
         var users = [User]()
@@ -125,6 +141,8 @@ class FirebaseManager {
                 let user = User(dictionary: snapshot.data())
                 let isValidUser = user.uid != currentUserId && self.matchesDistancePref(currentUser, user) && self.matchesGenderPref(currentUser, user) && true
                 self.users[user.uid] = user
+                
+                self.matchesBreedPref(currentUser, user)
 //                swipes[user.uid] == nil
                 if isValidUser {
 //                    self?.lastFetchedUser = user
@@ -190,6 +208,7 @@ class FirebaseManager {
             "imageUrls": user.imageUrls ?? [0: ""],
             "gender": user.gender.rawValue,
             "genderPreference": user.genderPreference?.rawValue ?? "",
+            "breedPreference": user.breedPreference ?? "",
             "minAgePreference": user.minAgePreference ?? 0,
             "maxAgePreference": user.maxAgePreference ?? 0,
             "distancePreference": user.distancePreference ?? 0
