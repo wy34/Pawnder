@@ -59,6 +59,7 @@ class HomeVC: LoadingViewController {
         navbarStack.delegate = self
         bottomControlsStack.delegate = self
         emptyStackLabel.numberOfLines = 0
+        filterViewLauncher.delegate = self
     }
     
     private func layoutUI() {
@@ -264,6 +265,20 @@ extension HomeVC: CardViewDelegate {
         aboutVC.aboutVM = AboutViewModel(cardViewModel: cardViewModel)
         aboutVC.modalPresentationStyle = .fullScreen
         present(aboutVC, animated: true, completion: nil)
+    }
+}
+
+// MARK: - FilterViewLauncherViewDelegate
+extension HomeVC: FilterViewLauncherDelegate {
+    func didPressSaveFilter() {
+        showLoader()
+        SettingsViewModel.shared.updateUserInfo { [weak self] error in
+            if let error = error {
+                self?.showAlert(title: "Error", message: error.localizedDescription)
+            }
+            
+            self?.dismissLoader()
+        }
     }
 }
 

@@ -8,16 +8,20 @@
 import UIKit
 import SwiftUI
 
+protocol FilterViewLauncherDelegate: AnyObject {
+    func didPressSaveFilter()
+}
 
 class FilterViewLauncher: UIView {
     // MARK: - Properties
+    weak var delegate: FilterViewLauncherDelegate?
     
     // MARK: - Views
     private let blackBgView = PawView(bgColor: .black.withAlphaComponent(0.5))
     
     private let filterCardView = PawView(bgColor: bgLightGray, cornerRadius: 30)
     private let dismissButton = PawButton(image: SFSymbols.xmark, tintColor: .black, font: .systemFont(ofSize: 16, weight: .bold))
-    private let filterTitle = PawLabel(text: "Filters", font: .systemFont(ofSize: 24, weight: .bold), alignment: .center)
+    private let filterTitle = PawLabel(text: "Filters", font: .systemFont(ofSize: 22, weight: .bold), alignment: .center)
     private let saveButton = PawButton(image: SFSymbols.checkmark, tintColor: .black, font: .systemFont(ofSize: 16, weight: .bold))
     private lazy var headingStack = PawStackView(views: [dismissButton, filterTitle, saveButton], distribution: .fillEqually, alignment: .fill)
     
@@ -44,7 +48,7 @@ class FilterViewLauncher: UIView {
     private func layoutFilterCard() {
         filterCardView.addSubviews(headingStack, preferenceFormView)
         headingStack.setDimension(height: filterCardView.heightAnchor, hMult: 0.1)
-        headingStack.anchor(top: filterCardView.topAnchor, trailing: filterCardView.trailingAnchor, leading: filterCardView.leadingAnchor, paddingTop: 15, paddingTrailing: 25, paddingLeading: 25)
+        headingStack.anchor(top: filterCardView.topAnchor, trailing: filterCardView.trailingAnchor, leading: filterCardView.leadingAnchor, paddingTop: 15, paddingTrailing: 30, paddingLeading: 30)
         preferenceFormView.anchor(top: headingStack.bottomAnchor, trailing: filterCardView.trailingAnchor, bottom: filterCardView.bottomAnchor, leading: filterCardView.leadingAnchor, paddingTop: 25, paddingBottom: 10)
     }
     
@@ -89,7 +93,6 @@ class FilterViewLauncher: UIView {
     }
     
     @objc func saveAndApplyFilters() {
-        #warning("save filters")
-        
+        delegate?.didPressSaveFilter()
     }
 }
