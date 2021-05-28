@@ -108,8 +108,13 @@ class FirebaseManager {
     #warning("Pick up here")
     private func matchesBreedPref(_ currentUser: User, _ otherUser: User) -> Bool {
         var isMatch = false
-        let currentUserPrefKeywords = currentUser.breedPreference?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
-        let otherUserBreed = otherUser.breed?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
+        print(currentUser.breedPreference)
+        print(otherUser.breed)
+        print(otherUser.breed?.lowercased().contains(currentUser.breedPreference!))
+        let currentUserPrefKeywords = currentUser.breedPreference?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
+        let otherUserBreed = otherUser.breed?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
+        print(currentUserPrefKeywords)
+        print(otherUserBreed)
     
         for keyword in currentUserPrefKeywords! {
             if otherUserBreed?.contains(keyword) != nil {

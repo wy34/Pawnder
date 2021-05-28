@@ -44,7 +44,7 @@ class HomeVC: LoadingViewController {
         configureUI()
         setupAuthStateChangeListener()
         setupNotificationObservers()
-        
+
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
     }
     

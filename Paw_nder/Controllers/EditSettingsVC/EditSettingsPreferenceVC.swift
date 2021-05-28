@@ -188,6 +188,7 @@ class EditSettingsPreferenceVC: EditSettingsRootVC {
     // MARK: - Helpers
     override func configureUI() {
         view.backgroundColor = bgLightGray
+        preferenceFormView.delegate = self
     }
     
     override func layoutUI() {
@@ -201,4 +202,12 @@ class EditSettingsPreferenceVC: EditSettingsRootVC {
     }
     
     // MARK: - Selector
+}
+
+// MARK: - PreferenceFormViewDelegate
+extension EditSettingsPreferenceVC: PreferenceFormViewDelegate {
+    func didTapBreedPreference() {
+        let breedSearchVC = BreedSearchVC()
+        navigationController?.pushViewController(breedSearchVC, animated: true)
+    }
 }

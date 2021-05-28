@@ -8,9 +8,15 @@
 import UIKit
 import SwiftUI
 
+protocol PreferenceFormViewDelegate: AnyObject {
+    func didTapBreedPreference()
+}
+
 class PreferenceFormView: UIView {
     // MARK: - Properties
     let settingsVM = SettingsViewModel.shared
+    
+    weak var delegate: PreferenceFormViewDelegate?
     
     // MARK: - Views
     private let iWannaMeetLabel = PawLabel(text: "I wanna meet:", textColor: .gray, font: .systemFont(ofSize: 20, weight: .bold), alignment: .left)
@@ -21,8 +27,9 @@ class PreferenceFormView: UIView {
     private lazy var genderStack = PawStackView(views: [iWannaMeetLabel, buttonStack], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
     
     private let breedLabel = PawLabel(text: "Breed:", textColor: .gray, font: .systemFont(ofSize: 20, weight: .bold), alignment: .left)
-    private let breedTextfield = PaddedTextField(placeholder: "🐶 Breed", bgColor: .white, padding: .init(top: 0, left: 20, bottom: 0, right: 20))
-    private lazy var breedStack = PawStackView(views: [breedLabel, breedTextfield], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
+//    private let breedTextfield = PaddedTextField(placeholder: "🐶 Breed", bgColor: .white, padding: .init(top: 0, left: 20, bottom: 0, right: 20))
+    private let breedButton = PawButton(title: "🐶 Breed", bgColor: .white)
+    private lazy var breedStack = PawStackView(views: [breedLabel, breedButton], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
     
     private let ageRangeLabel = PawLabel(text: "Age range:", textColor: .gray, font: .systemFont(ofSize: 20, weight: .bold), alignment: .left)
     private let minLabel = PawLabel(text: "Min: 0", textColor: .darkGray, font: .systemFont(ofSize: 14), alignment: .left)
@@ -68,10 +75,15 @@ class PreferenceFormView: UIView {
         maxSlider.tintColor = lightRed
         milesSlider.tintColor = lightRed
         
-        breedTextfield.layer.cornerRadius = 50/2
-        breedTextfield.layer.borderWidth = 1
-        breedTextfield.layer.borderColor = UIColor.lightGray.cgColor
-        breedTextfield.font = .systemFont(ofSize: 20, weight: .medium)
+//        breedTextfield.layer.cornerRadius = 50/2
+//        breedTextfield.layer.borderWidth = 1
+//        breedTextfield.layer.borderColor = UIColor.lightGray.cgColor
+//        breedTextfield.font = .systemFont(ofSize: 20, weight: .medium)
+        
+        breedButton.layer.cornerRadius = 50/2
+        breedButton.layer.borderWidth = 1
+        breedButton.layer.borderColor = UIColor.lightGray.cgColor
+        breedButton.titleLabel?.font = .systemFont(ofSize: 20, weight: .medium)
     }
     
     func layoutUI() {
@@ -82,7 +94,8 @@ class PreferenceFormView: UIView {
         iWannaMeetLabel.setDimension(hConst: 20)
         
         breedStack.anchor(top: genderStack.bottomAnchor, trailing: genderStack.trailingAnchor, leading: genderStack.leadingAnchor, paddingTop: 20)
-        breedTextfield.setDimension(hConst: 50)
+//        breedTextfield.setDimension(hConst: 50)
+        breedButton.setDimension(hConst: 50)
         
         ageStack.anchor(top: breedStack.bottomAnchor, trailing: genderStack.trailingAnchor, leading: genderStack.leadingAnchor, paddingTop: 20)
         minLabel.setDimension(width: widthAnchor, wMult: 0.17)
@@ -99,7 +112,8 @@ class PreferenceFormView: UIView {
         minSlider.addTarget(self, action: #selector(handleAgeSliderChanged(slider:)), for: .valueChanged)
         maxSlider.addTarget(self, action: #selector(handleAgeSliderChanged(slider:)), for: .valueChanged)
         milesSlider.addTarget(self, action: #selector(handleMilesSliderChanged), for: .valueChanged)
-        breedTextfield.addTarget(self, action: #selector(handleBreedTextfieldChanged), for: .editingChanged)
+//        breedTextfield.addTarget(self, action: #selector(handleBreedTextfieldChanged), for: .editingChanged)
+        breedButton.addTarget(self, action: #selector(handleBreedTextfieldChanged), for: .touchUpInside)
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
     }
     
@@ -123,7 +137,8 @@ class PreferenceFormView: UIView {
     func loadBreedPreference(user: User?) {
         guard let user = user else { return }
         settingsVM.user = user
-        breedTextfield.text = settingsVM.userBreedPreference
+//        breedTextfield.text = settingsVM.userBreedPreference
+        breedButton.setTitle(settingsVM.userBreedPreference, for: .normal)
     }
     
     func loadSliderValuesFor() {
@@ -187,7 +202,8 @@ class PreferenceFormView: UIView {
     }
     
     @objc func handleBreedTextfieldChanged() {
-        settingsVM.user?.breedPreference = breedTextfield.text
+//        settingsVM.user?.breedPreference = breedTextfield.text
+        delegate?.didTapBreedPreference()
     }
     
     @objc func dismissKeyboard() {

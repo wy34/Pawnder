@@ -44,7 +44,6 @@ class SettingsVC: LoadingViewController {
     // MARK: - Helpers
     private func configureNavBar() {
         navigationItem.title = "Settings"
-        navigationController?.navigationBar.isTranslucent = false
     }
     
     private func configureUI() {

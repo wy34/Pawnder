@@ -18,6 +18,7 @@ class RootTabBarController: UITabBarController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = bgLightGray
         setupTabbar()
         setupNotificationObservers()
     }
@@ -59,7 +60,7 @@ class RootTabBarController: UITabBarController {
         settingsVC?.tabBarItem = UITabBarItem(title: nil, image: user, tag: 2)
         settingsVC?.tabBarItem.imageInsets = .init(top: 14, left: 0, bottom: -14, right: 0)
         
-        setViewControllers([homeVC!, messagesVC!, settingsVC!], animated: true)
+        setViewControllers([settingsVC!, homeVC!, messagesVC!], animated: true)
     }
     
     func showTabbar() {
