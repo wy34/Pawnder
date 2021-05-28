@@ -20,15 +20,16 @@ class FilterViewLauncher: UIView {
     private let blackBgView = PawView(bgColor: .black.withAlphaComponent(0.5))
     
     private let filterCardView = PawView(bgColor: bgLightGray, cornerRadius: 30)
-    private let dismissButton = PawButton(image: SFSymbols.xmark, tintColor: lightRed, font: .systemFont(ofSize: 16, weight: .bold))
-    private let filterTitle = PawLabel(text: "Filters", font: .systemFont(ofSize: 22, weight: .bold), alignment: .center)
-    private lazy var headingStack = PawStackView(views: [dismissButton, filterTitle, UIView()], distribution: .fillEqually, alignment: .fill)
+//    private let dismissButton = PawButton(image: SFSymbols.xmark, tintColor: lightRed, font: .systemFont(ofSize: 16, weight: .bold))
+//    private let filterTitle = PawLabel(text: "Filters", font: .systemFont(ofSize: 22, weight: .bold), alignment: .center)
+//    private lazy var headingStack = PawStackView(views: [dismissButton, filterTitle, UIView()], distribution: .fillEqually, alignment: .fill)
+//
+//    private let preferenceFormView = PreferenceFormView()
     
-    private let preferenceFormView = PreferenceFormView()
+//    private let saveButtonContainerView = PawView(bgColor: .clear)
+//    private let saveButton = PawButton(title: "Save", textColor: .white, bgColor: lightRed)
     
-    private let saveButtonContainerView = PawView(bgColor: .clear)
-    private let saveButton = PawButton(title: "Save", textColor: .white, bgColor: lightRed)
-    
+    private let bgFillerView = PawView(bgColor: .white)
     let nav = UINavigationController(rootViewController: FilterVC())
     
     // MARK: - Init
@@ -44,14 +45,18 @@ class FilterViewLauncher: UIView {
     
     // MARK: - Helpers
     private func configureUI() {
-        dismissButton.contentHorizontalAlignment = .left
         blackBgView.alpha = 0
-        saveButton.layer.cornerRadius = 50/2
-        saveButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
+        bgFillerView.layer.cornerRadius = 30
+        bgFillerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+//        saveButton.layer.cornerRadius = 50/2
+//        saveButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
     }
     
     private func layoutFilterCard() {
-        filterCardView.addSubview(nav.view)
+        filterCardView.addSubviews(bgFillerView, nav.view)
+        bgFillerView.anchor(top: filterCardView.topAnchor, trailing: filterCardView.trailingAnchor, leading: filterCardView.leadingAnchor)
+        bgFillerView.setDimension(hConst: 50)
+        
         nav.view.anchor(top: filterCardView.topAnchor, trailing: filterCardView.trailingAnchor, bottom: filterCardView.bottomAnchor, leading: filterCardView.leadingAnchor, paddingTop: 12)
         nav.view.layer.cornerRadius = 30
 //        filterCardView.addSubviews(headingStack, saveButtonContainerView, preferenceFormView)
@@ -70,9 +75,9 @@ class FilterViewLauncher: UIView {
     }
     
     func showFilterViewFor(user: User?) {
-        preferenceFormView.loadBreedPreference(user: user)
-        preferenceFormView.loadSliderValuesFor()
-        preferenceFormView.loadGenderPreference()
+//        preferenceFormView.loadBreedPreference(user: user)
+//        preferenceFormView.loadSliderValuesFor()
+//        preferenceFormView.loadGenderPreference()
         
         if let keyWindow = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first {
             keyWindow.addSubview(self.blackBgView)
@@ -94,8 +99,8 @@ class FilterViewLauncher: UIView {
     
     private func setupActionsAndGestures() {
         blackBgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissFilterView)))
-        dismissButton.addTarget(self, action: #selector(dismissFilterView), for: .touchUpInside)
-        saveButton.addTarget(self, action: #selector(saveAndApplyFilters), for: .touchUpInside)
+//        dismissButton.addTarget(self, action: #selector(dismissFilterView), for: .touchUpInside)
+//        saveButton.addTarget(self, action: #selector(saveAndApplyFilters), for: .touchUpInside)
     }
     
     // MARK: - Selector
@@ -144,7 +149,7 @@ class FilterVC: UIViewController {
     func setupNavBar() {
         navigationItem.title = "Filter"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(handleDone))
-        navigationController?.navigationBar.barTintColor = bgLightGray
+        navigationController?.navigationBar.barTintColor = .white
     }
     
     func configureUI() {
