@@ -130,7 +130,7 @@ class CardView: LoadingView {
         locationLabel.text = cardVM.locationName
     }
     
-    private func showLikeDislikeIndicators(translation: CGPoint) {
+    func showLikeDislikeIndicators(translation: CGPoint) {
         let likeIndicator = SFSymbols.heart.applyingSymbolConfiguration(.init(font: .systemFont(ofSize: 75, weight: .bold)))
         let dislikeIndicator = SFSymbols.xmark.applyingSymbolConfiguration(.init(font: .systemFont(ofSize: 75, weight: .bold)))
         

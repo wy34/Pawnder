@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class RegisterVC: LoadingViewController {
     // MARK: - Properties
@@ -206,33 +205,5 @@ extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDel
         guard let pickedImage = info[.editedImage] as? UIImage else { return }
         registerVM.bindableImage.value = pickedImage
         dismiss(animated: true, completion: nil)
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-struct Register: UIViewControllerRepresentable {
-    func makeUIViewController(context: Context) -> RegisterVC {
-        let registerVC = RegisterVC()
-        return registerVC
-    }
-    
-    func updateUIViewController(_ uiViewController: RegisterVC, context: Context) {
-        
-    }
-}
-
-struct Register_Previews: PreviewProvider {
-    static var previews: some View {
-        return Register()
     }
 }

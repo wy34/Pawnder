@@ -164,7 +164,7 @@ class HomeVC: LoadingViewController {
     }
     
     private func performSwipeAnimationWhenPressed(translation: CGFloat, rotation: CGFloat) {
-        let duration = 0.5
+        let duration = translation > 0 ? 0.5 : 1.0
         
         let translationAnimation = CABasicAnimation(keyPath: "position.x")
         translationAnimation.toValue = translation
@@ -185,6 +185,7 @@ class HomeVC: LoadingViewController {
         
         currentTopCardView?.layer.add(translationAnimation, forKey: "translation")
         currentTopCardView?.layer.add(rotationAnimation, forKey: "rotation")
+        currentTopCardView?.showLikeDislikeIndicators(translation: .init(x: translation/4, y: 0))
         
         CATransaction.commit()
     }
