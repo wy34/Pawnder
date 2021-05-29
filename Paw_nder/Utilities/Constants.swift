@@ -63,3 +63,6 @@ let lightPink = #colorLiteral(red: 1, green: 0.6349166036, blue: 1, alpha: 1)
 
 // MARK: - Notification UserInfo key
 let buttonTag = "tappedButtonTag"
+
+// MARK: - No Breed Preference
+let noBreedPrefCaption = "🐶 No Preference"

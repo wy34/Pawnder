@@ -105,25 +105,12 @@ class FirebaseManager {
         }
     }
     
-    #warning("Pick up here")
     private func matchesBreedPref(_ currentUser: User, _ otherUser: User) -> Bool {
-        var isMatch = false
-        print(currentUser.breedPreference)
-        print(otherUser.breed)
-        print(otherUser.breed?.lowercased().contains(currentUser.breedPreference!))
-        let currentUserPrefKeywords = currentUser.breedPreference?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
-        let otherUserBreed = otherUser.breed?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ")
-        print(currentUserPrefKeywords)
-        print(otherUserBreed)
-    
-        for keyword in currentUserPrefKeywords! {
-            if otherUserBreed?.contains(keyword) != nil {
-                isMatch = true
-                break
-            }
+        if currentUser.breedPreference == noBreedPrefCaption {
+            return true
         }
         
-        return isMatch
+        return currentUser.breedPreference == otherUser.breed || otherUser.breed == noBreedPrefCaption
     }
     
     func fetchUsers(currentUser: User, swipes: [String: Int], completion: @escaping (Result<[CardViewModel], Error>) -> Void) {
@@ -144,10 +131,13 @@ class FirebaseManager {
             
             snapshots?.documents.forEach({ (snapshot) in
                 let user = User(dictionary: snapshot.data())
-                let isValidUser = user.uid != currentUserId && self.matchesDistancePref(currentUser, user) && self.matchesGenderPref(currentUser, user) && true
+                let isValidUser = user.uid != currentUserId
+                                  && self.matchesDistancePref(currentUser, user)
+                                  && self.matchesGenderPref(currentUser, user)
+                                  && self.matchesBreedPref(currentUser, user)
+                                  && true
                 self.users[user.uid] = user
                 
-                self.matchesBreedPref(currentUser, user)
 //                swipes[user.uid] == nil
                 if isValidUser {
 //                    self?.lastFetchedUser = user

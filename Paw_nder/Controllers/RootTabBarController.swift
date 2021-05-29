@@ -60,7 +60,7 @@ class RootTabBarController: UITabBarController {
         settingsVC?.tabBarItem = UITabBarItem(title: nil, image: user, tag: 2)
         settingsVC?.tabBarItem.imageInsets = .init(top: 14, left: 0, bottom: -14, right: 0)
         
-        setViewControllers([settingsVC!, homeVC!, messagesVC!], animated: true)
+        setViewControllers([homeVC!, messagesVC!, settingsVC!], animated: true)
     }
     
     func showTabbar() {

@@ -40,6 +40,17 @@ extension UIView {
         ])
     }
     
+    func fill(superView: UIView, withPadding padding: UIEdgeInsets) {
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.topAnchor.constraint(equalTo: superView.topAnchor, constant: padding.top),
+            self.trailingAnchor.constraint(equalTo: superView.trailingAnchor, constant: -padding.right),
+            self.bottomAnchor.constraint(equalTo: superView.bottomAnchor, constant: -padding.bottom),
+            self.leadingAnchor.constraint(equalTo: superView.leadingAnchor, constant: padding.left)
+        ])
+    }
+    
     func anchor(top: NSLayoutYAxisAnchor? = nil, trailing: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, leading: NSLayoutXAxisAnchor? = nil, paddingTop:  CGFloat = 0, paddingTrailing: CGFloat = 0, paddingBottom: CGFloat = 0, paddingLeading: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false
         

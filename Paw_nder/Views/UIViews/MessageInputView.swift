@@ -56,8 +56,8 @@ class MessageInputView: UIView {
         inputTextView.anchor(top: topAnchor, trailing: sendButton.leadingAnchor, leading: leadingAnchor, paddingTop: 10, paddingTrailing: 10, paddingLeading: 15)
         inputTextViewBottomAnchor = inputTextView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30)
         inputTextViewBottomAnchor?.isActive = true
-        
-        placeHolderLabel.anchor(top: inputTextView.topAnchor, trailing: inputTextView.trailingAnchor, bottom: inputTextView.bottomAnchor, leading: inputTextView.leadingAnchor, paddingLeading: 13)
+
+        placeHolderLabel.fill(superView: inputTextView, withPadding: .init(top: 0, left: 13, bottom: 0, right: 0))
     }
     
     func setupActions() {

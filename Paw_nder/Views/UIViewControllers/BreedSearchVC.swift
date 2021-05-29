@@ -9,6 +9,8 @@ import UIKit
 
 class BreedSearchVC: LoadingViewController {
     // MARK: - Properties
+    var preferenceFormView: PreferenceFormView?
+    let settingsVM = SettingsViewModel.shared
     let networkManager = NetworkManager()
     var timer: Timer?
     
@@ -44,6 +46,7 @@ class BreedSearchVC: LoadingViewController {
     private func setupNavBar() {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "No Preference", style: .plain, target: self, action: #selector(resetBreedPref))
         searchController.searchBar.placeholder = "🐶 Search Breed"
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
@@ -79,6 +82,11 @@ class BreedSearchVC: LoadingViewController {
     }
     
     // MARK: - Selectors
+    @objc func resetBreedPref() {
+        settingsVM.user?.breedPreference = noBreedPrefCaption
+        preferenceFormView?.loadBreedPreference()
+        navigationController?.popViewController(animated: true)
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -104,6 +112,9 @@ extension BreedSearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let selectedBreed = searchResults[indexPath.row].name
+        settingsVM.user?.breedPreference = selectedBreed
+        preferenceFormView?.loadBreedPreference()
         navigationController?.popViewController(animated: true)
     }
     

@@ -65,6 +65,6 @@ class IconLabel: UIView {
     
     private func layouUI() {
         addSubviews(label)
-        label.anchor(top: topAnchor, trailing: trailingAnchor, bottom: bottomAnchor, leading: leadingAnchor)
+        label.fill(superView: self)
     }
 }

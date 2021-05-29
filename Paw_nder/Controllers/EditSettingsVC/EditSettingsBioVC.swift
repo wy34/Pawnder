@@ -40,7 +40,7 @@ class EditSettingsBioVC: EditSettingsRootVC {
         textView.anchor(top: view.topAnchor, paddingTop: 25)
         textView.center(to: view, by: .centerX)
         textView.setDimension(width: view.widthAnchor, wMult: 0.9)
-        placeholderLabel.anchor(top: textView.topAnchor, trailing: textView.trailingAnchor, bottom: textView.bottomAnchor, leading: textView.leadingAnchor, paddingTop: 10, paddingTrailing: 15, paddingBottom: 10, paddingLeading: 15)
+        placeholderLabel.fill(superView: textView, withPadding: .init(top: 10, left: 15, bottom: 10, right: 15))
         characterCountLabel.anchor(top: textView.bottomAnchor, trailing: textView.trailingAnchor, paddingTop: 5)
     }
     

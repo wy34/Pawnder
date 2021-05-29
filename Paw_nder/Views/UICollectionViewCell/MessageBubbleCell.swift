@@ -61,7 +61,7 @@ class MessageBubbleCell: UICollectionViewCell {
         timestampLabelLeadingAnchor = timestampLabel.leadingAnchor.constraint(equalTo: bubbleContainerView.leadingAnchor)
         timestampLabelTrailingAnchor = timestampLabel.trailingAnchor.constraint(equalTo: bubbleContainerView.trailingAnchor)
         
-        messageTextView.anchor(top: bubbleContainerView.topAnchor, trailing: bubbleContainerView.trailingAnchor, bottom: bubbleContainerView.bottomAnchor, leading: bubbleContainerView.leadingAnchor, paddingTop: 8, paddingTrailing: 8, paddingBottom: 8, paddingLeading: 8)
+        messageTextView.fill(superView: bubbleContainerView, withPaddingOnAllSides: 8)
     }
     
     private func setupBasedOn(isCurrentUser: Bool) {

@@ -59,7 +59,7 @@ class HomeVC: LoadingViewController {
         navbarStack.delegate = self
         bottomControlsStack.delegate = self
         emptyStackLabel.numberOfLines = 0
-        filterViewLauncher.delegate = self
+        filterViewLauncher.filterVC.delegate = self
     }
     
     private func layoutUI() {
@@ -69,7 +69,7 @@ class HomeVC: LoadingViewController {
         emptyStack.setDimension(width: view.widthAnchor, wMult: 0.75)
         emptyStackImageView.setDimension(wConst: 25, hConst: 25)
         
-        mainStack.anchor(top: view.topAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 15, paddingBottom: 15)
+        mainStack.fill(superView: view, withPadding: .init(top: 15, left: 0, bottom: 15, right: 0))
         
         navbarView.setDimension(width: view.widthAnchor, height: view.heightAnchor, hMult: 0.125)
         navbarView.addSubview(navbarStack)
@@ -268,8 +268,8 @@ extension HomeVC: CardViewDelegate {
     }
 }
 
-// MARK: - FilterViewLauncherViewDelegate
-extension HomeVC: FilterViewLauncherDelegate {
+// MARK: - FilterVCDelegate
+extension HomeVC: FilterVCDelegate {
     func didPressSaveFilter() {
         showLoader()
         SettingsViewModel.shared.updateUserInfo { [weak self] error in

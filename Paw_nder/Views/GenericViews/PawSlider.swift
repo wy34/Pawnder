@@ -16,10 +16,11 @@ class PawSlider: UISlider {
         fatalError()
     }
     
-    init(starting: Float, min: Float, max: Float) {
+    init(starting: Float, min: Float, max: Float, tintColor: UIColor = lightRed) {
         super.init(frame: .zero)
         self.value = starting
         self.minimumValue = min
         self.maximumValue = max
+        self.tintColor = tintColor
     }
 }

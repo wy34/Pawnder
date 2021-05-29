@@ -50,6 +50,7 @@
 		4C6349782634E509006AE44B /* PaddedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6349772634E509006AE44B /* PaddedLabel.swift */; };
 		4C63497D2634E940006AE44B /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C63497C2634E940006AE44B /* SettingsCell.swift */; };
 		4C634982263519C6006AE44B /* ImagePickerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C634981263519C6006AE44B /* ImagePickerButtonView.swift */; };
+		4C65564F2661F78A00EF9E71 /* FilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65564E2661F78A00EF9E71 /* FilterVC.swift */; };
 		4C65D8EA26320E3000B1F4FB /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65D8E926320E3000B1F4FB /* RegisterViewModel.swift */; };
 		4C65D8EF2632145F00B1F4FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C65D8EE2632145F00B1F4FB /* GoogleService-Info.plist */; };
 		4C65D94326322ABB00B1F4FB /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C65D94226322ABB00B1F4FB /* ProfileImageView.swift */; };
@@ -141,6 +142,7 @@
 		4C6349772634E509006AE44B /* PaddedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedLabel.swift; sourceTree = "<group>"; };
 		4C63497C2634E940006AE44B /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		4C634981263519C6006AE44B /* ImagePickerButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerButtonView.swift; sourceTree = "<group>"; };
+		4C65564E2661F78A00EF9E71 /* FilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterVC.swift; sourceTree = "<group>"; };
 		4C65D8E926320E3000B1F4FB /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		4C65D8EE2632145F00B1F4FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4C65D94226322ABB00B1F4FB /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 		4C49BAAD262E3AA1006F046B /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				4C63497C2634E940006AE44B /* SettingsCell.swift */,
 				4CF953902639056800D80587 /* SliderCell.swift */,
 				4C63496D2634B258006AE44B /* Settings1VC.swift */,
 				4C6349702634C26C006AE44B /* ImagePickerHeaderView.swift */,
@@ -357,7 +360,6 @@
 		4C63497B2634E929006AE44B /* UITableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				4C63497C2634E940006AE44B /* SettingsCell.swift */,
 				4C392FDF264B4D6600A729F7 /* RecentMessageCell.swift */,
 				4CD2810A26521E95005C1594 /* NewSettingsCell.swift */,
 			);
@@ -389,6 +391,7 @@
 				4C65D9672632798E00B1F4FB /* LoadingViewController.swift */,
 				4C5EAF6126478D4C00F415B7 /* NewMatchesVC.swift */,
 				4C392FDD264B289600A729F7 /* RecentMessagesVC.swift */,
+				4C65564E2661F78A00EF9E71 /* FilterVC.swift */,
 				4C9AC420266030440094BB86 /* BreedSearchVC.swift */,
 			);
 			path = UIViewControllers;
@@ -616,6 +619,7 @@
 				4C062F55264F0B20009D999D /* ProfileVC.swift in Sources */,
 				4C8F8CF92649E0BB00A62E85 /* MessageInputView.swift in Sources */,
 				4C5A3E6126434563007EEC00 /* Gender.swift in Sources */,
+				4C65564F2661F78A00EF9E71 /* FilterVC.swift in Sources */,
 				4C634982263519C6006AE44B /* ImagePickerButtonView.swift in Sources */,
 				4C49BA93262E3928006F046B /* HomeVC.swift in Sources */,
 				4C392FE0264B4D6600A729F7 /* RecentMessageCell.swift in Sources */,

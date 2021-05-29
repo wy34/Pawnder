@@ -32,7 +32,8 @@ class SettingsCell: UITableViewCell {
     
     private func layoutUI() {
         contentView.addSubview(textfield)
-        textfield.anchor(top: contentView.topAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, leading: contentView.leadingAnchor, paddingTop: 8, paddingTrailing: 12, paddingBottom: 8, paddingLeading: 12)
+//        textfield.anchor(top: contentView.topAnchor, trailing: contentView.trailingAnchor, bottom: contentView.bottomAnchor, leading: contentView.leadingAnchor, paddingTop: 8, paddingTrailing: 12, paddingBottom: 8, paddingLeading: 12)
+        textfield.fill(superView: contentView, withPadding: .init(top: 8, left: 12, bottom: 8, right: 12))
     }
     
     func setTextfield(text: String?, ph: String) {
