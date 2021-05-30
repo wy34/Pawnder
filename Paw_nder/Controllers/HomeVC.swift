@@ -224,17 +224,19 @@ extension HomeVC: HomeNavbarStackDelegate {
     func handleRefreshTapped() {
         NotificationCenter.default.post(Notification(name: .didUndoPrevSwipe))
         
-        if let currentTopCardView = currentTopCardView {
+        if let previousTopCardView = currentTopCardView {
             let newCard = CardView()
             newCard.delegate = self
-            newCard.setupCardWith(cardVM: currentTopCardView.cardVM!)
+            newCard.setupCardWith(cardVM: previousTopCardView.cardVM!)
             cardsDeckView.addSubview(newCard)
             newCard.fill(superView: cardsDeckView)
             newCard.nextCardView = topCardView
             topCardView = newCard
-            self.currentTopCardView = nil
+            currentTopCardView = nil
            
-            #warning("need to still remove from swipes collection")
+            FirebaseManager.shared.undoLastSwipe(otherUserId: newCard.userId) { [weak self] error in
+                if let error = error { self?.showAlert(title: "Error", message: error.localizedDescription) }
+            }
         }
     }
     

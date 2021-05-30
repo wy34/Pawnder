@@ -98,10 +98,15 @@ class MatchingViewLauncher: UIView {
     }
     
     func addActionsAndGestures() {
+        messageButton.addTarget(self, action: #selector(goToMessageVC), for: .touchUpInside)
         backToSwipeButton.addTarget(self, action: #selector(dismissMatchingView), for: .touchUpInside)
     }
 
     // MARK: - Selector
+    @objc func goToMessageVC() {
+        dismissMatchingView()
+    }
+    
     @objc func dismissMatchingView() {
         UIView.animate(withDuration: 0.25) {
             self.visualEffectView.alpha = 0

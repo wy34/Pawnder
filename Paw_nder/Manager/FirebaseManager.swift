@@ -13,13 +13,11 @@ class FirebaseManager {
     static let shared = FirebaseManager()
     
     var imageCache = NSCache<NSString, UIImage>()
-//    var lastFetchedUser: User?
     var users = [String: User]()
     var currentUserListener: ListenerRegistration!
     var matchesListener: ListenerRegistration!
     var messagesListener: ListenerRegistration!
     var recentMessagesListener: ListenerRegistration!
-    
     
     // MARK: - Init
     deinit {
@@ -135,12 +133,11 @@ class FirebaseManager {
                                   && self.matchesDistancePref(currentUser, user)
                                   && self.matchesGenderPref(currentUser, user)
                                   && self.matchesBreedPref(currentUser, user)
-                                  && true
+                                  && swipes[user.uid] == nil
+                
                 self.users[user.uid] = user
                 
-//                swipes[user.uid] == nil
                 if isValidUser {
-//                    self?.lastFetchedUser = user
                     users.append(user)
                 }
             })
@@ -203,7 +200,7 @@ class FirebaseManager {
             "imageUrls": user.imageUrls ?? [0: ""],
             "gender": user.gender.rawValue,
             "genderPreference": user.genderPreference?.rawValue ?? "",
-            "breedPreference": user.breedPreference ?? "",
+            "breedPreference": user.breedPreference,
             "minAgePreference": user.minAgePreference ?? 0,
             "maxAgePreference": user.maxAgePreference ?? 0,
             "distancePreference": user.distancePreference ?? 0
@@ -266,6 +263,28 @@ class FirebaseManager {
             if data[currentUserId] == 1 {
                 self?.addUserMatch(currentUserId: currentUserId, otherUserId: otherUserId, completion: completion)
                 self?.addUserMatch(currentUserId: otherUserId, otherUserId: currentUserId, completion: completion)
+            }
+        }
+    }
+    
+    func undoLastSwipe(otherUserId: String, completion: @escaping (Error?) -> Void) {
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+
+        Firestore.firestore().collection(fsSwipes).document(currentUserId).updateData([otherUserId: FieldValue.delete()]) { error in
+            if let error = error {
+                completion(error)
+            }
+        }
+        
+        Firestore.firestore().collection(fsMatches_Messages).document(currentUserId).collection(fsMatches).document(otherUserId).delete { error in
+            if let error = error {
+                completion(error)
+            }
+        }
+        
+        Firestore.firestore().collection(fsMatches_Messages).document(otherUserId).collection(fsMatches).document(currentUserId).delete { error in
+            if let error = error {
+                completion(error)
             }
         }
     }

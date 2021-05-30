@@ -38,8 +38,8 @@ class CardView: LoadingView {
     // MARK: - Views
     private let containerView = PawView(bgColor: .white, cornerRadius: 25)
     
-    private let photoCountIcon = PawButton(image: SFSymbols.photos, tintColor: .white, font: .boldSystemFont(ofSize: 18))
-    private let photoCountLabel = PawLabel(text: "3", textColor: .white, font: .boldSystemFont(ofSize: 16))
+    private let photoCountIcon = PawButton(image: SFSymbols.photos, tintColor: .white, font: .boldSystemFont(ofSize: 22))
+    private let photoCountLabel = PawLabel(text: "3", textColor: .white, font: .boldSystemFont(ofSize: 20))
     private lazy var photoCountStack = PawStackView(views: [photoCountIcon, photoCountLabel], spacing: 5, distribution: .fillEqually, alignment: .fill)
 
     private let profileImageView = PawImageView(image: UIImage(named: bob3)!, contentMode: .scaleAspectFill)
@@ -100,7 +100,7 @@ class CardView: LoadingView {
         temporaryCoverView.fill(superView: containerView)
         
         profileImageView.addSubview(photoCountStack)
-        photoCountStack.setDimension(wConst: 45, hConst: 45)
+        photoCountStack.setDimension(wConst: 50, hConst: 50)
         photoCountStack.anchor(top: profileImageView.topAnchor, leading: profileImageView.leadingAnchor, paddingTop: 6, paddingLeading: 16)
     }
     
