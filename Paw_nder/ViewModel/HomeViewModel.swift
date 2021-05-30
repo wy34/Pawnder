@@ -18,7 +18,7 @@ class HomeViewModel {
     var fetchUserHandler: (() -> Void)?
     
     // MARK: - Helpers
-    func fetchUsers() {
+    func fetchCurrentUser() {
         FirebaseManager.shared.fetchCurrentUser { result in
             switch result {
                 case .success(let user):

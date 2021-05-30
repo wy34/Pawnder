@@ -12,7 +12,7 @@ extension Notification.Name {
     static let didSelectPhoto = Notification.Name("didSelectPhoto")
     static let didSaveSettings = Notification.Name("didSaveSettings")
     static let didRegisterNewUser  = Notification.Name("didRegisterNewUser")
-    static let didFetchUsers = Notification.Name("didFetchUsers")
+    static let didUndoPrevSwipe = Notification.Name("didFetchUsers")
     static let didLikedUser = Notification.Name("didLikedUser")
     static let didDragCard = Notification.Name("didDragCard")
     static let didFinishDraggingCard = Notification.Name("didFinishDraggingCard")

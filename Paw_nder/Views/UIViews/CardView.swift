@@ -15,7 +15,7 @@ protocol CardViewDelegate: AnyObject {
 
 class CardView: LoadingView {
     // MARK: - Properties
-    private var cardVM: CardViewModel?
+    var cardVM: CardViewModel?
     private var selectedBarColor = UIColor.white
     private var deselectedBarColor = #colorLiteral(red: 0.817677021, green: 0.8137882352, blue: 0.8206836581, alpha: 0.5)
     

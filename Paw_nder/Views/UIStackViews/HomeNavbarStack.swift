@@ -59,7 +59,7 @@ class HomeNavbarStack: UIStackView {
     }
     
     private func setupNotificationObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleUsersFetched), name: .didFetchUsers, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleSwipeUndo), name: .didUndoPrevSwipe, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(disableButtons), name: .didDragCard, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(enableButtons), name: .didFinishDraggingCard, object: nil)
     }
@@ -74,7 +74,7 @@ class HomeNavbarStack: UIStackView {
         delegate?.handleFilterTapped()
     }
     
-    @objc func handleUsersFetched() {
+    @objc func handleSwipeUndo() {
         refreshBtn.isEnabled = true
     }
     

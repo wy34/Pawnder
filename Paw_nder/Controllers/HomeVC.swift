@@ -34,7 +34,7 @@ class HomeVC: LoadingViewController {
     private lazy var mainStack = PawStackView(views: [navbarView, cardsDeckView, bottomControlsView], axis: .vertical, alignment: .center)
     
     private let emptyStackImageView = PawImageView(image: crying, contentMode: .scaleAspectFit)
-    private let emptyStackLabel = PawLabel(text: "Empty Stack. Switch up your preferences or try again later.", textColor: .black, font: .systemFont(ofSize: 14, weight: .medium), alignment: .center)
+    private let emptyStackLabel = PawLabel(text: "End of stack. Switch up your preferences or try again later.", textColor: .black, font: .systemFont(ofSize: 14, weight: .medium), alignment: .center)
     private lazy var emptyStack = PawStackView(views: [emptyStackImageView, emptyStackLabel], spacing: 5, axis: .vertical)
     
     // MARK: - Lifecycle
@@ -44,8 +44,6 @@ class HomeVC: LoadingViewController {
         configureUI()
         setupAuthStateChangeListener()
         setupNotificationObservers()
-
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
     }
     
     deinit {
@@ -109,7 +107,7 @@ class HomeVC: LoadingViewController {
     private func setupHomeContent() {
         createCardDeck()
         setupFetchObserver()
-        homeViewModel.fetchUsers()
+        homeViewModel.fetchCurrentUser()
     }
     
     private func setupNotificationObservers() {
@@ -132,7 +130,6 @@ class HomeVC: LoadingViewController {
             self.topCardView = nil
             self.previousCardView = nil
             self.createCardDeck()
-            NotificationCenter.default.post(Notification(name: .didFetchUsers))
         }
     }
     
@@ -147,8 +144,8 @@ class HomeVC: LoadingViewController {
             cardView.setupCardWith(cardVM: cardVM)
             cardViews.append(cardView)
         })
-                
-        cardViews.reversed().forEach({
+
+        cardViews.forEach({
             cardsDeckView.addSubview($0)
             cardsDeckView.sendSubviewToBack($0)
             $0.fill(superView: cardsDeckView)
@@ -156,8 +153,7 @@ class HomeVC: LoadingViewController {
             self.previousCardView = $0
             if self.topCardView == nil { self.topCardView = $0 }
         })
-        
-        #warning("If no cards, ie: no users match age pref., disabel all buttons on that page and show some sort of a message")
+            
         if cardViews.count == 0 {
             print("no cards")
         }
@@ -214,7 +210,7 @@ class HomeVC: LoadingViewController {
     }
     
     @objc func handleUpdatedSettings() { 
-        homeViewModel.fetchUsers()
+        homeViewModel.fetchCurrentUser()
     }
     
     @objc func handleMatch() {
@@ -226,7 +222,20 @@ class HomeVC: LoadingViewController {
 // MARK: - HomeNavbarStackDelegate
 extension HomeVC: HomeNavbarStackDelegate {
     func handleRefreshTapped() {
-        homeViewModel.fetchUsers()
+        NotificationCenter.default.post(Notification(name: .didUndoPrevSwipe))
+        
+        if let currentTopCardView = currentTopCardView {
+            let newCard = CardView()
+            newCard.delegate = self
+            newCard.setupCardWith(cardVM: currentTopCardView.cardVM!)
+            cardsDeckView.addSubview(newCard)
+            newCard.fill(superView: cardsDeckView)
+            newCard.nextCardView = topCardView
+            topCardView = newCard
+            self.currentTopCardView = nil
+           
+            #warning("need to still remove from swipes collection")
+        }
     }
     
     func handleFilterTapped() {
