@@ -33,11 +33,11 @@ struct User {
         self.bio = dictionary["bio"] as? String ?? "N/A"
         self.gender = Gender(rawValue: dictionary["gender"] as? String ?? "") ?? .male
         self.imageUrls = dictionary["imageUrls"] as? [String: String]
-        self.genderPreference = Gender(rawValue: dictionary["genderPreference"] as? String ?? "All") ?? .all
-        self.breedPreference = dictionary["breedPreference"] as? String ?? "No Preference"
+        self.genderPreference = Gender(rawValue: dictionary["genderPreference"] as? String ?? Gender.all.rawValue) ?? .all
+        self.breedPreference = dictionary["breedPreference"] as? String ?? noBreedPrefCaption
         self.minAgePreference = dictionary["minAgePreference"] as? Int
         self.maxAgePreference = dictionary["maxAgePreference"] as? Int
-        self.distancePreference = dictionary["distancePreference"] as? Int ?? 150
+        self.distancePreference = dictionary["distancePreference"] as? Int ?? maxDistance
         setLocationInfo(dictionary)
     }
     

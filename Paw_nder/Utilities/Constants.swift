@@ -67,6 +67,9 @@ let buttonTag = "tappedButtonTag"
 // MARK: - No Breed Preference
 let noBreedPrefCaption = "🐶 No Preference"
 
+// MARK: - Max Distance
+let maxDistance = 150
+
 // MARK: - Firestore Collections
 let fsMatches_Messages = "matches_messages"
 let fsMatches = "matches"

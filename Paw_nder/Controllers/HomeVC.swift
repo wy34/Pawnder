@@ -98,9 +98,7 @@ class HomeVC: LoadingViewController {
     private func setupLocationServices() {
         locationManager.locationManager.delegate = self
         locationManager.checkLocationServices(delegate: self, completion: { [weak self] error in
-            if let error = error {
-                self?.showAlert(title: "Error", message: error.localizedDescription)
-            }
+            if let error = error { self?.showAlert(title: "Error", message: error.localizedDescription) }
         })
     }
     
@@ -285,10 +283,7 @@ extension HomeVC: FilterVCDelegate {
     func didPressSaveFilter() {
         showLoader()
         SettingsViewModel.shared.updateUserInfo { [weak self] error in
-            if let error = error {
-                self?.showAlert(title: "Error", message: error.localizedDescription)
-            }
-            
+            if let error = error { self?.showAlert(title: "Error", message: error.localizedDescription) }
             self?.dismissLoader()
         }
     }
@@ -296,6 +291,7 @@ extension HomeVC: FilterVCDelegate {
 
 // MARK: - CLLocationManagerDelegate
 extension HomeVC: CLLocationManagerDelegate {
+    #warning("If a user changes locatioin, maybe automaticcaly reflect that in other users deck")
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print(isFirstLocation)
         

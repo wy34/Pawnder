@@ -119,14 +119,14 @@ class FirebaseManager {
         usersCollection
             .whereField("age", isGreaterThanOrEqualTo: currentUser.minAgePreference ?? 0)
             .whereField("age", isLessThanOrEqualTo: (currentUser.maxAgePreference == 0 ? 100 : currentUser.maxAgePreference) ?? 100).getDocuments { [weak self] (snapshots, error) in
-            
+
             guard let self = self else { return }
-                
+
             if let error = error {
                 completion(.failure(error))
                 return
             }
-            
+
             snapshots?.documents.forEach({ (snapshot) in
                 let user = User(dictionary: snapshot.data())
                 let isValidUser = user.uid != currentUserId
@@ -134,14 +134,14 @@ class FirebaseManager {
                                   && self.matchesGenderPref(currentUser, user)
                                   && self.matchesBreedPref(currentUser, user)
                                   && swipes[user.uid] == nil
-                
+
                 self.users[user.uid] = user
-                
+
                 if isValidUser {
                     users.append(user)
                 }
             })
-            
+
             let cardViewModels = users.map({ $0.toCardViewModel() })
             completion(.success(cardViewModels))
         }
@@ -214,10 +214,6 @@ class FirebaseManager {
             
             completion(nil)
         }
-    }
-    
-    func updateUserImages() {
-        
     }
     
     // MARK: - Swiping
@@ -293,7 +289,7 @@ class FirebaseManager {
     func addUserMatch(currentUserId: String, otherUserId: String, completion: @escaping (Error?) -> Void) {
         let data: [String: Any] = ["name": self.users[otherUserId]?.name ?? "", "imageUrlString": self.users[otherUserId]?.imageUrls?["1"] ?? "", "matchedUserId": otherUserId, "startedConversation": false]
         
-        Firestore.firestore().collection("matches_messages").document(currentUserId).collection("matches").document(otherUserId).setData(data) { error in
+        Firestore.firestore().collection(fsMatches_Messages).document(currentUserId).collection(fsMatches).document(otherUserId).setData(data) { error in
             if let error = error {
                 print(error.localizedDescription)
                 completion(error)
@@ -310,7 +306,7 @@ class FirebaseManager {
         
         var matchesDictionary = [String: Match]()
         
-        matchesListener = Firestore.firestore().collection("matches_messages").document(currentUserId).collection("matches").addSnapshotListener { snapshots, error in
+        matchesListener = Firestore.firestore().collection(fsMatches_Messages).document(currentUserId).collection(fsMatches).addSnapshotListener { snapshots, error in
             if let error = error {
                 print(error.localizedDescription)
                 completion(.failure(error))
@@ -318,9 +314,12 @@ class FirebaseManager {
             }
             
             snapshots?.documentChanges.forEach({ change in
+                let match = Match(dictionary: change.document.data())
+                
                 if change.type == .added || change.type == .modified {
-                    let match = Match(dictionary: change.document.data())
                     matchesDictionary[match.matchedUserId] = match
+                } else if change.type == .removed {
+                    matchesDictionary[match.matchedUserId] = nil
                 }
             })
             
@@ -332,8 +331,8 @@ class FirebaseManager {
     func update(match: Match) {
         guard match.startedConversation == false else { return }
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-        Firestore.firestore().collection("matches_messages").document(currentUserId).collection("matches").document(match.matchedUserId).updateData(["startedConversation": true])
-        Firestore.firestore().collection("matches_messages").document(match.matchedUserId).collection("matches").document(currentUserId).updateData(["startedConversation": true])
+        Firestore.firestore().collection(fsMatches_Messages).document(currentUserId).collection(fsMatches).document(match.matchedUserId).updateData(["startedConversation": true])
+        Firestore.firestore().collection(fsMatches_Messages).document(match.matchedUserId).collection(fsMatches).document(currentUserId).updateData(["startedConversation": true])
     }
     
     // MARK: - Messages
