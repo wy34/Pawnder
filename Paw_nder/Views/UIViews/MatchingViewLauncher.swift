@@ -38,8 +38,8 @@ class MatchingViewLauncher: UIView {
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureUI()
-        layoutUI()
+//        configureUI()
+//        layoutUI()
         addActionsAndGestures()
     }
     
@@ -89,6 +89,9 @@ class MatchingViewLauncher: UIView {
             keywindow.addSubview(visualEffectView)
             visualEffectView.frame = keywindow.frame
             
+            configureUI()
+            layoutUI()
+            
             UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1, options: .curveEaseOut) {
                 self.visualEffectView.alpha = 1
                 self.user1ImageView.transform = CGAffineTransform(translationX: 40, y: -25).rotated(by: -15 * CGFloat.pi / 180)
@@ -112,6 +115,8 @@ class MatchingViewLauncher: UIView {
             self.visualEffectView.alpha = 0
         } completion: { _ in
             self.visualEffectView.removeFromSuperview()
+            self.user1ImageView.removeFromSuperview()
+            self.user2ImageView.removeFromSuperview()
         }
     }
 }
