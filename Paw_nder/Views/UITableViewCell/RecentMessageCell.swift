@@ -12,6 +12,7 @@ class RecentMessageCell: UITableViewCell {
     static let reuseId = "UserMessageCell"
     
     // MARK: - Views
+    private let newMessageIndicator = PawView(bgColor: lightBlue, cornerRadius: 8/2)
     private let profileImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
     private let nameLabel = PawLabel(text: "", textColor: .black, font: .systemFont(ofSize: 16, weight: .bold), alignment: .left)
     private let msgPreviewLabel = PawLabel(text: "", textColor: .gray, font: .systemFont(ofSize: 14, weight: .medium), alignment: .left)
@@ -41,7 +42,11 @@ class RecentMessageCell: UITableViewCell {
     }
     
     private func layoutUI() {
-        addSubviews(profileImageView, nameLabel, msgPreviewLabel, timestampStack)
+        addSubviews(newMessageIndicator, profileImageView, nameLabel, msgPreviewLabel, timestampStack)
+        
+        newMessageIndicator.setDimension(wConst: 8, hConst: 8)
+        newMessageIndicator.center(to: self, by: .centerY)
+        newMessageIndicator.anchor(leading: leadingAnchor, paddingLeading: 11)
         
         profileImageView.setDimension(wConst: 60, hConst: 60)
         profileImageView.center(to: self, by: .centerY)
@@ -61,5 +66,6 @@ class RecentMessageCell: UITableViewCell {
         nameLabel.text = recentMessage.name
         msgPreviewLabel.text = recentMessage.message
         timestampLabel.text = recentMessage.timestamp.dateValue().stringValue(format: "M/dd/yy")
+        newMessageIndicator.isHidden = recentMessage.isRead
     }
 }

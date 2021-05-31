@@ -157,5 +157,7 @@ extension RecentMessagesVC: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         view.endEditing(true)
         delegate?.handleRowTapped(match: Match(recentMessage: isSearching ? searchedMessages[indexPath.row] : recentMessages[indexPath.row]))
+        
+        // tell view to hide the blue dot and save as read in that recent message
     }
 }

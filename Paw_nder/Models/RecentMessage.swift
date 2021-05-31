@@ -15,6 +15,7 @@ struct RecentMessage {
     let profileImageUrl: String
     let message: String
     let timestamp: Timestamp
+    let isRead: Bool
     
     init(dictionary: [String: Any]) {
         self.otherUserId = dictionary["otherUserId"] as? String ?? ""
@@ -22,5 +23,6 @@ struct RecentMessage {
         self.profileImageUrl = dictionary["profileImageUrl"] as? String ?? ""
         self.message = dictionary["message"] as? String ?? ""
         self.timestamp = dictionary["timestamp"] as? Timestamp ?? .init()
+        self.isRead = dictionary["isRead"] as? Bool ?? false
     }
 }

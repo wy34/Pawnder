@@ -81,15 +81,19 @@ class MessageLogVC: UIViewController {
     
     func fetchMessages() {
         FirebaseManager.shared.fetchMessages(match: match) { [weak self] result in
+            guard let self = self else { return }
             switch result {
                 case .success(let messages):
                     DispatchQueue.main.async {
-                        self?.messages = messages
-                        self?.collectionView.reloadData()
-//                        self?.collectionView.scrollToItem(at: IndexPath(item: self!.messages.count - 1, section: 0), at: .bottom, animated: true)
+                        self.messages = messages
+                        self.collectionView.reloadData()
+                        self.collectionView.scrollToItem(at: IndexPath(item: self.messages.count - 1, section: 0), at: .bottom, animated: true)
+                        
+                        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+                        Firestore.firestore().collection(fsMatches_Messages).document(currentUserId).collection(fsRecentMessages).document(self.match.matchedUserId).updateData(["isRead": true])
                     }
                 case .failure(let error):
-                    self?.showAlert(title: "Error", message: error.localizedDescription)
+                    self.showAlert(title: "Error", message: error.localizedDescription)
             }
         }
     }
