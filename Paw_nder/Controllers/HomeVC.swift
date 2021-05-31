@@ -212,6 +212,14 @@ class HomeVC: LoadingViewController {
     }
     
     @objc func handleMatch() {
+//        let matchedUserId: String
+//        let name: String
+//        let imageUrlString: String
+//        let startedConversation: Bool
+
+//
+//        let match = Match(dictionary: ["name": currentTopCardView?.userName, "imageUrlString": currentTopCardView?.firstImageUrl, "matchedUserId": currentTopCardView?.userId, "startedConversation": false])
+        matchingView.delegate = self
         matchingView.matchedUserInfo = (currentTopCardView?.userName, currentTopCardView?.firstImageUrl, homeViewModel.currentUser?.imageUrls?["1"])
         matchingView.showMatchingView()
     }
@@ -223,17 +231,22 @@ extension HomeVC: HomeNavbarStackDelegate {
         NotificationCenter.default.post(Notification(name: .didUndoPrevSwipe))
         
         if let previousTopCardView = currentTopCardView {
-            let newCard = CardView()
-            newCard.delegate = self
-            newCard.setupCardWith(cardVM: previousTopCardView.cardVM!)
-            cardsDeckView.addSubview(newCard)
-            newCard.fill(superView: cardsDeckView)
-            newCard.nextCardView = topCardView
-            topCardView = newCard
-            currentTopCardView = nil
-           
-            FirebaseManager.shared.undoLastSwipe(otherUserId: newCard.userId) { [weak self] error in
-                if let error = error { self?.showAlert(title: "Error", message: error.localizedDescription) }
+            let alertTitle = "Undo Swipe"
+            let alertMessage = "Are you sure you want to undo your last swipe? Any conversations between you and that user will be deleted."
+            showAlert(title: alertTitle, message: alertMessage, leftButtonTitle: "No", rightButtonTitle: "Yes") { [weak self] _ in
+                guard let self = self else { return }
+                let newCard = CardView()
+                newCard.delegate = self
+                newCard.setupCardWith(cardVM: previousTopCardView.cardVM!)
+                self.cardsDeckView.addSubview(newCard)
+                newCard.fill(superView: self.cardsDeckView)
+                newCard.nextCardView = self.topCardView
+                self.topCardView = newCard
+                self.currentTopCardView = nil
+
+                FirebaseManager.shared.undoLastSwipe(otherUserId: newCard.userId) { [weak self] error in
+                    if let error = error { self?.showAlert(title: "Error", message: error.localizedDescription) }
+                }
             }
         }
     }
@@ -325,5 +338,22 @@ extension HomeVC: CLLocationManagerDelegate {
                 }
             }
         }
+    }
+}
+
+// MARK: - MatchingViewLauncherDelegate
+extension HomeVC: MatchingViewLauncherDelegate {
+    func handleMessageButtonTapped() {
+        let match = Match(dictionary: ["name": currentTopCardView?.userName ?? "",
+                                       "imageUrlString": currentTopCardView?.firstImageUrl ?? "",
+                                       "matchedUserId": currentTopCardView?.userId ?? "",
+                                       "startedConversation": false])
+        let messageLogVC = MessageLogVC()
+        messageLogVC.match = match
+        messageLogVC.navigationItem.rightBarButtonItem = BarButtonWithHandler(barButtonSystemItem: .done, actionHandler: { _ in
+            self.dismiss(animated: true, completion: nil)
+        })
+        let navController = UINavigationController(rootViewController: messageLogVC)
+        present(navController, animated: true, completion: nil)
     }
 }

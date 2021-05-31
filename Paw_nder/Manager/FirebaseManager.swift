@@ -283,6 +283,29 @@ class FirebaseManager {
                 completion(error)
             }
         }
+        
+        Firestore.firestore().collection(fsMatches_Messages).document(currentUserId).collection(otherUserId).getDocuments { snapshots, error in
+            if let error = error {
+                completion(error)
+            }
+            
+            snapshots?.documents.forEach({
+                $0.reference.delete()
+            })
+        }
+        
+        Firestore.firestore().collection(fsMatches_Messages).document(otherUserId).collection(currentUserId).getDocuments { snapshots, error in
+            if let error = error {
+                completion(error)
+            }
+            
+            snapshots?.documents.forEach({
+                $0.reference.delete()
+            })
+        }
+        
+        Firestore.firestore().collection(fsMatches_Messages).document(currentUserId).collection(fsRecentMessages).document(otherUserId).delete()
+        Firestore.firestore().collection(fsMatches_Messages).document(otherUserId).collection(fsRecentMessages).document(currentUserId).delete()
     }
         
     // MARK: - Matches
@@ -424,10 +447,12 @@ class FirebaseManager {
             }
 
             snapshot?.documentChanges.forEach({ change in
+                let recentMessage = RecentMessage(dictionary: change.document.data())
+
                 if change.type == .added || change.type == .modified {
-                    let data = change.document.data()
-                    let recentMessage = RecentMessage(dictionary: data)
                     recentMessagesDictionary[recentMessage.otherUserId] = recentMessage
+                } else if change.type == .removed {
+                    recentMessagesDictionary[recentMessage.otherUserId] = nil
                 }
             })
 

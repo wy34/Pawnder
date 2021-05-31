@@ -17,6 +17,8 @@ class HomeViewModel {
     var swipes = [String: Int]()
     var fetchUserHandler: (() -> Void)?
     
+
+    
     // MARK: - Helpers
     func fetchCurrentUser() {
         FirebaseManager.shared.fetchCurrentUser { result in

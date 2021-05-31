@@ -8,6 +8,10 @@
 import UIKit
 import SwiftUI
 
+protocol MatchingViewLauncherDelegate: AnyObject {
+    func handleMessageButtonTapped()
+}
+
 class MatchingViewLauncher: UIView {
     // MARK: - Properties
     var matchedUserInfo: (String?, String?, String?) {
@@ -20,6 +24,7 @@ class MatchingViewLauncher: UIView {
     }
 
     var backToSwipeButtonSide: CGFloat = 55
+    weak var delegate: MatchingViewLauncherDelegate?
     
     // MARK: - Views
     private let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
@@ -38,8 +43,6 @@ class MatchingViewLauncher: UIView {
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        configureUI()
-//        layoutUI()
         addActionsAndGestures()
     }
     
@@ -108,6 +111,9 @@ class MatchingViewLauncher: UIView {
     // MARK: - Selector
     @objc func goToMessageVC() {
         dismissMatchingView()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+            self.delegate?.handleMessageButtonTapped()
+        }
     }
     
     @objc func dismissMatchingView() {
