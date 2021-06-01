@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditSettingsDefaultVC: EditSettingsRootVC {
+class EditSettingsNameVC: EditSettingsRootVC {
     // MARK: - Properties
     let textFieldHeight: CGFloat = 45
     
@@ -48,13 +48,7 @@ class EditSettingsDefaultVC: EditSettingsRootVC {
     
     // MARK: - Selector
     override func handleSave() {
-        switch self.settings!.title {
-            case .name:
-                self.settingsVM.user?.name = self.textfield.text ?? ""
-            default:
-                self.settingsVM.user?.breed = self.textfield.text ?? ""
-        }
-        
+        self.settingsVM.user?.name = self.textfield.text ?? ""
         super.handleSave()
     }
 }

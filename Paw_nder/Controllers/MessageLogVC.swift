@@ -53,15 +53,15 @@ class MessageLogVC: UIViewController {
     }
     
     // MARK: - Helper
-    func configureNavBar() {
+    private func configureNavBar() {
         navigationItem.title = match.name
     }
     
-    func configureUI() {
+    private func configureUI() {
         messageInputView.delegate = self
     }
     
-    func layoutUI() {
+    private func layoutUI() {
         view.addSubviews(messageInputView, collectionView)
         messageInputView.anchor(trailing: view.trailingAnchor, leading: view.leadingAnchor)
         messagesInputViewBottomAnchor = messageInputView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
@@ -69,7 +69,7 @@ class MessageLogVC: UIViewController {
         collectionView.anchor(top: view.topAnchor, trailing: view.trailingAnchor, bottom: messageInputView.topAnchor, leading: view.leadingAnchor)
     }
     
-    func setupObservers() {
+    private func setupObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKBWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKBWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
@@ -79,7 +79,7 @@ class MessageLogVC: UIViewController {
         view.addGestureRecognizer(swipe)
     }
     
-    func fetchMessages() {
+    private func fetchMessages() {
         FirebaseManager.shared.fetchMessages(match: match) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -88,14 +88,17 @@ class MessageLogVC: UIViewController {
                         self.messages = messages
                         self.collectionView.reloadData()
                         self.collectionView.scrollToItem(at: IndexPath(item: self.messages.count - 1, section: 0), at: .bottom, animated: true)
-                        
-                        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-                        Firestore.firestore().collection(fsMatches_Messages).document(currentUserId).collection(fsRecentMessages).document(self.match.matchedUserId).updateData(["isRead": true])
+                        self.markMessageAsRead()
                     }
                 case .failure(let error):
                     self.showAlert(title: "Error", message: error.localizedDescription)
             }
         }
+    }
+    
+    private func markMessageAsRead() {
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        Firestore.firestore().collection(fsMatches_Messages).document(currentUserId).collection(fsRecentMessages).document(self.match.matchedUserId).updateData(["isRead": true])
     }
     
     // MARK: - Selector

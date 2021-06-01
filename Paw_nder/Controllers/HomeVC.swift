@@ -350,7 +350,7 @@ extension HomeVC: MatchingViewLauncherDelegate {
                                        "startedConversation": false])
         let messageLogVC = MessageLogVC()
         messageLogVC.match = match
-        messageLogVC.navigationItem.rightBarButtonItem = BarButtonWithHandler(barButtonSystemItem: .done, actionHandler: { _ in
+        messageLogVC.navigationItem.leftBarButtonItem = BarButtonWithHandler(barButtonSystemItem: .done, actionHandler: { _ in
             self.dismiss(animated: true, completion: nil)
         })
         let navController = UINavigationController(rootViewController: messageLogVC)

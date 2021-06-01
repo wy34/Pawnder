@@ -9,12 +9,14 @@ import UIKit
 
 class BreedSearchVC: LoadingViewController {
     // MARK: - Properties
-    var preferenceFormView: PreferenceFormView?
     let settingsVM = SettingsViewModel.shared
     let networkManager = NetworkManager()
     var timer: Timer?
     
     var searchResults = [Breed]()
+    
+    var isChoosingBreedPref: Bool?
+    var didSelectBreedHandler: (() -> Void)?
     
     // MARK: - Views
     private let searchController = UISearchController(searchResultsController: nil)
@@ -34,7 +36,7 @@ class BreedSearchVC: LoadingViewController {
     private let searchingLabel = PawLabel(text: "Searching", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .center)
     private lazy var searchingStack = PawStackView(views: [searchingIndicator, searchingLabel], spacing: -125, axis: .vertical, distribution: .fillEqually)
     
-    // MARK: - Lifecycle
+    // MARK: - Lifecycle    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
@@ -46,8 +48,8 @@ class BreedSearchVC: LoadingViewController {
     private func setupNavBar() {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "No Preference", style: .plain, target: self, action: #selector(resetBreedPref))
-        searchController.searchBar.placeholder = "🐶 Search Breed"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: isChoosingBreedPref! ? "No Preference" : "No Breed", style: .plain, target: self, action: #selector(resetBreedPref))
+        searchController.searchBar.placeholder = "Search Breed"
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
     }
@@ -83,8 +85,12 @@ class BreedSearchVC: LoadingViewController {
     
     // MARK: - Selectors
     @objc func resetBreedPref() {
-        settingsVM.user?.breedPreference = noBreedPrefCaption
-        preferenceFormView?.loadBreedPreference()
+        if isChoosingBreedPref! {
+            settingsVM.user?.breedPreference = noBreedPrefCaption
+        } else {
+            settingsVM.user?.breed = noBreedCaption
+        }
+        didSelectBreedHandler?()
         navigationController?.popViewController(animated: true)
     }
 }
@@ -111,10 +117,14 @@ extension BreedSearchVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         let selectedBreed = searchResults[indexPath.row].name
-        settingsVM.user?.breedPreference = selectedBreed
-        preferenceFormView?.loadBreedPreference()
+        if isChoosingBreedPref! {
+            settingsVM.user?.breedPreference = selectedBreed
+        } else {
+            settingsVM.user?.breed = selectedBreed
+        }
+        didSelectBreedHandler?()
+        tableView.deselectRow(at: indexPath, animated: true)
         navigationController?.popViewController(animated: true)
     }
     

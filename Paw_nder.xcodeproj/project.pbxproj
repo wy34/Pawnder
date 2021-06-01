@@ -88,8 +88,9 @@
 		4CD2810926521A2C005C1594 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810826521A2C005C1594 /* SettingsVC.swift */; };
 		4CD2810B26521E95005C1594 /* NewSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810A26521E95005C1594 /* NewSettingsCell.swift */; };
 		4CD2810D26522260005C1594 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810C26522260005C1594 /* Setting.swift */; };
-		4CD2810F26522A40005C1594 /* EditSettingsDefaultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810E26522A40005C1594 /* EditSettingsDefaultVC.swift */; };
+		4CD2810F26522A40005C1594 /* EditSettingsNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810E26522A40005C1594 /* EditSettingsNameVC.swift */; };
 		4CE3814E26653E0C00247599 /* BarButtonWithHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE3814D26653E0C00247599 /* BarButtonWithHandler.swift */; };
+		4CE381502665925900247599 /* EditSettingsBreedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE3814F2665925900247599 /* EditSettingsBreedVC.swift */; };
 		4CEDB3A9265A14E70031999E /* EditSettingsLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEDB3A8265A14E70031999E /* EditSettingsLocationVC.swift */; };
 		4CF953912639056800D80587 /* SliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF953902639056800D80587 /* SliderCell.swift */; };
 		4CF953932639062D00D80587 /* PawSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF953922639062D00D80587 /* PawSlider.swift */; };
@@ -181,8 +182,9 @@
 		4CD2810826521A2C005C1594 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		4CD2810A26521E95005C1594 /* NewSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSettingsCell.swift; sourceTree = "<group>"; };
 		4CD2810C26522260005C1594 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
-		4CD2810E26522A40005C1594 /* EditSettingsDefaultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsDefaultVC.swift; sourceTree = "<group>"; };
+		4CD2810E26522A40005C1594 /* EditSettingsNameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsNameVC.swift; sourceTree = "<group>"; };
 		4CE3814D26653E0C00247599 /* BarButtonWithHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButtonWithHandler.swift; sourceTree = "<group>"; };
+		4CE3814F2665925900247599 /* EditSettingsBreedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsBreedVC.swift; sourceTree = "<group>"; };
 		4CEDB3A8265A14E70031999E /* EditSettingsLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsLocationVC.swift; sourceTree = "<group>"; };
 		4CF953902639056800D80587 /* SliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderCell.swift; sourceTree = "<group>"; };
 		4CF953922639062D00D80587 /* PawSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawSlider.swift; sourceTree = "<group>"; };
@@ -459,7 +461,8 @@
 			isa = PBXGroup;
 			children = (
 				4CB95F9F26536FCC00A50237 /* EditSettingsRootVC.swift */,
-				4CD2810E26522A40005C1594 /* EditSettingsDefaultVC.swift */,
+				4CD2810E26522A40005C1594 /* EditSettingsNameVC.swift */,
+				4CE3814F2665925900247599 /* EditSettingsBreedVC.swift */,
 				4CB95FA12653721A00A50237 /* EditSettingsAgeVC.swift */,
 				4CB95F9D265326A200A50237 /* EditSettingsGenderVC.swift */,
 				4CB95F9A2653241B00A50237 /* EditSettingsBioVC.swift */,
@@ -616,7 +619,7 @@
 				4C49BACD262E84B0006F046B /* HomeNavbarStack.swift in Sources */,
 				4C86D3E0264DFD1B00094591 /* IconLabel.swift in Sources */,
 				4C7611BB263C9809007A2D01 /* PagingController.swift in Sources */,
-				4CD2810F26522A40005C1594 /* EditSettingsDefaultVC.swift in Sources */,
+				4CD2810F26522A40005C1594 /* EditSettingsNameVC.swift in Sources */,
 				4C6349742634C6F9006AE44B /* Notification.Name.swift in Sources */,
 				4C49BAC9262E8191006F046B /* Constants.swift in Sources */,
 				4C062F57264F7B01009D999D /* ImagePickerGridView.swift in Sources */,
@@ -679,6 +682,7 @@
 				4C75AE44263394AD00255A7A /* FirebaseManager.swift in Sources */,
 				4C5EAF5F2646EB2D00F415B7 /* MessagesVC.swift in Sources */,
 				4CB95FA026536FCC00A50237 /* EditSettingsRootVC.swift in Sources */,
+				4CE381502665925900247599 /* EditSettingsBreedVC.swift in Sources */,
 				4C49BAC1262E3D79006F046B /* PawButton.swift in Sources */,
 				4CC677462637BCFF00C321E3 /* SettingsViewModel.swift in Sources */,
 				4C49BA91262E3928006F046B /* SceneDelegate.swift in Sources */,

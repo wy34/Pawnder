@@ -65,6 +65,7 @@ let lightPink = #colorLiteral(red: 1, green: 0.6349166036, blue: 1, alpha: 1)
 let buttonTag = "tappedButtonTag"
 
 // MARK: - No Breed Preference
+let noBreedCaption = "No Breed"
 let noBreedPrefCaption = "🐶 No Preference"
 
 // MARK: - Max Distance

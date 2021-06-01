@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow access to your camera in order to take photos to upload for other users to see.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow access to your photo library in order to choose photos for other users to see.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We will be displaying your general location as part of your overall profile, as well as using it to find you users who are within your location preferences.</string>
 	<key>CFBundleDevelopmentRegion</key>

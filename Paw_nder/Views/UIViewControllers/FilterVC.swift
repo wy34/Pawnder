@@ -84,7 +84,10 @@ class FilterVC: UIViewController {
 extension FilterVC: PreferenceFormViewDelegate {
     func didTapBreedPreference() {
         let breedSearchVC = BreedSearchVC()
-        breedSearchVC.preferenceFormView = preferenceFormView
+        breedSearchVC.isChoosingBreedPref = true
+        breedSearchVC.didSelectBreedHandler = { [weak self] in
+            self?.preferenceFormView.loadBreedPreference()
+        }
         navigationController?.pushViewController(breedSearchVC, animated: true)
     }
 }

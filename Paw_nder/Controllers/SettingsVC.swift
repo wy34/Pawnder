@@ -84,7 +84,8 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
         var vc: EditSettingsRootVC
         
         switch indexPath.row {
-            case 0, 1: vc = EditSettingsDefaultVC()
+            case 0: vc = EditSettingsNameVC()
+            case 1: vc = EditSettingsBreedVC()
             case 2: vc = EditSettingsAgeVC()
             case 3: vc = EditSettingsGenderVC()
             case 4: vc = EditSettingsBioVC()

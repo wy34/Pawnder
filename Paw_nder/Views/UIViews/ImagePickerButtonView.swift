@@ -8,7 +8,6 @@
 import UIKit
 import Firebase
 
-
 class ImagePickerButtonView: UIView {
     // MARK: - Properties
     
@@ -66,24 +65,24 @@ class ImagePickerButtonView: UIView {
     }
     
     func removeImageFor(buttonTag: Int) {
-        FirebaseManager.shared.fetchCurrentUser { result in
-            switch result {
-                case .success(let user):
-                    var imageUrls = user.imageUrls
-                    
-                    imageUrls!["\(buttonTag)"] = nil
-                    
-                    Firestore.firestore().collection("users").document(user.uid).updateData(["imageUrls": imageUrls ?? ["": ""]]) { error in
-                        if let error = error {
-                            print(error.localizedDescription)
-                        }
-                        
-                        self.imageView.image = nil
-                        self.changeButtonTo(delete: false)
-                    }
-                case .failure(let error):
-                    print(error.localizedDescription)
-            }
-        }
+//        FirebaseManager.shared.fetchCurrentUser { result in
+//            switch result {
+//                case .success(let user):
+//                    var imageUrls = user.imageUrls
+//
+//                    imageUrls!["\(buttonTag)"] = nil
+//
+//                    Firestore.firestore().collection("users").document(user.uid).updateData(["imageUrls": imageUrls ?? ["": ""]]) { error in
+//                        if let error = error {
+//                            print(error.localizedDescription)
+//                        }
+//
+//                        self.imageView.image = nil
+//                        self.changeButtonTo(delete: false)
+//                    }
+//                case .failure(let error):
+//                    print(error.localizedDescription)
+//            }
+//        }
     }
 }
