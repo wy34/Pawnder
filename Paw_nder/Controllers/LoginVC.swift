@@ -15,6 +15,7 @@ class LoginVC: LoadingViewController {
     // MARK: - Views
     private let gradientView = GradientView()
     private let iconImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
+    private let captionLabel = PawLabel(text: "Help your dog meet other dogs!", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .center)
     private let containerView = PawView(bgColor: .white, cornerRadius: 35)
     private let titleLabel = PawLabel(text: "Login", font: .systemFont(ofSize: 30, weight: .bold), alignment: .left)
     private let emailTextField = IconTextfield(placeholder: "Email", font: .systemFont(ofSize: 16, weight: .medium), icon: SFSymbols.envelope)
@@ -46,12 +47,16 @@ class LoginVC: LoadingViewController {
     }
     
     func layoutUI() {
-        view.addSubviews(gradientView, iconImageView, containerView)
+        view.addSubviews(gradientView, iconImageView, captionLabel, containerView)
         gradientView.fill(superView: view)
         
         iconImageView.center(to: view, by: .centerX)
         iconImageView.center(to: view, by: .centerY, withMultiplierOf: 0.175)
         iconImageView.setDimension(wConst: 45, hConst: 45)
+        
+        captionLabel.setDimension(width: view.widthAnchor, wMult: 0.8)
+        captionLabel.center(to: view, by: .centerX)
+        captionLabel.center(to: view, by: .centerY, withMultiplierOf: 0.34)
         
         containerView.setDimension(width: view.widthAnchor, height: view.widthAnchor, wMult: 0.8, hMult: 0.6)
         containerView.center(to: view, by: .centerX)
