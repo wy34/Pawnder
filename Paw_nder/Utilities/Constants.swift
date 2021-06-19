@@ -13,6 +13,7 @@ let dismiss: UIImage = #imageLiteral(resourceName: "dismiss")
 let heart: UIImage = #imageLiteral(resourceName: "like")
 let placeholderProfile: UIImage = #imageLiteral(resourceName: "profile")
 let paw = UIImage(named: "paw")!
+let thumb = UIImage(named: "thumb")!
 let message = UIImage(named: "bubble")!
 let user = UIImage(named: "user")!
 let male = UIImage(named: "male")!

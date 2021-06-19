@@ -85,6 +85,7 @@
 		4CB95FA026536FCC00A50237 /* EditSettingsRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB95F9F26536FCC00A50237 /* EditSettingsRootVC.swift */; };
 		4CB95FA22653721A00A50237 /* EditSettingsAgeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB95FA12653721A00A50237 /* EditSettingsAgeVC.swift */; };
 		4CC677462637BCFF00C321E3 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC677452637BCFF00C321E3 /* SettingsViewModel.swift */; };
+		4CCD327D267DA33B00406D8D /* LikesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CCD327C267DA33B00406D8D /* LikesVC.swift */; };
 		4CD2810926521A2C005C1594 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810826521A2C005C1594 /* SettingsVC.swift */; };
 		4CD2810B26521E95005C1594 /* NewSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810A26521E95005C1594 /* NewSettingsCell.swift */; };
 		4CD2810D26522260005C1594 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD2810C26522260005C1594 /* Setting.swift */; };
@@ -179,6 +180,7 @@
 		4CB95F9F26536FCC00A50237 /* EditSettingsRootVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsRootVC.swift; sourceTree = "<group>"; };
 		4CB95FA12653721A00A50237 /* EditSettingsAgeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsAgeVC.swift; sourceTree = "<group>"; };
 		4CC677452637BCFF00C321E3 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		4CCD327C267DA33B00406D8D /* LikesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesVC.swift; sourceTree = "<group>"; };
 		4CD2810826521A2C005C1594 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		4CD2810A26521E95005C1594 /* NewSettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSettingsCell.swift; sourceTree = "<group>"; };
 		4CD2810C26522260005C1594 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 			children = (
 				4CFD225F263E5E1A00C65277 /* RootTabBarController.swift */,
 				4C49BA92262E3928006F046B /* HomeVC.swift */,
+				4CCD327C267DA33B00406D8D /* LikesVC.swift */,
 				4C5EAD6E2631199200653AE0 /* RegisterVC.swift */,
 				4C3D1A31263A00D100185926 /* LoginVC.swift */,
 				4C7611BC263CCBCA007A2D01 /* AboutVC.swift */,
@@ -644,6 +647,7 @@
 				4C68459A264882FD0003988C /* Match.swift in Sources */,
 				4C8F8CF52649B28400A62E85 /* MessageBubbleCell.swift in Sources */,
 				4C49BABE262E3D2D006F046B /* PawImageView.swift in Sources */,
+				4CCD327D267DA33B00406D8D /* LikesVC.swift in Sources */,
 				4C75AE522633C2D900255A7A /* LoadingView.swift in Sources */,
 				4CB95F9B2653241B00A50237 /* EditSettingsBioVC.swift in Sources */,
 				4CA40BEA262F716A00B11232 /* User.swift in Sources */,

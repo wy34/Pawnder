@@ -12,6 +12,7 @@ class RootTabBarController: UITabBarController {
     
     // MARK: - Views
     var homeVC: HomeVC?
+    var likesVC: LikesVC?
     var messagesVC: UINavigationController?
     var settingsVC: UINavigationController?
     
@@ -49,18 +50,23 @@ class RootTabBarController: UITabBarController {
         self.selectedIndex = 0
                 
         homeVC = HomeVC()
-        homeVC?.tabBarItem = UITabBarItem(title: nil, image: paw, tag: 0)
-        homeVC?.tabBarItem.imageInsets = .init(top: 14, left: 0, bottom: -14, right: 0)
+        setupVCsAndTabItems(for: homeVC!, image: paw, tag: 0)
         
+        likesVC = LikesVC()
+        setupVCsAndTabItems(for: likesVC!, image: thumb, tag: 0)
+
         messagesVC = UINavigationController(rootViewController: MessagesVC())
-        messagesVC?.tabBarItem = UITabBarItem(title: nil, image: message, tag: 1)
-        messagesVC?.tabBarItem.imageInsets = .init(top: 14, left: 0, bottom: -14, right: 0)
+        setupVCsAndTabItems(for: messagesVC!, image: message, tag: 2)
         
         settingsVC = UINavigationController(rootViewController: ProfileVC())
-        settingsVC?.tabBarItem = UITabBarItem(title: nil, image: user, tag: 2)
-        settingsVC?.tabBarItem.imageInsets = .init(top: 14, left: 0, bottom: -14, right: 0)
+        setupVCsAndTabItems(for: settingsVC!, image: user, tag: 3)
         
-        setViewControllers([homeVC!, messagesVC!, settingsVC!], animated: true)
+        setViewControllers([homeVC!, likesVC!, messagesVC!, settingsVC!], animated: true)
+    }
+    
+    private func setupVCsAndTabItems(for vc: UIViewController, image: UIImage, tag: Int) {
+        vc.tabBarItem = UITabBarItem(title: nil, image: image, tag: tag)
+        vc.tabBarItem.imageInsets = .init(top: 15, left: 2, bottom: -15, right: 2)
     }
     
     func showTabbar() {
@@ -87,12 +93,14 @@ class RootTabBarController: UITabBarController {
     // MARK: - Selector
     @objc func disableButtons() {
         homeVC?.tabBarItem.isEnabled = false
+        likesVC?.tabBarItem.isEnabled = false
         messagesVC?.tabBarItem.isEnabled = false
         settingsVC?.tabBarItem.isEnabled = false
     }
     
     @objc func enableButtons() {
         homeVC?.tabBarItem.isEnabled = true
+        likesVC?.tabBarItem.isEnabled = true
         messagesVC?.tabBarItem.isEnabled = true
         settingsVC?.tabBarItem.isEnabled = true
     }
