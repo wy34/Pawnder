@@ -16,7 +16,6 @@ class HomeVC: LoadingViewController {
     var currentTopCardView: CardView?
     var topCardView: CardView?
     var previousCardView: CardView?
-    var isFirstLocation = true
     
     // MARK: - Views
     private let navbarView = PawView()
@@ -151,10 +150,6 @@ class HomeVC: LoadingViewController {
             self.previousCardView = $0
             if self.topCardView == nil { self.topCardView = $0 }
         })
-            
-        if cardViews.count == 0 {
-            print("no cards")
-        }
     }
     
     private func performSwipeAnimationWhenPressed(translation: CGFloat, rotation: CGFloat) {
@@ -227,7 +222,7 @@ class HomeVC: LoadingViewController {
 
 // MARK: - HomeNavbarStackDelegate
 extension HomeVC: HomeNavbarStackDelegate {
-    func handleRefreshTapped() {
+    func handleUndoTapped() {
         NotificationCenter.default.post(Notification(name: .didUndoPrevSwipe))
         
         if let previousTopCardView = currentTopCardView {
@@ -304,15 +299,12 @@ extension HomeVC: FilterVCDelegate {
 
 // MARK: - CLLocationManagerDelegate
 extension HomeVC: CLLocationManagerDelegate {
-    #warning("If a user changes locatioin, maybe automaticcaly reflect that in other users deck")
+    #warning("If a user changes location, maybe automaticcaly reflect that in other users deck")
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print(isFirstLocation)
-        
-        if !isFirstLocation {
-            showUpdateNewLocationAlert()
-        }
-        
-        isFirstLocation = false
+        locations[0].cityAndStateName(completion: { locationName, err in
+            let sameLocation = self.homeViewModel.currentUser?.locationName == locationName
+            if !sameLocation { self.showUpdateNewLocationAlert() }
+        })
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

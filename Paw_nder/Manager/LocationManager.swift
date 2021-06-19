@@ -32,7 +32,7 @@ class LocationManager {
     
     func setupLocationManager(delegate: CLLocationManagerDelegate) {
         locationManager.delegate = delegate
-        locationManager.distanceFilter = 1609.34
+        locationManager.distanceFilter = 1609.34 * 3
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
     

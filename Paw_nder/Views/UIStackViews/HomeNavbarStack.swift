@@ -8,7 +8,7 @@
 import UIKit
 
 protocol HomeNavbarStackDelegate: AnyObject {
-    func handleRefreshTapped()
+    func handleUndoTapped()
     func handleFilterTapped()
 }
 
@@ -17,7 +17,7 @@ class HomeNavbarStack: UIStackView {
     weak var delegate: HomeNavbarStackDelegate?
     
     // MARK: - Views
-    private let refreshBtn = PawButton(image: UIImage(named: "refresh")!.withRenderingMode(.alwaysTemplate), tintColor: .gray)
+    private let undoBtn = PawButton(image: UIImage(named: "refresh")!.withRenderingMode(.alwaysTemplate), tintColor: .gray)
     private let heartImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
     private let filterBtn = PawButton(image: UIImage(named: "filter")!.withRenderingMode(.alwaysTemplate), tintColor: .gray)
     
@@ -48,43 +48,43 @@ class HomeNavbarStack: UIStackView {
     
     // MARK: - Helpers
     private func layoutUI() {
-        let views = [refreshBtn, UIView(), heartImageView, UIView(), filterBtn]
+        let views = [undoBtn, UIView(), heartImageView, UIView(), filterBtn]
         views.forEach({ addArrangedSubview($0) })
         heartImageView.setDimension(wConst: 45, hConst: 45)
     }
     
     private func setupButtonActions() {
-        refreshBtn.addTarget(self, action: #selector(handleRefreshTapped), for: .touchUpInside)
+        undoBtn.addTarget(self, action: #selector(handleUndoTapped), for: .touchUpInside)
         filterBtn.addTarget(self, action: #selector(handleFilterTapped), for: .touchUpInside)
     }
     
     private func setupNotificationObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleSwipeUndo), name: .didUndoPrevSwipe, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(enableUndoButton), name: .didUndoPrevSwipe, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(disableButtons), name: .didDragCard, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(enableButtons), name: .didFinishDraggingCard, object: nil)
     }
     
     // MARK: - Selectors
-    @objc func handleRefreshTapped() {
-        refreshBtn.isEnabled = false
-        delegate?.handleRefreshTapped()
+    @objc func handleUndoTapped() {
+        undoBtn.isEnabled = false
+        delegate?.handleUndoTapped()
     }
     
     @objc func handleFilterTapped() {
         delegate?.handleFilterTapped()
     }
     
-    @objc func handleSwipeUndo() {
-        refreshBtn.isEnabled = true
+    @objc func enableUndoButton() {
+        undoBtn.isEnabled = true
     }
     
     @objc func disableButtons() {
-        refreshBtn.isEnabled = false
+        undoBtn.isEnabled = false
         filterBtn.isEnabled = false
     }
     
     @objc func enableButtons() {
-        refreshBtn.isEnabled = true
+        undoBtn.isEnabled = true
         filterBtn.isEnabled = true
     }
 }
