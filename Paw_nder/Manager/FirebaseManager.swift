@@ -246,6 +246,16 @@ class FirebaseManager {
                 }
             }
         }
+        
+        #warning("usersWhoLikedMe - Just Marking It, Nothing Wrong Here")
+        Firestore.firestore().collection("usersWhoLikedMe").document(otherUserId).setData([currentUserId: 1]) { error in
+            if let error = error {
+                completion(error)
+                return
+            }
+            
+            completion(nil)
+        }
     }
     
     func checkMatchingUser(currentUserId: String, otherUserId: String, completion: @escaping (Error?) -> Void) {
@@ -259,10 +269,28 @@ class FirebaseManager {
             if data[currentUserId] == 1 {
                 self?.addUserMatch(currentUserId: currentUserId, otherUserId: otherUserId, completion: completion)
                 self?.addUserMatch(currentUserId: otherUserId, otherUserId: currentUserId, completion: completion)
+                
+                #warning("removing from likes when match - Just Marking It, Nothing Wrong Here")
+                Firestore.firestore().collection("usersWhoLikedMe").document(currentUserId).getDocument { snapshot, error in
+                    if let error = error { print(error.localizedDescription); return }
+                    if var data = snapshot?.data() {
+                        data[currentUserId] = nil
+                        Firestore.firestore().collection("usersWhoLikedMe").document(currentUserId).updateData(data)
+                    }
+                }
+                
+                Firestore.firestore().collection("usersWhoLikedMe").document(otherUserId).getDocument { snapshot, error in
+                    if let error = error { print(error.localizedDescription); return }
+                    if var data = snapshot?.data() {
+                        data[otherUserId] = nil
+                        Firestore.firestore().collection("usersWhoLikedMe").document(otherUserId).updateData(data)
+                    }
+                }
             }
         }
     }
     
+    #warning("Need to also undo the usersWhoLikedMe collection")
     func undoLastSwipe(otherUserId: String, completion: @escaping (Error?) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
 

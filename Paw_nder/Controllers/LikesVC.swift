@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Firebase
 
 class LikesVC: UIViewController {
     // MARK: - Properties
+    var users = [User]()
     
     // MARK: - Views
     private let iconImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
@@ -17,7 +19,7 @@ class LikesVC: UIViewController {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        cv.register(LikeCell.self, forCellWithReuseIdentifier: LikeCell.reuseId)
         cv.delegate = self
         cv.dataSource = self
         cv.backgroundColor = bgLightGray
@@ -30,11 +32,21 @@ class LikesVC: UIViewController {
         super.viewDidLoad()
         configureUI()
         layoutUI()
+        fetchUsersWhoLikedMe { result in
+            switch result {
+            case .success(let users):
+                DispatchQueue.main.async {
+                    self.users = users
+                    self.collectionView.reloadData()
+                }
+            case .failure(let error):
+                self.showAlert(title: "Error", message: error.localizedDescription)
+            }
+        }
     }
     
     // MARK: - Helpers
     private func configureUI() {
-
     }
     
     private func layoutUI() {
@@ -43,7 +55,68 @@ class LikesVC: UIViewController {
         iconImageView.center(to: view, by: .centerY, withMultiplierOf: 0.1875)
         iconImageView.setDimension(wConst: 45, hConst: 45)
         titleLabel.anchor(top: iconImageView.bottomAnchor, trailing: view.trailingAnchor, leading: view.leadingAnchor, paddingTop: 25)
-        collectionView.anchor(top: titleLabel.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 25)
+        collectionView.anchor(top: titleLabel.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 15)
+    }
+    
+    func fetchUsersWhoLikedMe(completion: @escaping (Result<[User], Error>) -> Void) {
+        let currentUserId = Auth.auth().currentUser!.uid
+//        Firestore.firestore().collection("usersWhoLikedMe").addSnapshotListener { snapshot, error in
+//            if let error = error { print(error.localizedDescription); return }
+//            snapshot?.documentChanges.forEach({ docChange in
+//                var users = [User]()
+//
+//                if let dictionary = docChange.document.data() as? [String: Bool] {
+//                    for id in dictionary.keys {
+//                        self.checkIfAlreadyMatch(currentUserId: currentUserId, otherUserId: id) { match in
+//    //                        if !match {
+//                                Firestore.firestore().collection("users").document(id).getDocument { snapshot, error in
+//                                    if let error = error { completion(.failure(error)); return }
+//                                    if let data = snapshot?.data() {
+//                                        let user = User(dictionary: data)
+//                                        users.append(user)
+//                                        completion(.success(users))
+//                                    }
+//                                }
+//    //                        }
+//                        }
+//                    }
+//                }
+//            })
+//        }
+        
+        Firestore.firestore().collection("usersWhoLikedMe").document(currentUserId).getDocument { snapshot, error in
+            if let error = error { print(error.localizedDescription); return }
+
+            var users = [User]()
+            if let dict = snapshot?.data() as? [String: Bool] {
+                for id in dict.keys {
+                    self.checkIfAlreadyMatch(currentUserId: currentUserId, otherUserId: id) { match in
+//                        if !match {
+                            Firestore.firestore().collection("users").document(id).getDocument { snapshot, error in
+                                if let error = error { completion(.failure(error)); return }
+                                if let data = snapshot?.data() {
+                                    let user = User(dictionary: data)
+                                    users.append(user)
+                                    completion(.success(users))
+                                }
+                            }
+//                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func checkIfAlreadyMatch(currentUserId: String, otherUserId: String, completion: @escaping (Bool) -> Void) {
+        Firestore.firestore().collection(fsMatches_Messages).document(currentUserId).collection(fsMatches).document(otherUserId).getDocument { snapshot, error in
+            if let snapshot = snapshot {
+                if snapshot.exists {
+                    completion(true)
+                } else {
+                    completion(false)
+                }
+            }
+        }
     }
     
     // MARK: - Selectors
@@ -60,13 +133,19 @@ extension LikesVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return users.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .blue
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LikeCell.reuseId, for: indexPath) as! LikeCell
+        cell.setupCellWith(user: users[indexPath.item])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let aboutVC = AboutVC()
+        aboutVC.modalPresentationStyle = .fullScreen
+        present(aboutVC, animated: true, completion: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

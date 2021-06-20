@@ -75,6 +75,7 @@
 		4C8F8CF92649E0BB00A62E85 /* MessageInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F8CF82649E0BB00A62E85 /* MessageInputView.swift */; };
 		4C9AC421266030440094BB86 /* BreedSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9AC420266030440094BB86 /* BreedSearchVC.swift */; };
 		4C9AC42326604E130094BB86 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9AC42226604E130094BB86 /* NetworkManager.swift */; };
+		4CA3BAA1267EE5D9009F1B53 /* LikeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA3BAA0267EE5D9009F1B53 /* LikeCell.swift */; };
 		4CA40BE6262F4DE000B11232 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BE5262F4DE000B11232 /* CardView.swift */; };
 		4CA40BEA262F716A00B11232 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BE9262F716A00B11232 /* User.swift */; };
 		4CA40BEF262F7F4F00B11232 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */; };
@@ -170,6 +171,7 @@
 		4C8F8CF82649E0BB00A62E85 /* MessageInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInputView.swift; sourceTree = "<group>"; };
 		4C9AC420266030440094BB86 /* BreedSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedSearchVC.swift; sourceTree = "<group>"; };
 		4C9AC42226604E130094BB86 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		4CA3BAA0267EE5D9009F1B53 /* LikeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCell.swift; sourceTree = "<group>"; };
 		4CA40BE5262F4DE000B11232 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		4CA40BE9262F716A00B11232 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4CA40BEE262F7F4F00B11232 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 			children = (
 				4C5EAF642647926000F415B7 /* NewMatchMessageCell.swift */,
 				4C8F8CF42649B28400A62E85 /* MessageBubbleCell.swift */,
+				4CA3BAA0267EE5D9009F1B53 /* LikeCell.swift */,
 			);
 			path = UICollectionViewCell;
 			sourceTree = "<group>";
@@ -630,6 +633,7 @@
 				4C75AE492633963C00255A7A /* Credentials.swift in Sources */,
 				4C2E7C9C263BC1DD00DDA4E5 /* AboutViewModel.swift in Sources */,
 				4CB95FA22653721A00A50237 /* EditSettingsAgeVC.swift in Sources */,
+				4CA3BAA1267EE5D9009F1B53 /* LikeCell.swift in Sources */,
 				4C5EAF6226478D4C00F415B7 /* NewMatchesVC.swift in Sources */,
 				4C3D1A36263A2A4D00185926 /* LoginViewModel.swift in Sources */,
 				4C9AC42326604E130094BB86 /* NetworkManager.swift in Sources */,
