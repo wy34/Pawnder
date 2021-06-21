@@ -14,7 +14,9 @@ class LikesVC: UIViewController {
     
     // MARK: - Views
     private let iconImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
-    private let titleLabel = PawLabel(text: "Heres who liked you...", textColor: .black, font: .systemFont(ofSize: 18, weight: .medium), alignment: .center)
+    private let titleLabel = PawLabel(text: "0 user(s) has liked you", textColor: .black, font: .systemFont(ofSize: 18, weight: .medium), alignment: .center)
+    
+    
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -32,11 +34,17 @@ class LikesVC: UIViewController {
         super.viewDidLoad()
         configureUI()
         layoutUI()
+        
         fetchUsersWhoLikedMe { result in
             switch result {
             case .success(let users):
                 DispatchQueue.main.async {
                     self.users = users
+                    if users.count == 0 {
+                        self.titleLabel.text = "0 user(s) has liked you"
+                    } else {
+                        self.titleLabel.text = "\(users.count) user(s) has liked you"
+                    }
                     self.collectionView.reloadData()
                 }
             case .failure(let error):
@@ -47,6 +55,7 @@ class LikesVC: UIViewController {
     
     // MARK: - Helpers
     private func configureUI() {
+        
     }
     
     private func layoutUI() {
@@ -58,52 +67,25 @@ class LikesVC: UIViewController {
         collectionView.anchor(top: titleLabel.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 15)
     }
     
+    #warning("Fetching users who liked me")
     func fetchUsersWhoLikedMe(completion: @escaping (Result<[User], Error>) -> Void) {
         let currentUserId = Auth.auth().currentUser!.uid
-//        Firestore.firestore().collection("usersWhoLikedMe").addSnapshotListener { snapshot, error in
-//            if let error = error { print(error.localizedDescription); return }
-//            snapshot?.documentChanges.forEach({ docChange in
-//                var users = [User]()
-//
-//                if let dictionary = docChange.document.data() as? [String: Bool] {
-//                    for id in dictionary.keys {
-//                        self.checkIfAlreadyMatch(currentUserId: currentUserId, otherUserId: id) { match in
-//    //                        if !match {
-//                                Firestore.firestore().collection("users").document(id).getDocument { snapshot, error in
-//                                    if let error = error { completion(.failure(error)); return }
-//                                    if let data = snapshot?.data() {
-//                                        let user = User(dictionary: data)
-//                                        users.append(user)
-//                                        completion(.success(users))
-//                                    }
-//                                }
-//    //                        }
-//                        }
-//                    }
-//                }
-//            })
-//        }
-        
-        Firestore.firestore().collection("usersWhoLikedMe").document(currentUserId).getDocument { snapshot, error in
-            if let error = error { print(error.localizedDescription); return }
 
-            var users = [User]()
-            if let dict = snapshot?.data() as? [String: Bool] {
-                for id in dict.keys {
-                    self.checkIfAlreadyMatch(currentUserId: currentUserId, otherUserId: id) { match in
-//                        if !match {
-                            Firestore.firestore().collection("users").document(id).getDocument { snapshot, error in
-                                if let error = error { completion(.failure(error)); return }
-                                if let data = snapshot?.data() {
-                                    let user = User(dictionary: data)
-                                    users.append(user)
-                                    completion(.success(users))
-                                }
-                            }
-//                        }
+        var users = [User]()
+        Firestore.firestore().collection("usersWhoLikedMe").document(currentUserId).collection("users").addSnapshotListener { snapshot, error in
+            if let error = error { print(error.localizedDescription); return }
+            
+            snapshot?.documentChanges.forEach({ change in
+                if change.type == .added {
+                    let user = User(dictionary: change.document.data())
+                    self.checkIfAlreadyMatch(currentUserId: currentUserId, otherUserId: user.uid) { match in
+                        if !match {
+                            users.append(user)
+                            completion(.success(users))
+                        }
                     }
                 }
-            }
+            })
         }
     }
     

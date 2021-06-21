@@ -180,7 +180,7 @@ class HomeVC: LoadingViewController {
     }
     
     private func addSwipeDataWhenPressed(for otherUserId: String, like: Bool) {
-        FirebaseManager.shared.addUserSwipe(for: otherUserId, like: like) { [weak self] error in
+        FirebaseManager.shared.addUserSwipe(for: otherUserId, like: like, currentUser: homeViewModel.currentUser) { [weak self] error in
             if let error = error {
                 self?.showAlert(title: "Error", message: error.localizedDescription)
                 return
@@ -265,7 +265,7 @@ extension HomeVC: HomeBottomControlsStackDelegate {
 // MARK: - CardViewDelegate
 extension HomeVC: CardViewDelegate {
     func handleCardSwipe(userId: String, like: Bool) {
-        FirebaseManager.shared.addUserSwipe(for: userId, like: like) { [weak self] error in
+        FirebaseManager.shared.addUserSwipe(for: userId, like: like, currentUser: homeViewModel.currentUser) { [weak self] error in
             if let error = error {
                 self?.showAlert(title: "Error", message: error.localizedDescription)
             }

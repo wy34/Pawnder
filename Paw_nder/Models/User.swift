@@ -10,6 +10,8 @@ import Firebase
 import CoreLocation
 
 struct User {
+    var dictionaryData: [String: Any]?
+    
     var uid: String
     var name: String
     var age: Int?
@@ -26,6 +28,7 @@ struct User {
     var distancePreference: Int?
     
     init(dictionary: [String: Any]) {
+        self.dictionaryData = dictionary
         self.uid = dictionary["uid"] as? String ?? ""
         self.name = dictionary["fullName"] as? String ?? ""
         self.age = dictionary["age"] as? Int ?? 0

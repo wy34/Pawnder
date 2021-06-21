@@ -217,11 +217,22 @@ class FirebaseManager {
     }
     
     // MARK: - Swiping
-    func addUserSwipe(for otherUserId: String, like: Bool, completion: @escaping (Error?) -> Void) {
+    func addUserSwipe(for otherUserId: String, like: Bool, currentUser: User?, completion: @escaping (Error?) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
         let swipeData = [otherUserId: (like ? 1 : 0)]
         
         if like == true {
+            #warning("usersWhoLikedMe - Just Marking It, Nothing Wrong Here")
+            Firestore.firestore().collection("usersWhoLikedMe").document(otherUserId).collection("users").document(currentUserId).setData(currentUser!.dictionaryData!)
+//            Firestore.firestore().collection("usersWhoLikedMe").document(otherUserId).setData([currentUserId: 1]) { error in
+//                if let error = error {
+//                    completion(error)
+//                    return
+//                }
+//
+//                completion(nil)
+//            }
+            
             checkMatchingUser(currentUserId: currentUserId, otherUserId: otherUserId, completion: completion)
         }
         
@@ -245,16 +256,6 @@ class FirebaseManager {
                     completion(nil)
                 }
             }
-        }
-        
-        #warning("usersWhoLikedMe - Just Marking It, Nothing Wrong Here")
-        Firestore.firestore().collection("usersWhoLikedMe").document(otherUserId).setData([currentUserId: 1]) { error in
-            if let error = error {
-                completion(error)
-                return
-            }
-            
-            completion(nil)
         }
     }
     
