@@ -9,7 +9,7 @@ import Foundation
 import Firebase
 import CoreLocation
 
-struct User {
+struct User: Equatable {
     var dictionaryData: [String: Any]?
     
     var uid: String
@@ -42,6 +42,10 @@ struct User {
         self.maxAgePreference = dictionary["maxAgePreference"] as? Int
         self.distancePreference = dictionary["distancePreference"] as? Int ?? maxDistance
         setLocationInfo(dictionary)
+    }
+    
+    static func == (lhs: User, rhs: User) -> Bool {
+        return lhs.uid == rhs.uid
     }
     
     func toCardViewModel() -> CardViewModel {

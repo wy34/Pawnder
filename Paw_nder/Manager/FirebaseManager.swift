@@ -222,17 +222,7 @@ class FirebaseManager {
         let swipeData = [otherUserId: (like ? 1 : 0)]
         
         if like == true {
-            #warning("usersWhoLikedMe - Just Marking It, Nothing Wrong Here")
             Firestore.firestore().collection("usersWhoLikedMe").document(otherUserId).collection("users").document(currentUserId).setData(currentUser!.dictionaryData!)
-//            Firestore.firestore().collection("usersWhoLikedMe").document(otherUserId).setData([currentUserId: 1]) { error in
-//                if let error = error {
-//                    completion(error)
-//                    return
-//                }
-//
-//                completion(nil)
-//            }
-            
             checkMatchingUser(currentUserId: currentUserId, otherUserId: otherUserId, completion: completion)
         }
         
@@ -271,22 +261,8 @@ class FirebaseManager {
                 self?.addUserMatch(currentUserId: currentUserId, otherUserId: otherUserId, completion: completion)
                 self?.addUserMatch(currentUserId: otherUserId, otherUserId: currentUserId, completion: completion)
                 
-                #warning("removing from likes when match - Just Marking It, Nothing Wrong Here")
-                Firestore.firestore().collection("usersWhoLikedMe").document(currentUserId).getDocument { snapshot, error in
-                    if let error = error { print(error.localizedDescription); return }
-                    if var data = snapshot?.data() {
-                        data[currentUserId] = nil
-                        Firestore.firestore().collection("usersWhoLikedMe").document(currentUserId).updateData(data)
-                    }
-                }
-                
-                Firestore.firestore().collection("usersWhoLikedMe").document(otherUserId).getDocument { snapshot, error in
-                    if let error = error { print(error.localizedDescription); return }
-                    if var data = snapshot?.data() {
-                        data[otherUserId] = nil
-                        Firestore.firestore().collection("usersWhoLikedMe").document(otherUserId).updateData(data)
-                    }
-                }
+                Firestore.firestore().collection("usersWhoLikedMe").document(currentUserId).collection("users").document(otherUserId).delete()
+                Firestore.firestore().collection("usersWhoLikedMe").document(otherUserId).collection("users").document(currentUserId).delete()
             }
         }
     }

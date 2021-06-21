@@ -40,12 +40,8 @@ class LikesVC: UIViewController {
             case .success(let users):
                 DispatchQueue.main.async {
                     self.users = users
-                    if users.count == 0 {
-                        self.titleLabel.text = "0 user(s) has liked you"
-                    } else {
-                        self.titleLabel.text = "\(users.count) user(s) has liked you"
-                    }
                     self.collectionView.reloadData()
+                    self.updateTitleLabel()
                 }
             case .failure(let error):
                 self.showAlert(title: "Error", message: error.localizedDescription)
@@ -70,19 +66,26 @@ class LikesVC: UIViewController {
     #warning("Fetching users who liked me")
     func fetchUsersWhoLikedMe(completion: @escaping (Result<[User], Error>) -> Void) {
         let currentUserId = Auth.auth().currentUser!.uid
-
         var users = [User]()
+        
         Firestore.firestore().collection("usersWhoLikedMe").document(currentUserId).collection("users").addSnapshotListener { snapshot, error in
             if let error = error { print(error.localizedDescription); return }
             
             snapshot?.documentChanges.forEach({ change in
+                let user = User(dictionary: change.document.data())
+                
                 if change.type == .added {
-                    let user = User(dictionary: change.document.data())
                     self.checkIfAlreadyMatch(currentUserId: currentUserId, otherUserId: user.uid) { match in
                         if !match {
                             users.append(user)
                             completion(.success(users))
                         }
+                    }
+                } else if change.type == .removed {
+                    if let userToRemoveIndex = self.users.firstIndex(where: { $0 == user }) {
+                        self.users.remove(at: userToRemoveIndex)
+                        self.collectionView.reloadData()
+                        self.updateTitleLabel()
                     }
                 }
             })
@@ -98,6 +101,14 @@ class LikesVC: UIViewController {
                     completion(false)
                 }
             }
+        }
+    }
+    
+    private func updateTitleLabel() {
+        if users.count == 0 {
+            titleLabel.text = "0 user(s) has liked you"
+        } else {
+            titleLabel.text = "\(users.count) user(s) has liked you"
         }
     }
     
