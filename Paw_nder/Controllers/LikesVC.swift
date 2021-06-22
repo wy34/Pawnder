@@ -61,12 +61,12 @@ class LikesVC: UIViewController {
         collectionView.anchor(top: titleLabel.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 15)
     }
     
-    #warning("What to do if someone likes me, but i dislike them. Currently, they will still be showing up in my likes page")
+    #warning("clean up")
     func fetchUsersWhoLikedMe(completion: @escaping (Result<[User], Error>) -> Void) {
         let currentUserId = Auth.auth().currentUser!.uid
         var users = [User]()
         
-        Firestore.firestore().collection("usersWhoLikedMe").document(currentUserId).collection("users").addSnapshotListener { snapshot, error in
+        Firestore.firestore().collection(fsUsersWhoLikedMe).document(currentUserId).collection("users").addSnapshotListener { snapshot, error in
             if let error = error { print(error.localizedDescription); return }
             users.removeAll()
             
