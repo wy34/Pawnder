@@ -35,14 +35,14 @@ class LikesVC: UIViewController {
         
         fetchUsersWhoLikedMe { result in
             switch result {
-            case .success(let users):
-                DispatchQueue.main.async {
-                    self.users += users
-                    self.collectionView.reloadData()
-                    self.updateTitleLabel()
-                }
-            case .failure(let error):
-                self.showAlert(title: "Error", message: error.localizedDescription)
+                case .success(let users):
+                    DispatchQueue.main.async {
+                        self.users += users
+                        self.collectionView.reloadData()
+                        self.updateTitleLabel()
+                    }
+                case .failure(let error):
+                    self.showAlert(title: "Error", message: error.localizedDescription)
             }
         }
     }
@@ -68,14 +68,14 @@ class LikesVC: UIViewController {
         
         Firestore.firestore().collection(fsUsersWhoLikedMe).document(currentUserId).collection("users").addSnapshotListener { snapshot, error in
             if let error = error { print(error.localizedDescription); return }
-            users.removeAll()
-            
+                        
             snapshot?.documentChanges.forEach({ change in
                 let user = User(dictionary: change.document.data())
                 
                 if change.type == .added {
                     self.checkIfAlreadyMatch(currentUserId: currentUserId, otherUserId: user.uid) { match in
                         if !match {
+                            users.removeAll()
                             users.append(user)
                             completion(.success(users))
                         }
