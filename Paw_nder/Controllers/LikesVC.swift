@@ -10,6 +10,7 @@ import Firebase
 
 class LikesVC: UIViewController {
     // MARK: - Properties
+    let likesVCVM = LikesViewModel()
     var users = [User]()
     
     // MARK: - Views
@@ -32,19 +33,7 @@ class LikesVC: UIViewController {
         super.viewDidLoad()
         configureUI()
         layoutUI()
-        
-        fetchUsersWhoLikedMe { result in
-            switch result {
-                case .success(let users):
-                    DispatchQueue.main.async {
-                        self.users += users
-                        self.collectionView.reloadData()
-                        self.updateTitleLabel()
-                    }
-                case .failure(let error):
-                    self.showAlert(title: "Error", message: error.localizedDescription)
-            }
-        }
+        fetchUsersWhoLikedMe()
     }
     
     // MARK: - Helpers
@@ -61,54 +50,30 @@ class LikesVC: UIViewController {
         collectionView.anchor(top: titleLabel.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 15)
     }
     
-    #warning("clean up")
-    func fetchUsersWhoLikedMe(completion: @escaping (Result<[User], Error>) -> Void) {
-        let currentUserId = Auth.auth().currentUser!.uid
-        var users = [User]()
-        
-        Firestore.firestore().collection(fsUsersWhoLikedMe).document(currentUserId).collection("users").addSnapshotListener { snapshot, error in
-            if let error = error { print(error.localizedDescription); return }
-                        
-            snapshot?.documentChanges.forEach({ change in
-                let user = User(dictionary: change.document.data())
-                
-                if change.type == .added {
-                    self.checkIfAlreadyMatch(currentUserId: currentUserId, otherUserId: user.uid) { match in
-                        if !match {
-                            users.removeAll()
-                            users.append(user)
-                            completion(.success(users))
-                        }
-                    }
-                } else if change.type == .removed {
-                    if let userToRemoveIndex = self.users.firstIndex(where: { $0 == user }) {
-                        self.users.remove(at: userToRemoveIndex)
+    private func fetchUsersWhoLikedMe() {
+        likesVCVM.fetchUsersWhoLikedMe(addedCompletion: { result in
+            switch result {
+                case .success(let users):
+                    DispatchQueue.main.async {
+                        self.users += users
                         self.collectionView.reloadData()
                         self.updateTitleLabel()
                     }
-                }
-            })
-        }
-    }
-    
-    func checkIfAlreadyMatch(currentUserId: String, otherUserId: String, completion: @escaping (Bool) -> Void) {
-        Firestore.firestore().collection(fsMatches_Messages).document(currentUserId).collection(fsMatches).document(otherUserId).getDocument { snapshot, error in
-            if let snapshot = snapshot {
-                if snapshot.exists {
-                    completion(true)
-                } else {
-                    completion(false)
-                }
+                case .failure(let error):
+                    self.showAlert(title: "Error", message: error.localizedDescription)
             }
-        }
+        }, removedCompletion: { userToRemove in
+            guard let userToRemove = userToRemove else { return }
+            if let userToRemoveIndex = self.users.firstIndex(where: { $0 == userToRemove }) {
+                self.users.remove(at: userToRemoveIndex)
+                self.collectionView.reloadData()
+                self.updateTitleLabel()
+            }
+        })
     }
     
     private func updateTitleLabel() {
-        if users.count == 0 {
-            titleLabel.text = "0 user(s) has liked you"
-        } else {
-            titleLabel.text = "\(users.count) user(s) has liked you"
-        }
+        titleLabel.text = users.count == 0 ? "0 user(s) has liked you" : "\(users.count) user(s) has liked you"
     }
     
     // MARK: - Selectors
