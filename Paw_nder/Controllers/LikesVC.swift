@@ -16,8 +16,6 @@ class LikesVC: UIViewController {
     private let iconImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
     private let titleLabel = PawLabel(text: "0 user(s) has liked you", textColor: .black, font: .systemFont(ofSize: 18, weight: .medium), alignment: .center)
     
-    
-    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -39,7 +37,7 @@ class LikesVC: UIViewController {
             switch result {
             case .success(let users):
                 DispatchQueue.main.async {
-                    self.users = users
+                    self.users += users
                     self.collectionView.reloadData()
                     self.updateTitleLabel()
                 }
@@ -63,13 +61,14 @@ class LikesVC: UIViewController {
         collectionView.anchor(top: titleLabel.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 15)
     }
     
-    #warning("Fetching users who liked me")
+    #warning("What to do if someone likes me, but i dislike them. Currently, they will still be showing up in my likes page")
     func fetchUsersWhoLikedMe(completion: @escaping (Result<[User], Error>) -> Void) {
         let currentUserId = Auth.auth().currentUser!.uid
         var users = [User]()
         
         Firestore.firestore().collection("usersWhoLikedMe").document(currentUserId).collection("users").addSnapshotListener { snapshot, error in
             if let error = error { print(error.localizedDescription); return }
+            users.removeAll()
             
             snapshot?.documentChanges.forEach({ change in
                 let user = User(dictionary: change.document.data())
