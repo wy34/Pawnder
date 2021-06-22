@@ -285,13 +285,24 @@ class FirebaseManager {
     }
     
     #warning("Need to also undo the usersWhoLikedMe collection")
-    func undoLastSwipe(otherUserId: String, completion: @escaping (Error?) -> Void) {
+    func undoLastSwipe(otherUser: User?, otherUserId: String, completion: @escaping (Error?) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
 
         Firestore.firestore().collection(fsSwipes).document(currentUserId).updateData([otherUserId: FieldValue.delete()]) { error in
             if let error = error {
                 completion(error)
                 return
+            }
+        }
+        
+        Firestore.firestore().collection(fsMatches_Messages).document(currentUserId).collection(fsMatches).document(otherUserId).getDocument { snapshot, error in
+            if let matchExisted = snapshot?.exists {
+                if matchExisted == true {
+                    Firestore.firestore().collection(fsUsersWhoLikedMe).document(otherUserId).collection("users").document(currentUserId).delete()
+                } else {
+                    #warning("need to get otherUsers dictionaryData not currentUser's")
+                    Firestore.firestore().collection(fsUsersWhoLikedMe).document(currentUserId).collection("users").document(otherUserId).setData(otherUser!.dictionaryData!)
+                }
             }
         }
         

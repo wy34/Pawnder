@@ -9,7 +9,7 @@ import UIKit
 
 class CardViewModel {
     // MARK: - Properties
-    private var user: User!
+    var user: User!
     
     private var imageIndex = 0
         

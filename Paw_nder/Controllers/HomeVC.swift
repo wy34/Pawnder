@@ -239,7 +239,7 @@ extension HomeVC: HomeNavbarStackDelegate {
                 self.topCardView = newCard
                 self.currentTopCardView = nil
 
-                FirebaseManager.shared.undoLastSwipe(otherUserId: newCard.userId) { [weak self] error in
+                FirebaseManager.shared.undoLastSwipe(otherUser: User(dictionary: self.topCardView!.cardVM!.user.dictionaryData!), otherUserId: newCard.userId) { [weak self] error in
                     if let error = error { self?.showAlert(title: "Error", message: error.localizedDescription) }
                 }
             }
