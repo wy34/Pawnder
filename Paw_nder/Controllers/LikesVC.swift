@@ -10,7 +10,7 @@ import Firebase
 
 class LikesVC: UIViewController {
     // MARK: - Properties
-    let likesVCVM = LikesViewModel()
+    let likesVM = LikesViewModel()
     var users = [User]()
     
     // MARK: - Views
@@ -51,7 +51,7 @@ class LikesVC: UIViewController {
     }
     
     private func fetchUsersWhoLikedMe() {
-        likesVCVM.fetchUsersWhoLikedMe(addedCompletion: { result in
+        likesVM.fetchUsersWhoLikedMe(addedCompletion: { result in
             switch result {
                 case .success(let users):
                     DispatchQueue.main.async {
