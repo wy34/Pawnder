@@ -207,13 +207,6 @@ class HomeVC: LoadingViewController {
     }
     
     @objc func handleMatch() {
-//        let matchedUserId: String
-//        let name: String
-//        let imageUrlString: String
-//        let startedConversation: Bool
-
-//
-//        let match = Match(dictionary: ["name": currentTopCardView?.userName, "imageUrlString": currentTopCardView?.firstImageUrl, "matchedUserId": currentTopCardView?.userId, "startedConversation": false])
         matchingView.delegate = self
         matchingView.matchedUserInfo = (currentTopCardView?.userName, currentTopCardView?.firstImageUrl, homeViewModel.currentUser?.imageUrls?["1"])
         matchingView.showMatchingView()

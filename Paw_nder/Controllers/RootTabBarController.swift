@@ -53,6 +53,7 @@ class RootTabBarController: UITabBarController {
         setupVCsAndTabItems(for: homeVC!, image: paw, tag: 0)
         
         likesVC = LikesVC()
+        likesVC?.homeVC = homeVC
         setupVCsAndTabItems(for: likesVC!, image: thumb, tag: 0)
 
         messagesVC = UINavigationController(rootViewController: MessagesVC())

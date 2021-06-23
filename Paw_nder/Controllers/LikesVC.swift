@@ -12,6 +12,7 @@ class LikesVC: UIViewController {
     // MARK: - Properties
     let likesVM = LikesViewModel()
     var users = [User]()
+    var homeVC: HomeVC?
     
     // MARK: - Views
     private let iconImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
@@ -28,26 +29,33 @@ class LikesVC: UIViewController {
         return cv
     }()
     
+    private let infoButton = PawButton(image: SFSymbols.infoNoCircle, tintColor: .white, font: .systemFont(ofSize: 18))
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         layoutUI()
+        setupActionsAndObservers()
         fetchUsersWhoLikedMe()
     }
     
     // MARK: - Helpers
     private func configureUI() {
-        
+        infoButton.backgroundColor = lightTransparentGray
+        infoButton.layer.cornerRadius = 35 / 2
     }
     
     private func layoutUI() {
-        view.addSubviews(iconImageView, titleLabel, collectionView)
+        edgesForExtendedLayout = []
+        view.addSubviews(iconImageView, titleLabel, collectionView, infoButton)
         iconImageView.center(to: view, by: .centerX)
         iconImageView.center(to: view, by: .centerY, withMultiplierOf: 0.1875)
         iconImageView.setDimension(wConst: 45, hConst: 45)
         titleLabel.anchor(top: iconImageView.bottomAnchor, trailing: view.trailingAnchor, leading: view.leadingAnchor, paddingTop: 25)
         collectionView.anchor(top: titleLabel.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 15)
+        infoButton.anchor(trailing: view.trailingAnchor, bottom: view.bottomAnchor, paddingTrailing: 18, paddingBottom: 18)
+        infoButton.setDimension(wConst: 35, hConst: 35)
     }
     
     private func fetchUsersWhoLikedMe() {
@@ -76,7 +84,25 @@ class LikesVC: UIViewController {
         titleLabel.text = users.count == 0 ? "0 user(s) has liked you" : "\(users.count) user(s) has liked you"
     }
     
+    private func setupActionsAndObservers() {
+        infoButton.addTarget(self, action: #selector(showInfoAlert), for: .touchUpInside)
+    }
+    
+    private func setupAndPresentAboutVC(withIndex index: Int) {
+        let selectedUser = users[index]
+        let selectedUserCardVM = CardViewModel(user: selectedUser)
+        let selectedUserAboutVM = AboutViewModel(cardViewModel: selectedUserCardVM)
+        let aboutVC = AboutVC()
+        aboutVC.homeVC = homeVC
+        aboutVC.aboutVM = selectedUserAboutVM
+        aboutVC.modalPresentationStyle = .fullScreen
+        present(aboutVC, animated: true, completion: nil)
+    }
+    
     // MARK: - Selectors
+    @objc func showInfoAlert() {
+        self.showAlert(title: "Heads Up", message: "If you are ever see user(s) appear and disappear from this list, its because they are undoing/redoing a swipe.")
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -100,14 +126,12 @@ extension LikesVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let aboutVC = AboutVC()
-        aboutVC.modalPresentationStyle = .fullScreen
-        present(aboutVC, animated: true, completion: nil)
+        setupAndPresentAboutVC(withIndex: indexPath.item)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (view.frame.width - cellSpacing.hSpacing - insetSpacing.right - insetSpacing.left) / 2
-        let height = view.frame.height / 4
+        let height = view.frame.height / 3.5
         return .init(width: width, height: height)
     }
     

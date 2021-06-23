@@ -48,6 +48,7 @@ struct SFSymbols {
     static let gears = UIImage(systemName: "gearshape")!
     static let plus = UIImage(systemName: "plus")!
     static let saveCloud = UIImage(systemName: "icloud.and.arrow.up")!
+    static let infoNoCircle = UIImage(systemName: "info")!
 }
 
 // MARK: - Colors
