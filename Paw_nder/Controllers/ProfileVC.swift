@@ -116,6 +116,7 @@ class ProfileVC: LoadingViewController {
             switch result {
                 case .success(let user):
                     self?.setupFetchedUserInfo(user: user)
+                    self?.imagePickerView.user = user
                 case .failure(let error):
                     self?.showAlert(title: "Error", message: error.localizedDescription)
             }
@@ -168,7 +169,6 @@ class ProfileVC: LoadingViewController {
     
     @objc func saveImages() {
         showLoader()
-        
         settingsVM.updateUserImages { [weak self] error in
             self?.handleUpdateCompletion(error: error)
         }

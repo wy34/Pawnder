@@ -10,6 +10,7 @@ import SwiftUI
 
 class ImagePickerGridView: UIView {
     // MARK: - Properties
+    var user: User?
     lazy var imagePickerViews = [imagePickerView1, imagePickerView2, imagePickerView3, imagePickerView4, imagePickerView5, imagePickerView6]
     
     // MARK: - Views
@@ -101,7 +102,7 @@ class ImagePickerGridView: UIView {
         if imagePickerButtonView.imageView.image == nil {
             NotificationCenter.default.post(Notification(name: .didOpenImagePicker, object: nil, userInfo: [buttonTag: tappedButton.tag]))
         } else {
-            imagePickerButtonView.removeImageFor(buttonTag: tappedButton.tag)
+            imagePickerButtonView.removeImageFor(buttonTag: tappedButton.tag, user: user)
         }
     }
     
