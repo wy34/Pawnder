@@ -12,9 +12,10 @@ class LikeCell: UICollectionViewCell {
     static let reuseId = "LikeCell"
     
     // MARK: - Views
-    private let userImageView = PawImageView(image: UIImage(named: "pawPrint")!, contentMode: .scaleAspectFill)
+    private let placeholderImageView = PawImageView(image: UIImage(named: "pawPrint")!, contentMode: .scaleAspectFit)
+    private let userImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
     private let gradientView = GradientView(color1: .clear, color2: .black)
-    private let nameLabel = PawLabel(text: "Bob", textColor: .white, font: .systemFont(ofSize: 22, weight: .bold), alignment: .center)
+    private let nameLabel = PawLabel(text: "", textColor: .white, font: .systemFont(ofSize: 22, weight: .bold), alignment: .center)
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -33,13 +34,14 @@ class LikeCell: UICollectionViewCell {
         layer.cornerRadius = 15
         layer.borderWidth = 3
         layer.borderColor = lightTransparentGray.cgColor
-        userImageView.backgroundColor = #colorLiteral(red: 0.8908709884, green: 0.894202292, blue: 0.9022397399, alpha: 1)
-        gradientView.layer.opacity = 0.35
+        gradientView.layer.opacity = 0.3
     }
     
     private func layoutUI() {
-        addSubviews(userImageView, gradientView, nameLabel)
+        addSubviews(userImageView, placeholderImageView, gradientView, nameLabel)
         userImageView.fill(superView: self)
+        placeholderImageView.setDimension(width: widthAnchor, height: heightAnchor, wMult: 0.5, hMult: 0.5)
+        placeholderImageView.center(x: centerXAnchor, y: centerYAnchor)
         gradientView.fill(superView: self)
         nameLabel.anchor(trailing: trailingAnchor, bottom: bottomAnchor, leading: leadingAnchor, paddingBottom: 10)
     }
@@ -48,9 +50,10 @@ class LikeCell: UICollectionViewCell {
         guard let user = user, let imageUrls = user.imageUrls else { return }
         
         if let firstImage = imageUrls["1"] {
-            userImageView.setImage(imageUrlString: firstImage, completion: nil)
+            userImageView.setImage(imageUrlString: firstImage, completion: {
+                self.nameLabel.text = user.name
+                self.placeholderImageView.isHidden = true
+            })
         }
-        
-        nameLabel.text = user.name
     }
 }

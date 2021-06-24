@@ -19,7 +19,7 @@ struct Match {
         self.name = dictionary["name"] as? String ?? ""
         self.imageUrlString = dictionary["imageUrlString"] as? String ?? ""
         self.startedConversation = dictionary["startedConversation"] as? Bool ?? false
-        self.matchedUser = dictionary["matchedUser"] as? User ?? User.exampleUser
+        self.matchedUser = User(dictionary: dictionary["matchedUser"] as? [String: Any] ?? ["": ""])
     }
     
     init(recentMessage: RecentMessage) {

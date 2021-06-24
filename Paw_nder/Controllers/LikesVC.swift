@@ -16,7 +16,7 @@ class LikesVC: UIViewController {
     
     // MARK: - Views
     private let iconImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
-    private let titleLabel = PawLabel(text: "0 user(s) has liked you", textColor: .black, font: .systemFont(ofSize: 18, weight: .medium), alignment: .center)
+    private let titleLabel = PawLabel(text: "0 user(s) has liked you", textColor: .black, font: .systemFont(ofSize: 14, weight: .medium), alignment: .center)
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -47,7 +47,7 @@ class LikesVC: UIViewController {
     }
     
     private func layoutUI() {
-        edgesForExtendedLayout = []
+//        edgesForExtendedLayout = []
         view.addSubviews(iconImageView, titleLabel, collectionView, infoButton)
         iconImageView.center(to: view, by: .centerX)
         iconImageView.center(to: view, by: .centerY, withMultiplierOf: 0.1875)

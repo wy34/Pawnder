@@ -290,13 +290,17 @@ class FirebaseManager {
     
     private func handleUndoingDislikeAndDeletingSwipes(currentUserId: String, otherUserId: String, otherUser: User?) {
         Firestore.firestore().collection(fsSwipes).document(otherUserId).getDocument { snapshot, error in
-            if let error = error { print(error.localizedDescription); return }
-            
-            if let likesDictionary = snapshot?.data() as? [String: Int] {
-                if likesDictionary[currentUserId] == 1 {
-                    Firestore.firestore().collection(fsUsersWhoLikedMe).document(currentUserId).collection("users").document(otherUserId).setData(otherUser!.dictionaryData!)
+            if snapshot!.exists {
+                if let error = error { print(error.localizedDescription); return }
+    
+                if let likesDictionary = snapshot?.data() as? [String: Int] {
+                    if likesDictionary[currentUserId] == 1 {
+                        Firestore.firestore().collection(fsUsersWhoLikedMe).document(currentUserId).collection("users").document(otherUserId).setData(otherUser!.dictionaryData!)
+                    }
+    
+                    Firestore.firestore().collection(fsSwipes).document(currentUserId).updateData([otherUserId: FieldValue.delete()])
                 }
-                
+            } else {
                 Firestore.firestore().collection(fsSwipes).document(currentUserId).updateData([otherUserId: FieldValue.delete()])
             }
         }
@@ -353,8 +357,7 @@ class FirebaseManager {
             if let error = error { completion(error); return }
             
             if let dictionary = snapshot?.data() {
-                let user = User(dictionary: dictionary)
-                data["matchedUser"] = user
+                data["matchedUser"] = dictionary
                 
                 Firestore.firestore().collection(fsMatches_Messages).document(currentUserId).collection(fsMatches).document(otherUserId).setData(data) { error in
                     if let error = error {
@@ -460,8 +463,7 @@ class FirebaseManager {
             if let error = error { completion(error); return }
             
             if let dictionary = snapshot?.data() {
-                let user = User(dictionary: dictionary)
-                fromData["partner"] = user
+                fromData["partner"] = dictionary
                 
                 Firestore.firestore().collection("matches_messages").document(currentUserId).collection("recent_messages").document(match.matchedUserId).setData(fromData) { error in
                     if let error = error {
@@ -482,8 +484,7 @@ class FirebaseManager {
             if let error = error { completion(error); return }
             
             if let dictionary = snapshot?.data() {
-                let user = User(dictionary: dictionary)
-                toData["partner"] = user
+                toData["partner"] = dictionary
                 
                 Firestore.firestore().collection("matches_messages").document(match.matchedUserId).collection("recent_messages").document(currentUserId).setData(toData) { error in
                     if let error = error {

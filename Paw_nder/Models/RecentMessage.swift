@@ -25,6 +25,6 @@ struct RecentMessage {
         self.message = dictionary["message"] as? String ?? ""
         self.timestamp = dictionary["timestamp"] as? Timestamp ?? .init()
         self.isRead = dictionary["isRead"] as? Bool ?? false
-        self.partner = dictionary["partner"] as? User ?? User.exampleUser
+        self.partner = User(dictionary: dictionary["partner"] as? [String: Any] ?? ["": ""])
     }
 }
