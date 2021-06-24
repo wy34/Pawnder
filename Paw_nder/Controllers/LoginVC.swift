@@ -51,7 +51,7 @@ class LoginVC: LoadingViewController {
         gradientView.fill(superView: view)
         
         iconImageView.center(to: view, by: .centerX)
-        iconImageView.center(to: view, by: .centerY, withMultiplierOf: 0.175)
+        iconImageView.center(to: view, by: .centerY, withMultiplierOf: 0.185)
         iconImageView.setDimension(wConst: 45, hConst: 45)
         
         captionLabel.setDimension(width: view.widthAnchor, wMult: 0.8)

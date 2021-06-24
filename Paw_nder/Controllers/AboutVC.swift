@@ -10,6 +10,12 @@ import UIKit
 
 class AboutVC: UIViewController {
     // MARK: - Properties
+    var hideLikeDislikeButtons: Bool? {
+        didSet {
+            likeDislikeStack.isHidden = true
+        }
+    }
+    
     var aboutVM: AboutViewModel? {
         didSet {
             guard let aboutVM = aboutVM else { return }

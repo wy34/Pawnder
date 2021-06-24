@@ -14,7 +14,7 @@ class LikeCell: UICollectionViewCell {
     // MARK: - Views
     private let userImageView = PawImageView(image: UIImage(named: "pawPrint")!, contentMode: .scaleAspectFill)
     private let gradientView = GradientView(color1: .clear, color2: .black)
-    private let nameLabel = PawLabel(text: "Bob", textColor: .white, font: .systemFont(ofSize: 25, weight: .bold), alignment: .center)
+    private let nameLabel = PawLabel(text: "Bob", textColor: .white, font: .systemFont(ofSize: 22, weight: .bold), alignment: .center)
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -41,7 +41,7 @@ class LikeCell: UICollectionViewCell {
         addSubviews(userImageView, gradientView, nameLabel)
         userImageView.fill(superView: self)
         gradientView.fill(superView: self)
-        nameLabel.anchor(trailing: trailingAnchor, bottom: bottomAnchor, leading: leadingAnchor, paddingBottom: 5)
+        nameLabel.anchor(trailing: trailingAnchor, bottom: bottomAnchor, leading: leadingAnchor, paddingBottom: 10)
     }
     
     func setupCellWith(user: User?) {

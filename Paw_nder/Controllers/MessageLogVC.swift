@@ -55,6 +55,7 @@ class MessageLogVC: UIViewController {
     // MARK: - Helper
     private func configureNavBar() {
         navigationItem.title = match.name
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: SFSymbols.person, style: .plain, target: self, action: #selector(showUserProfile))
     }
     
     private func configureUI() {
@@ -117,6 +118,16 @@ class MessageLogVC: UIViewController {
     @objc func handleKBWillHide() {
         messagesInputViewBottomAnchor?.constant = 0
         view.layoutIfNeeded()
+    }
+    
+    @objc func showUserProfile() {
+        let cardVM = CardViewModel(user: match.matchedUser)
+        let aboutVM = AboutViewModel(cardViewModel: cardVM)
+        let aboutVC = AboutVC()
+        aboutVC.aboutVM = aboutVM
+        aboutVC.hideLikeDislikeButtons = true
+        aboutVC.modalPresentationStyle = .fullScreen
+        present(aboutVC, animated: true, completion: nil)
     }
 }
 

@@ -347,16 +347,25 @@ class FirebaseManager {
         
     // MARK: - Matches
     func addUserMatch(currentUserId: String, otherUserId: String, completion: @escaping (Error?) -> Void) {
-        let data: [String: Any] = ["name": self.users[otherUserId]?.name ?? "", "imageUrlString": self.users[otherUserId]?.imageUrls?["1"] ?? "", "matchedUserId": otherUserId, "startedConversation": false]
+        var data: [String: Any] = ["name": self.users[otherUserId]?.name ?? "", "imageUrlString": self.users[otherUserId]?.imageUrls?["1"] ?? "", "matchedUserId": otherUserId, "startedConversation": false]
         
-        Firestore.firestore().collection(fsMatches_Messages).document(currentUserId).collection(fsMatches).document(otherUserId).setData(data) { error in
-            if let error = error {
-                completion(error)
-                return
-            }
+        Firestore.firestore().collection(fsUsers).document(otherUserId).getDocument { snapshot, error in
+            if let error = error { completion(error); return }
             
-            NotificationCenter.default.post(Notification(name: .didFindMatch))
-            completion(nil)
+            if let dictionary = snapshot?.data() {
+                let user = User(dictionary: dictionary)
+                data["matchedUser"] = user
+                
+                Firestore.firestore().collection(fsMatches_Messages).document(currentUserId).collection(fsMatches).document(otherUserId).setData(data) { error in
+                    if let error = error {
+                        completion(error)
+                        return
+                    }
+                    
+                    NotificationCenter.default.post(Notification(name: .didFindMatch))
+                    completion(nil)
+                }
+            }
         }
     }
     
@@ -445,28 +454,46 @@ class FirebaseManager {
     func saveToRecentMessages(message: String, match: Match, completion: @escaping (Error?) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
         
-        let fromData: [String: Any] = ["name": match.name, "profileImageUrl": match.imageUrlString, "timestamp": Timestamp(date: Date()), "message": message, "otherUserId": match.matchedUserId, "isRead": true]
+        var fromData: [String: Any] = ["name": match.name, "profileImageUrl": match.imageUrlString, "timestamp": Timestamp(date: Date()), "message": message, "otherUserId": match.matchedUserId, "isRead": true]
         
-        Firestore.firestore().collection("matches_messages").document(currentUserId).collection("recent_messages").document(match.matchedUserId).setData(fromData) { error in
-            if let error = error {
-                completion(error)
-                return
-            }
+        Firestore.firestore().collection(fsUsers).document(match.matchedUserId).getDocument { snapshot, error in
+            if let error = error { completion(error); return }
             
-            completion(nil)
+            if let dictionary = snapshot?.data() {
+                let user = User(dictionary: dictionary)
+                fromData["partner"] = user
+                
+                Firestore.firestore().collection("matches_messages").document(currentUserId).collection("recent_messages").document(match.matchedUserId).setData(fromData) { error in
+                    if let error = error {
+                        completion(error)
+                        return
+                    }
+                    
+                    completion(nil)
+                }
+            }
         }
         
         let currentUserName = users[currentUserId]?.name ?? ""
         let currentUserImageUrl = users[currentUserId]?.imageUrls!["1"] ?? ""
-        let toData: [String: Any] = ["name": currentUserName, "profileImageUrl": currentUserImageUrl, "timestamp": Timestamp(date: Date()), "message": message, "otherUserId": currentUserId, "isRead": false]
+        var toData: [String: Any] = ["name": currentUserName, "profileImageUrl": currentUserImageUrl, "timestamp": Timestamp(date: Date()), "message": message, "otherUserId": currentUserId, "isRead": false]
         
-        Firestore.firestore().collection("matches_messages").document(match.matchedUserId).collection("recent_messages").document(currentUserId).setData(toData) { error in
-            if let error = error {
-                completion(error)
-                return
-            }
+        Firestore.firestore().collection(fsUsers).document(currentUserId).getDocument { snapshot, error in
+            if let error = error { completion(error); return }
             
-            completion(nil)
+            if let dictionary = snapshot?.data() {
+                let user = User(dictionary: dictionary)
+                toData["partner"] = user
+                
+                Firestore.firestore().collection("matches_messages").document(match.matchedUserId).collection("recent_messages").document(currentUserId).setData(toData) { error in
+                    if let error = error {
+                        completion(error)
+                        return
+                    }
+                    
+                    completion(nil)
+                }
+            }
         }
     }
     

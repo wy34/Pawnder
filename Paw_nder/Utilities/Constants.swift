@@ -74,6 +74,7 @@ let noBreedPrefCaption = "🐶 No Preference"
 let maxDistance = 150
 
 // MARK: - Firestore Collections
+let fsUsers = "users"
 let fsMatches_Messages = "matches_messages"
 let fsRecentMessages = "recent_messages"
 let fsMatches = "matches"

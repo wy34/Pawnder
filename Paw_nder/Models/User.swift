@@ -10,6 +10,22 @@ import Firebase
 import CoreLocation
 
 struct User: Equatable {
+    static let exampleUser = User(dictionary: [
+        "uid": "111111",
+        "name": "Test Name",
+        "age": nil,
+        "bio": nil,
+        "locationName": nil,
+        "coordinate": nil,
+        "gender": Gender.male,
+        "imageUrls": nil,
+        "genderPreference": nil,
+        "breedPreference": "Test Preference",
+        "minAgePreference": nil,
+        "maxAgePreference": nil,
+        "distancePreference": nil
+        ] as! [String: Any])
+    
     var dictionaryData: [String: Any]?
     
     var uid: String

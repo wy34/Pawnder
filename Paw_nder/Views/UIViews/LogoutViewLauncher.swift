@@ -65,8 +65,8 @@ class LogoutViewLauncher: UIView {
             keyWindow.addSubviews(blackBgView, logoutView)
             blackBgView.frame = keyWindow.frame
             
-            let logoutViewWidth = screenWidth * 0.85
-            let logoutViewHeight = screenWidth * 0.6
+            let logoutViewWidth = screenWidth * 0.8
+            let logoutViewHeight = screenWidth * 0.5
             let centerXPosition = screenWidth/2 - logoutViewWidth/2
             let centerYPosition = screenHeight/2 - logoutViewHeight/2
             logoutView.frame = .init(x: centerXPosition, y: centerYPosition, width: logoutViewWidth, height: logoutViewHeight)
