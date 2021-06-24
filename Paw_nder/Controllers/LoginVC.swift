@@ -24,7 +24,7 @@ class LoginVC: LoadingViewController {
     private let loginButton = PawButton(title: "Login", textColor: .gray, font: UIFont.systemFont(ofSize: 16, weight: .bold))
     private lazy var buttonStack = PawStackView(views: [newUserButton, loginButton], spacing: 15, distribution: .fillEqually)
     private lazy var formStack = PawStackView(views: [titleLabel, emailTextField, passwordTextField, buttonStack], spacing: 18, axis: .vertical, distribution: .fillEqually, alignment: .fill)
-//    private let forgotPasswordButton = PawButton(
+    private let forgotPasswordButton = PawButton(title: "Forgot Password?", textColor: .darkGray, bgColor: .clear)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -45,10 +45,11 @@ class LoginVC: LoadingViewController {
         loginButton.backgroundColor = .lightGray
         loginButton.layer.cornerRadius = 10
         newUserButton.contentHorizontalAlignment = .left
+        forgotPasswordButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
     }
     
     func layoutUI() {
-        view.addSubviews(gradientView, iconImageView, captionLabel, containerView)
+        view.addSubviews(gradientView, iconImageView, captionLabel, containerView, forgotPasswordButton)
         gradientView.fill(superView: view)
         
         iconImageView.center(to: view, by: .centerX)
@@ -66,6 +67,8 @@ class LoginVC: LoadingViewController {
         containerView.addSubview(formStack)
         formStack.center(x: containerView.centerXAnchor, y: containerView.centerYAnchor)
         formStack.setDimension(width: containerView.widthAnchor, height: containerView.heightAnchor, wMult: 0.8, hMult: 0.8)
+        
+        forgotPasswordButton.anchor(top: containerView.bottomAnchor, trailing: containerView.trailingAnchor, leading: containerView.leadingAnchor)
     }
     
     func setupFormActions() {
@@ -74,6 +77,7 @@ class LoginVC: LoadingViewController {
         loginButton.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
         emailTextField.addTarget(self, action: #selector(handleTextfieldChanged(textfield:)), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(handleTextfieldChanged(textfield:)), for: .editingChanged)
+        forgotPasswordButton.addTarget(self, action: #selector(handleForgotPassword), for: .touchUpInside)
     }
     
     // MARK: - Selectors
@@ -110,5 +114,10 @@ class LoginVC: LoadingViewController {
         loginButton.isEnabled = loginVM.isFormValid
         loginButton.backgroundColor = loginVM.formButtonColor.bgColor
         loginButton.setTitleColor(loginVM.formButtonColor.textColor, for: .normal)
+    }
+    
+    @objc func handleForgotPassword() {
+        let resetPasswordVC = ResetPasswordVC()
+        navigationController?.pushViewController(resetPasswordVC, animated: true)
     }
 }

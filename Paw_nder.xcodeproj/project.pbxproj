@@ -95,6 +95,7 @@
 		4CE3814E26653E0C00247599 /* BarButtonWithHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE3814D26653E0C00247599 /* BarButtonWithHandler.swift */; };
 		4CE381502665925900247599 /* EditSettingsBreedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE3814F2665925900247599 /* EditSettingsBreedVC.swift */; };
 		4CEDB3A9265A14E70031999E /* EditSettingsLocationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEDB3A8265A14E70031999E /* EditSettingsLocationVC.swift */; };
+		4CF04F582685304500FD32E0 /* ResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF04F572685304500FD32E0 /* ResetPasswordVC.swift */; };
 		4CF953912639056800D80587 /* SliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF953902639056800D80587 /* SliderCell.swift */; };
 		4CF953932639062D00D80587 /* PawSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF953922639062D00D80587 /* PawSlider.swift */; };
 		4CFD2260263E5E1A00C65277 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD225F263E5E1A00C65277 /* RootTabBarController.swift */; };
@@ -192,6 +193,7 @@
 		4CE3814D26653E0C00247599 /* BarButtonWithHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButtonWithHandler.swift; sourceTree = "<group>"; };
 		4CE3814F2665925900247599 /* EditSettingsBreedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsBreedVC.swift; sourceTree = "<group>"; };
 		4CEDB3A8265A14E70031999E /* EditSettingsLocationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditSettingsLocationVC.swift; sourceTree = "<group>"; };
+		4CF04F572685304500FD32E0 /* ResetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordVC.swift; sourceTree = "<group>"; };
 		4CF953902639056800D80587 /* SliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderCell.swift; sourceTree = "<group>"; };
 		4CF953922639062D00D80587 /* PawSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawSlider.swift; sourceTree = "<group>"; };
 		4CFD225F263E5E1A00C65277 /* RootTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				4CCD327C267DA33B00406D8D /* LikesVC.swift */,
 				4C5EAD6E2631199200653AE0 /* RegisterVC.swift */,
 				4C3D1A31263A00D100185926 /* LoginVC.swift */,
+				4CF04F572685304500FD32E0 /* ResetPasswordVC.swift */,
 				4C7611BC263CCBCA007A2D01 /* AboutVC.swift */,
 				4C5EAF5E2646EB2D00F415B7 /* MessagesVC.swift */,
 				4C68459B2648E6E20003988C /* MessageLogVC.swift */,
@@ -640,6 +643,7 @@
 				4CA3BAA1267EE5D9009F1B53 /* LikeCell.swift in Sources */,
 				4C5EAF6226478D4C00F415B7 /* NewMatchesVC.swift in Sources */,
 				4C3D1A36263A2A4D00185926 /* LoginViewModel.swift in Sources */,
+				4CF04F582685304500FD32E0 /* ResetPasswordVC.swift in Sources */,
 				4C9AC42326604E130094BB86 /* NetworkManager.swift in Sources */,
 				4C062F55264F0B20009D999D /* ProfileVC.swift in Sources */,
 				4C8F8CF92649E0BB00A62E85 /* MessageInputView.swift in Sources */,
