@@ -34,18 +34,13 @@ class HomeViewModel {
     
     func fetchSwipes(for user: User) {
         Firestore.firestore().collection("swipes").document(user.uid).getDocument { snapshot, error in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
+            if let _ = error { return }
             
-            #warning("can refactor")
             if let swipes = snapshot?.data() as? [String: Int] {
                 self.swipes = swipes
-                self.fetchUsers(currentUser: user)
-            } else {
-                self.fetchUsers(currentUser: user)
             }
+            
+            self.fetchUsers(currentUser: user)
         }
     }
     

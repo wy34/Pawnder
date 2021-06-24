@@ -29,7 +29,7 @@ class LikesVC: UIViewController {
         return cv
     }()
     
-    private let infoButton = PawButton(image: SFSymbols.infoNoCircle, tintColor: .white, font: .systemFont(ofSize: 18))
+    private let infoButton = PawButton(image: SFSymbols.infoNoCircle, tintColor: .white, font: .systemFont(ofSize: 12))
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -43,7 +43,7 @@ class LikesVC: UIViewController {
     // MARK: - Helpers
     private func configureUI() {
         infoButton.backgroundColor = lightTransparentGray
-        infoButton.layer.cornerRadius = 35 / 2
+        infoButton.layer.cornerRadius = 25 / 2
     }
     
     private func layoutUI() {
@@ -55,7 +55,7 @@ class LikesVC: UIViewController {
         titleLabel.anchor(top: iconImageView.bottomAnchor, trailing: view.trailingAnchor, leading: view.leadingAnchor, paddingTop: 25)
         collectionView.anchor(top: titleLabel.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 15)
         infoButton.anchor(trailing: view.trailingAnchor, bottom: view.bottomAnchor, paddingTrailing: 18, paddingBottom: 18)
-        infoButton.setDimension(wConst: 35, hConst: 35)
+        infoButton.setDimension(wConst: 25, hConst: 25)
     }
     
     private func fetchUsersWhoLikedMe() {

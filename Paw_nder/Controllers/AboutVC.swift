@@ -65,6 +65,7 @@ class AboutVC: UIViewController {
         layoutScrollView()
         layoutUI()
         configureUI()
+        setupBlurStatusBar()
         setupButtonActions()
     }
     
@@ -93,7 +94,7 @@ class AboutVC: UIViewController {
     func layoutUI() {
         contentView.addSubviews(bodyContainerView, headerContainerView, imagePagingVC.view, dismissButton)
         
-        dismissButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, trailing: view.trailingAnchor, paddingTop: 10, paddingTrailing: 25)
+        dismissButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, trailing: view.trailingAnchor, paddingTop: 20, paddingTrailing: 20)
         dismissButton.setDimension(wConst: 35, hConst: 35)
         
         bodyContainerView.anchor(top: contentView.topAnchor, paddingTop: UIScreen.main.bounds.height * 0.5)
@@ -102,7 +103,7 @@ class AboutVC: UIViewController {
         
         layoutBodyViews()
         
-        headerContainerView.anchor(top: view.topAnchor, trailing: view.trailingAnchor, bottom: bodyContainerView.topAnchor, leading: view.leadingAnchor)
+        headerContainerView.anchor(top: view.topAnchor, trailing: view.trailingAnchor, bottom: bodyContainerView.topAnchor, leading: view.leadingAnchor, paddingTop: 16)
         imagePagingVC.view.fill(superView: headerContainerView)
     }
     
@@ -121,6 +122,12 @@ class AboutVC: UIViewController {
         likeDislikeStack.center(to: view, by: .centerX)
         likeDislikeStack.setDimension(width: view.widthAnchor, wMult: 0.6)
         likeDislikeStack.setDimension(hConst: 45)
+    }
+    
+    private func setupBlurStatusBar() {
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+        contentView.addSubview(visualEffectView)
+        visualEffectView.anchor(top: view.topAnchor, trailing: view.trailingAnchor, bottom: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor)
     }
     
     func setupButtonActions() {
