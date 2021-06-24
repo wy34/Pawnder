@@ -10,8 +10,8 @@ import SwiftUI
 
 class ProfileImageView: UIView {
     // MARK: - Views
-    private let containerView = PawView(bgColor: bgWhite)
-    private let defaultImageView = PawImageView(image: placeholderProfile, contentMode: .scaleAspectFit)
+    private let containerView = PawView(bgColor: Colors.bgWhite)
+    private let defaultImageView = PawImageView(image: Assets.placeholderProfile, contentMode: .scaleAspectFit)
     private let label = PawLabel(text: "Select Photo", font: .systemFont(ofSize: 18, weight: .bold), alignment: .center)
     private lazy var stack = PawStackView(views: [defaultImageView, label], axis: .vertical)
     private let pickedImageView = PawImageView(image: UIImage(), contentMode: .scaleAspectFill)

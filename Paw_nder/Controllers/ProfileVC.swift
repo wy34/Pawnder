@@ -17,14 +17,14 @@ class ProfileVC: LoadingViewController {
     private let saveImagesButton = PawButton(image: SFSymbols.saveCloud, tintColor: .white, font: .systemFont(ofSize: 12, weight: .black))
     private let imagePickerView = ImagePickerGridView()
     
-    private let infoContainerView = PawView(bgColor: lightGray)
+    private let infoContainerView = PawView(bgColor: Colors.lightGray)
     private let nameLabel = PawLabel(text: "William Yeung", textColor: .black, font: .systemFont(ofSize: 40, weight: .bold), alignment: .left)
-    private let breedAgeLabel = PawLabel(text: "Golden Retriever • 34 yrs", textColor: lightRed, font: .systemFont(ofSize: 12, weight: .semibold), alignment: .left)
+    private let breedAgeLabel = PawLabel(text: "Golden Retriever • 34 yrs", textColor: Colors.lightRed, font: .systemFont(ofSize: 12, weight: .semibold), alignment: .left)
     private lazy var headingStack = PawStackView(views: [/*nameLabel,*/ breedAgeLabel], spacing: 5, axis: .vertical, distribution: .fill, alignment: .fill)
     private let settingsButton = PawButton(image: SFSymbols.gears, tintColor: .white, font: .systemFont(ofSize: 14, weight: .black))
     
     private let genderLabel = PaddedLabel(text: "Female", font: .systemFont(ofSize: 14, weight: .bold), padding: 8)
-    private let locationLabel = IconLabel(text: "Los Angelos, CA", image: mappin, cornerRadius: 10)
+    private let locationLabel = IconLabel(text: "Los Angelos, CA", image: Assets.location, cornerRadius: 10)
     
     private let bioLabel = PawLabel(text: "William Yeung", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
     
@@ -44,14 +44,14 @@ class ProfileVC: LoadingViewController {
 
     // MARK: - Helpers
     private func configureUI() {
-        view.backgroundColor = bgLightGray
+        view.backgroundColor = Colors.bgLightGray
         settingsButton.backgroundColor = .gray
         settingsButton.layer.cornerRadius = 35/2
         saveImagesButton.backgroundColor = .gray
         saveImagesButton.layer.cornerRadius = 35/2
         infoContainerView.layer.cornerRadius = 15
         genderLabel.backgroundColor = #colorLiteral(red: 1, green: 0.4016966522, blue: 0.4617980123, alpha: 0.1497695853)
-        genderLabel.textColor = lightRed
+        genderLabel.textColor = Colors.lightRed
         genderLabel.layer.cornerRadius = 10
         genderLabel.clipsToBounds = true
         bioLabel.numberOfLines = 0

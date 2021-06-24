@@ -16,17 +16,17 @@ class RegisterVC: LoadingViewController {
     // MARK: - Views
     private let backgroundGradientView = GradientView()
     
-    private let iconImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
+    private let iconImageView = PawImageView(image: Assets.icon, contentMode: .scaleAspectFit)
 
-    private let profileImageViewBorder = PawView(bgColor: lightGray)
+    private let profileImageViewBorder = PawView(bgColor: Colors.lightGray)
     private let profileImageView = ProfileImageView()
-    private let slideupView = PawView(bgColor: bgWhite, cornerRadius: 35)
+    private let slideupView = PawView(bgColor: Colors.bgWhite, cornerRadius: 35)
     
     private let titleLabel = PawLabel(text: "Sign Up", font: .systemFont(ofSize: 30, weight: .bold), alignment: .left)
     
-    private let maleButton = PawButton(image: male, tintColor: .lightGray)
-    private let separatorView = PawView(bgColor: lightGray)
-    private let femaleButton = PawButton(image: female, tintColor: .lightGray)
+    private let maleButton = PawButton(image: Assets.male, tintColor: .lightGray)
+    private let separatorView = PawView(bgColor: Colors.lightGray)
+    private let femaleButton = PawButton(image: Assets.female, tintColor: .lightGray)
     private lazy var genderSelectStack = PawStackView(views: [maleButton, separatorView, femaleButton], spacing: 10, distribution: .fill)
     
     private lazy var headerStack = PawStackView(views: [titleLabel, genderSelectStack], spacing: 10, distribution: .fill)
@@ -67,9 +67,9 @@ class RegisterVC: LoadingViewController {
         registerButton.isEnabled = false
         registerButton.backgroundColor = .lightGray
         registerButton.layer.cornerRadius = 10
-        nameTextField.addBorderTo(side: .bottom, bgColor: lightGray, dimension: 2)
-        emailTextField.addBorderTo(side: .bottom, bgColor: lightGray, dimension: 2)
-        passwordTextField.addBorderTo(side: .bottom, bgColor: lightGray, dimension: 2)
+        nameTextField.addBorderTo(side: .bottom, bgColor: Colors.lightGray, dimension: 2)
+        emailTextField.addBorderTo(side: .bottom, bgColor: Colors.lightGray, dimension: 2)
+        passwordTextField.addBorderTo(side: .bottom, bgColor: Colors.lightGray, dimension: 2)
         passwordTextField.isSecureTextEntry = true
         separatorView.setDimension(wConst: 2, hConst: 25)
     }

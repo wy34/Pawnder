@@ -21,7 +21,7 @@ class MessageBubbleCell: UICollectionViewCell {
     private let bubbleContainerView = PawView(bgColor: .clear, cornerRadius: 20)
     private let messageTextView = PawTextView(placeholder: "Placeholder", textColor: .white, bgColor: .clear)
     private let timestampLabel = PawLabel(text: "3:07 PM", textColor: .gray, font: .systemFont(ofSize: 10), alignment: .center)
-    private let profileImageView = PawImageView(image: UIImage(named: bob2)!, contentMode: .scaleAspectFill)
+    private let profileImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -65,7 +65,7 @@ class MessageBubbleCell: UICollectionViewCell {
     }
     
     private func setupBasedOn(isCurrentUser: Bool) {
-        bubbleContainerView.backgroundColor = isCurrentUser ? lightRed : lightGray
+        bubbleContainerView.backgroundColor = isCurrentUser ? Colors.lightRed : Colors.lightGray
         messageTextView.textColor = isCurrentUser ? .white : .black
         
         profileImageView.isHidden = isCurrentUser ? true : false

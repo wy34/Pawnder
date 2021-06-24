@@ -35,11 +35,11 @@ class ImagePickerButtonView: UIView {
     
     // MARK: - Helpers
     private func configureUI(imageCornerRadius: CGFloat) {
-        imageView.backgroundColor = lightGray
+        imageView.backgroundColor = Colors.lightGray
         imageView.layer.cornerRadius = imageCornerRadius
         imageView.layer.borderWidth = 3
-        imageView.layer.borderColor = lightTransparentGray.cgColor
-        addDeleteButton.backgroundColor = lightRed
+        imageView.layer.borderColor = Colors.lightTransparentGray.cgColor
+        addDeleteButton.backgroundColor = Colors.lightRed
         addDeleteButton.layer.cornerRadius = 23/2
         addDeleteButton.layer.shadowOpacity = 0.15
     }
@@ -56,10 +56,10 @@ class ImagePickerButtonView: UIView {
         if delete {
             addDeleteButton.setImage(SFSymbols.xmark.applyingSymbolConfiguration(.init(font: .systemFont(ofSize: 10, weight: .black)))!.withRenderingMode(.alwaysTemplate), for: .normal)
             addDeleteButton.backgroundColor = .white
-            addDeleteButton.tintColor = lightRed
+            addDeleteButton.tintColor = Colors.lightRed
         } else {
             addDeleteButton.setImage(SFSymbols.plus.applyingSymbolConfiguration(.init(font: .systemFont(ofSize: 10, weight: .black)))!.withRenderingMode(.alwaysTemplate), for: .normal)
-            addDeleteButton.backgroundColor = lightRed
+            addDeleteButton.backgroundColor = Colors.lightRed
             addDeleteButton.tintColor = .white
         }
     }

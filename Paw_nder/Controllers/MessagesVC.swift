@@ -13,7 +13,7 @@ class MessagesVC: UIViewController {
     // MARK: - Properties
     
     // MARK: - Views
-    private let iconImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
+    private let iconImageView = PawImageView(image: Assets.icon, contentMode: .scaleAspectFit)
     private let newMatchesView = NewMatchesVC()
     private let recentMessagesVC = RecentMessagesVC()
     private let searchBar = UISearchBar()
@@ -32,13 +32,13 @@ class MessagesVC: UIViewController {
     
     // MARK: - Helpers
     private func configureUI() {
-        view.backgroundColor = bgLightGray
+        view.backgroundColor = Colors.bgLightGray
 
         newMatchesView.delegate = self
         recentMessagesVC.delegate = self
         recentMessagesVC.view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         recentMessagesVC.view.layer.cornerRadius = 30
-        recentMessagesVC.view.backgroundColor = bgLightGray
+        recentMessagesVC.view.backgroundColor = Colors.bgLightGray
     }
     
     private func layoutUI() {

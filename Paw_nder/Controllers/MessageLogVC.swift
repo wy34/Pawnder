@@ -21,7 +21,7 @@ class MessageLogVC: UIViewController {
         cv.delegate = self
         cv.dataSource = self
         cv.register(MessageBubbleCell.self, forCellWithReuseIdentifier: MessageBubbleCell.reuseId)
-        cv.backgroundColor = bgLightGray
+        cv.backgroundColor = Colors.bgLightGray
         return cv
     }()
     
@@ -99,7 +99,7 @@ class MessageLogVC: UIViewController {
     
     private func markMessageAsRead() {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-        Firestore.firestore().collection(fsMatches_Messages).document(currentUserId).collection(fsRecentMessages).document(self.match.matchedUserId).updateData(["isRead": true])
+        Firestore.firestore().collection(Firebase.matches_messages).document(currentUserId).collection(Firebase.recentMessages).document(self.match.matchedUserId).updateData(["isRead": true])
     }
     
     // MARK: - Selector

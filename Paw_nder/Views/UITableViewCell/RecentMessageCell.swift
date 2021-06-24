@@ -12,7 +12,7 @@ class RecentMessageCell: UITableViewCell {
     static let reuseId = "UserMessageCell"
     
     // MARK: - Views
-    private let newMessageIndicator = PawView(bgColor: lightBlue, cornerRadius: 8/2)
+    private let newMessageIndicator = PawView(bgColor: Colors.lightBlue, cornerRadius: 8/2)
     private let profileImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
     private let nameLabel = PawLabel(text: "", textColor: .black, font: .systemFont(ofSize: 16, weight: .bold), alignment: .left)
     private let msgPreviewLabel = PawLabel(text: "", textColor: .gray, font: .systemFont(ofSize: 14, weight: .medium), alignment: .left)
@@ -34,7 +34,7 @@ class RecentMessageCell: UITableViewCell {
     
     // MARK: - Helpers
     private func configureUI() {
-        backgroundColor = bgLightGray
+        backgroundColor = Colors.bgLightGray
         profileImageView.layer.cornerRadius = 60 / 2
         msgPreviewLabel.numberOfLines = 2
         timestampLabel.textAlignment = .left

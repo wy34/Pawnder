@@ -18,7 +18,7 @@ class HomeNavbarStack: UIStackView {
     
     // MARK: - Views
     private let undoBtn = PawButton(image: UIImage(named: "refresh")!.withRenderingMode(.alwaysTemplate), tintColor: .gray)
-    private let heartImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
+    private let heartImageView = PawImageView(image: Assets.icon, contentMode: .scaleAspectFit)
     private let filterBtn = PawButton(image: UIImage(named: "filter")!.withRenderingMode(.alwaysTemplate), tintColor: .gray)
     
     // MARK: - Init

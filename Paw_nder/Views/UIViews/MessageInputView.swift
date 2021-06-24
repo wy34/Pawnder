@@ -20,7 +20,7 @@ class MessageInputView: UIView {
     // MARK: - Views
     private let placeHolderLabel = PawLabel(text: "Type your message...", textColor: .lightGray, font: .systemFont(ofSize: 16, weight: .medium))
     private let inputTextView = PawTextView(placeholder: "", textColor: .black, bgColor: .clear)
-    private let sendButton = PawButton(image: SFSymbols.paperplane, tintColor: lightRed, font: .systemFont(ofSize: 14, weight: .bold))
+    private let sendButton = PawButton(image: SFSymbols.paperplane, tintColor: Colors.lightRed, font: .systemFont(ofSize: 14, weight: .bold))
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -43,8 +43,8 @@ class MessageInputView: UIView {
         inputTextView.layer.cornerRadius = 18
         inputTextView.textContainerInset = .init(top: 8, left: 8, bottom: 8, right: 8)
         inputTextView.layer.borderWidth = 1
-        inputTextView.layer.borderColor = lightGray.cgColor
-        addBorderTo(side: .top, bgColor: lightGray, dimension: 1)
+        inputTextView.layer.borderColor = Colors.lightGray.cgColor
+        addBorderTo(side: .top, bgColor: Colors.lightGray, dimension: 1)
     }
     
     func layoutUI() {

@@ -22,7 +22,7 @@ class EditSettingsAgeVC: EditSettingsRootVC {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = bgLightGray
+        cv.backgroundColor = Colors.bgLightGray
         cv.showsHorizontalScrollIndicator = false
         cv.register(AgeCell.self, forCellWithReuseIdentifier: AgeCell.reuseId)
         cv.delegate = self
@@ -162,10 +162,10 @@ class AgeCell: UICollectionViewCell {
         UIView.animate(withDuration: 0.25) { [weak self] in
             self?.layer.cornerRadius = 10
             self?.layer.shadowOpacity = 0.25
-            self?.layer.borderColor = lightTransparentGray.cgColor
+            self?.layer.borderColor = Colors.lightTransparentGray.cgColor
             self?.layer.borderWidth = selection ? 3 : 0
-            self?.backgroundColor = selection ? .white : lightRed
-            self?.ageLabel.textColor = selection ? lightRed : .white
+            self?.backgroundColor = selection ? .white : Colors.lightRed
+            self?.ageLabel.textColor = selection ? Colors.lightRed : .white
         }
     }
 }

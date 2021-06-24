@@ -30,7 +30,7 @@ class NewMatchMessageCell: UICollectionViewCell {
     func configureUI() {
         userImageView.layer.cornerRadius = 20
         userImageView.layer.borderWidth = 3
-        userImageView.layer.borderColor = lightTransparentGray.cgColor
+        userImageView.layer.borderColor = Colors.lightTransparentGray.cgColor
     }
     
     func layoutUI() {

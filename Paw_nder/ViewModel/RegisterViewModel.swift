@@ -19,9 +19,9 @@ class RegisterViewModel {
     
     var genderSelectionColor: (maleColor: UIColor, femaleColor: UIColor) {
         if gender == .male {
-            return (lightBlue, .lightGray)
+            return (Colors.lightBlue, .lightGray)
         } else {
-            return (.lightGray, lightRed)
+            return (.lightGray, Colors.lightRed)
         }
     }
     
@@ -30,7 +30,7 @@ class RegisterViewModel {
     }
     
     var formButtonColor: (bgColor: UIColor, textColor: UIColor) {
-        return isFormValid ? (lightRed, .white) : (.lightGray, .gray)
+        return isFormValid ? (Colors.lightRed, .white) : (.lightGray, .gray)
     }
     
     // MARK: - Helpers

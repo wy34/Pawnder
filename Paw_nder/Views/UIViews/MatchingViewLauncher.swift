@@ -36,8 +36,8 @@ class MatchingViewLauncher: UIView {
     private let user1ImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
     private let user2ImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
     
-    private let messageButton = PawButton(title: "Send a Message", textColor: .white, bgColor: lightRed)
-    private let backToSwipeButton = PawButton(image: SFSymbols.rightArrow, tintColor: lightRed, font: .systemFont(ofSize: 18, weight: .bold))
+    private let messageButton = PawButton(title: "Send a Message", textColor: .white, bgColor: Colors.lightRed)
+    private let backToSwipeButton = PawButton(image: SFSymbols.rightArrow, tintColor: Colors.lightRed, font: .systemFont(ofSize: 18, weight: .bold))
     private lazy var buttonStack = PawStackView(views: [messageButton, backToSwipeButton], spacing: 50, axis: .vertical, distribution: .fill)
     
     // MARK: - Init

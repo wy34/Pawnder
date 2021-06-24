@@ -45,7 +45,7 @@ class PagingController: UIPageViewController {
         if aboutVM?.imageUrls.count == 1 { return }
         
         aboutVM?.imageUrls.forEach({ _ in
-            let pagingIndicator = PawView(bgColor: mediumTransparentGray)
+            let pagingIndicator = PawView(bgColor: Colors.mediumTransparentGray)
             pagingIndicator.layer.cornerRadius = 5/2
             pagingControlStack.addArrangedSubview(pagingIndicator)
         })
@@ -70,7 +70,7 @@ extension PagingController: UIPageViewControllerDelegate, UIPageViewControllerDa
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         let currentPhotoController = viewControllers?.first
         if let index = controllers.firstIndex(where: { $0 == currentPhotoController }) {
-            pagingControlStack.arrangedSubviews.forEach({ $0.backgroundColor = mediumTransparentGray })
+            pagingControlStack.arrangedSubviews.forEach({ $0.backgroundColor = Colors.mediumTransparentGray })
             pagingControlStack.arrangedSubviews[index].backgroundColor = .white
         }
     }
@@ -79,7 +79,7 @@ extension PagingController: UIPageViewControllerDelegate, UIPageViewControllerDa
 // MARK: - PhotoController
 class PhotoController: UIViewController {
     // MARK: - Views
-    let imageView = PawImageView(image: UIImage(named: bob3)!, contentMode: .scaleAspectFill)
+    let imageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
     
     // MARK: - Init
     init(imageUrlString: String) {

@@ -23,7 +23,7 @@ class EditSettingsPreferenceVC: EditSettingsRootVC {
     
     // MARK: - Helpers
     override func configureUI() {
-        view.backgroundColor = bgLightGray
+        view.backgroundColor = Colors.bgLightGray
         preferenceFormView.delegate = self
     }
     

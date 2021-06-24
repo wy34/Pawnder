@@ -33,7 +33,7 @@ class LikeCell: UICollectionViewCell {
         clipsToBounds = true
         layer.cornerRadius = 15
         layer.borderWidth = 3
-        layer.borderColor = lightTransparentGray.cgColor
+        layer.borderColor = Colors.lightTransparentGray.cgColor
         gradientView.layer.opacity = 0.3
     }
     

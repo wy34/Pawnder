@@ -61,7 +61,7 @@ class PreferenceFormView: UIView {
     
     // MARK: - Helpers
     private func configureUI() {
-        backgroundColor = bgLightGray
+        backgroundColor = Colors.bgLightGray
         
         [maleButton, femaleButton, allButton].forEach({
             $0.backgroundColor = .white
@@ -126,8 +126,8 @@ class PreferenceFormView: UIView {
         settingsVM.user = user
 
         switch settingsVM.user?.genderPreference {
-            case .male: setBorderColor(button: maleButton, borderColor: lightBlue, gender: .male)
-            case .female: setBorderColor(button: femaleButton, borderColor: lightRed, gender: .female)
+        case .male: setBorderColor(button: maleButton, borderColor: Colors.lightBlue, gender: .male)
+        case .female: setBorderColor(button: femaleButton, borderColor: Colors.lightRed, gender: .female)
             case .all: setBorderColor(button: allButton, borderColor: .purple, gender: .all)
             default: break
         }
@@ -149,9 +149,9 @@ class PreferenceFormView: UIView {
     // MARK: - Selectors
     @objc func handleGenderSelected(button: UIButton) {
         if button == maleButton {
-            setBorderColor(button: button, borderColor: lightBlue, gender: .male)
+            setBorderColor(button: button, borderColor: Colors.lightBlue, gender: .male)
         } else if button == femaleButton {
-            setBorderColor(button: button, borderColor: lightRed, gender: .female)
+            setBorderColor(button: button, borderColor: Colors.lightRed, gender: .female)
         } else {
             setBorderColor(button: button, borderColor: .purple, gender: .all)
         }

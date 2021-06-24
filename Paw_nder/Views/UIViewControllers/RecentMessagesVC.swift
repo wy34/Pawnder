@@ -31,7 +31,7 @@ class RecentMessagesVC: UIViewController {
         tv.delegate = self
         tv.dataSource = self
         tv.register(RecentMessageCell.self, forCellReuseIdentifier: RecentMessageCell.reuseId)
-        tv.backgroundColor = bgLightGray
+        tv.backgroundColor = Colors.bgLightGray
         tv.separatorInset = .init(top: 0, left: 28, bottom: 0, right: 30)
         tv.rowHeight = 90
         tv.tableFooterView = UIView()

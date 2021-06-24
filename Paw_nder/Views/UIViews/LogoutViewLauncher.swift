@@ -43,7 +43,7 @@ class LogoutViewLauncher: UIView {
         blackBgView.alpha = 0
         logoutView.alpha = 0
         logOutButton.setTitleColor(.white, for: .normal)
-        logOutButton.backgroundColor = lightRed
+        logOutButton.backgroundColor = Colors.lightRed
         logOutButton.layer.cornerRadius = 50/2
     }
     

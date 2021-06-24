@@ -15,7 +15,7 @@ class LikesVC: UIViewController {
     var homeVC: HomeVC?
     
     // MARK: - Views
-    private let iconImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
+    private let iconImageView = PawImageView(image: Assets.icon, contentMode: .scaleAspectFit)
     private let titleLabel = PawLabel(text: "0 user(s) has liked you", textColor: .black, font: .systemFont(ofSize: 14, weight: .medium), alignment: .center)
     
     private lazy var collectionView: UICollectionView = {
@@ -24,7 +24,7 @@ class LikesVC: UIViewController {
         cv.register(LikeCell.self, forCellWithReuseIdentifier: LikeCell.reuseId)
         cv.delegate = self
         cv.dataSource = self
-        cv.backgroundColor = bgLightGray
+        cv.backgroundColor = Colors.bgLightGray
         cv.showsVerticalScrollIndicator = false
         return cv
     }()
@@ -42,7 +42,7 @@ class LikesVC: UIViewController {
     
     // MARK: - Helpers
     private func configureUI() {
-        infoButton.backgroundColor = lightTransparentGray
+        infoButton.backgroundColor = Colors.lightTransparentGray
         infoButton.layer.cornerRadius = 25 / 2
     }
     

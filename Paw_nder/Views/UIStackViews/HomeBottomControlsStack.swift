@@ -148,7 +148,7 @@ class HomeBottomControlsStack: UIView {
         likeBtn.layer.cornerRadius = 45/2
         dislikeBtn.layer.cornerRadius = 45/2
         likeBtn.backgroundColor = #colorLiteral(red: 0.4704266787, green: 0.8806294799, blue: 0.6199433804, alpha: 1)
-        dislikeBtn.backgroundColor = lightRed
+        dislikeBtn.backgroundColor = Colors.lightRed
     }
     
     private func layoutUI() {

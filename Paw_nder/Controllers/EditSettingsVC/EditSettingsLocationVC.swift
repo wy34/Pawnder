@@ -16,7 +16,7 @@ class EditSettingsLocationVC: EditSettingsRootVC {
     private let captionLabel = PawLabel(text: "Williamsport, PA", textColor: .gray, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
     private lazy var labelStack = PawStackView(views: [ageLabel, captionLabel], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
     
-    private let changeLocationButton = PawButton(title: "Update Location", textColor: .white, bgColor: lightRed)
+    private let changeLocationButton = PawButton(title: "Update Location", textColor: .white, bgColor: Colors.lightRed)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {

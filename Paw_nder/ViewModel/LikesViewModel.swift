@@ -13,7 +13,7 @@ class LikesViewModel {
         let currentUserId = Auth.auth().currentUser!.uid
         var users = [User]()
         
-        Firestore.firestore().collection(fsUsersWhoLikedMe).document(currentUserId).collection("users").addSnapshotListener { snapshot, error in
+        Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(currentUserId).collection("users").addSnapshotListener { snapshot, error in
             if let error = error { print(error.localizedDescription); return }
                         
             snapshot?.documentChanges.forEach({ change in
@@ -35,7 +35,7 @@ class LikesViewModel {
     }
     
     private func checkIfAlreadyMatch(currentUserId: String, otherUserId: String, completion: @escaping (Bool) -> Void) {
-        Firestore.firestore().collection(fsMatches_Messages).document(currentUserId).collection(fsMatches).document(otherUserId).getDocument { snapshot, error in
+        Firestore.firestore().collection(Firebase.matches_messages).document(currentUserId).collection(Firebase.matches).document(otherUserId).getDocument { snapshot, error in
             if let snapshot = snapshot {
                 if snapshot.exists {
                     completion(true)

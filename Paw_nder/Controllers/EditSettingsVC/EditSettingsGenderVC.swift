@@ -65,9 +65,9 @@ class EditSettingsGenderVC: EditSettingsRootVC {
         
         UIView.animate(withDuration: 0.25) { [weak self] in
             self?.genderLabel.text = gender == .male ? Gender.male.rawValue : Gender.female.rawValue
-            self?.genderLabel.textColor = gender == .male ? lightBlue : lightRed
-            self?.maleButton.layer.borderColor = gender == .male ? lightBlue.cgColor : UIColor.lightGray.cgColor
-            self?.femaleButton.layer.borderColor = gender == .male ? UIColor.lightGray.cgColor : lightRed.cgColor
+            self?.genderLabel.textColor = gender == .male ? Colors.lightBlue : Colors.lightRed
+            self?.maleButton.layer.borderColor = gender == .male ? Colors.lightBlue.cgColor : UIColor.lightGray.cgColor
+            self?.femaleButton.layer.borderColor = gender == .male ? UIColor.lightGray.cgColor : Colors.lightRed.cgColor
             self?.maleButton.transform = CGAffineTransform(scaleX: maleScale, y: maleScale)
             self?.femaleButton.transform = CGAffineTransform(scaleX: femaleScale, y: femaleScale)
         }

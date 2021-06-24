@@ -15,7 +15,7 @@ class FilterViewLauncher: UIView {
     // MARK: - Views
     private let blackBgView = PawView(bgColor: .black.withAlphaComponent(0.5))
     
-    private let filterCardView = PawView(bgColor: bgLightGray, cornerRadius: 30)
+    private let filterCardView = PawView(bgColor: Colors.bgLightGray, cornerRadius: 30)
     
     private let bgFillerView = PawView(bgColor: .white)
     

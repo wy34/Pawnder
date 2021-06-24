@@ -30,7 +30,7 @@ class EditSettingsRootVC: LoadingViewController {
     }
     
     func configureUI() {
-        view.backgroundColor = bgLightGray
+        view.backgroundColor = Colors.bgLightGray
     }
     
     func layoutUI() {

@@ -48,7 +48,7 @@ class CardViewModel {
     }
     
     var userBreedAgeColor: UIColor {
-        return user.gender == .male ? lightBlue : lightRed
+        return user.gender == .male ? Colors.lightBlue : Colors.lightRed
     }
     
     var locationName: String {

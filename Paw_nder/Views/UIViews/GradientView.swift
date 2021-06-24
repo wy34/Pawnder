@@ -12,8 +12,8 @@ class GradientView: UIView {
     var color2: UIColor
     
     override init(frame: CGRect) {
-        self.color1 = lightRed
-        self.color2 = bgWhite
+        self.color1 = Colors.lightRed
+        self.color2 = Colors.bgWhite
         super.init(frame: frame)
     }
     

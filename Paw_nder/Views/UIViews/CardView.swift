@@ -42,12 +42,12 @@ class CardView: LoadingView {
     private let photoCountLabel = PawLabel(text: "3", textColor: .white, font: .boldSystemFont(ofSize: 20))
     private lazy var photoCountStack = PawStackView(views: [photoCountIcon, photoCountLabel], spacing: 5, distribution: .fillEqually, alignment: .fill)
 
-    private let profileImageView = PawImageView(image: UIImage(named: bob3)!, contentMode: .scaleAspectFill)
+    private let profileImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
     private let nameLabel = PawLabel(text: "Rex", textColor: .black, font: .boldSystemFont(ofSize: 26), alignment: .left)
-    private let breedAgeLabel = PawLabel(text: "Golden Retriever", textColor: lightRed, font: .systemFont(ofSize: 12, weight: .semibold), alignment: .left)
+    private let breedAgeLabel = PawLabel(text: "Golden Retriever", textColor: Colors.lightRed, font: .systemFont(ofSize: 12, weight: .semibold), alignment: .left)
     private lazy var topStack = PawStackView(views: [nameLabel, breedAgeLabel], spacing: 5, axis: .vertical, distribution: .fillEqually, alignment: .fill)
     
-    private let locationLabel = IconLabel(text: "Los Angelos, CA", image: mappin, cornerRadius: 10)
+    private let locationLabel = IconLabel(text: "Los Angelos, CA", image: Assets.location, cornerRadius: 10)
     
     private lazy var overallLabelStack = PawStackView(views: [topStack, locationLabel], spacing: 5, axis: .vertical, distribution: .fill, alignment: .leading)
     private let aboutButton = PawButton(image: SFSymbols.info, tintColor: .black, font: .systemFont(ofSize: 25, weight: .medium))
@@ -55,7 +55,7 @@ class CardView: LoadingView {
     private let likeDislikeTintView = PawView(bgColor: .green)
     private let likeDislikeIndicator = PawImageView(image: SFSymbols.heart, contentMode: .scaleAspectFit, tintColor: .white)
     
-    private let temporaryCoverView = PawView(bgColor: lightGray, cornerRadius: 25)
+    private let temporaryCoverView = PawView(bgColor: Colors.lightGray, cornerRadius: 25)
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -135,7 +135,7 @@ class CardView: LoadingView {
         let dislikeIndicator = SFSymbols.xmark.applyingSymbolConfiguration(.init(font: .systemFont(ofSize: 75, weight: .bold)))
         
         likeDislikeIndicator.image = translation.x > 0 ? likeIndicator : dislikeIndicator
-        likeDislikeTintView.backgroundColor = translation.x > 0 ? .systemGreen : lightRed
+        likeDislikeTintView.backgroundColor = translation.x > 0 ? .systemGreen : Colors.lightRed
         
         likeDislikeIndicator.alpha = abs(translation.x) / 100
         likeDislikeTintView.alpha = abs(translation.x) / 600

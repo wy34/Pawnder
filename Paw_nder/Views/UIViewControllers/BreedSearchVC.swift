@@ -26,7 +26,7 @@ class BreedSearchVC: LoadingViewController {
         tv.delegate = self
         tv.dataSource = self
         tv.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        tv.backgroundColor = bgLightGray
+        tv.backgroundColor = Colors.bgLightGray
         tv.tableFooterView = UIView()
         tv.keyboardDismissMode = .interactive
         return tv
@@ -111,7 +111,7 @@ extension BreedSearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = bgLightGray
+        cell.backgroundColor = Colors.bgLightGray
         cell.textLabel?.text = searchResults[indexPath.row].name
         return cell
     }

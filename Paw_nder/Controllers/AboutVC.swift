@@ -51,13 +51,13 @@ class AboutVC: UIViewController {
     private let bodyContainerView = PawView(bgColor: .clear)
     
     private let namelabel = PawLabel(text: "", textColor: .black, font: .systemFont(ofSize: 30, weight: .bold), alignment: .left)
-    private let breedAgeLabel = PawLabel(text: "Golden Retriever", textColor: lightRed, font: .systemFont(ofSize: 14, weight: .semibold), alignment: .left)
+    private let breedAgeLabel = PawLabel(text: "Golden Retriever", textColor: Colors.lightRed, font: .systemFont(ofSize: 14, weight: .semibold), alignment: .left)
     private lazy var headingStack = PawStackView(views: [namelabel, breedAgeLabel], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
         
     private let genderLabel = PaddedLabel(text: "", font: .systemFont(ofSize: 14, weight: .bold), padding: 8)
-    private let locationLabel = IconLabel(text: "Los Angelos, CA", image: mappin, cornerRadius: 10)
+    private let locationLabel = IconLabel(text: "Los Angelos, CA", image: Assets.location, cornerRadius: 10)
     
-    private let borderView = PawView(bgColor: lightGray)
+    private let borderView = PawView(bgColor: Colors.lightGray)
     
     private let bioLabel = PawLabel(text: "Golden Retriever", textColor: .gray, font: .systemFont(ofSize: 20, weight: .semibold), alignment: .left)
     
@@ -86,7 +86,7 @@ class AboutVC: UIViewController {
         likeButton.layer.cornerRadius = 45/2
         dislikeButton.layer.cornerRadius = 45/2
         likeButton.backgroundColor = #colorLiteral(red: 0.4704266787, green: 0.8806294799, blue: 0.6199433804, alpha: 1)
-        dislikeButton.backgroundColor = lightRed
+        dislikeButton.backgroundColor = Colors.lightRed
     }
     
     func layoutScrollView() {

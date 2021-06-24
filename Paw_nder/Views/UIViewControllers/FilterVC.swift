@@ -22,7 +22,7 @@ class FilterVC: UIViewController {
     private let preferenceFormView = PreferenceFormView()
     
     private let saveButtonContainerView = PawView(bgColor: .clear)
-    private let saveButton = PawButton(title: "Save", textColor: .white, bgColor: lightRed)
+    private let saveButton = PawButton(title: "Save", textColor: .white, bgColor: Colors.lightRed)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {

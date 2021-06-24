@@ -24,7 +24,7 @@ class SettingsVC: LoadingViewController {
         return tv
     }()
 
-    private let logoutButton = PawButton(title: "Log out", textColor: .white, bgColor: lightRed)
+    private let logoutButton = PawButton(title: "Log out", textColor: .white, bgColor: Colors.lightRed)
     private let logoutViewLauncher = LogoutViewLauncher()
     
     // MARK: - Lifecycle

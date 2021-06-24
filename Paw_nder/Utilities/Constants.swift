@@ -8,25 +8,24 @@
 import UIKit
 
 // MARK: - Asset Images
-let icon: UIImage = #imageLiteral(resourceName: "app_icon")
-let dismiss: UIImage = #imageLiteral(resourceName: "dismiss")
-let heart: UIImage = #imageLiteral(resourceName: "like")
-let placeholderProfile: UIImage = #imageLiteral(resourceName: "profile")
-let paw = UIImage(named: "paw")!
-let thumb = UIImage(named: "thumb")!
-let message = UIImage(named: "bubble")!
-let user = UIImage(named: "user")!
-let male = UIImage(named: "male")!
-let female = UIImage(named: "female")!
-let mappin = UIImage(named: "pin")!
-let crying = UIImage(named: "crying")!
-
-// MARK: - Asset Names
-let bob1 = "bob1"
-let bob2 = "bob2"
-let bob3 = "bob3"
-let bob4 = "bob4"
-let vikram1 = "vikram1"
+struct Assets {
+    static let icon = #imageLiteral(resourceName: "icon")
+    static let tabMessage = #imageLiteral(resourceName: "bubble")
+    static let crying = #imageLiteral(resourceName: "crying")
+    static let dismiss = #imageLiteral(resourceName: "dismiss")
+    static let female = #imageLiteral(resourceName: "female")
+    static let filter = #imageLiteral(resourceName: "filter")
+    static let house = #imageLiteral(resourceName: "house")
+    static let launchBG = #imageLiteral(resourceName: "launchScreenBG")
+    static let male = #imageLiteral(resourceName: "male")
+    static let tabPaw = #imageLiteral(resourceName: "paw")
+    static let placeholderPaw = #imageLiteral(resourceName: "pawPrint")
+    static let location = #imageLiteral(resourceName: "pin")
+    static let placeholderProfile = #imageLiteral(resourceName: "profile")
+    static let refresh = #imageLiteral(resourceName: "refresh")
+    static let tabThumb = #imageLiteral(resourceName: "thumb")
+    static let tabUser = #imageLiteral(resourceName: "user")
+}
 
 // MARK: - SF Symbols
 struct SFSymbols {
@@ -52,16 +51,28 @@ struct SFSymbols {
 }
 
 // MARK: - Colors
-let bgWhite = #colorLiteral(red: 0.9968960881, green: 0.9921532273, blue: 1, alpha: 1)
-let bgLightGray = #colorLiteral(red: 0.9541934133, green: 0.9496539235, blue: 0.9577021003, alpha: 1)
-let lightGray = #colorLiteral(red: 0.8566066027, green: 0.8525324464, blue: 0.8597565293, alpha: 1)
-let lightOrange = #colorLiteral(red: 1, green: 0.5036935806, blue: 0.3973088861, alpha: 1)
-let lightRed = #colorLiteral(red: 1, green: 0.3450980392, blue: 0.3921568627, alpha: 1)
-let lightBlue = #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
-let lightTransparentGray = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.247749856)
-let mediumTransparentGray = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5028261809)
-let darkTransparentGray = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7460937501)
-let lightPink = #colorLiteral(red: 1, green: 0.6349166036, blue: 1, alpha: 1)
+struct Colors {
+    static let bgWhite = #colorLiteral(red: 0.9968960881, green: 0.9921532273, blue: 1, alpha: 1)
+    static let bgLightGray = #colorLiteral(red: 0.9541934133, green: 0.9496539235, blue: 0.9577021003, alpha: 1)
+    static let lightGray = #colorLiteral(red: 0.8566066027, green: 0.8525324464, blue: 0.8597565293, alpha: 1)
+    static let lightOrange = #colorLiteral(red: 1, green: 0.5036935806, blue: 0.3973088861, alpha: 1)
+    static let lightRed = #colorLiteral(red: 1, green: 0.3450980392, blue: 0.3921568627, alpha: 1)
+    static let lightBlue = #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
+    static let lightTransparentGray = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.247749856)
+    static let mediumTransparentGray = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5028261809)
+    static let darkTransparentGray = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.7460937501)
+    static let lightPink = #colorLiteral(red: 1, green: 0.6349166036, blue: 1, alpha: 1)
+}
+
+// MARK: - Firestore Collections
+struct Firebase {
+    static let users = "users"
+    static let matches_messages = "matches_messages"
+    static let recentMessages = "recent_messages"
+    static let matches = "matches"
+    static let swipes = "swipes"
+    static let usersWhoLikedMe = "usersWhoLikedMe"
+}
 
 // MARK: - Notification UserInfo key
 let buttonTag = "tappedButtonTag"
@@ -73,10 +84,4 @@ let noBreedPrefCaption = "🐶 No Preference"
 // MARK: - Max Distance
 let maxDistance = 150
 
-// MARK: - Firestore Collections
-let fsUsers = "users"
-let fsMatches_Messages = "matches_messages"
-let fsRecentMessages = "recent_messages"
-let fsMatches = "matches"
-let fsSwipes = "swipes"
-let fsUsersWhoLikedMe = "usersWhoLikedMe"
+

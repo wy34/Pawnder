@@ -30,7 +30,7 @@ class NewMatchesVC: UIViewController {
         cv.delegate = self
         cv.dataSource = self
         cv.showsHorizontalScrollIndicator = false
-        cv.backgroundColor = bgLightGray
+        cv.backgroundColor = Colors.bgLightGray
         return cv
     }()
     

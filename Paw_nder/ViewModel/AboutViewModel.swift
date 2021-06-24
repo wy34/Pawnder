@@ -30,9 +30,9 @@ class AboutViewModel {
         let gender = userInfo.gender
         
         if gender == .male {
-            return (gender.rawValue, lightBlue, #colorLiteral(red: 0, green: 0.6040372252, blue: 1, alpha: 0.1472674251))
+            return (gender.rawValue, Colors.lightBlue, #colorLiteral(red: 0, green: 0.6040372252, blue: 1, alpha: 0.1472674251))
         } else {
-            return (gender.rawValue, lightRed, #colorLiteral(red: 1, green: 0.4016966522, blue: 0.4617980123, alpha: 0.1497695853))
+            return (gender.rawValue, Colors.lightRed, #colorLiteral(red: 1, green: 0.4016966522, blue: 0.4617980123, alpha: 0.1497695853))
         }
     }
     

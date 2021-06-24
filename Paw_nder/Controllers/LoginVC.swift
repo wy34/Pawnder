@@ -14,7 +14,7 @@ class LoginVC: LoadingViewController {
     
     // MARK: - Views
     private let gradientView = GradientView()
-    private let iconImageView = PawImageView(image: icon, contentMode: .scaleAspectFit)
+    private let iconImageView = PawImageView(image: Assets.icon, contentMode: .scaleAspectFit)
     private let captionLabel = PawLabel(text: "Help your dog meet other dogs!", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .center)
     private let containerView = PawView(bgColor: .white, cornerRadius: 35)
     private let titleLabel = PawLabel(text: "Login", font: .systemFont(ofSize: 30, weight: .bold), alignment: .left)
@@ -24,6 +24,7 @@ class LoginVC: LoadingViewController {
     private let loginButton = PawButton(title: "Login", textColor: .gray, font: UIFont.systemFont(ofSize: 16, weight: .bold))
     private lazy var buttonStack = PawStackView(views: [newUserButton, loginButton], spacing: 15, distribution: .fillEqually)
     private lazy var formStack = PawStackView(views: [titleLabel, emailTextField, passwordTextField, buttonStack], spacing: 18, axis: .vertical, distribution: .fillEqually, alignment: .fill)
+//    private let forgotPasswordButton = PawButton(
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -36,8 +37,8 @@ class LoginVC: LoadingViewController {
     // MARK: - Helpers
     func configureUI() {
         navigationController?.setNavigationBarHidden(true, animated: true)
-        emailTextField.addBorderTo(side: .bottom, bgColor: lightGray, dimension: 2)
-        passwordTextField.addBorderTo(side: .bottom, bgColor: lightGray, dimension: 2)
+        emailTextField.addBorderTo(side: .bottom, bgColor: Colors.lightGray, dimension: 2)
+        passwordTextField.addBorderTo(side: .bottom, bgColor: Colors.lightGray, dimension: 2)
         passwordTextField.isSecureTextEntry = true
         loginButton.contentHorizontalAlignment = .center
         loginButton.isEnabled = false

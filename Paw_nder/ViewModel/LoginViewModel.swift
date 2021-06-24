@@ -17,7 +17,7 @@ class LoginViewModel {
     }
     
     var formButtonColor: (bgColor: UIColor, textColor: UIColor) {
-        return isFormValid ? (lightRed, .white) : (.lightGray, .gray)
+        return isFormValid ? (Colors.lightRed, .white) : (.lightGray, .gray)
     }
     
     func loginUser(completion: @escaping (Error?) -> Void) {

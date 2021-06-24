@@ -19,7 +19,7 @@ class RootTabBarController: UITabBarController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = bgLightGray
+        view.backgroundColor = Colors.bgLightGray
         setupTabbar()
         setupNotificationObservers()
     }
@@ -37,8 +37,8 @@ class RootTabBarController: UITabBarController {
         
         tabBar.itemWidth = tabBar.bounds.width / 5
         tabBar.itemPositioning = .centered
-        tabBar.tintColor = lightRed
-        tabBar.backgroundColor = bgLightGray
+        tabBar.tintColor = Colors.lightRed
+        tabBar.backgroundColor = Colors.bgLightGray
         
         UITabBar.appearance().backgroundImage = UIImage()
         UITabBar.appearance().shadowImage = UIImage()
@@ -50,17 +50,17 @@ class RootTabBarController: UITabBarController {
         self.selectedIndex = 0
                 
         homeVC = HomeVC()
-        setupVCsAndTabItems(for: homeVC!, image: paw, tag: 0)
+        setupVCsAndTabItems(for: homeVC!, image: Assets.tabPaw, tag: 0)
         
         likesVC = LikesVC()
         likesVC?.homeVC = homeVC
-        setupVCsAndTabItems(for: likesVC!, image: thumb, tag: 0)
+        setupVCsAndTabItems(for: likesVC!, image: Assets.tabThumb, tag: 0)
 
         messagesVC = UINavigationController(rootViewController: MessagesVC())
-        setupVCsAndTabItems(for: messagesVC!, image: message, tag: 2)
+        setupVCsAndTabItems(for: messagesVC!, image: Assets.tabMessage, tag: 2)
         
         settingsVC = UINavigationController(rootViewController: ProfileVC())
-        setupVCsAndTabItems(for: settingsVC!, image: user, tag: 3)
+        setupVCsAndTabItems(for: settingsVC!, image: Assets.tabUser, tag: 3)
         
         setViewControllers([homeVC!, likesVC!, messagesVC!, settingsVC!], animated: true)
     }
