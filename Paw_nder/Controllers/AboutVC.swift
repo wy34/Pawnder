@@ -31,6 +31,8 @@ class AboutVC: UIViewController {
         }
     }
     
+    var user: User?
+    
     var homeVC: HomeVC?
     
     // MARK: - Views
@@ -147,11 +149,24 @@ class AboutVC: UIViewController {
     }
     
     @objc func handleDislikeTapped() {
-        dismiss(animated: true) { self.homeVC?.swipeWhenPressed(like: false) }
+        if let user = user {
+            dismiss(animated: true, completion: {
+                self.homeVC?.swipe(like: false, user: user)
+            })
+        } else {
+            dismiss(animated: true) { self.homeVC?.swipeWhenPressed(like: false) }
+        }
     }
     
     @objc func handleLikeTapped() {
-        dismiss(animated: true) { self.homeVC?.swipeWhenPressed(like: true) }
+        if let user = user {
+            dismiss(animated: true, completion: {
+                self.homeVC?.swipe(like: true, user: user)
+            })
+        } else {
+            dismiss(animated: true) { self.homeVC?.swipeWhenPressed(like: true) }
+        }
+
     }
 }
 

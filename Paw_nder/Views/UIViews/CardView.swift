@@ -21,6 +21,7 @@ class CardView: LoadingView {
     
     weak var delegate: CardViewDelegate?
     
+    var prevCardVieew: CardView?
     var nextCardView: CardView?
     
     var userId: String {

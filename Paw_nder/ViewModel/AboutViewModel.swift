@@ -22,7 +22,7 @@ class AboutViewModel {
         return cardViewModel?.imageUrls ?? [""]
     }
     
-    var userInfo: (uid: String, name: String, age: Int?, breed: String?, gender: Gender, bio: String?) {
+    var userInfo: (uid: String, tag: Int, name: String, age: Int?, breed: String?, gender: Gender, bio: String?) {
         return cardViewModel!.userInfo
     }
     

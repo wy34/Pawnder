@@ -45,7 +45,7 @@ class LoginVC: LoadingViewController {
         loginButton.backgroundColor = .lightGray
         loginButton.layer.cornerRadius = 10
         newUserButton.contentHorizontalAlignment = .left
-        forgotPasswordButton.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
+        forgotPasswordButton.titleLabel?.font = .systemFont(ofSize: 12, weight: .medium)
     }
     
     func layoutUI() {
@@ -68,7 +68,7 @@ class LoginVC: LoadingViewController {
         formStack.center(x: containerView.centerXAnchor, y: containerView.centerYAnchor)
         formStack.setDimension(width: containerView.widthAnchor, height: containerView.heightAnchor, wMult: 0.8, hMult: 0.8)
         
-        forgotPasswordButton.anchor(top: containerView.bottomAnchor, trailing: containerView.trailingAnchor, leading: containerView.leadingAnchor)
+        forgotPasswordButton.anchor(top: containerView.bottomAnchor, leading: containerView.leadingAnchor, paddingTop: 5, paddingLeading: 31)
     }
     
     func setupFormActions() {

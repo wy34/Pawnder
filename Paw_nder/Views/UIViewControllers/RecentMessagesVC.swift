@@ -157,7 +157,14 @@ extension RecentMessagesVC: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         view.endEditing(true)
         delegate?.handleRowTapped(match: Match(recentMessage: isSearching ? searchedMessages[indexPath.row] : recentMessages[indexPath.row]))
-        
-        // tell view to hide the blue dot and save as read in that recent message
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = PawLabel(text: "No New Messages", textColor: .black, font: .systemFont(ofSize: 14, weight: .medium), alignment: .center)
+        return label
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return recentMessages.isEmpty && searchedMessages.isEmpty ? view.frame.size.height * 0.6 / 2 : 0
     }
 }

@@ -45,6 +45,7 @@ class ResetPasswordVC: UIViewController {
         resetPasswordBtn.isEnabled = false
         resetPasswordBtn.layer.cornerRadius = 10
         resetPasswordBtn.backgroundColor = .lightGray
+        emailTextField.becomeFirstResponder()
     }
     
     private func layoutUI() {

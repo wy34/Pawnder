@@ -71,7 +71,7 @@ class FirebaseManager {
     
     func saveUserToDB(credentials: Credentials, imageUrlString: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-        let docData: [String: Any] = ["fullName": credentials.fullName, "uid": currentUserId, "imageUrls": ["1": imageUrlString], "age": 0, "gender": credentials.gender]
+        let docData: [String: Any] = ["fullName": credentials.fullName, "uid": currentUserId, "imageUrls": ["1": imageUrlString], "age": 0, "gender": credentials.gender, "tag": UUID().hashValue]
         Firestore.firestore().collection("users").document(currentUserId).setData(docData) { (error) in
             if let error = error {
                 completion(.failure(error))
@@ -192,6 +192,7 @@ class FirebaseManager {
         
         let docData: [String: Any] = [
             "uid": currentUserId,
+            "tag": user.tag,
             "fullName": user.name,
             "breed": user.breed ?? "",
             "age": user.age ?? "",

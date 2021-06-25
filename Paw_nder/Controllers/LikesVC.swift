@@ -16,7 +16,7 @@ class LikesVC: UIViewController {
     
     // MARK: - Views
     private let iconImageView = PawImageView(image: Assets.icon, contentMode: .scaleAspectFit)
-    private let titleLabel = PawLabel(text: "0 user(s) has liked you", textColor: .black, font: .systemFont(ofSize: 14, weight: .medium), alignment: .center)
+    private let countLabel = PawLabel(text: "0 user(s) has liked you", textColor: .black, font: .systemFont(ofSize: 14, weight: .medium), alignment: .center)
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -47,13 +47,14 @@ class LikesVC: UIViewController {
     }
     
     private func layoutUI() {
-//        edgesForExtendedLayout = []
-        view.addSubviews(iconImageView, titleLabel, collectionView, infoButton)
+        view.addSubviews(iconImageView, collectionView, countLabel, infoButton)
         iconImageView.center(to: view, by: .centerX)
         iconImageView.center(to: view, by: .centerY, withMultiplierOf: 0.1875)
         iconImageView.setDimension(wConst: 45, hConst: 45)
-        titleLabel.anchor(top: iconImageView.bottomAnchor, trailing: view.trailingAnchor, leading: view.leadingAnchor, paddingTop: 25)
-        collectionView.anchor(top: titleLabel.bottomAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor, paddingTop: 15)
+        collectionView.setDimension(height: view.widthAnchor, hMult: 1.75)
+        collectionView.anchor(trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor)
+        countLabel.center(to: view, by: .centerX)
+        countLabel.center(to: view, by: .centerY, withMultiplierOf: 0.75)
         infoButton.anchor(trailing: view.trailingAnchor, bottom: view.bottomAnchor, paddingTrailing: 18, paddingBottom: 18)
         infoButton.setDimension(wConst: 25, hConst: 25)
     }
@@ -81,7 +82,15 @@ class LikesVC: UIViewController {
     }
     
     private func updateTitleLabel() {
-        titleLabel.text = users.count == 0 ? "0 user(s) has liked you" : "\(users.count) user(s) has liked you"
+        countLabel.text = users.count == 0 ? "0 user(s) has liked you" : "\(users.count) user(s) has liked you"
+        
+        UIView.animate(withDuration: 0.25) {
+            if self.users.count == 0 {
+                self.countLabel.transform = .identity
+            } else {
+                self.countLabel.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.width * 0.46)
+            }
+        }
     }
     
     private func setupActionsAndObservers() {
@@ -93,6 +102,7 @@ class LikesVC: UIViewController {
         let selectedUserCardVM = CardViewModel(user: selectedUser)
         let selectedUserAboutVM = AboutViewModel(cardViewModel: selectedUserCardVM)
         let aboutVC = AboutVC()
+        aboutVC.user = users[index]
         aboutVC.homeVC = homeVC
         aboutVC.aboutVM = selectedUserAboutVM
         aboutVC.modalPresentationStyle = .fullScreen

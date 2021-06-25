@@ -33,7 +33,6 @@ class MessagesVC: UIViewController {
     // MARK: - Helpers
     private func configureUI() {
         view.backgroundColor = Colors.bgLightGray
-
         newMatchesView.delegate = self
         recentMessagesVC.delegate = self
         recentMessagesVC.view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]

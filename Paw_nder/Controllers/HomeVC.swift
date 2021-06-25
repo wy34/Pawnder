@@ -137,6 +137,7 @@ class HomeVC: LoadingViewController {
         
         homeViewModel.cardViewModels.forEach({ cardVM in
             let cardView = CardView()
+            cardView.tag = cardVM.userInfo.tag
             cardView.delegate = self
             cardView.setupCardWith(cardVM: cardVM)
             cardViews.append(cardView)
@@ -146,6 +147,7 @@ class HomeVC: LoadingViewController {
             cardsDeckView.addSubview($0)
             cardsDeckView.sendSubviewToBack($0)
             $0.fill(superView: cardsDeckView)
+            $0.prevCardVieew = self.previousCardView
             self.previousCardView?.nextCardView = $0
             self.previousCardView = $0
             if self.topCardView == nil { self.topCardView = $0 }
@@ -194,6 +196,21 @@ class HomeVC: LoadingViewController {
         let rotation: CGFloat = like ? 15 : -15
         performSwipeAnimationWhenPressed(translation: translation, rotation: rotation)
         addSwipeDataWhenPressed(for: topCardView.userId, like: like)
+    }
+    
+    func swipe(like: Bool, user: User) {
+        let cardViewToRemove = cardsDeckView.viewWithTag(user.tag) as? CardView
+
+        if cardViewToRemove == topCardView {
+            self.topCardView = cardViewToRemove?.nextCardView
+        } else {
+            cardViewToRemove?.prevCardVieew = cardViewToRemove?.nextCardView
+        }
+        
+        guard let topCardView = topCardView else { return }
+        cardViewToRemove?.removeFromSuperview()
+        #warning("if match, it doens't show images")
+        addSwipeDataWhenPressed(for: user.uid, like: like)
     }
     
     // MARK: - Selectors
@@ -292,7 +309,6 @@ extension HomeVC: FilterVCDelegate {
 
 // MARK: - CLLocationManagerDelegate
 extension HomeVC: CLLocationManagerDelegate {
-    #warning("If a user changes location, maybe automaticcaly reflect that in other users deck")
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         locations[0].cityAndStateName(completion: { locationName, err in
             let sameLocation = self.homeViewModel.currentUser?.locationName == locationName

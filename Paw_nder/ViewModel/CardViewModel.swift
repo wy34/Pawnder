@@ -25,8 +25,8 @@ class CardViewModel {
         return imageUrlsDictionary.count == 0 ? [""] : sortedUrls
     }
     
-    var userInfo: (uid: String, name: String, age: Int?, breed: String?, gender: Gender, bio: String?) {
-        return (user.uid, user.name, user.age, user.breed, user.gender, user.bio)
+    var userInfo: (uid: String, tag: Int, name: String, age: Int?, breed: String?, gender: Gender, bio: String?) {
+        return (user.uid, user.tag, user.name, user.age, user.breed, user.gender, user.bio)
     }
     
     var userAge: String {
