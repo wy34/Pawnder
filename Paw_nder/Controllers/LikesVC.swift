@@ -55,7 +55,7 @@ class LikesVC: UIViewController {
         collectionView.anchor(trailing: view.trailingAnchor, bottom: view.bottomAnchor, leading: view.leadingAnchor)
         countLabel.center(to: view, by: .centerX)
         countLabel.center(to: view, by: .centerY, withMultiplierOf: 0.75)
-        infoButton.anchor(trailing: view.trailingAnchor, bottom: view.bottomAnchor, paddingTrailing: 18, paddingBottom: 18)
+        infoButton.anchor(trailing: view.trailingAnchor, bottom: view.bottomAnchor, paddingTrailing: 18, paddingBottom: UIApplication.rootTabBarController.tabBar.frame.height + 18)
         infoButton.setDimension(wConst: 25, hConst: 25)
     }
     
@@ -102,7 +102,7 @@ class LikesVC: UIViewController {
         let selectedUserCardVM = CardViewModel(user: selectedUser)
         let selectedUserAboutVM = AboutViewModel(cardViewModel: selectedUserCardVM)
         let aboutVC = AboutVC()
-        aboutVC.user = users[index]
+        aboutVC.userFromLikesVC = users[index]
         aboutVC.homeVC = homeVC
         aboutVC.aboutVM = selectedUserAboutVM
         aboutVC.modalPresentationStyle = .fullScreen

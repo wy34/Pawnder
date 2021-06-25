@@ -88,8 +88,8 @@ class MessageLogVC: UIViewController {
                     DispatchQueue.main.async {
                         self.messages = messages
                         self.collectionView.reloadData()
-                        self.collectionView.scrollToItem(at: IndexPath(item: self.messages.count - 1, section: 0), at: .bottom, animated: true)
                         self.markMessageAsRead()
+                        self.collectionView.scrollToItem(at: IndexPath(item: self.messages.count - 1, section: 0), at: .bottom, animated: true)
                     }
                 case .failure(let error):
                     self.showAlert(title: "Error", message: error.localizedDescription)

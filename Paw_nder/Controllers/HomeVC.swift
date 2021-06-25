@@ -147,7 +147,7 @@ class HomeVC: LoadingViewController {
             cardsDeckView.addSubview($0)
             cardsDeckView.sendSubviewToBack($0)
             $0.fill(superView: cardsDeckView)
-            $0.prevCardVieew = self.previousCardView
+            $0.prevCardView = self.previousCardView
             self.previousCardView?.nextCardView = $0
             self.previousCardView = $0
             if self.topCardView == nil { self.topCardView = $0 }
@@ -204,12 +204,11 @@ class HomeVC: LoadingViewController {
         if cardViewToRemove == topCardView {
             self.topCardView = cardViewToRemove?.nextCardView
         } else {
-            cardViewToRemove?.prevCardVieew = cardViewToRemove?.nextCardView
+            cardViewToRemove?.prevCardView?.nextCardView = cardViewToRemove?.nextCardView
         }
         
-        guard let topCardView = topCardView else { return }
+        currentTopCardView = cardViewToRemove
         cardViewToRemove?.removeFromSuperview()
-        #warning("if match, it doens't show images")
         addSwipeDataWhenPressed(for: user.uid, like: like)
     }
     

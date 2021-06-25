@@ -12,7 +12,7 @@ class AboutVC: UIViewController {
     // MARK: - Properties
     var hideLikeDislikeButtons: Bool? {
         didSet {
-            likeDislikeStack.isHidden = true
+            likeDislikeStack.isHidden = hideLikeDislikeButtons ?? false
         }
     }
     
@@ -31,7 +31,7 @@ class AboutVC: UIViewController {
         }
     }
     
-    var user: User?
+    var userFromLikesVC: User?
     
     var homeVC: HomeVC?
     
@@ -149,7 +149,7 @@ class AboutVC: UIViewController {
     }
     
     @objc func handleDislikeTapped() {
-        if let user = user {
+        if let user = userFromLikesVC {
             dismiss(animated: true, completion: {
                 self.homeVC?.swipe(like: false, user: user)
             })
@@ -159,7 +159,7 @@ class AboutVC: UIViewController {
     }
     
     @objc func handleLikeTapped() {
-        if let user = user {
+        if let user = userFromLikesVC {
             dismiss(animated: true, completion: {
                 self.homeVC?.swipe(like: true, user: user)
             })
