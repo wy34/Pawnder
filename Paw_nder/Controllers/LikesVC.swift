@@ -111,7 +111,8 @@ class LikesVC: UIViewController {
     
     // MARK: - Selectors
     @objc func showInfoAlert() {
-        self.showAlert(title: "Heads Up", message: "If you are ever see user(s) appear and disappear from this list, its because they are undoing/redoing a swipe.")
+        let message = "If you are ever see user(s) appear and disappear from this list, its because they are undoing/redoing a swipe."
+        self.showAlert(title: "Heads Up", message: message)
     }
 }
 

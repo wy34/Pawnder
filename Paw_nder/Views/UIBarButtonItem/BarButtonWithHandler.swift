@@ -8,10 +8,12 @@
 import UIKit
 
 class BarButtonWithHandler: UIBarButtonItem {
+    // MARK: - Properties
     typealias ActionHandler = (UIBarButtonItem) -> Void
 
     private var actionHandler: ActionHandler?
 
+    // MARK: - Init
     convenience init(image: UIImage?, style: UIBarButtonItem.Style, actionHandler: ActionHandler?) {
         self.init(image: image, style: style, target: nil, action: #selector(barButtonItemPressed(sender:)))
         target = self
@@ -30,6 +32,7 @@ class BarButtonWithHandler: UIBarButtonItem {
         self.actionHandler = actionHandler
     }
 
+    // MARK: - Selector
     @objc func barButtonItemPressed(sender: UIBarButtonItem) {
         actionHandler?(sender)
     }

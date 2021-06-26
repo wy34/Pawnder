@@ -127,7 +127,7 @@ class SettingsViewModel {
                         
                         imageDict?["\(imageKey)"] = url!.absoluteString
 
-                        Firestore.firestore().collection("users").document(self.user!.uid).updateData(["imageUrls": imageDict ?? ["": ""]]) { error in
+                        Firestore.firestore().collection(Firebase.users).document(self.user!.uid).updateData(["imageUrls": imageDict ?? ["": ""]]) { error in
                             if let error = error {
                                 completion(error)
                             }

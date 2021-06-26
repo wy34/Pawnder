@@ -13,8 +13,8 @@ protocol LogoutViewLauncherDelegate: AnyObject {
 
 class LogoutViewLauncher: UIView {
     // MARK: - Properties
-    let screenWidth = UIScreen.main.bounds.width
-    let screenHeight = UIScreen.main.bounds.height
+    private let screenWidth = UIScreen.main.bounds.width
+    private let screenHeight = UIScreen.main.bounds.height
     
     weak var delegate: LogoutViewLauncherDelegate?
     

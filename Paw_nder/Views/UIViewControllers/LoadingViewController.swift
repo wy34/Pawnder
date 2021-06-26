@@ -9,8 +9,6 @@ import UIKit
 import SwiftUI
 
 class LoadingViewController: UIViewController {
-    // MARK: - Properties
-    
     // MARK: - Views
     private let backgroundView = PawView(bgColor: .clear)
     
@@ -33,7 +31,7 @@ class LoadingViewController: UIViewController {
     }
     
     // MARK: - Helpers
-    fileprivate func layoutUI() {
+    private func layoutUI() {
         view.addSubview(backgroundView)
         backgroundView.fill(superView: view)
         

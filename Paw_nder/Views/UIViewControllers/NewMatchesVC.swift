@@ -37,7 +37,6 @@ class NewMatchesVC: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
         layoutUI()
         setupNotificationObservers()
         fetchMatches()
@@ -48,10 +47,6 @@ class NewMatchesVC: UIViewController {
     }
     
     // MARK: - Helpers
-    private func configureUI() {
-
-    }
-    
     private func layoutUI() {
         view.addSubviews(titleLabel, collectionView, noMatchesLabel)
         titleLabel.anchor(top: view.topAnchor, trailing: view.trailingAnchor, leading: view.leadingAnchor, paddingTrailing: 25, paddingLeading: 25)

@@ -10,6 +10,7 @@ import Firebase
 import CoreLocation
 
 struct User: Equatable {
+    // MARK: - Properties
     var dictionaryData: [String: Any]?
     
     var uid: String
@@ -28,6 +29,7 @@ struct User: Equatable {
     var maxAgePreference: Int?
     var distancePreference: Int?
     
+    // MARK: - Init
     init(dictionary: [String: Any]) {
         self.dictionaryData = dictionary
         self.uid = dictionary["uid"] as? String ?? ""
@@ -46,6 +48,7 @@ struct User: Equatable {
         setLocationInfo(dictionary)
     }
     
+    // MARK: - Helpers
     static func == (lhs: User, rhs: User) -> Bool {
         return lhs.uid == rhs.uid
     }

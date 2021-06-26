@@ -190,7 +190,7 @@ class HomeVC: LoadingViewController {
         }
     }
     
-    func swipeWhenPressed(like: Bool) {
+    func swipeWhenPressedInHomeVC(like: Bool) {
         guard let topCardView = topCardView else { return }
         let translation: CGFloat = like ? 700 : -700
         let rotation: CGFloat = like ? 15 : -15
@@ -198,7 +198,7 @@ class HomeVC: LoadingViewController {
         addSwipeDataWhenPressed(for: topCardView.userId, like: like)
     }
     
-    func swipe(like: Bool, user: User) {
+    func swipeWhenPressedInLikesVC(like: Bool, user: User) {
         let cardViewToRemove = cardsDeckView.viewWithTag(user.tag) as? CardView
 
         if cardViewToRemove == topCardView {
@@ -263,11 +263,11 @@ extension HomeVC: HomeNavbarStackDelegate {
 // MARK: - HomeBottomControlsDelegate
 extension HomeVC: HomeBottomControlsStackDelegate {
     func handleDislikeTapped() {
-        swipeWhenPressed(like: false)
+        swipeWhenPressedInHomeVC(like: false)
     }
     
     func handleLikeTapped() {
-        swipeWhenPressed(like: true)
+        swipeWhenPressedInHomeVC(like: true)
     }
 }
 
@@ -316,7 +316,7 @@ extension HomeVC: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
+        self.showAlert(title: "Error", message: error.localizedDescription)
     }
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {

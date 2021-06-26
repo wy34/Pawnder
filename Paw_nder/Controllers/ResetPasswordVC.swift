@@ -9,8 +9,6 @@ import UIKit
 import Firebase
 
 class ResetPasswordVC: UIViewController {
-    // MARK: - Properties
-    
     // MARK: - Views
     private let gradientView = GradientView()
     private let iconImageView = PawImageView(image: Assets.icon, contentMode: .scaleAspectFit)

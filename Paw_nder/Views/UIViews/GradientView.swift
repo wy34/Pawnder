@@ -8,8 +8,8 @@
 import UIKit
 
 class GradientView: UIView {
-    var color1: UIColor
-    var color2: UIColor
+    private var color1: UIColor
+    private var color2: UIColor
     
     override init(frame: CGRect) {
         self.color1 = Colors.lightRed

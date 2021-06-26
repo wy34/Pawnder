@@ -17,11 +17,11 @@ class HomeViewModel {
     var swipes = [String: Int]()
     var fetchUserHandler: (() -> Void)?
     
-
-    
     // MARK: - Helpers
     func fetchCurrentUser() {
-        FirebaseManager.shared.fetchCurrentUser { result in
+        FirebaseManager.shared.fetchCurrentUser { [weak self] result in
+            guard let self = self else { return }
+            
             switch result {
                 case .success(let user):
                     self.currentUser = user
@@ -33,7 +33,7 @@ class HomeViewModel {
     }
     
     func fetchSwipes(for user: User) {
-        Firestore.firestore().collection("swipes").document(user.uid).getDocument { snapshot, error in
+        Firestore.firestore().collection(Firebase.swipes).document(user.uid).getDocument { snapshot, error in
             if let _ = error { return }
             
             if let swipes = snapshot?.data() as? [String: Int] {

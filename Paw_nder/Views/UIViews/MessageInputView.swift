@@ -35,7 +35,7 @@ class MessageInputView: UIView {
     }
     
     // MARK: - Helpers
-    func configureUI() {
+    private func configureUI() {
         backgroundColor = .white
         inputTextView.isScrollEnabled = false
         inputTextView.delegate = self
@@ -47,7 +47,7 @@ class MessageInputView: UIView {
         addBorderTo(side: .top, bgColor: Colors.lightGray, dimension: 1)
     }
     
-    func layoutUI() {
+    private func layoutUI() {
         addSubviews(inputTextView, placeHolderLabel, sendButton)
         
         sendButton.anchor(trailing: trailingAnchor, bottom: inputTextView.bottomAnchor, paddingTrailing: 15)
@@ -60,7 +60,7 @@ class MessageInputView: UIView {
         placeHolderLabel.fill(superView: inputTextView, withPadding: .init(top: 0, left: 13, bottom: 0, right: 0))
     }
     
-    func setupActions() {
+    private func setupActions() {
         sendButton.addTarget(self, action: #selector(handleSendPressed), for: .touchUpInside)
     }
     

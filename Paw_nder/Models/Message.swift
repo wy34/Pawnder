@@ -9,12 +9,14 @@ import Foundation
 import Firebase
 
 struct Message {
+    // MARK: - Properties
     let senderId: String
     let toId: String
     let text: String
     let timestamp: Timestamp
     let isCurrentUser: Bool
     
+    // MARK: - Init
     init(dictionary: [String: Any]) {
         self.senderId = dictionary["fromId"] as? String ?? ""
         self.toId = dictionary["toId"] as? String ?? ""

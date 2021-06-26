@@ -53,15 +53,15 @@ class AboutVC: UIViewController {
     private let bodyContainerView = PawView(bgColor: .clear)
     
     private let namelabel = PawLabel(text: "", textColor: .black, font: .systemFont(ofSize: 30, weight: .bold), alignment: .left)
-    private let breedAgeLabel = PawLabel(text: "Golden Retriever", textColor: Colors.lightRed, font: .systemFont(ofSize: 14, weight: .semibold), alignment: .left)
+    private let breedAgeLabel = PawLabel(text: "", textColor: Colors.lightRed, font: .systemFont(ofSize: 14, weight: .semibold), alignment: .left)
     private lazy var headingStack = PawStackView(views: [namelabel, breedAgeLabel], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
         
     private let genderLabel = PaddedLabel(text: "", font: .systemFont(ofSize: 14, weight: .bold), padding: 8)
-    private let locationLabel = IconLabel(text: "Los Angelos, CA", image: Assets.location, cornerRadius: 10)
+    private let locationLabel = IconLabel(text: "", image: Assets.location, cornerRadius: 10)
     
     private let borderView = PawView(bgColor: Colors.lightGray)
     
-    private let bioLabel = PawLabel(text: "Golden Retriever", textColor: .gray, font: .systemFont(ofSize: 20, weight: .semibold), alignment: .left)
+    private let bioLabel = PawLabel(text: "", textColor: .gray, font: .systemFont(ofSize: 20, weight: .semibold), alignment: .left)
     
     private let likeButton = PawButton(image: SFSymbols.heart, tintColor: .white, font: .systemFont(ofSize: 16, weight: .bold))
     private let dislikeButton = PawButton(image: SFSymbols.xmark, tintColor: .white, font: .systemFont(ofSize: 16, weight: .bold))
@@ -78,7 +78,7 @@ class AboutVC: UIViewController {
     }
     
     // MARK: - Helpers
-    func configureUI() {
+    private func configureUI() {
         dismissButton.backgroundColor = .white.withAlphaComponent(0.75)
         dismissButton.layer.cornerRadius = 35/2
         dismissButton.addTarget(self, action: #selector(handleDismissTapped), for: .touchUpInside)
@@ -91,7 +91,7 @@ class AboutVC: UIViewController {
         dislikeButton.backgroundColor = Colors.lightRed
     }
     
-    func layoutScrollView() {
+    private func layoutScrollView() {
         view.addSubviews(scrollView)
         scrollView.fill(superView: view)
         scrollView.addSubview(contentView)
@@ -99,7 +99,7 @@ class AboutVC: UIViewController {
         contentView.setDimension(width: scrollView.widthAnchor, height: scrollView.heightAnchor, hMult: 1.1)
     }
     
-    func layoutUI() {
+    private func layoutUI() {
         contentView.addSubviews(bodyContainerView, headerContainerView, imagePagingVC.view, dismissButton)
         
         dismissButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, trailing: view.trailingAnchor, paddingTop: 20, paddingTrailing: 20)
@@ -115,7 +115,7 @@ class AboutVC: UIViewController {
         imagePagingVC.view.fill(superView: headerContainerView)
     }
     
-    func layoutBodyViews() {
+    private func layoutBodyViews() {
         bodyContainerView.addSubviews(headingStack, genderLabel, locationLabel, borderView, bioLabel, likeDislikeStack)
         
         headingStack.anchor(top: bodyContainerView.topAnchor, trailing: bodyContainerView.trailingAnchor, leading: bodyContainerView.leadingAnchor, paddingTop: 30)
@@ -138,7 +138,7 @@ class AboutVC: UIViewController {
         visualEffectView.anchor(top: view.topAnchor, trailing: view.trailingAnchor, bottom: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor)
     }
     
-    func setupButtonActions() {
+    private func setupButtonActions() {
         dislikeButton.addTarget(self, action: #selector(handleDislikeTapped), for: .touchUpInside)
         likeButton.addTarget(self, action: #selector(handleLikeTapped), for: .touchUpInside)
     }
@@ -151,20 +151,20 @@ class AboutVC: UIViewController {
     @objc func handleDislikeTapped() {
         if let user = userFromLikesVC {
             dismiss(animated: true, completion: {
-                self.homeVC?.swipe(like: false, user: user)
+                self.homeVC?.swipeWhenPressedInLikesVC(like: false, user: user)
             })
         } else {
-            dismiss(animated: true) { self.homeVC?.swipeWhenPressed(like: false) }
+            dismiss(animated: true) { self.homeVC?.swipeWhenPressedInHomeVC(like: false) }
         }
     }
     
     @objc func handleLikeTapped() {
         if let user = userFromLikesVC {
             dismiss(animated: true, completion: {
-                self.homeVC?.swipe(like: true, user: user)
+                self.homeVC?.swipeWhenPressedInLikesVC(like: true, user: user)
             })
         } else {
-            dismiss(animated: true) { self.homeVC?.swipeWhenPressed(like: true) }
+            dismiss(animated: true) { self.homeVC?.swipeWhenPressedInHomeVC(like: true) }
         }
 
     }

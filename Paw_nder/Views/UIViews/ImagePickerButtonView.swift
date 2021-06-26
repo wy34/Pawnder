@@ -9,8 +9,6 @@ import UIKit
 import Firebase
 
 class ImagePickerButtonView: UIView {
-    // MARK: - Properties
-    
     // MARK: - Views
     let imageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
     let addDeleteButton = PawButton(image: SFSymbols.plus, tintColor: .white, font: .systemFont(ofSize: 10, weight: .black))
@@ -69,7 +67,7 @@ class ImagePickerButtonView: UIView {
         var imageUrls = user.imageUrls
         imageUrls!["\(buttonTag)"] = nil
         
-        Firestore.firestore().collection("users").document(user.uid).updateData(["imageUrls": imageUrls ?? ["": ""]]) { error in
+        Firestore.firestore().collection(Firebase.users).document(user.uid).updateData(["imageUrls": imageUrls ?? ["": ""]]) { error in
             if let error = error {
                 print(error.localizedDescription)
             }

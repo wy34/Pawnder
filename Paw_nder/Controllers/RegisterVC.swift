@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 class RegisterVC: LoadingViewController {
     // MARK: - Properties
@@ -135,12 +136,21 @@ class RegisterVC: LoadingViewController {
         registerButton.isEnabled = registerVM.isFormValid ? true : false
     }
     
+    private func presentImagePickerFor(source: UIImagePickerController.SourceType) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+        imagePicker.sourceType = source
+        present(imagePicker, animated: true)
+    }
+    
     // MARK: - Selector
     @objc func handleSelectPhoto() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = true
-        present(imagePicker, animated: true, completion: nil)
+        showImageUploadOptions { [weak self] in
+            self?.presentImagePickerFor(source: .photoLibrary)
+        } cameraAction: { [weak self] in
+            self?.presentImagePickerFor(source: .camera)
+        }
     }
     
     @objc func handleKeyboardShow(notification: Notification) {

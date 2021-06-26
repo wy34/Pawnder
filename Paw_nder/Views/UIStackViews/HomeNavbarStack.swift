@@ -17,9 +17,9 @@ class HomeNavbarStack: UIStackView {
     weak var delegate: HomeNavbarStackDelegate?
     
     // MARK: - Views
-    private let undoBtn = PawButton(image: UIImage(named: "refresh")!.withRenderingMode(.alwaysTemplate), tintColor: .gray)
+    private let undoBtn = PawButton(image: Assets.refresh.withRenderingMode(.alwaysTemplate), tintColor: .gray)
     private let heartImageView = PawImageView(image: Assets.icon, contentMode: .scaleAspectFit)
-    private let filterBtn = PawButton(image: UIImage(named: "filter")!.withRenderingMode(.alwaysTemplate), tintColor: .gray)
+    private let filterBtn = PawButton(image: Assets.filter.withRenderingMode(.alwaysTemplate), tintColor: .gray)
     
     // MARK: - Init
     override init(frame: CGRect) {

@@ -46,17 +46,17 @@ class ImagePickerGridView: UIView {
         bottomHStack.anchor(top: imagePickerView1.bottomAnchor, trailing: rightVStack.leadingAnchor, bottom: bottomAnchor, leading: leadingAnchor)
     }
     
-    func setupButtonActions() {
+    private func setupButtonActions() {
         for view in imagePickerViews {
             view.addDeleteButton.addTarget(self, action: #selector(handleAddDeleteTapped(tappedButton:)), for: .touchUpInside)
         }
     }
     
-    func setupDidSelectImageNotificationObserver() {
+    private func setupDidSelectImageNotificationObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleImagePicked(notification:)), name: .didSelectPhoto, object: nil)
     }
     
-    func setImage(imagePickerButtonView: ImagePickerButtonView, image: UIImage) {
+    private func setImage(imagePickerButtonView: ImagePickerButtonView, image: UIImage) {
         imagePickerButtonView.imageView.image = image
         imagePickerButtonView.imageView.contentMode = .scaleAspectFill
         imagePickerButtonView.imageView.clipsToBounds = true

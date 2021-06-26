@@ -51,7 +51,7 @@ class MatchingViewLauncher: UIView {
     }
     
     // MARK: - Helpers
-    func configureUI() {
+    private func configureUI() {
         visualEffectView.alpha = 0
         
         [user1ImageView, user2ImageView, messageButton].forEach { item in
@@ -68,7 +68,7 @@ class MatchingViewLauncher: UIView {
         backToSwipeButton.layer.cornerRadius = backToSwipeButtonSide/2
     }
     
-    func layoutUI() {
+    private func layoutUI() {
         let contentView = visualEffectView.contentView
         contentView.addSubviews(headingLabelStack, user1ImageView, user2ImageView, buttonStack)
         
@@ -103,7 +103,7 @@ class MatchingViewLauncher: UIView {
         }
     }
     
-    func addActionsAndGestures() {
+    private func addActionsAndGestures() {
         messageButton.addTarget(self, action: #selector(goToMessageVC), for: .touchUpInside)
         backToSwipeButton.addTarget(self, action: #selector(dismissMatchingView), for: .touchUpInside)
     }

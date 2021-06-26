@@ -12,9 +12,9 @@ class EditSettingsLocationVC: EditSettingsRootVC {
     let locationManager = LocationManager.shared
     
     // MARK: - Views
-    private let ageLabel = PawLabel(text: "Your Location", textColor: .black, font: .systemFont(ofSize: 35, weight: .bold), alignment: .left)
+    private let titleLabel = PawLabel(text: "Your Location", textColor: .black, font: .systemFont(ofSize: 35, weight: .bold), alignment: .left)
     private let captionLabel = PawLabel(text: "Williamsport, PA", textColor: .gray, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
-    private lazy var labelStack = PawStackView(views: [ageLabel, captionLabel], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
+    private lazy var labelStack = PawStackView(views: [titleLabel, captionLabel], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
     
     private let changeLocationButton = PawButton(title: "Update Location", textColor: .white, bgColor: Colors.lightRed)
     
@@ -70,7 +70,8 @@ class EditSettingsLocationVC: EditSettingsRootVC {
     
     // MARK: - Selectors
     @objc func handleChangeLocationTapped() {
-        let confirmAC = UIAlertController(title: "Update Location", message: "Are you sure you want to update to your latest location?", preferredStyle: .alert)
+        let message =  "Are you sure you want to update to your latest location?"
+        let confirmAC = UIAlertController(title: "Update Location", message: message, preferredStyle: .alert)
         confirmAC.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [weak self] action in
             guard let self = self else { return }
             self.updateUserLocation()

@@ -13,8 +13,8 @@ class LikesViewModel {
         let currentUserId = Auth.auth().currentUser!.uid
         var users = [User]()
         
-        Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(currentUserId).collection("users").addSnapshotListener { snapshot, error in
-            if let error = error { print(error.localizedDescription); return }
+        Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(currentUserId).collection(Firebase.users).addSnapshotListener { snapshot, error in
+            if let _ = error { return }
                         
             snapshot?.documentChanges.forEach({ change in
                 let user = User(dictionary: change.document.data())

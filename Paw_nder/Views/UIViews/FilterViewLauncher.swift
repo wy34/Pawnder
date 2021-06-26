@@ -10,8 +10,6 @@ import SwiftUI
 
 
 class FilterViewLauncher: UIView {
-    // MARK: - Properties
-    
     // MARK: - Views
     private let blackBgView = PawView(bgColor: .black.withAlphaComponent(0.5))
     

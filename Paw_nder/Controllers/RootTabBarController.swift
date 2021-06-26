@@ -8,8 +8,6 @@
 import UIKit
 
 class RootTabBarController: UITabBarController {
-    // MARK: - Properties
-    
     // MARK: - Views
     var homeVC: HomeVC?
     var likesVC: LikesVC?
@@ -86,23 +84,21 @@ class RootTabBarController: UITabBarController {
         }
     }
     
-    func setupNotificationObservers() {
+    private func setupNotificationObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(disableButtons), name: .didDragCard, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(enableButtons), name: .didFinishDraggingCard, object: nil)
     }
     
     // MARK: - Selector
     @objc func disableButtons() {
-        homeVC?.tabBarItem.isEnabled = false
-        likesVC?.tabBarItem.isEnabled = false
-        messagesVC?.tabBarItem.isEnabled = false
-        settingsVC?.tabBarItem.isEnabled = false
+        for vc in [homeVC, likesVC, messagesVC, settingsVC] {
+            vc?.tabBarItem.isEnabled = false
+        }
     }
     
     @objc func enableButtons() {
-        homeVC?.tabBarItem.isEnabled = true
-        likesVC?.tabBarItem.isEnabled = true
-        messagesVC?.tabBarItem.isEnabled = true
-        settingsVC?.tabBarItem.isEnabled = true
+        for vc in [homeVC, likesVC, messagesVC, settingsVC] {
+            vc?.tabBarItem.isEnabled = true
+        }
     }
 }

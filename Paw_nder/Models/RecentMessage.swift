@@ -10,6 +10,7 @@ import Firebase
 
 
 struct RecentMessage {
+    // MARK: - Properties
     let otherUserId: String
     let name: String
     let profileImageUrl: String
@@ -18,6 +19,7 @@ struct RecentMessage {
     let isRead: Bool
     let partner: User
     
+    // MARK: - Init
     init(dictionary: [String: Any]) {
         self.otherUserId = dictionary["otherUserId"] as? String ?? ""
         self.name = dictionary["name"] as? String ?? ""

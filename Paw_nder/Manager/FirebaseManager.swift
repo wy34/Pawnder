@@ -14,6 +14,7 @@ class FirebaseManager {
     
     var imageCache = NSCache<NSString, UIImage>()
     var users = [String: User]()
+    
     var currentUserListener: ListenerRegistration!
     var matchesListener: ListenerRegistration!
     var messagesListener: ListenerRegistration!
@@ -71,8 +72,17 @@ class FirebaseManager {
     
     func saveUserToDB(credentials: Credentials, imageUrlString: String, completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-        let docData: [String: Any] = ["fullName": credentials.fullName, "uid": currentUserId, "imageUrls": ["1": imageUrlString], "age": 0, "gender": credentials.gender, "tag": UUID().hashValue]
-        Firestore.firestore().collection("users").document(currentUserId).setData(docData) { (error) in
+        
+        let docData: [String: Any] = [
+            "fullName": credentials.fullName,
+            "uid": currentUserId,
+            "imageUrls": ["1": imageUrlString],
+            "age": 0,
+            "gender": credentials.gender,
+            "tag": UUID().hashValue
+        ]
+        
+        Firestore.firestore().collection(Firebase.users).document(currentUserId).setData(docData) { (error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -93,28 +103,21 @@ class FirebaseManager {
     
     private func matchesGenderPref(_ currentUser: User, _ otherUser: User) -> Bool {
         if currentUser.genderPreference != .all {
-            if otherUser.gender == currentUser.genderPreference {
-                return true
-            } else {
-                return false
-            }
+            return otherUser.gender == currentUser.genderPreference
         } else {
             return true
         }
     }
     
     private func matchesBreedPref(_ currentUser: User, _ otherUser: User) -> Bool {
-        if currentUser.breedPreference == noBreedPrefCaption {
-            return true
-        }
-        
+        if currentUser.breedPreference == noBreedPrefCaption { return true }
         return currentUser.breedPreference == otherUser.breed || otherUser.breed == noBreedPrefCaption
     }
     
     func fetchUsers(currentUser: User, swipes: [String: Int], completion: @escaping (Result<[CardViewModel], Error>) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
         var users = [User]()
-        let usersCollection = Firestore.firestore().collection("users")
+        let usersCollection = Firestore.firestore().collection(Firebase.users)
         
         usersCollection
             .whereField("age", isGreaterThanOrEqualTo: currentUser.minAgePreference ?? 0)
@@ -150,7 +153,7 @@ class FirebaseManager {
     func fetchCurrentUser(completion: @escaping (Result<User, Error>) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
 
-        currentUserListener = Firestore.firestore().collection("users").document(currentUserId).addSnapshotListener { (snapshot, error) in
+        currentUserListener = Firestore.firestore().collection(Firebase.users).document(currentUserId).addSnapshotListener { (snapshot, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -207,7 +210,7 @@ class FirebaseManager {
             "distancePreference": user.distancePreference ?? 0
         ]
         
-        Firestore.firestore().collection("users").document("\(currentUserId)").setData(docData) { (error) in
+        Firestore.firestore().collection(Firebase.users).document("\(currentUserId)").setData(docData) { (error) in
             if let error = error {
                 completion(error)
                 return
@@ -220,8 +223,9 @@ class FirebaseManager {
     // MARK: - Swiping
     private func handleIfOtherUserDidNotLikeUs(otherUserId: String, currentUser: User?, completion: @escaping (Error?) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
-
-        Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(otherUserId).collection("users").document(currentUserId).setData(currentUser!.dictionaryData!) { error in
+        let usersCollection = Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(otherUserId).collection(Firebase.users)
+            
+        usersCollection.document(currentUserId).setData(currentUser!.dictionaryData!) { error in
             if let error = error { completion(error); return }
             
             Firestore.firestore().collection(Firebase.swipes).document(otherUserId).getDocument { snapshot, error in
@@ -229,7 +233,7 @@ class FirebaseManager {
                 
                 if let data = snapshot?.data() as? [String: Int] {
                     if data[currentUserId] != nil && data[currentUserId] != 1 {
-                        Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(otherUserId).collection("users").document(currentUserId).delete()
+                        Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(otherUserId).collection(Firebase.users).document(currentUserId).delete()
                     }
                 }
             }
@@ -244,12 +248,12 @@ class FirebaseManager {
             handleIfOtherUserDidNotLikeUs(otherUserId: otherUserId, currentUser: currentUser, completion: completion)
             checkMatchingUser(currentUserId: currentUserId, otherUserId: otherUserId, completion: completion)
         } else {
-            Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(currentUserId).collection("users").document(otherUserId).delete()
+            Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(currentUserId).collection(Firebase.users).document(otherUserId).delete()
         }
         
-        Firestore.firestore().collection("swipes").document(currentUserId).getDocument { snapshot, error in
+        Firestore.firestore().collection(Firebase.swipes).document(currentUserId).getDocument { snapshot, error in
             if snapshot?.exists == true {
-                Firestore.firestore().collection("swipes").document(currentUserId).updateData(swipeData) { error in
+                Firestore.firestore().collection(Firebase.swipes).document(currentUserId).updateData(swipeData) { error in
                     if let error = error {
                         completion(error)
                         return
@@ -258,7 +262,7 @@ class FirebaseManager {
                     completion(nil)
                 }
             } else {
-                Firestore.firestore().collection("swipes").document(currentUserId).setData(swipeData) { error in
+                Firestore.firestore().collection(Firebase.swipes).document(currentUserId).setData(swipeData) { error in
                     if let error = error {
                         completion(error)
                         return
@@ -271,7 +275,7 @@ class FirebaseManager {
     }
     
     func checkMatchingUser(currentUserId: String, otherUserId: String, completion: @escaping (Error?) -> Void) {
-        Firestore.firestore().collection("swipes").document(otherUserId).getDocument { [weak self] snapshot, error in
+        Firestore.firestore().collection(Firebase.swipes).document(otherUserId).getDocument { [weak self] snapshot, error in
             if let error = error {
                 completion(error)
                 return
@@ -283,8 +287,8 @@ class FirebaseManager {
                 self?.addUserMatch(currentUserId: currentUserId, otherUserId: otherUserId, completion: completion)
                 self?.addUserMatch(currentUserId: otherUserId, otherUserId: currentUserId, completion: completion)
                 
-                Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(currentUserId).collection("users").document(otherUserId).delete()
-                Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(otherUserId).collection("users").document(currentUserId).delete()
+                Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(currentUserId).collection(Firebase.users).document(otherUserId).delete()
+                Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(otherUserId).collection(Firebase.users).document(currentUserId).delete()
             }
         }
     }
@@ -292,11 +296,11 @@ class FirebaseManager {
     private func handleUndoingDislikeAndDeletingSwipes(currentUserId: String, otherUserId: String, otherUser: User?) {
         Firestore.firestore().collection(Firebase.swipes).document(otherUserId).getDocument { snapshot, error in
             if snapshot!.exists {
-                if let error = error { print(error.localizedDescription); return }
+                if let _ = error { return }
     
                 if let likesDictionary = snapshot?.data() as? [String: Int] {
                     if likesDictionary[currentUserId] == 1 {
-                        Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(currentUserId).collection("users").document(otherUserId).setData(otherUser!.dictionaryData!)
+                        Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(currentUserId).collection(Firebase.users).document(otherUserId).setData(otherUser!.dictionaryData!)
                     }
     
                     Firestore.firestore().collection(Firebase.swipes).document(currentUserId).updateData([otherUserId: FieldValue.delete()])
@@ -314,10 +318,10 @@ class FirebaseManager {
             if let matchExisted = snapshot?.exists {
                 if matchExisted == false {
                     self.handleUndoingDislikeAndDeletingSwipes(currentUserId: currentUserId, otherUserId: otherUserId, otherUser: otherUser)
-                    Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(otherUserId).collection("users").document(currentUserId).delete()
+                    Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(otherUserId).collection(Firebase.users).document(currentUserId).delete()
                 } else {
                     Firestore.firestore().collection(Firebase.swipes).document(currentUserId).updateData([otherUserId: FieldValue.delete()])
-                    Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(currentUserId).collection("users").document(otherUserId).setData(otherUser!.dictionaryData!)
+                    Firestore.firestore().collection(Firebase.usersWhoLikedMe).document(currentUserId).collection(Firebase.users).document(otherUserId).setData(otherUser!.dictionaryData!)
                     Firestore.firestore().collection(Firebase.matches_messages).document(currentUserId).collection(Firebase.matches).document(otherUserId).delete()
                     Firestore.firestore().collection(Firebase.matches_messages).document(otherUserId).collection(Firebase.matches).document(currentUserId).delete()
                 }
@@ -352,7 +356,12 @@ class FirebaseManager {
         
     // MARK: - Matches
     func addUserMatch(currentUserId: String, otherUserId: String, completion: @escaping (Error?) -> Void) {
-        var data: [String: Any] = ["name": self.users[otherUserId]?.name ?? "", "imageUrlString": self.users[otherUserId]?.imageUrls?["1"] ?? "", "matchedUserId": otherUserId, "startedConversation": false]
+        var data: [String: Any] = [
+            "name": self.users[otherUserId]?.name ?? "",
+            "imageUrlString": self.users[otherUserId]?.imageUrls?["1"] ?? "",
+            "matchedUserId": otherUserId,
+            "startedConversation": false
+        ]
         
         Firestore.firestore().collection(Firebase.users).document(otherUserId).getDocument { snapshot, error in
             if let error = error { completion(error); return }
@@ -399,7 +408,7 @@ class FirebaseManager {
         }
     }
     
-    func update(match: Match) {
+    private func update(match: Match) {
         guard match.startedConversation == false else { return }
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
         Firestore.firestore().collection(Firebase.matches_messages).document(currentUserId).collection(Firebase.matches).document(match.matchedUserId).updateData(["startedConversation": true])
@@ -410,9 +419,13 @@ class FirebaseManager {
     func addMessage(text: String, match: Match, completion: @escaping (Error?) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
 
-        let data: [String: Any] = ["text": text, "fromId": currentUserId, "toId": match.matchedUserId, "timestamp": Timestamp(date: Date())]
+        let data: [String: Any] = ["text": text,
+                                   "fromId": currentUserId,
+                                   "toId": match.matchedUserId,
+                                   "timestamp": Timestamp(date: Date())
+        ]
 
-        Firestore.firestore().collection("matches_messages").document(currentUserId).collection(match.matchedUserId).document().setData(data) { error in
+        Firestore.firestore().collection(Firebase.matches_messages).document(currentUserId).collection(match.matchedUserId).document().setData(data) { error in
             if let error = error {
                 completion(error)
                 return
@@ -421,7 +434,7 @@ class FirebaseManager {
             completion(nil)
         }
         
-        Firestore.firestore().collection("matches_messages").document(match.matchedUserId).collection(currentUserId).document().setData(data) { error in
+        Firestore.firestore().collection(Firebase.matches_messages).document(match.matchedUserId).collection(currentUserId).document().setData(data) { error in
             if let error = error {
                 completion(error)
                 return
@@ -439,7 +452,8 @@ class FirebaseManager {
 
         var messages = [Message]()
         
-        messagesListener = Firestore.firestore().collection("matches_messages").document(currentUserId).collection(match.matchedUserId).order(by: "timestamp").addSnapshotListener { snapshot, error in
+        let matchedUser = Firestore.firestore().collection(Firebase.matches_messages).document(currentUserId).collection(match.matchedUserId)
+        messagesListener = matchedUser.order(by: "timestamp").addSnapshotListener { snapshot, error in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -458,7 +472,14 @@ class FirebaseManager {
     func saveToRecentMessages(message: String, match: Match, completion: @escaping (Error?) -> Void) {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
         
-        var fromData: [String: Any] = ["name": match.name, "profileImageUrl": match.imageUrlString, "timestamp": Timestamp(date: Date()), "message": message, "otherUserId": match.matchedUserId, "isRead": true]
+        var fromData: [String: Any] = [
+            "name": match.name,
+            "profileImageUrl": match.imageUrlString,
+            "timestamp": Timestamp(date: Date()),
+            "message": message,
+            "otherUserId": match.matchedUserId,
+            "isRead": true
+        ]
         
         Firestore.firestore().collection(Firebase.users).document(match.matchedUserId).getDocument { snapshot, error in
             if let error = error { completion(error); return }
@@ -466,7 +487,7 @@ class FirebaseManager {
             if let dictionary = snapshot?.data() {
                 fromData["partner"] = dictionary
                 
-                Firestore.firestore().collection("matches_messages").document(currentUserId).collection("recent_messages").document(match.matchedUserId).setData(fromData) { error in
+                Firestore.firestore().collection(Firebase.matches_messages).document(currentUserId).collection(Firebase.recentMessages).document(match.matchedUserId).setData(fromData) { error in
                     if let error = error {
                         completion(error)
                         return
@@ -479,7 +500,14 @@ class FirebaseManager {
         
         let currentUserName = users[currentUserId]?.name ?? ""
         let currentUserImageUrl = users[currentUserId]?.imageUrls!["1"] ?? ""
-        var toData: [String: Any] = ["name": currentUserName, "profileImageUrl": currentUserImageUrl, "timestamp": Timestamp(date: Date()), "message": message, "otherUserId": currentUserId, "isRead": false]
+        var toData: [String: Any] = [
+            "name": currentUserName,
+            "profileImageUrl": currentUserImageUrl,
+            "timestamp": Timestamp(date: Date()),
+            "message": message,
+            "otherUserId": currentUserId,
+            "isRead": false
+        ]
         
         Firestore.firestore().collection(Firebase.users).document(currentUserId).getDocument { snapshot, error in
             if let error = error { completion(error); return }
@@ -487,7 +515,7 @@ class FirebaseManager {
             if let dictionary = snapshot?.data() {
                 toData["partner"] = dictionary
                 
-                Firestore.firestore().collection("matches_messages").document(match.matchedUserId).collection("recent_messages").document(currentUserId).setData(toData) { error in
+                Firestore.firestore().collection(Firebase.matches_messages).document(match.matchedUserId).collection(Firebase.recentMessages).document(currentUserId).setData(toData) { error in
                     if let error = error {
                         completion(error)
                         return
@@ -504,7 +532,7 @@ class FirebaseManager {
         
         var recentMessagesDictionary = [String: RecentMessage]()
         
-        recentMessagesListener = Firestore.firestore().collection("matches_messages").document(currentUserId).collection("recent_messages").addSnapshotListener { snapshot, error in
+        recentMessagesListener = Firestore.firestore().collection(Firebase.matches_messages).document(currentUserId).collection(Firebase.recentMessages).addSnapshotListener { snapshot, error in
             if let error = error {
                 completion(.failure(error))
                 return

@@ -10,8 +10,6 @@ import Firebase
 
 
 class MessagesVC: UIViewController {
-    // MARK: - Properties
-    
     // MARK: - Views
     private let iconImageView = PawImageView(image: Assets.icon, contentMode: .scaleAspectFit)
     private let newMatchesView = NewMatchesVC()

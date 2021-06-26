@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class IconTextfield: PawTextField {
     // MARK: - Init
@@ -33,26 +32,5 @@ class IconTextfield: PawTextField {
         
         leftViewMode = .always
         leftView = stack
-    }
-}
-
-
-// MARK: - Previews
-struct Home: UIViewRepresentable {
-    func makeUIView(context: Context) -> IconTextfield {
-        let homeVC = IconTextfield(placeholder: "Email", font: .systemFont(ofSize: 16, weight: .medium), icon: SFSymbols.person)
-        return homeVC
-    }
-    
-    func updateUIView(_ uiView: IconTextfield, context: Context) {
-        
-    }
-}
-
-struct Home_Previews: PreviewProvider {
-    static var previews: some View {
-        Home()
-            .previewLayout(.fixed(width: UIScreen.main.bounds.width, height: 40))
-            .edgesIgnoringSafeArea(.all)
     }
 }

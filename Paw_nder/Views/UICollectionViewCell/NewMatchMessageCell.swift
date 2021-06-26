@@ -13,7 +13,7 @@ class NewMatchMessageCell: UICollectionViewCell {
     
     // MARK: - Views
     private let userImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
-    private let userNameLabel = PawLabel(text: "Bob", font: .systemFont(ofSize: 14, weight: .regular), alignment: .center)
+    private let userNameLabel = PawLabel(text: "", font: .systemFont(ofSize: 14, weight: .regular), alignment: .center)
     
     // MARK: - Init
     override init(frame: CGRect) {
@@ -27,13 +27,13 @@ class NewMatchMessageCell: UICollectionViewCell {
     }
     
     // MARK: - Helpers
-    func configureUI() {
+    private func configureUI() {
         userImageView.layer.cornerRadius = 20
         userImageView.layer.borderWidth = 3
         userImageView.layer.borderColor = Colors.lightTransparentGray.cgColor
     }
     
-    func layoutUI() {
+    private func layoutUI() {
         addSubviews(userImageView, userNameLabel)
         
         userImageView.setDimension(width: widthAnchor, height: widthAnchor, wMult: 0.7, hMult: 0.7)

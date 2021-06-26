@@ -19,8 +19,8 @@ class MessageBubbleCell: UICollectionViewCell {
     
     // MARK: - Views
     private let bubbleContainerView = PawView(bgColor: .clear, cornerRadius: 20)
-    private let messageTextView = PawTextView(placeholder: "Placeholder", textColor: .white, bgColor: .clear)
-    private let timestampLabel = PawLabel(text: "3:07 PM", textColor: .gray, font: .systemFont(ofSize: 10), alignment: .center)
+    private let messageTextView = PawTextView(placeholder: "", textColor: .white, bgColor: .clear)
+    private let timestampLabel = PawLabel(text: "", textColor: .gray, font: .systemFont(ofSize: 10), alignment: .center)
     private let profileImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
     
     // MARK: - Init

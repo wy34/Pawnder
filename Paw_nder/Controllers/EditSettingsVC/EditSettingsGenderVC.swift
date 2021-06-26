@@ -13,7 +13,7 @@ class EditSettingsGenderVC: EditSettingsRootVC {
     
     // MARK: - Views
     private let headingLabel = PaddedLabel(text: "You are a: ", font: .systemFont(ofSize: 35, weight: .bold), padding: 5)
-    private let genderLabel = PaddedLabel(text: "?", font: .systemFont(ofSize: 35, weight: .bold), padding: 5)
+    private let genderLabel = PaddedLabel(text: "", font: .systemFont(ofSize: 35, weight: .bold), padding: 5)
     private lazy var labelStack = PawStackView(views: [headingLabel, genderLabel], spacing: -5, distribution: .fill, alignment: .center)
     
     private let maleButton = PawButton(title: "🙋‍♂️", font: .systemFont(ofSize: 75, weight: .bold))

@@ -18,14 +18,18 @@ class PagingController: UIPageViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         dataSource = self
         delegate = self
+        configureUI()
         layoutUI()
     }
 
     // MARK: - Helpers
-    func layoutUI() {
+    private func configureUI() {
+        view.backgroundColor = .white
+    }
+    
+    private func layoutUI() {
         view.addSubview(pagingControlStack)
         pagingControlStack.center(to: view, by: .centerX)
         pagingControlStack.setDimension(width: view.widthAnchor, wMult: 0.5)
@@ -76,25 +80,4 @@ extension PagingController: UIPageViewControllerDelegate, UIPageViewControllerDa
     }
 }
 
-// MARK: - PhotoController
-class PhotoController: UIViewController {
-    // MARK: - Views
-    let imageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
-    
-    // MARK: - Init
-    init(imageUrlString: String) {
-        super.init(nibName: nil, bundle: nil)
-        imageView.setImage(imageUrlString: imageUrlString, completion: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError()
-    }
-    
-    // MARK: - Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.addSubview(imageView)
-        imageView.fill(superView: view)
-    }
-}
+

@@ -47,7 +47,7 @@ class LocationManager {
             let currentUserId = Auth.auth().currentUser?.uid ?? ""
             let geoPoint = GeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
             
-            Firestore.firestore().collection("users").document(currentUserId).updateData(["location": ["name": cityAndStateName ?? "", "coord": geoPoint]]) { error in
+            Firestore.firestore().collection(Firebase.users).document(currentUserId).updateData(["location": ["name": cityAndStateName ?? "", "coord": geoPoint]]) { error in
                 if let error = error {
                     completion(error)
                     return
@@ -62,7 +62,7 @@ class LocationManager {
     func removeUserLocation(completion: @escaping (Error?) -> Void) {
         let currentUserId = Auth.auth().currentUser?.uid ?? ""
         
-        Firestore.firestore().collection("users").document(currentUserId).updateData(["location": FieldValue.delete()]) { error in
+        Firestore.firestore().collection(Firebase.users).document(currentUserId).updateData(["location": FieldValue.delete()]) { error in
             if let error = error {
                 completion(error)
                 return

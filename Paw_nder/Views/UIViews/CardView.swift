@@ -40,15 +40,15 @@ class CardView: LoadingView {
     private let containerView = PawView(bgColor: .white, cornerRadius: 25)
     
     private let photoCountIcon = PawButton(image: SFSymbols.photos, tintColor: .white, font: .boldSystemFont(ofSize: 22))
-    private let photoCountLabel = PawLabel(text: "3", textColor: .white, font: .boldSystemFont(ofSize: 20))
+    private let photoCountLabel = PawLabel(text: "", textColor: .white, font: .boldSystemFont(ofSize: 20))
     private lazy var photoCountStack = PawStackView(views: [photoCountIcon, photoCountLabel], spacing: 5, distribution: .fillEqually, alignment: .fill)
 
     private let profileImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
-    private let nameLabel = PawLabel(text: "Rex", textColor: .black, font: .boldSystemFont(ofSize: 26), alignment: .left)
-    private let breedAgeLabel = PawLabel(text: "Golden Retriever", textColor: Colors.lightRed, font: .systemFont(ofSize: 12, weight: .semibold), alignment: .left)
+    private let nameLabel = PawLabel(text: "", textColor: .black, font: .boldSystemFont(ofSize: 26), alignment: .left)
+    private let breedAgeLabel = PawLabel(text: "", textColor: Colors.lightRed, font: .systemFont(ofSize: 12, weight: .semibold), alignment: .left)
     private lazy var topStack = PawStackView(views: [nameLabel, breedAgeLabel], spacing: 5, axis: .vertical, distribution: .fillEqually, alignment: .fill)
     
-    private let locationLabel = IconLabel(text: "Los Angelos, CA", image: Assets.location, cornerRadius: 10)
+    private let locationLabel = IconLabel(text: "", image: Assets.location, cornerRadius: 10)
     
     private lazy var overallLabelStack = PawStackView(views: [topStack, locationLabel], spacing: 5, axis: .vertical, distribution: .fill, alignment: .leading)
     private let aboutButton = PawButton(image: SFSymbols.info, tintColor: .black, font: .systemFont(ofSize: 25, weight: .medium))
@@ -65,9 +65,6 @@ class CardView: LoadingView {
         configureUI()
         setupGestures()
         startLoadingCards()
-        
-        likeDislikeIndicator.alpha = 0
-        likeDislikeTintView.alpha = 0
     }
     
     required init?(coder: NSCoder) {
@@ -83,6 +80,8 @@ class CardView: LoadingView {
         containerView.layer.shadowOffset = .init(width: 0, height: 0)
         aboutButton.addTarget(self, action: #selector(handleAboutTapped), for: .touchUpInside)
         likeDislikeTintView.layer.cornerRadius = 25
+        likeDislikeIndicator.alpha = 0
+        likeDislikeTintView.alpha = 0
     }
     
     private func layoutUI() {

@@ -35,7 +35,7 @@ class LoginVC: LoadingViewController {
     }
     
     // MARK: - Helpers
-    func configureUI() {
+    private func configureUI() {
         navigationController?.setNavigationBarHidden(true, animated: true)
         emailTextField.addBorderTo(side: .bottom, bgColor: Colors.lightGray, dimension: 2)
         passwordTextField.addBorderTo(side: .bottom, bgColor: Colors.lightGray, dimension: 2)
@@ -48,7 +48,7 @@ class LoginVC: LoadingViewController {
         forgotPasswordButton.titleLabel?.font = .systemFont(ofSize: 12, weight: .medium)
     }
     
-    func layoutUI() {
+    private func layoutUI() {
         view.addSubviews(gradientView, iconImageView, captionLabel, containerView, forgotPasswordButton)
         gradientView.fill(superView: view)
         
@@ -71,7 +71,7 @@ class LoginVC: LoadingViewController {
         forgotPasswordButton.anchor(top: containerView.bottomAnchor, leading: containerView.leadingAnchor, paddingTop: 5, paddingLeading: 31)
     }
     
-    func setupFormActions() {
+    private func setupFormActions() {
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapToDismissKB)))
         newUserButton.addTarget(self, action: #selector(handleNewUserTapped), for: .touchUpInside)
         loginButton.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)

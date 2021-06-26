@@ -13,8 +13,6 @@ class EditSettingsRootVC: LoadingViewController {
     var settingsVC: SettingsVC?
     var settings: Setting?
 
-    // MARK: - Views
-    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()

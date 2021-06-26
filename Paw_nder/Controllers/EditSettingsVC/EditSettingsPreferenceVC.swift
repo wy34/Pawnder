@@ -8,8 +8,6 @@
 import UIKit
 
 class EditSettingsPreferenceVC: EditSettingsRootVC {
-    // MARK: - Properties
-    
     // MARK: - Views
     private let preferenceFormView = PreferenceFormView()
 
@@ -36,8 +34,6 @@ class EditSettingsPreferenceVC: EditSettingsRootVC {
     override func handleSave() {
         super.handleSave()
     }
-    
-    // MARK: - Selector
 }
 
 // MARK: - PreferenceFormViewDelegate

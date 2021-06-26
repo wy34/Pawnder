@@ -18,15 +18,15 @@ class ProfileVC: LoadingViewController {
     private let imagePickerView = ImagePickerGridView()
     
     private let infoContainerView = PawView(bgColor: Colors.lightGray)
-    private let nameLabel = PawLabel(text: "William Yeung", textColor: .black, font: .systemFont(ofSize: 40, weight: .bold), alignment: .left)
-    private let breedAgeLabel = PawLabel(text: "Golden Retriever • 34 yrs", textColor: Colors.lightRed, font: .systemFont(ofSize: 12, weight: .semibold), alignment: .left)
+    private let nameLabel = PawLabel(text: "", textColor: .black, font: .systemFont(ofSize: 40, weight: .bold), alignment: .left)
+    private let breedAgeLabel = PawLabel(text: "", textColor: Colors.lightRed, font: .systemFont(ofSize: 12, weight: .semibold), alignment: .left)
     private lazy var headingStack = PawStackView(views: [/*nameLabel,*/ breedAgeLabel], spacing: 5, axis: .vertical, distribution: .fill, alignment: .fill)
     private let settingsButton = PawButton(image: SFSymbols.gears, tintColor: .white, font: .systemFont(ofSize: 14, weight: .black))
     
-    private let genderLabel = PaddedLabel(text: "Female", font: .systemFont(ofSize: 14, weight: .bold), padding: 8)
-    private let locationLabel = IconLabel(text: "Los Angelos, CA", image: Assets.location, cornerRadius: 10)
+    private let genderLabel = PaddedLabel(text: "", font: .systemFont(ofSize: 14, weight: .bold), padding: 8)
+    private let locationLabel = IconLabel(text: "", image: Assets.location, cornerRadius: 10)
     
-    private let bioLabel = PawLabel(text: "William Yeung", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
+    private let bioLabel = PawLabel(text: "", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -111,7 +111,7 @@ class ProfileVC: LoadingViewController {
         locationLabel.text = settingsVM.locationName
     }
     
-    func fetchCurrentUserInfo() {
+    private func fetchCurrentUserInfo() {
         FirebaseManager.shared.fetchCurrentUser { [weak self] (result) in
             switch result {
                 case .success(let user):
@@ -141,25 +141,6 @@ class ProfileVC: LoadingViewController {
         present(imagePicker, animated: true)
     }
     
-    private func presentPhotoLibrary(notification: Notification) {
-        let authStatus = PHPhotoLibrary.authorizationStatus()
-        switch authStatus {
-            case .authorized: presentImagePickerFor(source: .photoLibrary, notification: notification)
-            case .notDetermined:
-                PHPhotoLibrary.requestAuthorization { newStatus in
-                    DispatchQueue.main.async {
-                        if newStatus == .authorized { self.presentImagePickerFor(source: .photoLibrary, notification: notification) }
-                        else { print("Access denied") }
-                    }
-                }
-            case .restricted, .denied, .limited:
-                showAlert(title: "Access Denied", message: "Please enable photo library access in settings.")
-                break
-            @unknown default:
-                break
-        }
-    }
-    
     // MARK: - Selector
     @objc func openSettings() {
         let settingsVC = SettingsVC()
@@ -175,18 +156,11 @@ class ProfileVC: LoadingViewController {
     }
     
     @objc func handleSelectPhotoTapped(notification: Notification) {
-        let optionSheet = UIAlertController(title: "Photo Selection", message: "How would you like to upload a photo?", preferredStyle: .actionSheet)
-        let photoLibAction = UIAlertAction(title: "Photo Library", style: .default, handler: { [weak self] _ in
-            self?.presentPhotoLibrary(notification: notification)
-        })
-        let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
+        self.showImageUploadOptions(notification: notification) { [weak self] in
+            self?.presentImagePickerFor(source: .photoLibrary, notification: notification)
+        } cameraAction: { [weak self] in
             self?.presentImagePickerFor(source: .camera, notification: notification)
-        })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        optionSheet.addAction(photoLibAction)
-        optionSheet.addAction(cameraAction)
-        optionSheet.addAction(cancelAction)
-        present(optionSheet, animated: true, completion: nil)
+        }
     }
 }
 

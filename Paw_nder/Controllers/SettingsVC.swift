@@ -16,7 +16,7 @@ class SettingsVC: LoadingViewController {
         let tv = UITableView(frame: .zero, style: .insetGrouped)
         tv.delegate = self
         tv.dataSource = self
-        tv.register(NewSettingsCell.self, forCellReuseIdentifier: NewSettingsCell.reuseId)
+        tv.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.reuseId)
         tv.backgroundColor = #colorLiteral(red: 0.9541934133, green: 0.9496539235, blue: 0.9577021003, alpha: 1)
         tv.tableFooterView = UIView()
         tv.automaticallyAdjustsScrollIndicatorInsets = true
@@ -75,7 +75,7 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NewSettingsCell.reuseId, for: indexPath) as! NewSettingsCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.reuseId, for: indexPath) as! SettingsCell
         cell.configureWith(setting: settingsVM.settingOptions[indexPath.row])
         return cell
     }

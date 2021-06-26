@@ -8,8 +8,6 @@
 import UIKit
 
 class EditSettingsBreedVC: EditSettingsRootVC {
-    // MARK: - Properties
-    
     // MARK: - Views
     private let breedButton = PawButton(title: "N/A", bgColor: .white)
     

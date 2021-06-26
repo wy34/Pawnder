@@ -12,7 +12,7 @@ class LikeCell: UICollectionViewCell {
     static let reuseId = "LikeCell"
     
     // MARK: - Views
-    private let placeholderImageView = PawImageView(image: UIImage(named: "pawPrint")!, contentMode: .scaleAspectFit)
+    private let placeholderImageView = PawImageView(image: Assets.placeholderPaw, contentMode: .scaleAspectFit)
     private let userImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
     private let gradientView = GradientView(color1: .clear, color2: .black)
     private let nameLabel = PawLabel(text: "", textColor: .white, font: .systemFont(ofSize: 22, weight: .bold), alignment: .center)

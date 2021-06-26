@@ -8,12 +8,14 @@
 import Foundation
 
 struct Match {
+    // MARK: - Properties
     let matchedUserId: String
     let name: String
     let imageUrlString: String
     let startedConversation: Bool
     let matchedUser: User
     
+    // MARK: - Init
     init(dictionary: [String: Any]) {
         self.matchedUserId = dictionary["matchedUserId"] as? String ?? ""
         self.name = dictionary["name"] as? String ?? ""

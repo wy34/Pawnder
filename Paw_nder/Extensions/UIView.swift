@@ -7,10 +7,6 @@
 
 import UIKit
 
-enum Side {
-    case top, right, bottom, left
-}
-
 extension UIView {
     func addSubviews(_ views: UIView...) {
         for view in views {

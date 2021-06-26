@@ -18,6 +18,8 @@ class BreedSearchVC: LoadingViewController {
     var isChoosingBreedPref: Bool?
     var didSelectBreedHandler: (() -> Void)?
     
+    private let reuseId = "cell"
+    
     // MARK: - Views
     private let searchController = UISearchController(searchResultsController: nil)
     
@@ -25,7 +27,7 @@ class BreedSearchVC: LoadingViewController {
         let tv = UITableView()
         tv.delegate = self
         tv.dataSource = self
-        tv.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tv.register(UITableViewCell.self, forCellReuseIdentifier: reuseId)
         tv.backgroundColor = Colors.bgLightGray
         tv.tableFooterView = UIView()
         tv.keyboardDismissMode = .interactive
@@ -40,7 +42,6 @@ class BreedSearchVC: LoadingViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
-        configureUI()
         layoutUI()
     }
     
@@ -52,9 +53,6 @@ class BreedSearchVC: LoadingViewController {
         searchController.searchBar.placeholder = "Search Breed"
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
-    }
-    
-    private func configureUI() {
     }
     
     private func layoutUI() {
@@ -98,7 +96,8 @@ class BreedSearchVC: LoadingViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension BreedSearchVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return PawLabel(text: "No results, please enter a search query.", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .center)
+        let labelText = "No results, please enter a search query."
+        return PawLabel(text: labelText, textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .center)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -110,7 +109,7 @@ extension BreedSearchVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath)
         cell.backgroundColor = Colors.bgLightGray
         cell.textLabel?.text = searchResults[indexPath.row].name
         return cell
