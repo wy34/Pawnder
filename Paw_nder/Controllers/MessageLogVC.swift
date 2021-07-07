@@ -54,7 +54,6 @@ class MessageLogVC: UIViewController {
     
     // MARK: - Helper
     private func configureNavBar() {
-//        navigationItem.title
         navigationItem.title = match.name
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: SFSymbols.person, style: .plain, target: self, action: #selector(showUserProfile))
     }

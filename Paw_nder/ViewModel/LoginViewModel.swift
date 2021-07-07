@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 
 class LoginViewModel {
+    // MARK: - Properties
     var email = ""
     var password = ""
     
@@ -20,6 +21,7 @@ class LoginViewModel {
         return isFormValid ? (Colors.lightRed, .white) : (.lightGray, .gray)
     }
     
+    // MARK: - Helpers
     func loginUser(completion: @escaping (Error?) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {

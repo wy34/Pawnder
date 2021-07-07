@@ -75,6 +75,7 @@
 		4C8F8CF92649E0BB00A62E85 /* MessageInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8F8CF82649E0BB00A62E85 /* MessageInputView.swift */; };
 		4C9AC421266030440094BB86 /* BreedSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9AC420266030440094BB86 /* BreedSearchVC.swift */; };
 		4C9AC42326604E130094BB86 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9AC42226604E130094BB86 /* NetworkManager.swift */; };
+		4C9F2C8226963A4900F48D38 /* Breed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9F2C8126963A4900F48D38 /* Breed.swift */; };
 		4CA341622682A54D00263597 /* LikesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA341612682A54D00263597 /* LikesViewModel.swift */; };
 		4CA3BAA1267EE5D9009F1B53 /* LikeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA3BAA0267EE5D9009F1B53 /* LikeCell.swift */; };
 		4CA40BE6262F4DE000B11232 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA40BE5262F4DE000B11232 /* CardView.swift */; };
@@ -187,6 +188,7 @@
 		4C8F8CF82649E0BB00A62E85 /* MessageInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInputView.swift; sourceTree = "<group>"; };
 		4C9AC420266030440094BB86 /* BreedSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedSearchVC.swift; sourceTree = "<group>"; };
 		4C9AC42226604E130094BB86 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		4C9F2C8126963A4900F48D38 /* Breed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Breed.swift; sourceTree = "<group>"; };
 		4CA341612682A54D00263597 /* LikesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesViewModel.swift; sourceTree = "<group>"; };
 		4CA3BAA0267EE5D9009F1B53 /* LikeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCell.swift; sourceTree = "<group>"; };
 		4CA40BE5262F4DE000B11232 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -484,6 +486,7 @@
 				4C684599264882FD0003988C /* Match.swift */,
 				4C8F8CF22649B1DA00A62E85 /* Message.swift */,
 				4C392FE1264B85EE00A729F7 /* RecentMessage.swift */,
+				4C9F2C8126963A4900F48D38 /* Breed.swift */,
 				4CD2810C26522260005C1594 /* Setting.swift */,
 			);
 			path = Models;
@@ -731,6 +734,7 @@
 				4C75AE3C2633644A00255A7A /* HomeViewModel.swift in Sources */,
 				4CEDB3A9265A14E70031999E /* EditSettingsLocationVC.swift in Sources */,
 				4CE3814E26653E0C00247599 /* BarButtonWithHandler.swift in Sources */,
+				4C9F2C8226963A4900F48D38 /* Breed.swift in Sources */,
 				4C8F8CF32649B1DA00A62E85 /* Message.swift in Sources */,
 				4C68459A264882FD0003988C /* Match.swift in Sources */,
 				4C8F8CF52649B28400A62E85 /* MessageBubbleCell.swift in Sources */,

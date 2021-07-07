@@ -8,6 +8,7 @@
 import UIKit
 
 class AboutViewModel {
+    // MARK: - Properties
     var cardViewModel: CardViewModel?
     
     init(cardViewModel: CardViewModel?) {

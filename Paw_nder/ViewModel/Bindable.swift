@@ -8,6 +8,7 @@
 import Foundation
 
 class Bindable<T> {
+    // MARK: - Properties
     var value: T? {
         didSet {
             observer?(value)
@@ -16,6 +17,7 @@ class Bindable<T> {
     
     var observer: ((T?) -> Void)?
     
+    // MARK: - Helpers
     func bind(observer: @escaping (T?) -> Void) {
         self.observer = observer
     }

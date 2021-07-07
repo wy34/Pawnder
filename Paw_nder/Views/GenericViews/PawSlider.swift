@@ -8,6 +8,7 @@
 import UIKit
 
 class PawSlider: UISlider {
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

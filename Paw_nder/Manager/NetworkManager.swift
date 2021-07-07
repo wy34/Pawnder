@@ -7,11 +7,8 @@
 
 import Foundation
 
-struct Breed: Decodable {
-    let name: String
-}
-
 class NetworkManager {
+    // MARK: - Helpers
     func fetch(breedName: String, completion: @escaping (Result<[Breed], Error>) -> Void) {
         let breedName = breedName.trimmingCharacters(in: .whitespaces)
         let breedUrlString = "https://api.thedogapi.com/v1/breeds/search?q=\(breedName)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)

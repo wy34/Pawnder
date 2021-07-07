@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 
 class LikesViewModel {
+    // MARK: - Helpers
     func fetchUsersWhoLikedMe(addedCompletion: @escaping (Result<[User], Error>) -> Void, removedCompletion: @escaping (User?) -> Void) {
         let currentUserId = Auth.auth().currentUser!.uid
         var users = [User]()
