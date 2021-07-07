@@ -14,8 +14,8 @@ class EditSettingsAgeVC: EditSettingsRootVC {
     var userAge = 0
     
     // MARK: - Views
-    private let ageLabel = PawLabel(text: "Your Age", textColor: .black, font: .systemFont(ofSize: 35, weight: .bold), alignment: .left)
-    private let captionLabel = PawLabel(text: "We use this to tailor the app and allows other users to better match up with you.", textColor: .gray, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
+    private let ageLabel = PawLabel(text: "Your Age", textColor: .black, font: markerFont(36), alignment: .left)
+    private let captionLabel = PawLabel(text: "We use this to tailor the app and allows other users to better match up with you.", textColor: .gray, font: markerFont(18), alignment: .left)
     private lazy var labelStack = PawStackView(views: [ageLabel, captionLabel], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
     
     private lazy var collectionView: UICollectionView = {

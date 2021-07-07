@@ -15,12 +15,12 @@ class ResetPasswordVC: UIViewController {
     
     private let containerView = PawView(bgColor: .white, cornerRadius: 35)
 
-    private let titleLabel = PawLabel(text: "Reset Password", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .center)
-    private let captionLabel = PawLabel(text: "Enter your email address below to reset password", textColor: .gray, font: .systemFont(ofSize: 16, weight: .medium), alignment: .center)
-    private let emailTextField = IconTextfield(placeholder: "Email", font: .systemFont(ofSize: 16, weight: .medium), icon: SFSymbols.envelope)
+    private let titleLabel = PawLabel(text: "Reset Password", textColor: .black, font: markerFont(18), alignment: .center)
+    private let captionLabel = PawLabel(text: "Enter your email address below to reset password", textColor: .gray, font: markerFont(18), alignment: .center)
+    private let emailTextField = IconTextfield(placeholder: "Email", font: markerFont(18), icon: SFSymbols.envelope)
     
-    private let backBtn = PawButton(title: "Back", textColor: .lightGray, font: UIFont.systemFont(ofSize: 16, weight: .bold))
-    private let resetPasswordBtn = PawButton(title: "Reset", textColor: .gray, font: UIFont.systemFont(ofSize: 16, weight: .bold))
+    private let backBtn = PawButton(title: "Back", textColor: .lightGray, font: markerFont(18))
+    private let resetPasswordBtn = PawButton(title: "Reset", textColor: .gray, font: markerFont(18))
     private lazy var buttonStack = PawStackView(views: [backBtn, resetPasswordBtn], spacing: 0, distribution: .fillEqually)
     
     private lazy var textFieldButtonStack = PawStackView(views: [emailTextField, buttonStack], spacing: 5, axis: .vertical, distribution: .fillEqually, alignment: .fill)

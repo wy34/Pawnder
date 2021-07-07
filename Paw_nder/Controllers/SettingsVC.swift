@@ -47,7 +47,7 @@ class SettingsVC: LoadingViewController {
     }
     
     private func configureUI() {
-        logoutButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        logoutButton.titleLabel?.font = markerFont(20)
         logoutButton.layer.cornerRadius = 25
     }
     

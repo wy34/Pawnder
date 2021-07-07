@@ -42,7 +42,7 @@ class FilterVC: UIViewController {
     
     private func configureUI() {
         saveButton.layer.cornerRadius = 50/2
-        saveButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
+        saveButton.titleLabel?.font = markerFont(20)
         preferenceFormView.delegate = self
     }
     

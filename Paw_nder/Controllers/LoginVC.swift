@@ -15,13 +15,13 @@ class LoginVC: LoadingViewController {
     // MARK: - Views
     private let gradientView = GradientView()
     private let iconImageView = PawImageView(image: Assets.icon, contentMode: .scaleAspectFit)
-    private let captionLabel = PawLabel(text: "Help your dog meet other dogs!", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .center)
+    private let captionLabel = PawLabel(text: "Connecting the Dog Community", textColor: .black, font: markerFont(20), alignment: .center)
     private let containerView = PawView(bgColor: .white, cornerRadius: 35)
-    private let titleLabel = PawLabel(text: "Login", font: .systemFont(ofSize: 30, weight: .bold), alignment: .left)
-    private let emailTextField = IconTextfield(placeholder: "Email", font: .systemFont(ofSize: 16, weight: .medium), icon: SFSymbols.envelope)
-    private let passwordTextField = IconTextfield(placeholder: "Password", font: .systemFont(ofSize: 16, weight: .medium), icon: SFSymbols.lock)
-    private let newUserButton = PawButton(title: "New User?", textColor: .lightGray, font: UIFont.systemFont(ofSize: 16, weight: .bold))
-    private let loginButton = PawButton(title: "Login", textColor: .gray, font: UIFont.systemFont(ofSize: 16, weight: .bold))
+    private let titleLabel = PawLabel(text: "Login", font: markerFont(30), alignment: .left)
+    private let emailTextField = IconTextfield(placeholder: "Email", font: markerFont(18), icon: SFSymbols.envelope)
+    private let passwordTextField = IconTextfield(placeholder: "Password", font: markerFont(18), icon: SFSymbols.lock)
+    private let newUserButton = PawButton(title: "New User?", textColor: .lightGray, font: markerFont(18))
+    private let loginButton = PawButton(title: "Login", textColor: .gray, font: markerFont(18))
     private lazy var buttonStack = PawStackView(views: [newUserButton, loginButton], spacing: 15, distribution: .fillEqually)
     private lazy var formStack = PawStackView(views: [titleLabel, emailTextField, passwordTextField, buttonStack], spacing: 18, axis: .vertical, distribution: .fillEqually, alignment: .fill)
     private let forgotPasswordButton = PawButton(title: "Forgot Password?", textColor: .darkGray, bgColor: .clear)
@@ -45,7 +45,7 @@ class LoginVC: LoadingViewController {
         loginButton.backgroundColor = .lightGray
         loginButton.layer.cornerRadius = 10
         newUserButton.contentHorizontalAlignment = .left
-        forgotPasswordButton.titleLabel?.font = .systemFont(ofSize: 12, weight: .medium)
+        forgotPasswordButton.titleLabel?.font = markerFont(14)
     }
     
     private func layoutUI() {

@@ -35,7 +35,7 @@ class BreedSearchVC: LoadingViewController {
     }()
     
     private let searchingIndicator = UIActivityIndicatorView(style: .large)
-    private let searchingLabel = PawLabel(text: "Searching", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .center)
+    private let searchingLabel = PawLabel(text: "Searching", textColor: .black, font: markerFont(18), alignment: .center)
     private lazy var searchingStack = PawStackView(views: [searchingIndicator, searchingLabel], spacing: -125, axis: .vertical, distribution: .fillEqually)
     
     // MARK: - Lifecycle    
@@ -53,6 +53,7 @@ class BreedSearchVC: LoadingViewController {
         searchController.searchBar.placeholder = "Search Breed"
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
+        searchController.searchBar.searchTextField.font = markerFont(18)
     }
     
     private func layoutUI() {
@@ -97,7 +98,7 @@ class BreedSearchVC: LoadingViewController {
 extension BreedSearchVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let labelText = "No results, please enter a search query."
-        return PawLabel(text: labelText, textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .center)
+        return PawLabel(text: labelText, textColor: .black, font: markerFont(18), alignment: .center)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -112,6 +113,7 @@ extension BreedSearchVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath)
         cell.backgroundColor = Colors.bgLightGray
         cell.textLabel?.text = searchResults[indexPath.row].name
+        cell.textLabel?.font = markerFont(18)
         return cell
     }
     

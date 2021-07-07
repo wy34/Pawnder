@@ -19,18 +19,26 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchScreenBG" translatesAutoresizingMaskIntoConstraints="NO" id="dlj-aS-98v">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pawnder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oQD-gT-rvQ">
-                                <rect key="frame" x="125.5" y="267" width="163" height="48"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="TZ7-Er-NCG">
+                                <rect key="frame" x="136" y="244.5" width="142" height="183.5"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="l4G-Mg-dB2">
+                                        <rect key="frame" x="7" y="0.0" width="128" height="128"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pawnder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oQD-gT-rvQ">
+                                        <rect key="frame" x="0.0" y="140" width="142" height="43.5"/>
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="40"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="oQD-gT-rvQ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="5S4-NN-8JL"/>
-                            <constraint firstItem="oQD-gT-rvQ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="0.65" id="5gn-7Z-7vJ"/>
+                            <constraint firstItem="TZ7-Er-NCG" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="1JZ-dE-qDR"/>
                             <constraint firstItem="dlj-aS-98v" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Lht-yt-kzc"/>
+                            <constraint firstItem="TZ7-Er-NCG" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="0.75" id="YF2-8H-86E"/>
                             <constraint firstAttribute="bottom" secondItem="dlj-aS-98v" secondAttribute="bottom" id="a2F-8e-AQN"/>
                             <constraint firstItem="dlj-aS-98v" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="czg-l3-O0o"/>
                             <constraint firstItem="dlj-aS-98v" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="fR7-ji-hgi"/>
@@ -43,6 +51,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="icon" width="128" height="128"/>
         <image name="launchScreenBG" width="591" height="1280"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

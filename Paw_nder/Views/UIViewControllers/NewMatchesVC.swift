@@ -19,8 +19,8 @@ class NewMatchesVC: UIViewController {
     weak var delegate: NewMatchesVCDelegate?
     
     // MARK: - Views
-    private let titleLabel = PawLabel(text: "New Matches", textColor: .black, font: .systemFont(ofSize: 16, weight: .bold), alignment: .left)
-    private let noMatchesLabel = PawLabel(text: "No New Matches", textColor: .black, font: .systemFont(ofSize: 14, weight: .medium), alignment: .center)
+    private let titleLabel = PawLabel(text: "New Matches", textColor: .black, font: markerFont(18), alignment: .left)
+    private let noMatchesLabel = PawLabel(text: "No New Matches", textColor: .black, font: markerFont(16), alignment: .center)
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

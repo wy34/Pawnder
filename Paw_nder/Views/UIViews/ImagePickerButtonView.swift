@@ -69,7 +69,7 @@ class ImagePickerButtonView: UIView {
         
         Firestore.firestore().collection(Firebase.users).document(user.uid).updateData(["imageUrls": imageUrls ?? ["": ""]]) { error in
             if let error = error {
-                print(error.localizedDescription)
+                debugPrint(error.localizedDescription)
             }
             self.imageView.image = nil
             self.changeButtonTo(delete: false)

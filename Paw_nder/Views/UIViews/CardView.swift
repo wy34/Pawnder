@@ -40,12 +40,12 @@ class CardView: LoadingView {
     private let containerView = PawView(bgColor: .white, cornerRadius: 25)
     
     private let photoCountIcon = PawButton(image: SFSymbols.photos, tintColor: .white, font: .boldSystemFont(ofSize: 22))
-    private let photoCountLabel = PawLabel(text: "", textColor: .white, font: .boldSystemFont(ofSize: 20))
+    private let photoCountLabel = PawLabel(text: "", textColor: .white, font: markerFont(20))
     private lazy var photoCountStack = PawStackView(views: [photoCountIcon, photoCountLabel], spacing: 5, distribution: .fillEqually, alignment: .fill)
 
     private let profileImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
-    private let nameLabel = PawLabel(text: "", textColor: .black, font: .boldSystemFont(ofSize: 26), alignment: .left)
-    private let breedAgeLabel = PawLabel(text: "", textColor: Colors.lightRed, font: .systemFont(ofSize: 12, weight: .semibold), alignment: .left)
+    private let nameLabel = PawLabel(text: "", textColor: .black, font: markerFont(28), alignment: .left)
+    private let breedAgeLabel = PawLabel(text: "", textColor: Colors.lightRed, font: markerFont(14), alignment: .left)
     private lazy var topStack = PawStackView(views: [nameLabel, breedAgeLabel], spacing: 5, axis: .vertical, distribution: .fillEqually, alignment: .fill)
     
     private let locationLabel = IconLabel(text: "", image: Assets.location, cornerRadius: 10)

@@ -14,7 +14,7 @@ class MessagesVC: UIViewController {
     private let iconImageView = PawImageView(image: Assets.icon, contentMode: .scaleAspectFit)
     private let newMatchesView = NewMatchesVC()
     private let recentMessagesVC = RecentMessagesVC()
-    private let searchBar = UISearchBar()
+//    private let searchBar = UISearchBar()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {

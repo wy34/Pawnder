@@ -52,16 +52,16 @@ class AboutVC: UIViewController {
     
     private let bodyContainerView = PawView(bgColor: .clear)
     
-    private let namelabel = PawLabel(text: "", textColor: .black, font: .systemFont(ofSize: 30, weight: .bold), alignment: .left)
-    private let breedAgeLabel = PawLabel(text: "", textColor: Colors.lightRed, font: .systemFont(ofSize: 14, weight: .semibold), alignment: .left)
+    private let namelabel = PawLabel(text: "", textColor: .black, font: markerFont(32), alignment: .left)
+    private let breedAgeLabel = PawLabel(text: "", textColor: Colors.lightRed, font: markerFont(16), alignment: .left)
     private lazy var headingStack = PawStackView(views: [namelabel, breedAgeLabel], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
         
-    private let genderLabel = PaddedLabel(text: "", font: .systemFont(ofSize: 14, weight: .bold), padding: 8)
+    private let genderLabel = PaddedLabel(text: "", font: markerFont(16), padding: 8)
     private let locationLabel = IconLabel(text: "", image: Assets.location, cornerRadius: 10)
     
     private let borderView = PawView(bgColor: Colors.lightGray)
     
-    private let bioLabel = PawLabel(text: "", textColor: .gray, font: .systemFont(ofSize: 20, weight: .semibold), alignment: .left)
+    private let bioLabel = PawLabel(text: "", textColor: .gray, font: markerFont(20), alignment: .left)
     
     private let likeButton = PawButton(image: SFSymbols.heart, tintColor: .white, font: .systemFont(ofSize: 16, weight: .bold))
     private let dislikeButton = PawButton(image: SFSymbols.xmark, tintColor: .white, font: .systemFont(ofSize: 16, weight: .bold))

@@ -26,7 +26,7 @@ class LocationManager {
             setupLocationManager(delegate: delegate)
             checkLocationAuthorization(completion: completion)
         } else {
-            print("handle location service disabled")
+            debugPrint("location service disabled")
         }
     }
     

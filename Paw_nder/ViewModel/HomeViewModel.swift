@@ -27,7 +27,7 @@ class HomeViewModel {
                     self.currentUser = user
                     self.fetchSwipes(for: user)
                 case .failure(let error):
-                    print(error)
+                    debugPrint(error.localizedDescription)
             }
         }
     }
@@ -51,7 +51,7 @@ class HomeViewModel {
                     self.cardViewModels = cardViewModels
                     self.fetchUserHandler?()
                 case .failure(let error):
-                   print(error)
+                    debugPrint(error.localizedDescription)
             }
         }
     }

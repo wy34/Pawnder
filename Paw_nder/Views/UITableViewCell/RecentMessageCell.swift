@@ -14,10 +14,10 @@ class RecentMessageCell: UITableViewCell {
     // MARK: - Views
     private let newMessageIndicator = PawView(bgColor: Colors.lightBlue, cornerRadius: 8/2)
     private let profileImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
-    private let nameLabel = PawLabel(text: "", textColor: .black, font: .systemFont(ofSize: 16, weight: .bold), alignment: .left)
-    private let msgPreviewLabel = PawLabel(text: "", textColor: .gray, font: .systemFont(ofSize: 14, weight: .medium), alignment: .left)
+    private let nameLabel = PawLabel(text: "", textColor: .black, font: markerFont(18), alignment: .left)
+    private let msgPreviewLabel = PawLabel(text: "", textColor: .gray, font: markerFont(16), alignment: .left)
     
-    private let timestampLabel = PaddedLabel(text: "", font: .systemFont(ofSize: 14, weight: .medium), padding: 0)
+    private let timestampLabel = PaddedLabel(text: "", font: markerFont(16), padding: 0)
     private let disclosureIndicator = PawButton(image: SFSymbols.chevronRight, tintColor: .gray, font: .systemFont(ofSize: 12, weight: .medium))
     private lazy var timestampStack = PawStackView(views: [timestampLabel, disclosureIndicator], spacing: 10, distribution: .fill, alignment: .fill)
     

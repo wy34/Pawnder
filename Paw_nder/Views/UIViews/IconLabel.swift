@@ -21,7 +21,7 @@ class IconLabel: UIView {
     }
     
     // MARK: - Views
-    private let label = PaddedLabel(text: "", font: .systemFont(ofSize: 14, weight: .medium), padding: 6)
+    private let label = PaddedLabel(text: "", font: markerFont(16), padding: 6)
 
     // MARK: - Init
     override init(frame: CGRect) {

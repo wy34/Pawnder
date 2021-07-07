@@ -16,7 +16,7 @@ class LikesVC: UIViewController {
     
     // MARK: - Views
     private let iconImageView = PawImageView(image: Assets.icon, contentMode: .scaleAspectFit)
-    private let countLabel = PawLabel(text: "0 user(s) has liked you", textColor: .black, font: .systemFont(ofSize: 14, weight: .medium), alignment: .center)
+    private let countLabel = PawLabel(text: "0 user(s) has liked you", textColor: .black, font: markerFont(16), alignment: .center)
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()

@@ -12,9 +12,9 @@ class EditSettingsBioVC: EditSettingsRootVC {
     let bioCharacterLimit = 200
     
     // MARK: - Views
-    private let placeholderLabel = PawLabel(text: "Add a bio", textColor: .lightGray, font: .systemFont(ofSize: 20, weight: .medium), alignment: .left)
+    private let placeholderLabel = PawLabel(text: "Add a bio", textColor: .lightGray, font: markerFont(22), alignment: .left)
     private let textView = PawTextView(placeholder: "", textColor: .black, bgColor: .clear)
-    private lazy var characterCountLabel = PawLabel(text: "Characters left: \(bioCharacterLimit)", textColor: .gray, font: .systemFont(ofSize: 14), alignment: .right)
+    private lazy var characterCountLabel = PawLabel(text: "Characters left: \(bioCharacterLimit)", textColor: .gray, font: markerFont(16), alignment: .right)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -27,7 +27,7 @@ class EditSettingsBioVC: EditSettingsRootVC {
         textView.delegate = self
         textView.layer.cornerRadius = 15
         textView.isScrollEnabled = false
-        textView.font = .systemFont(ofSize: 20, weight: .medium)
+        textView.font = markerFont(22)
         textView.textContainerInset = .init(top: 10, left: 10, bottom: 10, right: 10)
         textView.layer.borderWidth = 1
         textView.layer.borderColor = UIColor.lightGray.cgColor

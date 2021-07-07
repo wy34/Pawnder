@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		4C062F55264F0B20009D999D /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C062F54264F0B20009D999D /* ProfileVC.swift */; };
 		4C062F57264F7B01009D999D /* ImagePickerGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C062F56264F7B01009D999D /* ImagePickerGridView.swift */; };
+		4C224534268833BE0043FFDC /* Paw_nderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C224533268833BE0043FFDC /* Paw_nderTests.swift */; };
+		4C22453C268833E40043FFDC /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C22453B268833E40043FFDC /* NetworkManagerTests.swift */; };
+		4C22453E268839910043FFDC /* RegisterViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C22453D268839910043FFDC /* RegisterViewModelTests.swift */; };
+		4C22454026883A3A0043FFDC /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C22453F26883A3A0043FFDC /* LoginViewModelTests.swift */; };
 		4C2536662658ACA700A09188 /* LogoutViewLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2536652658ACA700A09188 /* LogoutViewLauncher.swift */; };
 		4C2A564F264046DB0085F887 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A564E264046DB0085F887 /* UIApplication.swift */; };
 		4C2A5651264059A60085F887 /* FilterViewLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2A5650264059A60085F887 /* FilterViewLauncher.swift */; };
@@ -100,9 +104,25 @@
 		5BA69711E980248351C9DA52 /* Pods_Paw_nder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 795770460F7AFE5FC41BA72A /* Pods_Paw_nder.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4C224536268833BE0043FFDC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C49BA83262E3928006F046B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C49BA8A262E3928006F046B;
+			remoteInfo = Paw_nder;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		4C062F54264F0B20009D999D /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		4C062F56264F7B01009D999D /* ImagePickerGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerGridView.swift; sourceTree = "<group>"; };
+		4C224531268833BE0043FFDC /* Paw_nderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Paw_nderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C224533268833BE0043FFDC /* Paw_nderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paw_nderTests.swift; sourceTree = "<group>"; };
+		4C224535268833BE0043FFDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C22453B268833E40043FFDC /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
+		4C22453D268839910043FFDC /* RegisterViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModelTests.swift; sourceTree = "<group>"; };
+		4C22453F26883A3A0043FFDC /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		4C2536652658ACA700A09188 /* LogoutViewLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewLauncher.swift; sourceTree = "<group>"; };
 		4C2A564E264046DB0085F887 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		4C2A5650264059A60085F887 /* FilterViewLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewLauncher.swift; sourceTree = "<group>"; };
@@ -199,6 +219,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4C22452E268833BE0043FFDC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4C49BA88262E3928006F046B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -210,10 +237,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C224532268833BE0043FFDC /* Paw_nderTests */ = {
+			isa = PBXGroup;
+			children = (
+				4C224533268833BE0043FFDC /* Paw_nderTests.swift */,
+				4C22453D268839910043FFDC /* RegisterViewModelTests.swift */,
+				4C22453F26883A3A0043FFDC /* LoginViewModelTests.swift */,
+				4C22453B268833E40043FFDC /* NetworkManagerTests.swift */,
+				4C224535268833BE0043FFDC /* Info.plist */,
+			);
+			path = Paw_nderTests;
+			sourceTree = "<group>";
+		};
 		4C49BA82262E3928006F046B = {
 			isa = PBXGroup;
 			children = (
 				4C49BA8D262E3928006F046B /* Paw_nder */,
+				4C224532268833BE0043FFDC /* Paw_nderTests */,
 				4C49BA8C262E3928006F046B /* Products */,
 				9869D2113625D89AB18BC99F /* Pods */,
 				5270CC91026CEE1195147279 /* Frameworks */,
@@ -224,6 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				4C49BA8B262E3928006F046B /* Paw_nder.app */,
+				4C224531268833BE0043FFDC /* Paw_nderTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -506,6 +547,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4C224530268833BE0043FFDC /* Paw_nderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C22453A268833BE0043FFDC /* Build configuration list for PBXNativeTarget "Paw_nderTests" */;
+			buildPhases = (
+				4C22452D268833BE0043FFDC /* Sources */,
+				4C22452E268833BE0043FFDC /* Frameworks */,
+				4C22452F268833BE0043FFDC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4C224537268833BE0043FFDC /* PBXTargetDependency */,
+			);
+			name = Paw_nderTests;
+			productName = Paw_nderTests;
+			productReference = 4C224531268833BE0043FFDC /* Paw_nderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		4C49BA8A262E3928006F046B /* Paw_nder */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4C49BA9F262E3929006F046B /* Build configuration list for PBXNativeTarget "Paw_nder" */;
@@ -531,9 +590,13 @@
 		4C49BA83262E3928006F046B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
+					4C224530268833BE0043FFDC = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = 4C49BA8A262E3928006F046B;
+					};
 					4C49BA8A262E3928006F046B = {
 						CreatedOnToolsVersion = 12.4;
 					};
@@ -553,11 +616,19 @@
 			projectRoot = "";
 			targets = (
 				4C49BA8A262E3928006F046B /* Paw_nder */,
+				4C224530268833BE0043FFDC /* Paw_nderTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4C22452F268833BE0043FFDC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4C49BA89262E3928006F046B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -613,6 +684,17 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4C22452D268833BE0043FFDC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C22454026883A3A0043FFDC /* LoginViewModelTests.swift in Sources */,
+				4C22453E268839910043FFDC /* RegisterViewModelTests.swift in Sources */,
+				4C22453C268833E40043FFDC /* NetworkManagerTests.swift in Sources */,
+				4C224534268833BE0043FFDC /* Paw_nderTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4C49BA87262E3928006F046B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -709,6 +791,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		4C224537268833BE0043FFDC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4C49BA8A262E3928006F046B /* Paw_nder */;
+			targetProxy = 4C224536268833BE0043FFDC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		4C49BA99262E3929006F046B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -721,6 +811,53 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4C224538268833BE0043FFDC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YNSMJAS38V;
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					HEADER_SEARCH_PATHS,
+					"=",
+					"\"${SRCROOT}/Pods/Firebase/CoreOnly/Sources\"",
+				);
+				INFOPLIST_FILE = Paw_nderTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.williamyeung.Paw-nderTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Paw_nder.app/Paw_nder";
+			};
+			name = Debug;
+		};
+		4C224539268833BE0043FFDC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YNSMJAS38V;
+				INFOPLIST_FILE = Paw_nderTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.williamyeung.Paw-nderTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Paw_nder.app/Paw_nder";
+			};
+			name = Release;
+		};
 		4C49BA9D262E3929006F046B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -854,7 +991,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.williamyeung.Paw-nder";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -875,13 +1012,22 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.williamyeung.Paw-nder";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4C22453A268833BE0043FFDC /* Build configuration list for PBXNativeTarget "Paw_nderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C224538268833BE0043FFDC /* Debug */,
+				4C224539268833BE0043FFDC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4C49BA86262E3928006F046B /* Build configuration list for PBXProject "Paw_nder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -19,30 +19,30 @@ class PreferenceFormView: UIView {
     weak var delegate: PreferenceFormViewDelegate?
     
     // MARK: - Views
-    private let iWannaMeetLabel = PawLabel(text: "I wanna meet:", textColor: .gray, font: .systemFont(ofSize: 20, weight: .bold), alignment: .left)
+    private let iWannaMeetLabel = PawLabel(text: "I wanna meet:", textColor: .gray, font: markerFont(22), alignment: .left)
     private let maleButton = PawButton(title: "🙋‍♂️", font: .systemFont(ofSize: 30, weight: .bold))
     private let femaleButton = PawButton(title: "🙋‍♀️", font: .systemFont(ofSize: 30, weight: .bold))
     private let allButton = PawButton(title: "🙋‍♂️🙋‍♀️", font: .systemFont(ofSize: 30, weight: .bold))
     private lazy var buttonStack = PawStackView(views: [maleButton, femaleButton, allButton], spacing: 10, distribution: .fillEqually, alignment: .fill)
     private lazy var genderStack = PawStackView(views: [iWannaMeetLabel, buttonStack], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
     
-    private let breedLabel = PawLabel(text: "Breed:", textColor: .gray, font: .systemFont(ofSize: 20, weight: .bold), alignment: .left)
+    private let breedLabel = PawLabel(text: "Breed:", textColor: .gray, font: markerFont(22), alignment: .left)
     private let breedButton = PawButton(title: "🐶 Breed", bgColor: .white)
     private lazy var breedStack = PawStackView(views: [breedLabel, breedButton], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
     
-    private let ageRangeLabel = PawLabel(text: "Age range:", textColor: .gray, font: .systemFont(ofSize: 20, weight: .bold), alignment: .left)
-    private let minLabel = PawLabel(text: "Min: 0", textColor: .darkGray, font: .systemFont(ofSize: 14), alignment: .left)
+    private let ageRangeLabel = PawLabel(text: "Age range:", textColor: .gray, font: markerFont(22), alignment: .left)
+    private let minLabel = PawLabel(text: "Min: 0", textColor: .darkGray, font: markerFont(16), alignment: .left)
     private let minSlider = PawSlider(starting: 0, min: 0, max: 1)
     private lazy var minStack = PawStackView(views: [minLabel, minSlider], distribution: .fill, alignment: .fill)
 
-    private let maxLabel = PawLabel(text: "Max: 0", textColor: .darkGray, font: .systemFont(ofSize: 14), alignment: .left)
+    private let maxLabel = PawLabel(text: "Max: 0", textColor: .darkGray, font: markerFont(16), alignment: .left)
     private let maxSlider = PawSlider(starting: 0, min: 0, max: 1)
     private lazy var maxStack = PawStackView(views: [maxLabel, maxSlider], distribution: .fill, alignment: .fill)
 
     private lazy var ageStack = PawStackView(views: [ageRangeLabel, minStack, maxStack], spacing: 8, axis: .vertical, distribution: .fillEqually, alignment: .fill)
     
-    private let distanceLabel = PawLabel(text: "Within:", textColor: .gray, font: .systemFont(ofSize: 20, weight: .bold), alignment: .left)
-    private let milesLabel = PawLabel(text: "0 mi", textColor: .darkGray, font: .systemFont(ofSize: 14), alignment: .left)
+    private let distanceLabel = PawLabel(text: "Within:", textColor: .gray, font: markerFont(22), alignment: .left)
+    private let milesLabel = PawLabel(text: "0 mi", textColor: .darkGray, font: markerFont(16), alignment: .left)
     private let milesSlider = PawSlider(starting: 0, min: 0, max: 1)
     private lazy var milesStack = PawStackView(views: [milesLabel, milesSlider], distribution: .fill, alignment: .fill)
     private lazy var distanceStack = PawStackView(views: [distanceLabel, milesStack], spacing: 8, axis: .vertical, distribution: .fillEqually, alignment: .fill)
@@ -73,7 +73,7 @@ class PreferenceFormView: UIView {
         breedButton.layer.cornerRadius = 50/2
         breedButton.layer.borderWidth = 1
         breedButton.layer.borderColor = UIColor.lightGray.cgColor
-        breedButton.titleLabel?.font = .systemFont(ofSize: 20, weight: .medium)
+        breedButton.titleLabel?.font = markerFont(22)
     }
     
     private func layoutUI() {

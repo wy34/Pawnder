@@ -117,7 +117,7 @@ class SettingsViewModel {
                     guard let self = self else { return }
                     
                     if let error = error {
-                        print(error)
+                        debugPrint(error.localizedDescription)
                     }
                     
                     storageRef.downloadURL { (url, error) in

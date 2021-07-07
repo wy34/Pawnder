@@ -33,7 +33,7 @@ class HomeVC: LoadingViewController {
     private lazy var mainStack = PawStackView(views: [navbarView, cardsDeckView, bottomControlsView], axis: .vertical, alignment: .center)
     
     private let emptyStackImageView = PawImageView(image: Assets.crying, contentMode: .scaleAspectFit)
-    private let emptyStackLabel = PawLabel(text: "End of stack. Switch up your preferences or try again later.", textColor: .black, font: .systemFont(ofSize: 14, weight: .medium), alignment: .center)
+    private let emptyStackLabel = PawLabel(text: "End of stack. Switch up your preferences or try again later.", textColor: .black, font: markerFont(16), alignment: .center)
     private lazy var emptyStack = PawStackView(views: [emptyStackImageView, emptyStackLabel], spacing: 5, axis: .vertical)
     
     // MARK: - Lifecycle

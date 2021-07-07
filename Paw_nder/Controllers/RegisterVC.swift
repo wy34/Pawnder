@@ -23,7 +23,7 @@ class RegisterVC: LoadingViewController {
     private let profileImageView = ProfileImageView()
     private let slideupView = PawView(bgColor: Colors.bgWhite, cornerRadius: 35)
     
-    private let titleLabel = PawLabel(text: "Sign Up", font: .systemFont(ofSize: 30, weight: .bold), alignment: .left)
+    private let titleLabel = PawLabel(text: "Sign Up", font: markerFont(30), alignment: .left)
     
     private let maleButton = PawButton(image: Assets.male, tintColor: .lightGray)
     private let separatorView = PawView(bgColor: Colors.lightGray)
@@ -32,12 +32,12 @@ class RegisterVC: LoadingViewController {
     
     private lazy var headerStack = PawStackView(views: [titleLabel, genderSelectStack], spacing: 10, distribution: .fill)
     
-    private let nameTextField = IconTextfield(placeholder: "Full name", font: .systemFont(ofSize: 16, weight: .medium), icon: SFSymbols.person)
-    private let emailTextField = IconTextfield(placeholder: "Email", font: .systemFont(ofSize: 16, weight: .medium), icon: SFSymbols.envelope)
-    private let passwordTextField = IconTextfield(placeholder: "Password", font: .systemFont(ofSize: 16, weight: .medium), icon: SFSymbols.lock)
+    private let nameTextField = IconTextfield(placeholder: "Full name", font: markerFont(18), icon: SFSymbols.person)
+    private let emailTextField = IconTextfield(placeholder: "Email", font: markerFont(18), icon: SFSymbols.envelope)
+    private let passwordTextField = IconTextfield(placeholder: "Password", font: markerFont(18), icon: SFSymbols.lock)
     
-    private let existingUserButton = PawButton(title: "Existing User?", textColor: .lightGray, font: UIFont.systemFont(ofSize: 16, weight: .bold))
-    private let registerButton = PawButton(title: "Sign Up", textColor: .gray, font: UIFont.systemFont(ofSize: 16, weight: .bold))
+    private let existingUserButton = PawButton(title: "Existing User?", textColor: .lightGray, font: markerFont(18))
+    private let registerButton = PawButton(title: "Sign Up", textColor: .gray, font: markerFont(18))
     private lazy var buttonStack = PawStackView(views: [existingUserButton, registerButton], spacing: 15, distribution: .fillEqually)
     
     private lazy var formStack = PawStackView(views: [headerStack, nameTextField, emailTextField, passwordTextField, buttonStack], spacing: 18, axis: .vertical, distribution: .fillEqually, alignment: .fill)

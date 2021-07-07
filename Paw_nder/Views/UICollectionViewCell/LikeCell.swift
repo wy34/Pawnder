@@ -15,7 +15,7 @@ class LikeCell: UICollectionViewCell {
     private let placeholderImageView = PawImageView(image: Assets.placeholderPaw, contentMode: .scaleAspectFit)
     private let userImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
     private let gradientView = GradientView(color1: .clear, color2: .black)
-    private let nameLabel = PawLabel(text: "", textColor: .white, font: .systemFont(ofSize: 22, weight: .bold), alignment: .center)
+    private let nameLabel = PawLabel(text: "", textColor: .white, font: markerFont(24), alignment: .center)
     
     // MARK: - Init
     override init(frame: CGRect) {

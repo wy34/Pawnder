@@ -18,15 +18,15 @@ class ProfileVC: LoadingViewController {
     private let imagePickerView = ImagePickerGridView()
     
     private let infoContainerView = PawView(bgColor: Colors.lightGray)
-    private let nameLabel = PawLabel(text: "", textColor: .black, font: .systemFont(ofSize: 40, weight: .bold), alignment: .left)
-    private let breedAgeLabel = PawLabel(text: "", textColor: Colors.lightRed, font: .systemFont(ofSize: 12, weight: .semibold), alignment: .left)
-    private lazy var headingStack = PawStackView(views: [/*nameLabel,*/ breedAgeLabel], spacing: 5, axis: .vertical, distribution: .fill, alignment: .fill)
+    private let nameLabel = PawLabel(text: "", textColor: .black, font: markerFont(42), alignment: .left)
+    private let breedAgeLabel = PawLabel(text: "", textColor: Colors.lightRed, font: markerFont(14), alignment: .left)
+    private lazy var headingStack = PawStackView(views: [breedAgeLabel], spacing: 5, axis: .vertical, distribution: .fill, alignment: .fill)
     private let settingsButton = PawButton(image: SFSymbols.gears, tintColor: .white, font: .systemFont(ofSize: 14, weight: .black))
     
-    private let genderLabel = PaddedLabel(text: "", font: .systemFont(ofSize: 14, weight: .bold), padding: 8)
+    private let genderLabel = PaddedLabel(text: "", font: markerFont(16), padding: 8)
     private let locationLabel = IconLabel(text: "", image: Assets.location, cornerRadius: 10)
     
-    private let bioLabel = PawLabel(text: "", textColor: .black, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
+    private let bioLabel = PawLabel(text: "", textColor: .black, font: markerFont(18), alignment: .left)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {

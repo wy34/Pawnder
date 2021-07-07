@@ -12,8 +12,8 @@ class EditSettingsLocationVC: EditSettingsRootVC {
     let locationManager = LocationManager.shared
     
     // MARK: - Views
-    private let titleLabel = PawLabel(text: "Your Location", textColor: .black, font: .systemFont(ofSize: 35, weight: .bold), alignment: .left)
-    private let captionLabel = PawLabel(text: "Williamsport, PA", textColor: .gray, font: .systemFont(ofSize: 16, weight: .medium), alignment: .left)
+    private let titleLabel = PawLabel(text: "Your Location", textColor: .black, font: markerFont(36), alignment: .left)
+    private let captionLabel = PawLabel(text: "Williamsport, PA", textColor: .gray, font: markerFont(18), alignment: .left)
     private lazy var labelStack = PawStackView(views: [titleLabel, captionLabel], spacing: 10, axis: .vertical, distribution: .fill, alignment: .fill)
     
     private let changeLocationButton = PawButton(title: "Update Location", textColor: .white, bgColor: Colors.lightRed)
@@ -32,7 +32,7 @@ class EditSettingsLocationVC: EditSettingsRootVC {
     override func configureUI() {
         super.configureUI()
         changeLocationButton.layer.cornerRadius = view.frame.width * 0.1 / 2
-        changeLocationButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+        changeLocationButton.titleLabel?.font = markerFont(18)
     }
     
     override func layoutUI() {

@@ -22,9 +22,9 @@ class LogoutViewLauncher: UIView {
     private let blackBgView = PawView(bgColor: .black.withAlphaComponent(0.5))
     private let logoutView = PawView(bgColor: .white, cornerRadius: 30)
     
-    private let headingLabel = PawLabel(text: "Are you sure?", textColor: .black, font: .systemFont(ofSize: 18, weight: .bold), alignment: .center)
-    private let logOutButton = PawButton(title: "Log out", font: .systemFont(ofSize: 16, weight: .bold))
-    private let cancelButton = PawButton(title: "Cancel", font: .systemFont(ofSize: 16, weight: .medium))
+    private let headingLabel = PawLabel(text: "Are you sure?", textColor: .black, font: markerFont(20), alignment: .center)
+    private let logOutButton = PawButton(title: "Log out", font: markerFont(18))
+    private let cancelButton = PawButton(title: "Cancel", font: markerFont(18))
     private lazy var logoutStack = PawStackView(views: [headingLabel, logOutButton, cancelButton], spacing: 15, axis: .vertical, distribution: .fillEqually, alignment: .fill)
     
     // MARK: - Init

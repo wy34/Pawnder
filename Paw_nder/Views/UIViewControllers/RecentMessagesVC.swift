@@ -22,7 +22,7 @@ class RecentMessagesVC: UIViewController {
     var searchedMessages = [RecentMessage]()
     
     // MARK: - Views
-    private let cancelButton = PawButton(title: "Cancel", font: .systemFont(ofSize: 16, weight: .medium))
+    private let cancelButton = PawButton(title: "Cancel", font: markerFont(18))
     private let searchBar = UISearchBar()
     private lazy var searchBarStack = PawStackView(views: [searchBar, cancelButton], distribution: .fill, alignment: .fill)
     
@@ -56,6 +56,7 @@ class RecentMessagesVC: UIViewController {
         searchBar.delegate = self
         searchBar.placeholder = "Search User"
         searchBar.backgroundImage = UIImage()
+        searchBar.searchTextField.font = markerFont(18)
         cancelButton.alpha = 0
         view.layer.shadowOpacity = 0.15
         view.layer.shadowRadius = 15
@@ -160,7 +161,7 @@ extension RecentMessagesVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let label = PawLabel(text: "No New Messages", textColor: .black, font: .systemFont(ofSize: 14, weight: .medium), alignment: .center)
+        let label = PawLabel(text: "No New Messages", textColor: .black, font: markerFont(16), alignment: .center)
         return label
     }
     

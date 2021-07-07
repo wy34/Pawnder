@@ -13,8 +13,8 @@ class SettingsCell: UITableViewCell {
     static let reuseId = "SettingsCell"
     
     // MARK: - Views
-    private let settingsLabel = PaddedLabel(text: "", font: .systemFont(ofSize: 16, weight: .bold), padding: 5)
-    private let previewLabel = PaddedLabel(text: "", font: .systemFont(ofSize: 16), padding: 5)
+    private let settingsLabel = PaddedLabel(text: "", font: markerFont(18), padding: 5)
+    private let previewLabel = PaddedLabel(text: "", font: markerFont(18), padding: 5)
     
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

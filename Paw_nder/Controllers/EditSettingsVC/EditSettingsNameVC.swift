@@ -27,7 +27,7 @@ class EditSettingsNameVC: EditSettingsRootVC {
         textfield.textAlignment = .center
         textfield.layer.borderWidth = 1
         textfield.layer.borderColor = UIColor.lightGray.cgColor
-        textfield.font = .systemFont(ofSize: 20, weight: .medium)
+        textfield.font = markerFont(22)
         textfield.becomeFirstResponder()
     }
     

@@ -12,7 +12,7 @@ class AgeCell: UICollectionViewCell {
     static let reuseId = "AgeCell"
     
     // MARK: - Views
-    private let ageLabel = PawLabel(text: "35", textColor: .white, font: .systemFont(ofSize: 45, weight: .bold), alignment: .center)
+    private let ageLabel = PawLabel(text: "", textColor: .white, font: markerFont(46), alignment: .center)
     
     // MARK: - Init
     override init(frame: CGRect) {

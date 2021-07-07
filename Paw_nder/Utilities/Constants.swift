@@ -85,4 +85,8 @@ let noBreedPrefCaption = "🐶 No Preference"
 // MARK: - Max Distance
 let maxDistance = 150
 
+// MARK: - MarkerFelt-Thin Font Method
+func markerFont(_ size: CGFloat) -> UIFont {
+    return UIFont(name: "MarkerFelt-Thin", size: size)!
+}
 

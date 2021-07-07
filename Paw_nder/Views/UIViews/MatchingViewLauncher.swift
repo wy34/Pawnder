@@ -29,8 +29,8 @@ class MatchingViewLauncher: UIView {
     // MARK: - Views
     private let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
     
-    private let matchTitleLabel = PawLabel(text: "It's a Match!", textColor: .white, font: .systemFont(ofSize: 45, weight: .bold), alignment: .center)
-    private let matchingUsersLabel = PawLabel(text: "", textColor: .white, font: .systemFont(ofSize: 16, weight: .bold), alignment: .center)
+    private let matchTitleLabel = PawLabel(text: "It's a Match!", textColor: .white, font: markerFont(47), alignment: .center)
+    private let matchingUsersLabel = PawLabel(text: "", textColor: .white, font: markerFont(18), alignment: .center)
     private lazy var headingLabelStack = PawStackView(views: [matchTitleLabel, matchingUsersLabel], axis: .vertical, alignment: .fill)
     
     private let user1ImageView = PawImageView(image: nil, contentMode: .scaleAspectFill)
@@ -66,6 +66,8 @@ class MatchingViewLauncher: UIView {
 
         backToSwipeButton.backgroundColor = .white
         backToSwipeButton.layer.cornerRadius = backToSwipeButtonSide/2
+        
+        messageButton.titleLabel?.font = markerFont(18)
     }
     
     private func layoutUI() {

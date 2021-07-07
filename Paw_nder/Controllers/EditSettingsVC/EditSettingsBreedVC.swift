@@ -23,7 +23,7 @@ class EditSettingsBreedVC: EditSettingsRootVC {
         breedButton.layer.cornerRadius = 50/2
         breedButton.layer.borderWidth = 1
         breedButton.layer.borderColor = UIColor.lightGray.cgColor
-        breedButton.titleLabel?.font = .systemFont(ofSize: 20, weight: .medium)
+        breedButton.titleLabel?.font = markerFont(22)
     }
     
     override func layoutUI() {
