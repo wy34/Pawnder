@@ -242,6 +242,7 @@ extension HomeVC: HomeNavbarStackDelegate {
                 let newCard = CardView()
                 newCard.delegate = self
                 newCard.setupCardWith(cardVM: previousTopCardView.cardVM!)
+                newCard.tag = previousTopCardView.cardVM?.user.tag ?? 0
                 self.cardsDeckView.addSubview(newCard)
                 newCard.fill(superView: self.cardsDeckView)
                 newCard.nextCardView = self.topCardView
