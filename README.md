@@ -10,7 +10,7 @@
 * Project was completed using 100% programmatic UI (No Storyboard)
 * Implemented the infamous left/right swiping actions using UIPanGesture
 * Implemented direct messaging system 
-* Allows users to filter by gender, distance, and breed
+* Allows users to filter by gender, distance, and breed of dogs
 
 # Technologies / Frameworks
 
