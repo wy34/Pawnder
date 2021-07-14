@@ -29,4 +29,4 @@
 # How to use
 
 * Clone the project and run it on Xcode 12 or above
-* Will be available on the Apple Appstore soon
+* Will be available on the Apple Appstore soon. Live Demo -> https://www.youtube.com/watch?v=8Mi2D5zRFKI
